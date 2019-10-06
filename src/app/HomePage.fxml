@@ -56,7 +56,7 @@
          <children>
             <JFXTextField fx:id="searchField" focusColor="#09b6bc" onAction="#searchWiki" prefHeight="36.0" prefWidth="167.0" promptText="Search for..." style="-fx-font-family: Ubuntu;" />
             <JFXButton fx:id="searchButton" buttonType="RAISED" onAction="#searchWiki" prefHeight="36.0" prefWidth="65.0" ripplerFill="WHITE" style="-fx-font-family: Ubuntu; -fx-background-color: #2196F3;" text="Search" textFill="WHITE" textOverrun="CLIP" />
-            <JFXComboBox fx:id="voiceChoiceBox" prefHeight="36.0" prefWidth="151.0" />
+            <JFXComboBox fx:id="voiceChoiceBox" prefHeight="36.0" prefWidth="151.0" promptText="Num. Images" />
             <JFXTextField fx:id="customNameField" focusColor="#09b6bc" onAction="#createAudio" prefHeight="36.0" prefWidth="118.0" promptText="Name your audio" style="-fx-font-family: Ubuntu;" />
             <JFXButton buttonType="RAISED" onAction="#previewAudio" prefHeight="36.0" prefWidth="74.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Preview" textFill="WHITE" />
             <JFXButton fx:id="createAudioButton" buttonType="RAISED" onAction="#createAudio" prefHeight="36.0" prefWidth="109.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Create Audio!" textFill="WHITE" />
