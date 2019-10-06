@@ -1,5 +1,6 @@
 package app;
 
+import com.jfoenix.controls.*;
 import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -16,13 +17,6 @@ import processes.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
-import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
 
 public class HomeController {
 
@@ -291,6 +285,9 @@ public class HomeController {
     private JFXDialog loadingDialog(String title) {
     	JFXDialogLayout dialogContent = new JFXDialogLayout();
         dialogContent.setHeading(new Text(title));
+        JFXSpinner spinner = new JFXSpinner();
+        spinner.setPrefSize(50, 50);
+        dialogContent.setBody(spinner);
         JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.RIGHT);
         dialog.show();
         return dialog;
