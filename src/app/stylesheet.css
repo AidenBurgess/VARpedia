@@ -1,7 +1,73 @@
-#rightArrow{
-    -fx-background-image: url("right-arrow.png");
-    -fx-background-repeat: stretch;   
-    -fx-background-size: 900 506;
-    -fx-background-position: center center;
-    /*-fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0); */
+.root {
+    -fx-basic-color: #121212;
+    -fx-darker-color: derive(-fx-basic-color, -40% );
+    -fx-lighter-color: derive(-fx-basic-color, 80% );
+    -fx-lightest-color: derive(-fx-basic-color, 95% );
+    -fx-dark-text-color: rgb(47.0, 52.0, 57.0);
+    -fx-text-color: derive(-fx-basic-color, 70%);
+    -fx-light-gray-color: rgb(200.0, 200.0, 200.0);
+    -fx-lightest-gray-color: rgb(230.0, 230.0, 230.0);
+
+    -fx-primary-text-color: rgba(255,255,255,0.87);
+    -fx-secondary-text-color: rgba(255,255,255,0.60);
+    -fx-disabled-text-color: rgba(255,255,255,0.38);
+}
+
+.root {
+    -fx-font-family: "Roboto Medium";
+    -fx-background-color: #121212;
+    -fx-text-fill: -fx-primary-text-color;
+}
+
+
+
+/****************** LABEL ******************/
+
+.title {
+    -fx-font-size: 25px;
+    -fx-text-fill: inherit;
+}
+
+.subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: -fx-secondary-text-color;
+}
+
+/****************** Button ******************/
+
+.jfx-button {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+}
+
+.jfx-button:hover {
+    -fx-background-color: #59a6e3;
+    -fx-text-fill: inherit;
+}
+
+
+/****************** LISTVIEW ******************/
+
+
+.jfx-list-cell:hover {
+    -fx-background-color: #1bd79c;
+    -fx-text-fill: inherit;
+}
+
+.jfx-list-view {
+    -fx-background-insets: 0;
+    -fx-vertical-gap: 10;
+    -fx-cell-vertical-margin: 10.0;
+    -fx-text-fill: inherit;
+}
+
+
+
+.dialog {
+    -fx-font-size: 20px;
+    -fx-text-fill: inherit;
+}
+
+.jfx-text-area {
+    -fx-text-fill: inherit;
 }

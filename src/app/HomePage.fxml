@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="1100.0" style="-fx-font-family: Ubuntu;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.HomeController">
+<AnchorPane prefHeight="500.0" prefWidth="1100.0" style="-fx-font-family: Ubuntu;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.HomeController">
    <children>
       <Label layoutX="30.0" layoutY="30.0" style="-fx-font-family: Ubuntu;" text="Video Creations">
          <font>
