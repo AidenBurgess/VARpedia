@@ -14,7 +14,7 @@ public class HomePage extends Application {
         Parent layout = loader.load();
         Scene scene = new Scene(layout);
         
-        stage.setTitle("WikiSpeak");
+        stage.setTitle("VARpedia");
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
