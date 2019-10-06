@@ -74,6 +74,15 @@ public class HomeController {
     	String customName = customNameField.getText();
     	if (selectedText == null || selectedText.isEmpty()) return;
     	if (customName == null || customName.isEmpty()) return;
+
+        if (countWords(selectedText) > 40) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Selection Process");
+            alert.setHeaderText("Invalid Selection");
+            alert.setContentText("Please select less than 40 words.");
+            alert.showAndWait();
+            return;
+        }
     	
     	// Error checking for already existing audio
     	if (audioList.getItems().contains(customName)) {
@@ -213,15 +222,15 @@ public class HomeController {
     	if (voice == null || voice == "") return;
     	
     	if (countWords(selectedText) > 40) {
-    		Alert alert = new Alert(Alert.AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Selection Process");
             alert.setHeaderText("Invalid Selection");
             alert.setContentText("Please select less than 40 words.");
             alert.showAndWait();
-    	} else {
-    		Thread thread = new Thread(new PreviewAudio(selectedText, voice));
-        	thread.start();
-    	}
+            return;
+        }
+    	Thread thread = new Thread(new PreviewAudio(selectedText, voice));
+        thread.start();
     }
 
     @FXML
