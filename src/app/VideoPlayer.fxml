@@ -15,14 +15,14 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="700.0" style="-fx-background-color: #131313;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.VideoPlayerController">
    <children>
       <MediaView fx:id="screen" fitHeight="380.0" fitWidth="640.0" layoutX="26.0" layoutY="21.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="20.0" />
-      <Label fx:id="timeLabel" layoutX="319.0" layoutY="513.0" text="Time" textFill="WHITE">
+      <Label fx:id="timeLabel" layoutX="138.0" layoutY="504.0" prefHeight="36.0" prefWidth="60.0" text="Time" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <HBox layoutX="55.0" layoutY="447.0" prefHeight="55.0" prefWidth="588.0" spacing="10.0">
+      <HBox layoutX="56.0" layoutY="445.0" prefHeight="55.0" prefWidth="588.0" spacing="10.0">
          <children>
-            <JFXButton buttonType="RAISED" onAction="#playPause" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Play/Pause" textFill="WHITE">
+            <JFXButton buttonType="RAISED" onAction="#playPause" prefHeight="42.0" prefWidth="142.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Play/Pause" textFill="WHITE">
                <font>
                   <Font name="Ubuntu" size="22.0" />
                </font>
@@ -32,7 +32,7 @@
                   <Font name="Ubuntu" size="22.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" onAction="#forward" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Forward 5s" textFill="WHITE">
+            <JFXButton buttonType="RAISED" onAction="#forward" prefHeight="42.0" prefWidth="141.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Forward 5s" textFill="WHITE">
                <font>
                   <Font name="Ubuntu" size="22.0" />
                </font>
@@ -49,5 +49,10 @@
             </JFXButton>
          </children>
       </HBox>
+      <JFXToggleButton fx:id="toggleMusicButton" layoutX="397.0" layoutY="476.0" onAction="#toggleMusic" prefHeight="93.0" prefWidth="238.0" text="Turn Music On" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </JFXToggleButton>
    </children>
 </AnchorPane>
