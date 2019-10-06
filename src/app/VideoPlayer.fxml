@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="700.0" style="-fx-background-color: #131313;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.VideoPlayerController">
+   <children>
+      <MediaView fx:id="screen" fitHeight="380.0" fitWidth="640.0" layoutX="26.0" layoutY="21.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="20.0" />
+      <Label fx:id="timeLabel" layoutX="319.0" layoutY="513.0" text="Time" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <HBox layoutX="55.0" layoutY="447.0" prefHeight="55.0" prefWidth="588.0" spacing="10.0">
+         <children>
+            <JFXButton buttonType="RAISED" onAction="#playPause" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Play/Pause" textFill="WHITE">
+               <font>
+                  <Font name="Ubuntu" size="22.0" />
+               </font>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" onAction="#back" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Back 5s" textFill="WHITE">
+               <font>
+                  <Font name="Ubuntu" size="22.0" />
+               </font>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" onAction="#forward" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Forward 5s" textFill="WHITE">
+               <font>
+                  <Font name="Ubuntu" size="22.0" />
+               </font>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" onAction="#mute" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Mute" textFill="WHITE">
+               <font>
+                  <Font name="Ubuntu" size="22.0" />
+               </font>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" onAction="#quit" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Quit" textFill="WHITE">
+               <font>
+                  <Font name="Ubuntu" size="22.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
