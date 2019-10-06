@@ -15,7 +15,7 @@
 
 .root {
     -fx-font-family: "Roboto Medium";
-    -fx-background-color: #121212;
+    -fx-background-color: -fx-lightest-gray-color: rgb(230.0, 230.0, 230.0);
     -fx-text-fill: -fx-primary-text-color;
 }
 
@@ -26,6 +26,7 @@
 .title {
     -fx-font-size: 25px;
     -fx-text-fill: inherit;
+    -fx-text-fill: -fx-dark-text-color;
 }
 
 .subtitle {
@@ -55,12 +56,12 @@
 }
 
 .jfx-list-view {
+    -fx-background-color: WHITE;
     -fx-background-insets: 0;
     -fx-vertical-gap: 10;
     -fx-cell-vertical-margin: 10.0;
     -fx-text-fill: inherit;
 }
-
 
 
 .dialog {
@@ -70,4 +71,32 @@
 
 .jfx-text-area {
     -fx-text-fill: inherit;
+    -fx-background-color: WHITE;
 }
+
+
+/****************** Slider ******************/
+
+.jfx-slider > .thumb {
+    -fx-background-color: #2196F3;
+}
+
+.jfx-slider > .animated-thumb {
+    -fx-background-color: #2196F3;
+}
+
+.jfx-slider > .colored-track {
+    -fx-background-color: #2196F3;
+}
+
+
+/****************** TableView ******************/
+
+.table-view .column-header {
+    -fx-background-color: #2196F3;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: WHITE;
+}
+

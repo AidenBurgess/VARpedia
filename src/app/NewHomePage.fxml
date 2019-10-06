@@ -18,20 +18,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="602.0" style="-fx-font-family: Ubuntu;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.HomeController">
+<AnchorPane prefHeight="500.0" prefWidth="927.0" style="-fx-font-family: Ubuntu;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.HomeController">
    <children>
-      <Label layoutX="98.0" layoutY="83.0" style="-fx-font-family: Ubuntu;" text="Video Creations">
+      <Label layoutX="52.0" layoutY="74.0" style="-fx-font-family: Ubuntu;" text="Video Creations">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
       <Label fx:id="numVideoLabel" layoutX="52.0" layoutY="449.0" style="-fx-font-family: Ubuntu;" text="There are currently" />
-      <Label layoutX="177.0" layoutY="30.0" style="-fx-font-family: Ubuntu;" text="Welcome to VARpedia">
+      <Label layoutX="337.0" layoutY="30.0" style="-fx-font-family: Ubuntu;" styleClass="title" text="Welcome to VARpedia">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <VBox layoutX="346.0" layoutY="133.0" prefHeight="324.0" prefWidth="202.0" spacing="33.0">
+      <VBox layoutX="667.0" layoutY="125.0" prefHeight="324.0" prefWidth="202.0" spacing="33.0">
          <children>
             <JFXButton buttonType="RAISED" onAction="#quit" prefHeight="35.0" prefWidth="270.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Play" textFill="WHITE" />
             <JFXButton buttonType="RAISED" onAction="#quit" prefHeight="35.0" prefWidth="284.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Delete" textFill="WHITE" />
@@ -40,12 +40,17 @@
             <JFXButton buttonType="RAISED" onAction="#quit" prefHeight="35.0" prefWidth="333.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Quit" textFill="WHITE" />
          </children>
       </VBox>
-      <Label layoutX="337.0" layoutY="83.0" style="-fx-font-family: Ubuntu;" text="What would you like to do?">
+      <Label layoutX="657.0" layoutY="74.0" style="-fx-font-family: Ubuntu;" text="What would you like to do?">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <StackPane layoutX="215.0" layoutY="175.0" prefHeight="150.0" prefWidth="200.0" />
-      <JFXTreeTableView />
+      <StackPane layoutX="364.0" layoutY="181.0" prefHeight="150.0" prefWidth="200.0" />
+      <TableView fx:id="videoTableView" layoutX="52.0" layoutY="110.0" prefHeight="332.0" prefWidth="550.0">
+        <columns>
+          <TableColumn prefWidth="277.0" text="Name" />
+          <TableColumn prefWidth="272.0" text="Rating" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

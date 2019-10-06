@@ -110,7 +110,6 @@ public class HomeController {
     	create.setOnSucceeded(e -> {
     		dialog.close();
     		createAudioButton.setDisable(false);
-        	updateAudioList();
     	});
     	
     	// Start the creation process for audio
@@ -193,7 +192,6 @@ public class HomeController {
         if (result.get() != ButtonType.OK) return;
         
         Task<ArrayList<String>> task = new DeleteAudio(audioString);
-        task.setOnSucceeded(event -> updateAudioList());
         Thread thread = new Thread(task);
         thread.start();
     }
@@ -253,31 +251,9 @@ public class HomeController {
         Thread thread = new Thread(listVideo);
         thread.start();
     }
-
-    private void updateAudioList() {
-    	Task<Integer> listAudio = new ListAudio(audioList);
-    	listAudio.setOnSucceeded(event -> numAudioLabel.setText("There are currently " + listAudio.getValue() + " audio files."));
-    	
-        Thread thread = new Thread(listAudio);
-        thread.start();
-    }
-    
-    private void updateVoiceList() {
-    	Task<ArrayList<String>> listVoices = new ListVoices();
-    	listVoices.setOnSucceeded(e -> {
-    		voiceChoiceBox.setItems(FXCollections.observableArrayList(listVoices.getValue()));
-    		voiceChoiceBox.getSelectionModel().select(0);
-    	});
-        Thread thread = new Thread(listVoices);
-        thread.start();
-    }
     
     @FXML
     private void initialize() {
-        updateVideoList();
-        updateAudioList();
-        updateVoiceList();
-        audioList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
     
     private int countWords(String input) {
