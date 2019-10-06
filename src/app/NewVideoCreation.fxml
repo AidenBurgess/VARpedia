@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="507.0" prefWidth="1100.0" style="-fx-font-family: Ubuntu;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.HomeController">
+<AnchorPane prefHeight="507.0" prefWidth="1100.0" style="-fx-font-family: Ubuntu;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.VideoCreationController">
    <children>
       <Label fx:id="searchLabel" layoutX="34.0" layoutY="36.0" style="-fx-font-family: Ubuntu;" styleClass="title" text="Feel free to search!">
          <font>
@@ -31,19 +31,19 @@
       <StackPane fx:id="stackPane" layoutX="476.0" layoutY="161.0" prefHeight="150.0" prefWidth="200.0" />
       <JFXTextField fx:id="searchField" focusColor="#09b6bc" layoutX="253.0" layoutY="442.0" onAction="#searchWiki" prefHeight="36.0" prefWidth="167.0" promptText="Search for..." style="-fx-font-family: Ubuntu;" styleClass="jfx-text-area" />
       <JFXButton fx:id="searchButton" buttonType="RAISED" layoutX="438.0" layoutY="442.0" onAction="#searchWiki" prefHeight="36.0" prefWidth="65.0" ripplerFill="WHITE" style="-fx-font-family: Ubuntu; -fx-background-color: #2196F3;" text="Search" textFill="WHITE" textOverrun="CLIP" />
-      <JFXButton buttonType="RAISED" layoutX="1006.0" layoutY="439.0" onAction="#previewAudio" prefHeight="36.0" prefWidth="74.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Create" textFill="WHITE" />
-      <JFXTextField fx:id="customNameField" focusColor="#09b6bc" layoutX="593.0" layoutY="439.0" onAction="#createAudio" prefHeight="36.0" prefWidth="140.0" promptText="Name your video" style="-fx-font-family: Ubuntu;" styleClass="jfx-text-area" text="Name your video" />
+      <JFXButton buttonType="RAISED" layoutX="1006.0" layoutY="439.0" prefHeight="36.0" prefWidth="74.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Create" textFill="WHITE" />
+      <JFXTextField fx:id="videoNameField" focusColor="#09b6bc" layoutX="593.0" layoutY="439.0" prefHeight="36.0" prefWidth="140.0" promptText="Name your video" style="-fx-font-family: Ubuntu;" styleClass="jfx-text-area" text="Name your video" />
       <JFXSlider fx:id="numImages" blockIncrement="1.0" layoutX="837.0" layoutY="446.0" majorTickUnit="9.0" max="10.0" min="1.0" minorTickCount="8" showTickLabels="true" showTickMarks="true" snapToTicks="true" styleClass="jfx-slider" value="5.0" />
-      <Label fx:id="searchLabel1" layoutX="749.0" layoutY="450.0" style="-fx-font-family: Ubuntu;" text="Num. Images:">
+      <Label layoutX="749.0" layoutY="450.0" style="-fx-font-family: Ubuntu;" text="Num. Images:">
          <font>
             <Font name="Ubuntu" size="18.0" />
          </font>
       </Label>
       <JFXListView fx:id="textListView" layoutX="618.0" layoutY="86.0" prefHeight="329.0" prefWidth="396.0" styleClass="jfx-list-view" />
-      <JFXButton fx:id="addText" layoutX="559.0" layoutY="202.0" prefHeight="25.0" prefWidth="34.0" text="&gt;" />
-      <JFXButton fx:id="removeText" layoutX="559.0" layoutY="262.0" prefHeight="25.0" prefWidth="34.0" text="&lt;" />
-      <JFXButton fx:id="moveTextUp" layoutX="1037.0" layoutY="202.0" prefHeight="25.0" prefWidth="34.0" text="^" />
-      <JFXButton fx:id="moveTextDown" layoutX="1037.0" layoutY="262.0" prefHeight="25.0" prefWidth="34.0" text="v" />
+      <JFXButton fx:id="addTextButton" layoutX="559.0" layoutY="202.0" prefHeight="25.0" prefWidth="34.0" text="&gt;" />
+      <JFXButton fx:id="removeTextButton" layoutX="559.0" layoutY="262.0" prefHeight="25.0" prefWidth="34.0" text="&lt;" />
+      <JFXButton fx:id="moveTextUpButton" layoutX="1037.0" layoutY="202.0" prefHeight="25.0" prefWidth="34.0" text="^" />
+      <JFXButton fx:id="moveTextDownButton" layoutX="1037.0" layoutY="262.0" prefHeight="25.0" prefWidth="34.0" text="v" />
       <Label layoutX="579.0" layoutY="36.0" style="-fx-font-family: Ubuntu;" styleClass="title" text="Add text for your video here, or rearrange:">
          <font>
             <Font name="Ubuntu" size="18.0" />
