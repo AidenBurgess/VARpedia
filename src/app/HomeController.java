@@ -76,11 +76,15 @@ public class HomeController {
     	if (customName == null || customName.isEmpty()) return;
 
         if (countWords(selectedText) > 40) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Selection Process");
-            alert.setHeaderText("Invalid Selection");
-            alert.setContentText("Please select less than 40 words.");
-            alert.showAndWait();
+            JFXDialogLayout dialogContent = new JFXDialogLayout();
+            dialogContent.setHeading(new Text("Invalid Selection"));
+            dialogContent.setBody(new Text("Please select less than 40 words."));
+            JFXButton close = new JFXButton("Close");
+            close.getStyleClass().add("JFXButton");
+            dialogContent.setActions(close);
+            JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.RIGHT);
+            close.setOnAction( e -> dialog.close());
+            dialog.show();
             return;
         }
     	
@@ -222,11 +226,15 @@ public class HomeController {
     	if (voice == null || voice == "") return;
     	
     	if (countWords(selectedText) > 40) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Selection Process");
-            alert.setHeaderText("Invalid Selection");
-            alert.setContentText("Please select less than 40 words.");
-            alert.showAndWait();
+            JFXDialogLayout dialogContent = new JFXDialogLayout();
+            dialogContent.setHeading(new Text("Invalid Selection"));
+            dialogContent.setBody(new Text("Please select less than 40 words."));
+            JFXButton close = new JFXButton("Close");
+            close.getStyleClass().add("JFXButton");
+            dialogContent.setActions(close);
+            JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.RIGHT);
+            close.setOnAction( e -> dialog.close());
+            dialog.show();
             return;
         }
     	Thread thread = new Thread(new PreviewAudio(selectedText, voice));
