@@ -2,3 +2,11 @@
 *.wav
 *.mp4
 /.metadata/
+.idea/$PRODUCT_WORKSPACE_FILE$
+.idea/.gitignore
+.idea/SOFTENG_206_A04.iml
+.idea/libraries/
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+videos/

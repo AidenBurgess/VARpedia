@@ -291,11 +291,9 @@ public class HomeController {
     private JFXDialog loadingDialog(String title) {
     	JFXDialogLayout dialogContent = new JFXDialogLayout();
         dialogContent.setHeading(new Text(title));
-        dialogContent.setBody(new ImageView("loading.gif"));
         JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.RIGHT);
         dialog.show();
         return dialog;
     }
-
 
 }
