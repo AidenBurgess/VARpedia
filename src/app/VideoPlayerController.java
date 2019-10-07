@@ -2,6 +2,8 @@ package app;
 
 import java.io.File;
 
+import com.jfoenix.controls.JFXToggleButton;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.media.Media;
@@ -16,16 +18,28 @@ public class VideoPlayerController {
 	private MediaView screen;
 	@FXML
 	private Label timeLabel;
+	@FXML
+	private JFXToggleButton toggleButton;
 	
 	private MediaPlayer player;
+	private MediaPlayer music;
 	
 	public void setSource(String source) {
+		// Setup video player with source file
 		File fileUrl = new File("videos/" + source + ".mp4"); 
 		Media video = new Media(fileUrl.toURI().toString());
 		player = new MediaPlayer(video);
 		player.setAutoPlay(true);
 		screen.setMediaPlayer(player);
 		
+		// Setup background musci player
+	    fileUrl = new File("backgroundMusic" + ".wav");
+	    Media audio = new Media(fileUrl.toURI().toString());
+	    music = new MediaPlayer(audio);
+	    music.setAutoPlay(true);
+	    music.setMute(true);
+		
+	    // Timer label tracks the time of the video
 		player.currentTimeProperty().addListener((observable,oldValue,newValue) -> {
 				String time = "";
 				time += String.format("%02d", (int)newValue.toMinutes());
@@ -57,6 +71,11 @@ public class VideoPlayerController {
 	@FXML
 	private void mute() {
 		player.setMute( !player.isMute() );
+	}
+	
+	@FXML
+	private void toggleMusic() {
+		music.setMute(!toggleButton.isSelected());
 	}
 	
 	@FXML
