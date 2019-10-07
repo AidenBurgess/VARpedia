@@ -29,7 +29,7 @@ public class CreateAudio extends Task<ArrayList<String>> {
     }
 
     private void createAudio() throws Exception {
-        ProcessBuilder pb = new ProcessBuilder().command("src/scripts/createAudio.sh", videoName, text, voice);
+        ProcessBuilder pb = new ProcessBuilder().command("bash", "src/scripts/createAudio.sh", videoName, text, voice);
         Process process = pb.start();
         process.waitFor();
     }
