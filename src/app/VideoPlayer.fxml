@@ -49,5 +49,6 @@
             </JFXButton>
          </children>
       </HBox>
+      <JFXToggleButton fx:id="toggleButton" layoutX="468.0" layoutY="498.0" onAction="#toggleMusic" text="Toggle Background Music" />
    </children>
 </AnchorPane>
