@@ -38,6 +38,7 @@ public class VideoPlayerController {
 	    music = new MediaPlayer(audio);
 	    music.setAutoPlay(true);
 	    music.setMute(true);
+	    music.setCycleCount(MediaPlayer.INDEFINITE);
 		
 	    // Timer label tracks the time of the video
 		player.currentTimeProperty().addListener((observable,oldValue,newValue) -> {
