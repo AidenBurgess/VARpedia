@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextField;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
@@ -31,7 +32,7 @@ public class VideoPageController {
 	@FXML
 	private JFXListView<String> chosenAudio;
 	@FXML
-	private JFXListView<String> videoList;
+	private JFXListView<VideoCreation> videoList;
 	@FXML
 	private StackPane stackPane;
 	@FXML
@@ -42,6 +43,8 @@ public class VideoPageController {
 	private JFXTextField searchTermField;
 
 	private ObservableList<String> chosenAudioItems;
+	
+	private VideoManager videoManager = VideoManager.getVideoManager();
 	
 
     @FXML
@@ -102,7 +105,7 @@ public class VideoPageController {
     @FXML
     private void playVideo() {
     	try {
-        	String videoString = videoList.getSelectionModel().getSelectedItem();
+        	String videoString = videoList.getSelectionModel().getSelectedItem().getName();
         	if(videoString == null || videoString == "") return;
 
             FXMLLoader loader = new FXMLLoader();
@@ -125,32 +128,35 @@ public class VideoPageController {
     @FXML
     private void createVideo() {
     	// If no audio is selected then raise an error
-    	if (chosenAudioItems.size() == 0) {
-    		alertCreator("Selection Process", "Invalid Selection", "Please select some audio.");
-    		return;
-    	}
-    	
-    	// Error checking for empty/null selected
+//    	if (chosenAudioItems.size() == 0) {
+//    		alertCreator("Selection Process", "Invalid Selection", "Please select some audio.");
+//    		return;
+//    	}
+//    	
+//    	// Error checking for empty/null selected
     	String customName = customNameField.getText();
     	String searchTerm = searchTermField.getText();
-    	if (customName == null || customName.isEmpty()) return;
-    	if(searchTerm == null || searchTerm == "") return;
-    	
-    	// Error checking for already existing audio
-    	if (videoList.getItems().contains(customName)) {
-    		alertCreator("Creation Process", "Creating video error", customName + " already exists, please choose another name.");
-    	    return;
-    	}
-    	
-    	// Check if number of images is a number, is not empty, is not null, and is within 0 and 10.
     	String numImages = numImagesField.getText();
-        if (!isNumeric(numImages) || numImages.isEmpty() || numImages == null || Integer.parseInt(numImages) > 10 || Integer.parseInt(numImages) < 1) {
-            alertCreator("Creation Process", "Number of images", "Please enter a number of images between 1 and 10 (inclusive).");
-            return;
-        }
-        
+
+//    	if (customName == null || customName.isEmpty()) return;
+//    	if(searchTerm == null || searchTerm == "") return;
+//    	
+//    	// Error checking for already existing audio
+//    	if (videoList.getItems().contains(customName)) {
+//    		alertCreator("Creation Process", "Creating video error", customName + " already exists, please choose another name.");
+//    	    return;
+//    	}
+//    	
+//    	// Check if number of images is a number, is not empty, is not null, and is within 0 and 10.
+//        if (!isNumeric(numImages) || numImages.isEmpty() || numImages == null || Integer.parseInt(numImages) > 10 || Integer.parseInt(numImages) < 1) {
+//            alertCreator("Creation Process", "Number of images", "Please enter a number of images between 1 and 10 (inclusive).");
+//            return;
+//        }
+//        
         stitchAudio();
         combineAudioVideo();
+        VideoCreation newVideo = new VideoCreation(customName, searchTerm, Integer.parseInt(numImages));
+        videoManager.add(newVideo);
     }
 
     @FXML
@@ -214,9 +220,7 @@ public class VideoPageController {
     
     // Refresh video list
     private void updateVideoList() {
-    	Task<Integer> listVideo = new ListVideos(videoList);    	
-        Thread thread = new Thread(listVideo);
-        thread.start();
+    	videoList.setItems(FXCollections.observableArrayList(videoManager.getVideos()));
     }
 
     // Helper method for error checking

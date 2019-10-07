@@ -8,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -21,7 +20,7 @@ import java.util.Optional;
 public class HomeController {
 
 	@FXML
-    private JFXListView<String> videoList;
+    private JFXListView<VideoCreation> videoList;
     @FXML
     private JFXListView<String> audioList;
     @FXML
@@ -46,11 +45,12 @@ public class HomeController {
     @FXML
     private JFXComboBox<String> voiceChoiceBox;
     
-
+    private VideoManager videoManager = VideoManager.getVideoManager();
 
 
     @FXML
     private void searchWiki() {
+    	
         String searchTerm = searchField.getText();
         if (searchTerm == null || searchTerm.isEmpty()) return;
 
@@ -160,8 +160,9 @@ public class HomeController {
     @FXML
     private void playVideo() {
     	try {
-        	String videoString = videoList.getSelectionModel().getSelectedItem();
-        	if(videoString == null || videoString.isEmpty()) return;
+        	VideoCreation videoCreation = videoList.getSelectionModel().getSelectedItem();
+        	System.out.println(videoCreation);
+        	if(videoCreation == null) return;
         	
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(this.getClass().getResource("VideoPlayer.fxml"));
@@ -169,7 +170,7 @@ public class HomeController {
             Scene scene = new Scene(layout);
             Stage stage = new Stage();
             
-            ((VideoPlayerController) loader.getController()).setSource(videoString);
+            ((VideoPlayerController) loader.getController()).setSource(videoCreation.getName());
             stage.setOnCloseRequest(e -> ((VideoPlayerController) loader.getController()).shutdown());
             stage.setTitle("Video Player");
             stage.setResizable(false);
@@ -200,21 +201,22 @@ public class HomeController {
     
     @FXML
     private void deleteVideo() {
-    	String videoString = videoList.getSelectionModel().getSelectedItem();
-    	if(videoString == null || videoString.isEmpty()) return;
-    	System.out.println(videoString);
+    	VideoCreation videoCreation = videoList.getSelectionModel().getSelectedItem();
+    	if(videoCreation  == null) return;
+    	System.out.println(videoCreation);
     	
     	Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Deletion Process");
         alert.setHeaderText("Deletion Confirmation");
-        alert.setContentText("Would you really like to delete " + videoString + "?");
+        alert.setContentText("Would you really like to delete " + videoCreation.getName() + "?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() != ButtonType.OK) return;
         
-        Task<ArrayList<String>> task = new DeleteVideo(videoString);
+        Task<ArrayList<String>> task = new DeleteVideo(videoCreation.getName());
         task.setOnSucceeded(event -> updateVideoList());
         Thread thread = new Thread(task);
         thread.start();
+        videoManager.delete(videoCreation);
     }
     
     @FXML
@@ -247,11 +249,9 @@ public class HomeController {
     }
 
     private void updateVideoList() {
-    	Task<Integer> listVideo = new ListVideos(videoList);
-    	listVideo.setOnSucceeded(event -> numVideoLabel.setText("There are currently " + listVideo.getValue() + " videos."));
-    	
-        Thread thread = new Thread(listVideo);
-        thread.start();
+    	ArrayList<VideoCreation> videos = videoManager.getVideos();
+    	numVideoLabel.setText("There are currently " + videos.size() + " videos.");
+    	videoList.setItems(FXCollections.observableArrayList(videos));
     }
 
     private void updateAudioList() {
@@ -274,10 +274,16 @@ public class HomeController {
     
     @FXML
     private void initialize() {
-        updateVideoList();
+        System.out.println("Initialisation stage");
         updateAudioList();
         updateVoiceList();
         audioList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        videoList.setItems(FXCollections.observableArrayList(videoManager.readSerializedVideos()));
+    }
+    
+    @FXML
+    private void review() {
+    	
     }
     
     private int countWords(String input) {
