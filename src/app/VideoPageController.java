@@ -148,7 +148,7 @@ public class VideoPageController {
             return;
         }
         
-        stitchAudio();
+        stitchText();
         combineAudioVideo();
     }
 
@@ -177,10 +177,13 @@ public class VideoPageController {
     	thread.start();
     }
     
-    private void stitchAudio() {
-    	Task<ArrayList<String>> stitchAudio = new StitchAudio(chosenAudioItems);
-    	Thread thread = new Thread(stitchAudio);
-    	thread.run();
+    private String stitchText() {
+        String output = "";
+        for (String s : chosenAudioItems) {
+            output += " ";
+            output += s;
+        }
+        return output;
     }
     
     private void combineAudioVideo() {
@@ -213,9 +216,9 @@ public class VideoPageController {
     
     // Refresh video list
     private void updateVideoList() {
-    	Task<Integer> listVideo = new ListVideos(videoList);    	
-        Thread thread = new Thread(listVideo);
-        thread.start();
+    	//Task<Integer> listVideo = new ListVideos(videoList);
+        //Thread thread = new Thread(listVideo);
+        //thread.start();
     }
 
     // Helper method for error checking
