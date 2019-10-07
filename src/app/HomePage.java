@@ -13,6 +13,9 @@ public class HomePage extends Application {
         loader.setLocation(this.getClass().getResource("HomePage.fxml"));
         Parent layout = loader.load();
         Scene scene = new Scene(layout);
+        stage.setOnCloseRequest(e-> {
+        	VideoManager.getVideoManager().writeSerializedVideos();
+        });
         
         stage.setTitle("VARpedia");
         stage.setResizable(false);

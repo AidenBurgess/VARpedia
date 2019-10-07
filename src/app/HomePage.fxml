@@ -64,5 +64,6 @@
       </HBox>
       <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="439.0" onAction="#quit" prefHeight="36.0" prefWidth="65.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Quit" textFill="WHITE" />
       <StackPane fx:id="stackPane" layoutX="472.0" layoutY="174.0" prefHeight="150.0" prefWidth="200.0" />
+      <JFXButton buttonType="RAISED" layoutX="96.0" layoutY="439.0" onAction="#review" prefHeight="36.0" prefWidth="65.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Review" textFill="WHITE" />
    </children>
 </AnchorPane>
