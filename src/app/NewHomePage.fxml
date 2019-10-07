@@ -20,18 +20,18 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="927.0" style="-fx-font-family: Ubuntu;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.HomeController">
    <children>
-      <Label layoutX="52.0" layoutY="74.0" style="-fx-font-family: Ubuntu;" text="Video Creations">
+      <Label layoutX="588.0" layoutY="457.0" style="-fx-font-family: Ubuntu;" text="Click a        button to find out more!">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
       <Label fx:id="numVideoLabel" layoutX="52.0" layoutY="449.0" style="-fx-font-family: Ubuntu;" text="There are currently" />
-      <Label layoutX="337.0" layoutY="30.0" style="-fx-font-family: Ubuntu;" styleClass="title" text="Welcome to VARpedia">
+      <Label layoutX="334.0" layoutY="31.0" style="-fx-font-family: Ubuntu;" styleClass="title" text="Welcome to VARpedia">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <VBox layoutX="667.0" layoutY="125.0" prefHeight="324.0" prefWidth="202.0" spacing="33.0">
+      <VBox layoutX="668.0" layoutY="101.0" prefHeight="324.0" prefWidth="202.0" spacing="33.0">
          <children>
             <JFXButton fx:id="playButton" buttonType="RAISED" onAction="#playVideo" prefHeight="35.0" prefWidth="270.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Play" textFill="WHITE" />
             <JFXButton fx:id="deleteButton" buttonType="RAISED" onAction="#deleteVideo" prefHeight="35.0" prefWidth="284.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Delete" textFill="WHITE" />
@@ -40,22 +40,29 @@
             <JFXButton fx:id="quitButton" buttonType="RAISED" onAction="#quit" prefHeight="35.0" prefWidth="333.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Quit" textFill="WHITE" />
          </children>
       </VBox>
-      <Label layoutX="657.0" layoutY="74.0" style="-fx-font-family: Ubuntu;" text="What would you like to do?">
+      <Label layoutX="658.0" layoutY="64.0" style="-fx-font-family: Ubuntu;" text="What would you like to do?">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
       <StackPane layoutX="364.0" layoutY="181.0" prefHeight="150.0" prefWidth="200.0" />
-      <TableView fx:id="videoTableView" layoutX="35.0" layoutY="110.0" prefHeight="332.0" prefWidth="567.0">
+      <TableView fx:id="videoTableView" layoutX="33.0" layoutY="97.0" prefHeight="332.0" prefWidth="567.0">
         <columns>
           <TableColumn prefWidth="305.0" text="Name" />
           <TableColumn prefWidth="261.0" text="Rating" />
         </columns>
       </TableView>
-      <JFXButton fx:id="helpTableView" layoutX="588.0" layoutY="98.0" onAction="#describeTableView" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton fx:id="helpDeleteButton" layoutX="645.0" layoutY="181.0" onAction="#describeDelete" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton fx:id="helpCreateButton" layoutX="645.0" layoutY="250.0" onAction="#describeCreate" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton fx:id="helpPlayButton" layoutX="645.0" layoutY="113.0" onAction="#describePlay" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton fx:id="helpReviewButton" layoutX="643.0" layoutY="319.0" onAction="#describeReview" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <JFXButton fx:id="helpTableView" layoutX="14.0" layoutY="89.0" onAction="#describeTableView" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <JFXButton fx:id="helpDeleteButton" layoutX="645.0" layoutY="156.0" onAction="#describeDelete" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <JFXButton fx:id="helpCreateButton" layoutX="645.0" layoutY="225.0" onAction="#describeCreate" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <JFXButton fx:id="helpPlayButton" layoutX="645.0" layoutY="89.0" onAction="#describePlay" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <JFXButton fx:id="helpReviewButton" layoutX="645.0" layoutY="295.0" onAction="#describeReview" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <JFXButton fx:id="helpVarPedia" layoutX="594.0" layoutY="34.0" onAction="#describeVarPedia" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <Label layoutX="52.0" layoutY="64.0" style="-fx-font-family: Ubuntu;" text="Video Creations">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <JFXButton layoutX="646.0" layoutY="455.0" prefHeight="25.0" prefWidth="21.0" text="?" />
    </children>
 </AnchorPane>

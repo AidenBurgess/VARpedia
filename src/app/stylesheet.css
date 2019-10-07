@@ -11,6 +11,8 @@
     -fx-primary-text-color: rgba(255,255,255,0.87);
     -fx-secondary-text-color: rgba(255,255,255,0.60);
     -fx-disabled-text-color: rgba(255,255,255,0.38);
+
+    -fx-green-accent-color: rgb(203.0,252.0,118.0);
 }
 
 .root {

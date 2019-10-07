@@ -43,6 +43,10 @@ public class HomeController {
     @FXML
     private JFXButton helpReviewButton;
     @FXML
+    private JFXButton helpVarPedia;
+    @FXML
+    private Label numVideoLabel;
+    @FXML
     private StackPane stackPane;
 
     @FXML
@@ -112,20 +116,54 @@ public class HomeController {
     }
 
     @FXML
+    private void reviewVideos() {
+
+    }
+
+    @FXML
+    private void describeVarPedia() {
+
+    }
+
+    @FXML
+    private void describeTableView() {
+
+    }
+
+    @FXML
+    private void describeCreate() {
+
+    }
+
+    @FXML
+    private void describeDelete() {
+
+    }
+
+    @FXML
+    private void describePlay() {
+
+    }
+
+    @FXML
+    private void describeReview() {
+
+    }
+
+    @FXML
     private void quit() {
     	quitButton.getScene().getWindow().hide();
     }
 
     private void updateVideoList() {
-    	//Task<Integer> listVideo = new ListVideos(videoList);
-    	//listVideo.setOnSucceeded(event -> numVideoLabel.setText("There are currently " + listVideo.getValue() + " videos."));
-    	
-        //Thread thread = new Thread(listVideo);
-        //thread.start();
+       // Task<Integer> listVideo = new ListVideos(videoTableView);
+       // Thread thread = new Thread(listVideo);
+       // thread.start();
     }
     
     @FXML
     private void initialize() {
+        updateVideoList();
     }
     
     private int countWords(String input) {
