@@ -6,26 +6,32 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StitchAudio extends Task<ArrayList<String>> {
+public class StitchText extends Task<ArrayList<String>> {
 
-    private List<String> audioFiles;
+    private List<String> textPieces;
 
-    public StitchAudio(List<String> audioFiles) {
-        this.audioFiles = audioFiles;
+    public StitchText(List<String> textPieces) {
+        this.textPieces = textPieces;
     }
 
     @Override
     protected ArrayList<String> call() {
         try {
-        	stichVideo();
+        	combineText();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    private void stichVideo() throws Exception {
-        ProcessBuilder pb = new ProcessBuilder().command("bash", "src/scripts/stitchAudio.sh", String.join(" ", audioFiles));
+    private void combineText() {
+        String output = "";
+        for (String s : this.textPieces) {
+            output += " ";
+            output += s;
+        }
+
+        /* ProcessBuilder pb = new ProcessBuilder().command("bash", "src/scripts/stitchAudio.sh", String.join(" ", audioFiles));
         Process process = pb.start();
 
         BufferedReader stdout = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -39,7 +45,6 @@ public class StitchAudio extends Task<ArrayList<String>> {
         while ((line = stdError.readLine()) != null) {
             System.out.println(line);
         }
-        return;
-     
+        return;*/
     }
 }

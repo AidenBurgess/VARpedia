@@ -31,7 +31,11 @@ public class HomeController {
     @FXML
     private JFXButton quitButton;
     @FXML
-    private TableView videoTableView;
+    private TableView<String> videoTableView;
+    @FXML
+    private TableColumn<String, String> videoNameColumn;
+    @FXML
+    private TableColumn<String, String> videoRatingColumn;
     @FXML
     private JFXButton helpTableView;
     @FXML
