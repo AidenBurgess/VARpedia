@@ -46,9 +46,9 @@ public class VideoPageController {
     @FXML
     private void initialize() {
     	updateVideoList();
-        Task<Integer> listAudio = new ListAudio(availableAudio);
-        Thread thread = new Thread(listAudio);
-        thread.start();
+        //Task<Integer> listAudio = new ListAudio(availableAudio);
+        //Thread thread = new Thread(listAudio);
+        //thread.start();
         
         chosenAudioItems = chosenAudio.getItems();
     }
