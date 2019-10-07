@@ -191,7 +191,7 @@ public class VideoPageController {
         
         JFXDialogLayout dialogContent = new JFXDialogLayout();
         dialogContent.setHeading(new Text("Creating video"));
-        dialogContent.setBody(new ImageView("loading.gif"));
+//        dialogContent.setBody(new ImageView("loading.gif"));
         JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.RIGHT);
         dialog.show();
         
