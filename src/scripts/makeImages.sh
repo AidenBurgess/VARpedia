@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-if [ ! -r "images" ]
-then
-    mkdir ./images
-fi
+mkdir -p ./images
 
 exit 0

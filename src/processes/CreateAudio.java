@@ -34,16 +34,4 @@ public class CreateAudio extends Task<ArrayList<String>> {
         process.waitFor();
     }
 
-
-    @Override
-    protected void done() {
-        Platform.runLater(() -> {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Creation Process");
-            alert.setHeaderText("Creation Success");
-            alert.setContentText("Audio has been created!");
-            alert.showAndWait();
-        });
-    }
-
 }
