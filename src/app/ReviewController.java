@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.stage.Stage;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.util.Duration;
 
@@ -31,9 +32,20 @@ public class ReviewController {
 	private ArrayList<VideoCreation> playList;
 	private int playIndex = 0;
 
-	public void setSource(ArrayList<VideoCreation> playList) {
+	public void setPlaylist(ArrayList<VideoCreation> playList) {
 		this.playList = playList;
-		
+		// Setup background music player
+		File fileUrl = new File("backgroundMusic" + ".wav");
+		Media audio = new Media(fileUrl.toURI().toString());
+		music = new MediaPlayer(audio);
+		music.setAutoPlay(true);
+		music.setMute(true);
+		music.setCycleCount(MediaPlayer.INDEFINITE);
+		// Setup video player
+		setSource();
+	}
+	
+	private void setSource() {
 		// Setup video player with source file
 		File fileUrl = new File("videos/" + playList.get(playIndex).getName() + ".mp4"); 
 		Media video = new Media(fileUrl.toURI().toString());
@@ -41,14 +53,10 @@ public class ReviewController {
 		player.setAutoPlay(true);
 		screen.setMediaPlayer(player);
 		slider();
-
-		// Setup background music player
-		fileUrl = new File("backgroundMusic" + ".wav");
-		Media audio = new Media(fileUrl.toURI().toString());
-		music = new MediaPlayer(audio);
-		music.setAutoPlay(true);
-		music.setMute(true);
-		music.setCycleCount(MediaPlayer.INDEFINITE);
+		
+		// Update stage title to video name
+		Stage currentStage = (Stage) timeLabel.getScene().getWindow();
+		currentStage.setTitle("Currently playing: " + playList.get(playIndex).getName());
 
 		// Timer label tracks the time of the video
 		player.currentTimeProperty().addListener((observable,oldValue,newValue) -> {
@@ -125,9 +133,18 @@ public class ReviewController {
 	
     @FXML
     private void nextVideo() {
+    	if ((playIndex+1) == playList.size()) return;
     	playIndex++;
-    	shutdown();
-    	setSource(playList);
+    	player.dispose();
+    	setSource();
+	}
+    
+    @FXML
+    private void prevVideo() {
+    	if (playIndex == 0) return;
+    	playIndex--;
+    	player.dispose();
+    	setSource();
 	}
 
 	@FXML

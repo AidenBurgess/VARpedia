@@ -60,5 +60,10 @@
             <Font name="Ubuntu" size="22.0" />
          </font>
       </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="59.0" layoutY="530.0" onAction="#prevVideo" prefHeight="42.0" prefWidth="122.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Previous" textFill="WHITE">
+         <font>
+            <Font name="Ubuntu" size="22.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

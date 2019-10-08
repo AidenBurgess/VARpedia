@@ -97,8 +97,10 @@ public class HomeController {
     	ArrayList<VideoCreation> toReview;
     	toReview = new ArrayList(videoTable.getItems());
     	// Launch review window
-    	ReviewController controller = new WindowBuilder().pop("ReviewPlayer", "Review Videos").loader().getController();
-    	controller.setSource(toReview);
+    	WindowBuilder reviewWindow = new WindowBuilder().pop("ReviewPlayer", "Review Videos");
+    	ReviewController controller = reviewWindow.loader().getController();
+    	controller.setPlaylist(toReview);
+    	reviewWindow.stage().setOnCloseRequest(e -> controller.shutdown());
     }
 
     @FXML
