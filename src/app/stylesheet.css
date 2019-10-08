@@ -21,7 +21,10 @@
     -fx-text-fill: -fx-primary-text-color;
 }
 
+/**************** TextArea *****************/
+.jfx-text-area {
 
+}
 
 /****************** LABEL ******************/
 
@@ -68,11 +71,11 @@
 
 .dialog {
     -fx-font-size: 20px;
-    -fx-text-fill: inherit;
+    -fx-text-fill: -fx-primary-text-color;
 }
 
 .jfx-text-area {
-    -fx-text-fill: inherit;
+    -fx-text-fill: -fx-primary-text-color;
     -fx-background-color: WHITE;
 }
 
