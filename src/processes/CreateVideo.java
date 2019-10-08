@@ -29,7 +29,7 @@ public class CreateVideo extends Task<ArrayList<String>> {
     }
 
     private void createVideo() throws Exception {
-    	ProcessBuilder p = new ProcessBuilder().command("src/scripts/makeImages.sh");
+    	ProcessBuilder p = new ProcessBuilder().command("bash", "src/scripts/makeImages.sh");
     	Process pro = p.start();
     	
     	int exit = pro.waitFor();
@@ -39,7 +39,7 @@ public class CreateVideo extends Task<ArrayList<String>> {
     	create.start();
     	create.join();
     	
-    	ProcessBuilder pb = new ProcessBuilder().command("src/scripts/createVideo.sh", searchTerm, videoName, numImages);
+    	ProcessBuilder pb = new ProcessBuilder().command("bash", "src/scripts/createVideo.sh", searchTerm, videoName, numImages);
     	Process process = pb.start();
     	
         int exitStatus = process.waitFor();
