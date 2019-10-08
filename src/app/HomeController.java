@@ -33,9 +33,9 @@ public class HomeController {
     @FXML
     private TableView<String> videoTableView;
     @FXML
-    private TableColumn<String, String> videoNameColumn;
+    private TableColumn<VideoCreation, String> videoNameColumn;
     @FXML
-    private TableColumn<String, String> videoRatingColumn;
+    private TableColumn<VideoCreation, String> videoRatingColumn;
     @FXML
     private JFXButton helpTableView;
     @FXML
@@ -80,7 +80,7 @@ public class HomeController {
     @FXML
     private void playVideo() {
     	try {
-        	String videoString = videoTableView.getSelectionModel().getSelectedItem().toString();
+        	String videoString = videoTableView.getSelectionModel().getSelectedItem();
         	if(videoString == null || videoString.isEmpty()) return;
         	
             FXMLLoader loader = new FXMLLoader();
@@ -102,7 +102,7 @@ public class HomeController {
     
     @FXML
     private void deleteVideo() {
-    	String videoString = videoTableView.getSelectionModel().getSelectedItem().toString();
+    	String videoString = videoTableView.getSelectionModel().getSelectedItem();
     	if(videoString == null || videoString.isEmpty()) return;
     	System.out.println(videoString);
     	
