@@ -20,7 +20,7 @@
 
 <AnchorPane prefHeight="507.0" prefWidth="1100.0" style="-fx-font-family: Ubuntu;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.VideoCreationController">
    <children>
-      <Label fx:id="searchLabel" layoutX="34.0" layoutY="21.0" style="-fx-font-family: Ubuntu;" styleClass="title" text="Feel free to search!">
+      <Label fx:id="searchLabel" layoutX="38.0" layoutY="21.0" style="-fx-font-family: Ubuntu;" styleClass="title" text="Feel free to search!">
          <font>
             <Font name="Ubuntu" size="18.0" />
          </font>
@@ -49,7 +49,7 @@
          </font>
       </Label>
       <JFXComboBox fx:id="voiceChoiceBox" layoutX="605.0" layoutY="451.0" prefHeight="25.0" prefWidth="105.0" />
-      <JFXButton layoutX="9.0" layoutY="60.0" onAction="#describeSearchResults" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <JFXButton layoutX="14.0" layoutY="25.0" onAction="#describeSearchResults" prefHeight="25.0" prefWidth="21.0" text="?" />
       <JFXButton layoutX="555.0" layoutY="202.0" onAction="#describeAddRemoveText" prefHeight="25.0" prefWidth="21.0" text="?" />
       <JFXButton layoutX="1045.0" layoutY="202.0" onAction="#describeShuffleText" prefHeight="25.0" prefWidth="21.0" text="?" />
       <JFXButton layoutX="79.0" layoutY="426.0" onAction="#describeBackButton" prefHeight="25.0" prefWidth="21.0" text="?" />

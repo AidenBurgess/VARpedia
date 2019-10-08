@@ -74,8 +74,7 @@ public class VideoCreationController {
         });
         Thread thread = new Thread(search);
         thread.start();
-        searchField.setText("");
-        currentSearch = searchTerm; 
+        currentSearch = searchTerm;
     }
 
     @FXML
@@ -103,7 +102,7 @@ public class VideoCreationController {
         dialogContent.setBody(new JFXSpinner());
         dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.RIGHT);
         dialog.show();
-        
+
     	System.out.println("Create audio called");
     	Task createAudiosTask = new CreateAudios(textListView.getItems(), voiceChoiceBox.getSelectionModel().getSelectedItem());
     	createAudiosTask.setOnSucceeded(e-> {;
@@ -118,7 +117,7 @@ public class VideoCreationController {
 			e.printStackTrace();
 		}
     }
-    
+
     private void stitchAudio(ArrayList<String> audioFiles) {
     	System.out.println("Stitch audio called");
     	Task stitchAudioTask = new StitchAudio(audioFiles);
@@ -136,7 +135,7 @@ public class VideoCreationController {
         String videoName = videoNameField.getText();
         Double val = numImages.getValue();
         String finNumImages = Integer.toString(val.intValue());
-        
+
         Task<Boolean> task = new VideoExists(videoName);
         task.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, (EventHandler<WorkerStateEvent>) t -> {
             Task<ArrayList<String>> videoCreation = new CreateVideo(currentSearch, finNumImages, videoName);
@@ -145,7 +144,7 @@ public class VideoCreationController {
             dialog.close();
             VideoManager.getVideoManager().add(new VideoCreation(videoName, currentSearch, (int) numImages.getValue()));
         });
-        
+
         Thread thread = new Thread(task);
         thread.start();
         try {
@@ -219,7 +218,7 @@ public class VideoCreationController {
     	stackPane.setPickOnBounds(false);
     	updateVoiceList();
     }
-    
+
     private void updateVoiceList() {
     	Task<ArrayList<String>> listVoices = new ListVoices();
     	listVoices.setOnSucceeded(e -> {

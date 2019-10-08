@@ -22,7 +22,6 @@
 }
 
 
-
 /****************** LABEL ******************/
 
 .title {
@@ -68,12 +67,12 @@
 
 .dialog {
     -fx-font-size: 20px;
-    -fx-text-fill: inherit;
+    -fx-text-fill: -fx-primary-text-color;
 }
 
 .jfx-text-area {
-    -fx-text-fill: inherit;
-    -fx-background-color: WHITE;
+    -fx-text-fill: BLACK;
+   -fx-background-color: WHITE;
 }
 
 
