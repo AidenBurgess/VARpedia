@@ -8,13 +8,12 @@ import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import processes.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +58,7 @@ public class VideoCreationController {
 
     private ObservableList<String> chosenTextItems;
     private String currentSearch = "banana";
+    private JFXDialog dialog;
 
     @FXML
     private void searchWiki() {
@@ -93,30 +93,15 @@ public class VideoCreationController {
 //        if (customName == null || customName.isEmpty()) return;
 //        if (searchTerm == null || searchTerm == "") return;
 
-        //Change to combine text and then create one audio file from that. THEN call combineAudioVideo()
-       // String text = stitchText(selectedText);
-       // createAudio(text);
     	System.out.println(textListView.getItems());
     	createAudio();
-//        combineAudioVideo();
-    }
-
-    private String stitchText(ArrayList<String> selected) {
-        String output = "";
-        for (String s : selected) {
-            output += " ";
-            output += s;
-        }
-        return output;
     }
 
     private void createAudio() {
-    	
-
         JFXDialogLayout dialogContent = new JFXDialogLayout();
         dialogContent.setHeading(new Text("Creating video"));
         dialogContent.setBody(new JFXSpinner());
-        JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.RIGHT);
+        dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.RIGHT);
         dialog.show();
         
     	System.out.println("Create audio called");
@@ -151,26 +136,21 @@ public class VideoCreationController {
         String videoName = videoNameField.getText();
         Double val = numImages.getValue();
         String finNumImages = Integer.toString(val.intValue());
-
-
-
+        
         Task<Boolean> task = new VideoExists(videoName);
         task.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, (EventHandler<WorkerStateEvent>) t -> {
             Task<ArrayList<String>> videoCreation = new CreateVideo(currentSearch, finNumImages, videoName);
-            videoCreation.setOnSucceeded(e -> {
-            	dialog.close();
-            });
-
             Thread video = new Thread(videoCreation);
             video.start();
+            dialog.close();
+            VideoManager.getVideoManager().add(new VideoCreation(videoName, currentSearch, (int) numImages.getValue()));
         });
-
+        
         Thread thread = new Thread(task);
         thread.start();
         try {
 			thread.join();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
@@ -214,7 +194,7 @@ public class VideoCreationController {
         String tempString = textListView.getItems().get(index-1);
         chosenTextItems.set(index, tempString);
         chosenTextItems.set(index-1, selected);
-        textListView.getSelectionModel().select(index-1);;
+        textListView.getSelectionModel().select(index-1);
     }
 
     @FXML
