@@ -97,12 +97,12 @@ public class VideoCreationController {
         if (searchTerm == null || searchTerm == "") return;
 
         //Change to combine text and then create one audio file from that. THEN call combineAudioVideo()
-       // String text = stitchText(selectedText);
-       // createAudio(text);
-        combineAudioVideo();
+       String text = stitchText(chosenTextItems);
+       createAudio(text);
+       combineAudioVideo();
     }
 
-    private String stitchText(ArrayList<String> selected) {
+    private String stitchText(ObservableList<String> selected) {
         String output = "";
         for (String s : selected) {
             output += " ";
@@ -112,11 +112,11 @@ public class VideoCreationController {
     }
 
     private void createAudio(String text) {
-       // Task<ArrayList<String>> create = new CreateAudio(videoNameField, text, voiceChoiceBox.getSelectionModel().getSelectedItem());
+        Task<ArrayList<String>> create = new CreateAudio(videoNameField.getText(), text, voiceChoiceBox.getSelectionModel().getSelectedItem().toString());
 
         //Start the creation process for audio
-        //Thread thread = new Thread(create);
-        //thread.start();
+        Thread thread = new Thread(create);
+        thread.start();
     }
 
     private void combineAudioVideo() {
