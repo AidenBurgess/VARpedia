@@ -71,8 +71,8 @@
 }
 
 .jfx-text-area {
-    -fx-text-fill: -fx-primary-text-color;
-    -fx-background-color: WHITE;
+    -fx-text-fill: BLACK;
+   -fx-background-color: WHITE;
 }
 
 

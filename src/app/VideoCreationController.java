@@ -63,6 +63,7 @@ public class VideoCreationController {
     private JFXTextArea textArea;
 
     private ObservableList<String> chosenTextItems;
+    private ObservableList<String> toAddToListView;
 
     @FXML
     private void searchWiki() {
@@ -164,8 +165,10 @@ public class VideoCreationController {
             dialog.show();
             return;
         }
-        //fix so new when adding text it comes up in its own item in the list
-        textListView.getItems().add(selectedText);
+
+        toAddToListView.add(0,selectedText);
+        textListView.getItems().addAll(toAddToListView);
+        toAddToListView.removeAll();
     }
 
     @FXML
