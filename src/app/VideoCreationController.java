@@ -16,6 +16,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import processes.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class VideoCreationController {
 
@@ -57,6 +58,7 @@ public class VideoCreationController {
     private JFXTextArea textArea;
 
     private ObservableList<String> chosenTextItems;
+    private String currentSearch = "banana";
 
     @FXML
     private void searchWiki() {
@@ -73,27 +75,30 @@ public class VideoCreationController {
         Thread thread = new Thread(search);
         thread.start();
         searchField.setText("");
+        currentSearch = searchTerm; 
     }
 
     @FXML
     private void createVideo() {
 
         // If no text is selected then raise an error
-        if (textListView.getSelectionModel().getSelectedItems().size() == 0) {
-            alertCreator("Selection Process", "Invalid Selection", "Please select some text.");
-            return;
-        }
+//        if (textListView.getSelectionModel().getSelectedItems().size() == 0) {
+//            alertCreator("Selection Process", "Invalid Selection", "Please select some text.");
+//            return;
+//        }
 
         // Error checking for empty/null selected
-        String customName = videoNameField.getText();
-        String searchTerm = searchField.getText();
-        if (customName == null || customName.isEmpty()) return;
-        if (searchTerm == null || searchTerm == "") return;
+//        String customName = videoNameField.getText();
+//        String searchTerm = searchField.getText();
+//        if (customName == null || customName.isEmpty()) return;
+//        if (searchTerm == null || searchTerm == "") return;
 
         //Change to combine text and then create one audio file from that. THEN call combineAudioVideo()
        // String text = stitchText(selectedText);
        // createAudio(text);
-        combineAudioVideo();
+    	System.out.println(textListView.getItems());
+    	createAudio();
+//        combineAudioVideo();
     }
 
     private String stitchText(ArrayList<String> selected) {
@@ -105,32 +110,55 @@ public class VideoCreationController {
         return output;
     }
 
-    private void createAudio(String text) {
-       // Task<ArrayList<String>> create = new CreateAudio(videoNameField, text, voiceChoiceBox.getSelectionModel().getSelectedItem());
-
-        //Start the creation process for audio
-        //Thread thread = new Thread(create);
-        //thread.start();
-    }
-
-    private void combineAudioVideo() {
-        String searchTerm = searchField.getText();
-        String videoName = videoNameField.getText();
-        Double val = numImages.getValue();
-        String finNumImages = Integer.toString(val.intValue());
-
+    private void createAudio() {
+    	
 
         JFXDialogLayout dialogContent = new JFXDialogLayout();
         dialogContent.setHeading(new Text("Creating video"));
         dialogContent.setBody(new JFXSpinner());
         JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.RIGHT);
         dialog.show();
+        
+    	System.out.println("Create audio called");
+    	Task createAudiosTask = new CreateAudios(textListView.getItems(), voiceChoiceBox.getSelectionModel().getSelectedItem());
+    	createAudiosTask.setOnSucceeded(e-> {;
+    		System.out.println("Finished making audio");
+    		stitchAudio((ArrayList<String>) createAudiosTask.getValue());
+    	});
+    	Thread thread = new Thread(createAudiosTask);
+    	thread.start();
+    	try {
+			thread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    private void stitchAudio(ArrayList<String> audioFiles) {
+    	System.out.println("Stitch audio called");
+    	Task stitchAudioTask = new StitchAudio(audioFiles);
+    	stitchAudioTask.setOnSucceeded(e-> combineAudioVideo());
+    	Thread thread = new Thread(stitchAudioTask);
+    	thread.start();
+    	try {
+			thread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+    }
+
+    private void combineAudioVideo() {
+        String videoName = videoNameField.getText();
+        Double val = numImages.getValue();
+        String finNumImages = Integer.toString(val.intValue());
+
+
 
         Task<Boolean> task = new VideoExists(videoName);
         task.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, (EventHandler<WorkerStateEvent>) t -> {
-            Task<ArrayList<String>> videoCreation = new CreateVideo(searchTerm, finNumImages, videoName);
+            Task<ArrayList<String>> videoCreation = new CreateVideo(currentSearch, finNumImages, videoName);
             videoCreation.setOnSucceeded(e -> {
-                    dialog.close();
+            	dialog.close();
             });
 
             Thread video = new Thread(videoCreation);
@@ -139,6 +167,12 @@ public class VideoCreationController {
 
         Thread thread = new Thread(task);
         thread.start();
+        try {
+			thread.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     @FXML

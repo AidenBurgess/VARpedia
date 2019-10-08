@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-mkdir -p ./images
+mkdir -p images
 
 exit 0

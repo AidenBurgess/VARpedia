@@ -32,7 +32,7 @@ public class VideoPlayerController {
 		player.setAutoPlay(true);
 		screen.setMediaPlayer(player);
 		
-		// Setup background musci player
+		// Setup background music player
 	    fileUrl = new File("backgroundMusic" + ".wav");
 	    Media audio = new Media(fileUrl.toURI().toString());
 	    music = new MediaPlayer(audio);
