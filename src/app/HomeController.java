@@ -10,7 +10,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import processes.*;
-
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -44,6 +43,8 @@ public class HomeController {
     private Label numVideoLabel;
     @FXML
     private StackPane stackPane;
+    
+    private VideoManager videoManager = VideoManager.getVideoManager();
 
     @FXML
     private void createVideo() {
@@ -52,7 +53,7 @@ public class HomeController {
 
     	Stage creationStage = new WindowBuilder().popWindow("NewVideoCreation", "Create a Video!").getStage();
     	creationStage.setOnCloseRequest(e -> {
-    		updateVideoTable();
+    		updateVideoTable(false);
     		homeStage.show();
     	});
     }
@@ -84,9 +85,10 @@ public class HomeController {
         if (result.get() != ButtonType.OK) return;
         
         Task<ArrayList<String>> task = new DeleteVideo(videoName);
-        task.setOnSucceeded(event -> updateVideoTable());
+        task.setOnSucceeded(event -> updateVideoTable(false));
         Thread thread = new Thread(task);
         thread.start();
+        videoManager.delete(videoCreation);
     }
 
     @FXML
@@ -129,7 +131,17 @@ public class HomeController {
     	quitButton.getScene().getWindow().hide();
     }
 
-    private void updateVideoTable() {
+    private void updateVideoTable(boolean startup) {
+    	videoTableView.getItems().clear();
+    	videoTableView.getItems().addAll(videoManager.getVideos());
+    }
+    
+    @FXML
+    private void initialize() {    	
+    	initTable();
+    }
+        
+    private void initTable() {
         TableColumn<VideoCreation, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setMinWidth(70);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -146,14 +158,10 @@ public class HomeController {
         ratingColumn.setMinWidth(80);
         ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
 
-        videoTableView.getItems().add(new VideoCreation("test", "again", 3));
+        videoTableView.getItems().addAll(videoManager.readSerializedVideos());
         videoTableView.getColumns().addAll(nameColumn, searchTermColumn, numImagesColumn, ratingColumn);
     }
-    
-    @FXML
-    private void initialize() {
-    	updateVideoTable();
-    }
+    	
     
     private int countWords(String input) {
         if (input == null || input.isEmpty()) {
