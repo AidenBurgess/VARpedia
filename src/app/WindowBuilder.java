@@ -11,7 +11,7 @@ public class WindowBuilder {
 	private FXMLLoader loader;
 	private Stage stage;
 
-    public WindowBuilder popWindow(String screenName, String title) {
+    public WindowBuilder pop(String screenName, String title) {
         loader = new FXMLLoader();
         loader.setLocation(this.getClass().getResource(screenName + ".fxml"));
         Scene scene = null;
@@ -29,11 +29,11 @@ public class WindowBuilder {
         return this;
     }
     
-    public FXMLLoader getLoader() {
+    public FXMLLoader loader() {
     	return loader;
     }
     
-    public Stage getStage() {
+    public Stage stage() {
 		return stage;
 	}
 
