@@ -19,7 +19,7 @@ public class VideoPlayerController {
 	@FXML
 	private Label timeLabel;
 	@FXML
-	private JFXToggleButton toggleButton;
+	private JFXToggleButton toggleMusicButton;
 	
 	private MediaPlayer player;
 	private MediaPlayer music;
@@ -32,7 +32,7 @@ public class VideoPlayerController {
 		player.setAutoPlay(true);
 		screen.setMediaPlayer(player);
 		
-		// Setup background musci player
+		// Setup background music player
 	    fileUrl = new File("backgroundMusic" + ".wav");
 	    Media audio = new Media(fileUrl.toURI().toString());
 	    music = new MediaPlayer(audio);
@@ -76,7 +76,7 @@ public class VideoPlayerController {
 	
 	@FXML
 	private void toggleMusic() {
-		music.setMute(!toggleButton.isSelected());
+		music.setMute(!toggleMusicButton.isSelected());
 	}
 	
 	@FXML
@@ -87,6 +87,7 @@ public class VideoPlayerController {
 
 	public void shutdown() {
 		player.dispose();
+		music.dispose();
 	}
 
 }

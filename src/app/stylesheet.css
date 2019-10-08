@@ -17,8 +17,8 @@
 
 .root {
     -fx-font-family: "Roboto Medium";
-    -fx-background-color: -fx-lightest-gray-color: rgb(230.0, 230.0, 230.0);
-    -fx-text-fill: -fx-primary-text-color;
+    -fx-background-color: rgb(230.0, 230.0, 230.0);
+    -fx-text-fill: rgb(0,0,0);
 }
 
 

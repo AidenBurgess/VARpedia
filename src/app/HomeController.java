@@ -1,20 +1,15 @@
 package app;
 
 import com.jfoenix.controls.*;
-import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import processes.*;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -31,11 +26,7 @@ public class HomeController {
     @FXML
     private JFXButton quitButton;
     @FXML
-    private TableView<String> videoTableView;
-    @FXML
-    private TableColumn<VideoCreation, String> videoNameColumn;
-    @FXML
-    private TableColumn<VideoCreation, String> videoRatingColumn;
+    private TableView videoTableView;
     @FXML
     private JFXButton helpTableView;
     @FXML
@@ -52,71 +43,52 @@ public class HomeController {
     private Label numVideoLabel;
     @FXML
     private StackPane stackPane;
+    
+    private VideoManager videoManager = VideoManager.getVideoManager();
 
     @FXML
     private void createVideo() {
-    	try {
-    		Stage homeStage = (Stage) helpCreateButton.getScene().getWindow();
-    		homeStage.hide();
-    		
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(this.getClass().getResource("NewVideoCreation.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage creationStage = new Stage();
-            
-            creationStage.setOnCloseRequest(e -> {
-            	//updateVideoList();
-            	homeStage.show();
-            });
-            creationStage.setTitle("Create a Video!");
-            creationStage.setResizable(false);
-            creationStage.setScene(scene);
-            creationStage.show();            
-        } catch (IOException e) {
-        	e.printStackTrace();
-        }
+    	Stage homeStage = (Stage) helpCreateButton.getScene().getWindow();
+    	homeStage.hide();
+
+    	Stage creationStage = new WindowBuilder().popWindow("NewVideoCreation", "Create a Video!").getStage();
+    	creationStage.setOnCloseRequest(e -> {
+    		updateVideoTable(false);
+    		homeStage.show();
+    	});
     }
     
     @FXML
     private void playVideo() {
-    	try {
-        	String videoString = videoTableView.getSelectionModel().getSelectedItem();
-        	if(videoString == null || videoString.isEmpty()) return;
-        	
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(this.getClass().getResource("VideoPlayer.fxml"));
-            Parent layout = loader.load();
-            Scene scene = new Scene(layout);
-            Stage stage = new Stage();
-            
-            ((VideoPlayerController) loader.getController()).setSource(videoString);
-            stage.setOnCloseRequest(e -> ((VideoPlayerController) loader.getController()).shutdown());
-            stage.setTitle("Video Player");
-            stage.setResizable(false);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-        	e.printStackTrace();
-        }
+    	VideoCreation videoCreation = (VideoCreation) videoTableView.getSelectionModel().getSelectedItem();
+    	String videoName = videoCreation.getName();
+    	if(videoName == null) return;
+
+    	WindowBuilder windowBuilder = new WindowBuilder().popWindow("VideoPlayer", "Video Player");
+    	FXMLLoader loader = windowBuilder.getLoader();
+    	((VideoPlayerController) windowBuilder.getLoader().getController()).setSource(videoName);
+    	windowBuilder.getStage().setOnCloseRequest(e -> ((VideoPlayerController) loader.getController()).shutdown());
     }
     
     @FXML
     private void deleteVideo() {
-    	String videoString = videoTableView.getSelectionModel().getSelectedItem();
-    	if(videoString == null || videoString.isEmpty()) return;
-    	System.out.println(videoString);
+    	VideoCreation videoCreation = (VideoCreation) videoTableView.getSelectionModel().getSelectedItem();
+    	String videoName = videoCreation.getName();
+    	if(videoName == null) return;
+    	System.out.println(videoName);
     	
     	Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Deletion Process");
         alert.setHeaderText("Deletion Confirmation");
-        alert.setContentText("Would you really like to delete " + videoString + "?");
+        alert.setContentText("Would you really like to delete " + videoName + "?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() != ButtonType.OK) return;
         
-        Task<ArrayList<String>> task = new DeleteVideo(videoString);
-        task.setOnSucceeded(event -> updateVideoList());
+        Task<ArrayList<String>> task = new DeleteVideo(videoName);
+        task.setOnSucceeded(event -> updateVideoTable(false));
         Thread thread = new Thread(task);
         thread.start();
+        videoManager.delete(videoCreation);
     }
 
     @FXML
@@ -159,16 +131,37 @@ public class HomeController {
     	quitButton.getScene().getWindow().hide();
     }
 
-    private void updateVideoList() {
-       // Task<Integer> listVideo = new ListVideos(videoTableView);
-       // Thread thread = new Thread(listVideo);
-       // thread.start();
+    private void updateVideoTable(boolean startup) {
+    	videoTableView.getItems().clear();
+    	videoTableView.getItems().addAll(videoManager.getVideos());
     }
     
     @FXML
-    private void initialize() {
-        updateVideoList();
+    private void initialize() {    	
+    	initTable();
     }
+        
+    private void initTable() {
+        TableColumn<VideoCreation, String> nameColumn = new TableColumn<>("Name");
+        nameColumn.setMinWidth(70);
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        TableColumn<VideoCreation, String> searchTermColumn = new TableColumn<>("Search Term");
+        searchTermColumn.setMinWidth(80);
+        searchTermColumn.setCellValueFactory(new PropertyValueFactory<>("searchTerm"));
+        
+        TableColumn<VideoCreation, String> numImagesColumn = new TableColumn<>("#Images");
+        numImagesColumn.setMinWidth(80);
+        numImagesColumn.setCellValueFactory(new PropertyValueFactory<>("numImages"));
+        
+        TableColumn<VideoCreation, String> ratingColumn = new TableColumn<>("Rating");
+        ratingColumn.setMinWidth(80);
+        ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
+
+        videoTableView.getItems().addAll(videoManager.readSerializedVideos());
+        videoTableView.getColumns().addAll(nameColumn, searchTermColumn, numImagesColumn, ratingColumn);
+    }
+    	
     
     private int countWords(String input) {
         if (input == null || input.isEmpty()) {

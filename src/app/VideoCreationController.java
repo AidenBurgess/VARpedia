@@ -1,27 +1,21 @@
 package app;
 
 import com.jfoenix.controls.*;
+
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import processes.*;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Optional;
+import java.util.List;
 
 public class VideoCreationController {
 
@@ -63,7 +57,8 @@ public class VideoCreationController {
     private JFXTextArea textArea;
 
     private ObservableList<String> chosenTextItems;
-    private ObservableList<String> toAddToListView;
+    private String currentSearch = "banana";
+    private JFXDialog dialog;
 
     @FXML
     private void searchWiki() {
@@ -79,72 +74,84 @@ public class VideoCreationController {
         });
         Thread thread = new Thread(search);
         thread.start();
+        currentSearch = searchTerm;
     }
 
     @FXML
     private void createVideo() {
 
         // If no text is selected then raise an error
-        if (textListView.getSelectionModel().getSelectedItems().size() == 0) {
-            alertCreator("Selection Process", "Invalid Selection", "Please select some text.");
-            return;
-        }
+//        if (textListView.getSelectionModel().getSelectedItems().size() == 0) {
+//            alertCreator("Selection Process", "Invalid Selection", "Please select some text.");
+//            return;
+//        }
 
         // Error checking for empty/null selected
-        String customName = videoNameField.getText();
-        String searchTerm = searchField.getText();
-        if (customName == null || customName.isEmpty()) return;
-        if (searchTerm == null || searchTerm == "") return;
+//        String customName = videoNameField.getText();
+//        String searchTerm = searchField.getText();
+//        if (customName == null || customName.isEmpty()) return;
+//        if (searchTerm == null || searchTerm == "") return;
 
-        //Combine text and then create one audio file from that. THEN call combineAudioVideo()
-       String text = stitchText(chosenTextItems);
-       createAudio(text);
-       combineAudioVideo();
+    	System.out.println(textListView.getItems());
+    	createAudio();
     }
 
-    private String stitchText(ObservableList<String> selected) {
-        String output = "";
-        for (String s : selected) {
-            output += " ";
-            output += s;
-        }
-        return output;
+    private void createAudio() {
+        JFXDialogLayout dialogContent = new JFXDialogLayout();
+        dialogContent.setHeading(new Text("Creating video"));
+        dialogContent.setBody(new JFXSpinner());
+        dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.RIGHT);
+        dialog.show();
+
+    	System.out.println("Create audio called");
+    	Task createAudiosTask = new CreateAudios(textListView.getItems(), voiceChoiceBox.getSelectionModel().getSelectedItem());
+    	createAudiosTask.setOnSucceeded(e-> {;
+    		System.out.println("Finished making audio");
+    		stitchAudio((ArrayList<String>) createAudiosTask.getValue());
+    	});
+    	Thread thread = new Thread(createAudiosTask);
+    	thread.start();
+    	try {
+			thread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
     }
 
-    private void createAudio(String text) {
-        Task<ArrayList<String>> create = new CreateAudio(videoNameField.getText(), text, voiceChoiceBox.getSelectionModel().getSelectedItem());
-
-        //Start the creation process for audio
-        Thread thread = new Thread(create);
-        thread.start();
+    private void stitchAudio(ArrayList<String> audioFiles) {
+    	System.out.println("Stitch audio called");
+    	Task stitchAudioTask = new StitchAudio(audioFiles);
+    	stitchAudioTask.setOnSucceeded(e-> combineAudioVideo());
+    	Thread thread = new Thread(stitchAudioTask);
+    	thread.start();
+    	try {
+			thread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
     }
 
     private void combineAudioVideo() {
-        String searchTerm = searchField.getText();
         String videoName = videoNameField.getText();
         Double val = numImages.getValue();
         String finNumImages = Integer.toString(val.intValue());
 
-
-        JFXDialogLayout dialogContent = new JFXDialogLayout();
-        dialogContent.setHeading(new Text("Creating video"));
-        dialogContent.setBody(new ImageView("loading.gif"));
-        JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.RIGHT);
-        dialog.show();
-
         Task<Boolean> task = new VideoExists(videoName);
         task.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, (EventHandler<WorkerStateEvent>) t -> {
-            Task<ArrayList<String>> videoCreation = new CreateVideo(searchTerm, finNumImages, videoName);
-            videoCreation.setOnSucceeded(e -> {
-                    dialog.close();
-            });
-
+            Task<ArrayList<String>> videoCreation = new CreateVideo(currentSearch, finNumImages, videoName);
             Thread video = new Thread(videoCreation);
             video.start();
+            dialog.close();
+            VideoManager.getVideoManager().add(new VideoCreation(videoName, currentSearch, (int) numImages.getValue()));
         });
 
         Thread thread = new Thread(task);
         thread.start();
+        try {
+			thread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
     }
 
     @FXML
@@ -152,6 +159,7 @@ public class VideoCreationController {
         // Error checking for empty/null selected
         String selectedText = selectedText();
         if (selectedText == null || selectedText.isEmpty()) return;
+        System.out.println(selectedText);
 
         if (countWords(selectedText) > 40) {
             JFXDialogLayout dialogContent = new JFXDialogLayout();
@@ -165,10 +173,8 @@ public class VideoCreationController {
             dialog.show();
             return;
         }
-
-        toAddToListView.add(0,selectedText);
-        textListView.getItems().addAll(toAddToListView);
-        toAddToListView.removeAll();
+        //fix so new when adding text it comes up in its own item in the list
+        textListView.getItems().add(selectedText);
     }
 
     @FXML
@@ -187,7 +193,7 @@ public class VideoCreationController {
         String tempString = textListView.getItems().get(index-1);
         chosenTextItems.set(index, tempString);
         chosenTextItems.set(index-1, selected);
-        textListView.getSelectionModel().select(index-1);;
+        textListView.getSelectionModel().select(index-1);
     }
 
     @FXML
@@ -209,6 +215,18 @@ public class VideoCreationController {
     
     @FXML
     private void initialize() {
+    	stackPane.setPickOnBounds(false);
+    	updateVoiceList();
+    }
+
+    private void updateVoiceList() {
+    	Task<ArrayList<String>> listVoices = new ListVoices();
+    	listVoices.setOnSucceeded(e -> {
+    		voiceChoiceBox.setItems(FXCollections.observableArrayList(listVoices.getValue()));
+    		voiceChoiceBox.getSelectionModel().select(0);
+    	});
+        Thread thread = new Thread(listVoices);
+        thread.start();
     }
 
     @FXML
@@ -282,9 +300,7 @@ public class VideoCreationController {
     }
 
     private static boolean isNumeric(String str) {
-        for (char c : str.toCharArray()) {
-            if (!Character.isDigit(c)) return false;
-        }
+        for (char c : str.toCharArray()) if (!Character.isDigit(c)) return false;
         return true;
     }
 
