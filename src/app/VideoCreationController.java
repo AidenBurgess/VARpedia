@@ -46,7 +46,7 @@ public class VideoCreationController {
     @FXML
     private JFXListView<String> textListView;
     @FXML
-    private JFXComboBox voiceChoiceBox;
+    private JFXComboBox<String> voiceChoiceBox;
     @FXML
     private JFXButton addTextButton;
     @FXML
@@ -112,7 +112,7 @@ public class VideoCreationController {
     }
 
     private void createAudio(String text) {
-        Task<ArrayList<String>> create = new CreateAudio(videoNameField.getText(), text, voiceChoiceBox.getSelectionModel().getSelectedItem().toString());
+        Task<ArrayList<String>> create = new CreateAudio(videoNameField.getText(), text, voiceChoiceBox.getSelectionModel().getSelectedItem());
 
         //Start the creation process for audio
         Thread thread = new Thread(create);
