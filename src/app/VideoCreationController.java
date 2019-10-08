@@ -1,6 +1,8 @@
 package app;
 
 import com.jfoenix.controls.*;
+
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
@@ -8,20 +10,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import processes.*;
-
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Optional;
 
 public class VideoCreationController {
 
@@ -46,7 +40,7 @@ public class VideoCreationController {
     @FXML
     private JFXListView<String> textListView;
     @FXML
-    private JFXComboBox voiceChoiceBox;
+    private JFXComboBox<String> voiceChoiceBox;
     @FXML
     private JFXButton addTextButton;
     @FXML
@@ -128,7 +122,7 @@ public class VideoCreationController {
 
         JFXDialogLayout dialogContent = new JFXDialogLayout();
         dialogContent.setHeading(new Text("Creating video"));
-        dialogContent.setBody(new ImageView("loading.gif"));
+        dialogContent.setBody(new JFXSpinner());
         JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.RIGHT);
         dialog.show();
 
@@ -152,6 +146,7 @@ public class VideoCreationController {
         // Error checking for empty/null selected
         String selectedText = selectedText();
         if (selectedText == null || selectedText.isEmpty()) return;
+        System.out.println(selectedText);
 
         if (countWords(selectedText) > 40) {
             JFXDialogLayout dialogContent = new JFXDialogLayout();
@@ -207,6 +202,18 @@ public class VideoCreationController {
     
     @FXML
     private void initialize() {
+    	stackPane.setPickOnBounds(false);
+    	updateVoiceList();
+    }
+    
+    private void updateVoiceList() {
+    	Task<ArrayList<String>> listVoices = new ListVoices();
+    	listVoices.setOnSucceeded(e -> {
+    		voiceChoiceBox.setItems(FXCollections.observableArrayList(listVoices.getValue()));
+    		voiceChoiceBox.getSelectionModel().select(0);
+    	});
+        Thread thread = new Thread(listVoices);
+        thread.start();
     }
 
     @FXML
@@ -280,9 +287,7 @@ public class VideoCreationController {
     }
 
     private static boolean isNumeric(String str) {
-        for (char c : str.toCharArray()) {
-            if (!Character.isDigit(c)) return false;
-        }
+        for (char c : str.toCharArray()) if (!Character.isDigit(c)) return false;
         return true;
     }
 

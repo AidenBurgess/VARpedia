@@ -46,12 +46,7 @@
          </font>
       </Label>
       <StackPane fx:id="stackPane" layoutX="364.0" layoutY="181.0" prefHeight="150.0" prefWidth="200.0" />
-      <TableView fx:id="videoTableView" layoutX="33.0" layoutY="97.0" prefHeight="332.0" prefWidth="567.0">
-        <columns>
-          <TableColumn fx:id="videoNameColumn" prefWidth="305.0" text="Name" />
-          <TableColumn fx:id="videoRatingColumn" prefWidth="261.0" text="Rating" />
-        </columns>
-      </TableView>
+      <TableView fx:id="videoTableView" layoutX="33.0" layoutY="97.0" prefHeight="332.0" prefWidth="567.0" />
       <JFXButton fx:id="helpTableView" layoutX="14.0" layoutY="89.0" onAction="#describeTableView" prefHeight="25.0" prefWidth="21.0" text="?" />
       <JFXButton fx:id="helpDeleteButton" layoutX="645.0" layoutY="156.0" onAction="#describeDelete" prefHeight="25.0" prefWidth="21.0" text="?" />
       <JFXButton fx:id="helpCreateButton" layoutX="645.0" layoutY="225.0" onAction="#describeCreate" prefHeight="25.0" prefWidth="21.0" text="?" />

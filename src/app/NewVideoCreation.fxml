@@ -28,7 +28,6 @@
       <JFXTextArea fx:id="textArea" layoutX="34.0" layoutY="63.0" prefHeight="329.0" prefWidth="490.0" promptText="Search results will appear here... You can edit or add to any text in this box!" style="-fx-font-family: Ubuntu;" />
       <HBox layoutX="314.0" layoutY="376.0" prefHeight="43.0" prefWidth="156.0" spacing="15.0" style="-fx-font-family: Ubuntu;" />
       <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="438.0" onAction="#quit" prefHeight="36.0" prefWidth="65.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Back" textFill="WHITE" />
-      <StackPane fx:id="stackPane" layoutX="450.0" layoutY="152.0" prefHeight="150.0" prefWidth="200.0" />
       <JFXTextField fx:id="searchField" focusColor="#09b6bc" layoutX="147.0" layoutY="438.0" onAction="#searchWiki" prefHeight="36.0" prefWidth="167.0" promptText="Search for..." style="-fx-font-family: Ubuntu;" styleClass="jfx-text-area" />
       <JFXButton fx:id="searchButton" buttonType="RAISED" layoutX="327.0" layoutY="438.0" onAction="#searchWiki" prefHeight="36.0" prefWidth="65.0" ripplerFill="WHITE" style="-fx-font-family: Ubuntu; -fx-background-color: #2196F3;" text="Search" textFill="WHITE" textOverrun="CLIP" />
       <JFXButton fx:id="createButton" buttonType="RAISED" layoutX="1012.0" layoutY="438.0" onAction="#createVideo" prefHeight="36.0" prefWidth="74.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Create" textFill="WHITE" />
@@ -60,5 +59,6 @@
       <JFXButton layoutX="827.0" layoutY="426.0" onAction="#describeImagesSlider" prefHeight="25.0" prefWidth="21.0" text="?" />
       <JFXButton layoutX="1062.0" layoutY="414.0" onAction="#describeCreateButton" prefHeight="25.0" prefWidth="21.0" text="?" />
       <JFXButton layoutX="1062.0" layoutY="24.0" onAction="#describeTextList" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <StackPane fx:id="stackPane" layoutX="450.0" layoutY="152.0" prefHeight="150.0" prefWidth="200.0" />
    </children>
 </AnchorPane>
