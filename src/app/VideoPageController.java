@@ -105,8 +105,8 @@ public class VideoPageController {
     @FXML
     private void playVideo() {
     	try {
-        	String videoString = videoList.getSelectionModel().getSelectedItem().getName();
-        	if(videoString == null || videoString == "") return;
+        	VideoCreation videoCreation = videoList.getSelectionModel().getSelectedItem();
+        	if(videoCreation == null) return;
 
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(this.getClass().getResource("VideoPlayer.fxml"));
@@ -114,7 +114,7 @@ public class VideoPageController {
             Scene scene = new Scene(layout);
             Stage stage = new Stage();
 
-            ((VideoPlayerController) loader.getController()).setSource(videoString);
+            ((VideoPlayerController) loader.getController()).setSource(videoCreation.getName());
             stage.setOnCloseRequest(e -> ((VideoPlayerController) loader.getController()).shutdown());
             stage.setTitle("Video Player");
             stage.setResizable(false);
