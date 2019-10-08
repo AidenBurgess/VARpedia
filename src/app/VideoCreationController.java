@@ -78,7 +78,6 @@ public class VideoCreationController {
         });
         Thread thread = new Thread(search);
         thread.start();
-        searchField.setText("");
     }
 
     @FXML
@@ -96,7 +95,7 @@ public class VideoCreationController {
         if (customName == null || customName.isEmpty()) return;
         if (searchTerm == null || searchTerm == "") return;
 
-        //Change to combine text and then create one audio file from that. THEN call combineAudioVideo()
+        //Combine text and then create one audio file from that. THEN call combineAudioVideo()
        String text = stitchText(chosenTextItems);
        createAudio(text);
        combineAudioVideo();
