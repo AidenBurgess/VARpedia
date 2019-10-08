@@ -12,10 +12,10 @@
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="700.0" style="-fx-background-color: #131313;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.VideoPlayerController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="589.0" prefWidth="700.0" style="-fx-background-color: #131313;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.VideoPlayerController">
    <children>
       <MediaView fx:id="screen" fitHeight="380.0" fitWidth="640.0" layoutX="26.0" layoutY="21.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="20.0" />
-      <Label fx:id="timeLabel" layoutX="138.0" layoutY="531.0" prefHeight="36.0" prefWidth="60.0" text="Time" textFill="WHITE">
+      <Label fx:id="timeLabel" layoutX="292.0" layoutY="533.0" prefHeight="36.0" prefWidth="122.0" text="Time" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
@@ -49,7 +49,7 @@
             </JFXButton>
          </children>
       </HBox>
-      <JFXToggleButton fx:id="toggleMusicButton" layoutX="397.0" layoutY="503.0" onAction="#toggleMusic" prefHeight="93.0" prefWidth="238.0" text="Turn Music On" textFill="WHITE">
+      <JFXToggleButton fx:id="toggleMusicButton" layoutX="446.0" layoutY="505.0" onAction="#toggleMusic" prefHeight="93.0" prefWidth="270.0" text="Music" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
