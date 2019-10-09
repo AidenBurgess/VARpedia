@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import processes.*;
 import java.util.ArrayList;
@@ -152,7 +151,8 @@ public class HomeController {
     }
     
     @FXML
-    private void initialize() {    	
+    private void initialize() {
+    	stackPane.setPickOnBounds(false);
     	initTable();
     	updateVideosToReview();
     	remindReview();
@@ -177,7 +177,7 @@ public class HomeController {
         
         // Populate table with columns of parameters of videocreations
         TableColumn<VideoCreation, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setMinWidth(70);
+        nameColumn.setMinWidth(100);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));        
 
         TableColumn<VideoCreation, String> searchTermColumn = new TableColumn<>("Search Term");
@@ -185,15 +185,15 @@ public class HomeController {
         searchTermColumn.setCellValueFactory(new PropertyValueFactory<>("searchTerm"));
         
         TableColumn<VideoCreation, String> numImagesColumn = new TableColumn<>("#Images");
-        numImagesColumn.setMinWidth(80);
+        numImagesColumn.setMinWidth(70);
         numImagesColumn.setCellValueFactory(new PropertyValueFactory<>("numImages"));
         
         TableColumn<VideoCreation, String> ratingColumn = new TableColumn<>("Rating");
-        ratingColumn.setMinWidth(80);
+        ratingColumn.setMinWidth(70);
         ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
         
         TableColumn<VideoCreation, String> viewsColumn = new TableColumn<>("Views");
-        viewsColumn.setMinWidth(80);
+        viewsColumn.setMinWidth(70);
         viewsColumn.setCellValueFactory(new PropertyValueFactory<>("views"));
 
         videoTable.getItems().addAll(videoManager.readSerializedVideos());
@@ -219,23 +219,11 @@ public class HomeController {
     }
     
     private void remindReview() {
-    	
-    }
-    
-    private int countWords(String input) {
-        if (input == null || input.isEmpty()) return 0;
-        return input.split("\\s+").length;
-      }
-
-    private JFXDialog loadingDialog(String title) {
-    	JFXDialogLayout dialogContent = new JFXDialogLayout();
-        dialogContent.setHeading(new Text(title));
-        JFXSpinner spinner = new JFXSpinner();
-        spinner.setPrefSize(50, 50);
-        dialogContent.setBody(spinner);
-        JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.RIGHT);
-        dialog.show();
-        return dialog;
+    	String body = "";
+    	for(VideoCreation v: toReview) {
+    		body+= v.getName() + "\n";
+    	}
+    	new DialogBuilder().closeDialog(stackPane, "Review Reminder", body);
     }
 
 }
