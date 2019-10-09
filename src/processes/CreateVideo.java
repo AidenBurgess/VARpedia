@@ -1,4 +1,3 @@
-
 package processes;
 
 import javafx.application.Platform;
@@ -43,18 +42,6 @@ public class CreateVideo extends Task<ArrayList<String>> {
     	Process process = pb.start();
     	
         int exitStatus = process.waitFor();
-    }
-
-
-    @Override
-    protected void done() {
-        Platform.runLater(() -> {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Creation Process");
-            alert.setHeaderText("Creation Success");
-            alert.setContentText("Video has been created!");
-            alert.showAndWait();
-        });
     }
 
 }

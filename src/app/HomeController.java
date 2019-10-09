@@ -155,6 +155,7 @@ public class HomeController {
     private void initialize() {    	
     	initTable();
     	updateVideosToReview();
+    	remindReview();
     }
         
     private void initTable() {
@@ -201,23 +202,24 @@ public class HomeController {
     
     private void updateVideosToReview() {
     	toReview.clear();
-    	
     	// Add all videos with red ratings
     	for (VideoCreation v: videoManager.getVideos()) {
     		if (v.getRating() < yellowRating) toReview.add(v);
     	}
-    	
     	// If no videos with red ratings exist then review yellow ratings
     	if (toReview.size() == 0) {
     		for (VideoCreation v: videoManager.getVideos()) {
         		if (v.getRating() < greenRating) toReview.add(v);
         	}
     	}
-    	
     	// If no red or yellow ratings then review everything
     	if (toReview.size() == 0) {
     		toReview = new ArrayList<VideoCreation>(videoTable.getItems());
     	}
+    }
+    
+    private void remindReview() {
+    	
     }
     
     private int countWords(String input) {
