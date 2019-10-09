@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="419.0" prefWidth="563.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.RatingController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="346.0" prefWidth="529.0" style="-fx-background-color: transparent;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.RatingController">
 <children>
-     <StackPane layoutX="362.0" layoutY="295.0" prefHeight="59.0" prefWidth="278.0" />
-      <HBox layoutX="133.0" layoutY="198.0" prefHeight="59.0" prefWidth="295.0" spacing="20.0">
+      <HBox layoutX="117.0" layoutY="144.0" prefHeight="59.0" prefWidth="295.0" spacing="20.0">
          <children>
             <FontAwesomeIcon fx:id="star1" glyphName="STAR_ALT" onMouseClicked="#star1Click" onMouseEntered="#star1Enter" onMouseExited="#star1Exit" size="3.5em" />
             <FontAwesomeIcon fx:id="star2" glyphName="STAR_ALT" onMouseClicked="#star2Click" onMouseEntered="#star2Enter" onMouseExited="#star2Exit" size="3.5em" />
             <FontAwesomeIcon fx:id="star3" glyphName="STAR_ALT" onMouseClicked="#star3Click" onMouseEntered="#star3Enter" onMouseExited="#star3Exit" size="3.5em" />
+            <FontAwesomeIcon fx:id="star4" glyphName="STAR_ALT" onMouseClicked="#star4Click" onMouseEntered="#star4Enter" onMouseExited="#star4Exit" size="3.5em" />
+            <FontAwesomeIcon fx:id="star5" glyphName="STAR_ALT" onMouseClicked="#star5Click" onMouseEntered="#star5Enter" onMouseExited="#star5Exit" size="3.5em" />
          </children>
       </HBox>
-      <Label layoutX="133.0" layoutY="106.0" prefHeight="71.0" prefWidth="322.0" text="Rate your understanding of the video" />
-      <Label fx:id="ratingLabel" layoutX="167.0" layoutY="317.0" />
+      <Label layoutX="56.0" layoutY="49.0" prefHeight="71.0" prefWidth="475.0" styleClass="title" text="Rate your understanding of the video" />
+      <Label fx:id="ratingLabel" layoutX="192.0" layoutY="219.0" prefHeight="46.0" prefWidth="145.0" text="sadfsdaf" />
+      <JFXButton layoutX="117.0" layoutY="281.0" onAction="#cancel" text="Cancel" />
+      <JFXButton layoutX="306.0" layoutY="281.0" onAction="#confirm" text="Confirm" />
 </children>
 </AnchorPane>
