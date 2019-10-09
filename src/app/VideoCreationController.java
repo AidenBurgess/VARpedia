@@ -61,7 +61,7 @@ public class VideoCreationController {
         String searchTerm = searchField.getText();
         if (searchTerm == null || searchTerm.isEmpty()) return;
 
-        JFXDialog dialog = loadingDialog("Searching for " + searchTerm + "...");
+        dialog = new DialogBuilder().loadingDialog(stackPane, "Searching for " + searchTerm + "...");
 
         Task<ArrayList<String>> search = new SearchWiki(searchTerm, textArea);
         search.setOnSucceeded(e -> {
@@ -265,17 +265,6 @@ public class VideoCreationController {
     		processedText += woo;
     	}
     	return processedText;
-    }
-
-    private JFXDialog loadingDialog(String title) {
-    	JFXDialogLayout dialogContent = new JFXDialogLayout();
-        dialogContent.setHeading(new Text(title));
-        JFXSpinner spinner = new JFXSpinner();
-        spinner.setPrefSize(50, 50);
-        dialogContent.setBody(spinner);
-        JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.RIGHT);
-        dialog.show();
-        return dialog;
     }
 
 }
