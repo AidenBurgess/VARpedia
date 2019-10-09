@@ -42,6 +42,8 @@
 .jfx-button {
     -fx-background-color: -fx-green-accent-color;
     -fx-text-fill: -fx-dark-text-color;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
 }
 
 .jfx-button-q {

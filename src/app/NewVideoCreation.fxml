@@ -27,10 +27,10 @@
       </Label>
       <JFXTextArea fx:id="textArea" layoutX="34.0" layoutY="63.0" prefHeight="329.0" prefWidth="490.0" promptText="Search results will appear here... You can edit or add to any text in this box!" style="-fx-font-family: Ubuntu;" />
       <HBox layoutX="314.0" layoutY="376.0" prefHeight="43.0" prefWidth="156.0" spacing="15.0" style="-fx-font-family: Ubuntu;" />
-      <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="438.0" onAction="#quit" prefHeight="36.0" prefWidth="65.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Back" textFill="WHITE" />
+      <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="438.0" onAction="#quit" prefHeight="36.0" prefWidth="65.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3; -fx-background-radius: 6px;" text="Back" textFill="WHITE" />
       <JFXTextField fx:id="searchField" focusColor="#09b6bc" layoutX="147.0" layoutY="438.0" onAction="#searchWiki" prefHeight="36.0" prefWidth="167.0" promptText="Search for..." style="-fx-font-family: Ubuntu;" styleClass="jfx-text-area" />
-      <JFXButton fx:id="searchButton" buttonType="RAISED" layoutX="327.0" layoutY="438.0" onAction="#searchWiki" prefHeight="36.0" prefWidth="65.0" ripplerFill="WHITE" style="-fx-font-family: Ubuntu; -fx-background-color: #2196F3;" text="Search" textFill="WHITE" textOverrun="CLIP" />
-      <JFXButton fx:id="createButton" buttonType="RAISED" layoutX="1012.0" layoutY="438.0" onAction="#createVideo" prefHeight="36.0" prefWidth="74.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Create" textFill="WHITE" />
+      <JFXButton fx:id="searchButton" buttonType="RAISED" layoutX="327.0" layoutY="438.0" onAction="#searchWiki" prefHeight="36.0" prefWidth="65.0" ripplerFill="WHITE" style="-fx-font-family: Ubuntu; -fx-background-color: #2196F3; -fx-background-radius: 6px;" text="Search" textFill="WHITE" textOverrun="CLIP" />
+      <JFXButton fx:id="createButton" buttonType="RAISED" layoutX="1012.0" layoutY="438.0" onAction="#createVideo" prefHeight="36.0" prefWidth="74.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3; -fx-background-radius: 6px;" text="Create" textFill="WHITE" />
       <JFXTextField fx:id="videoNameField" focusColor="#09b6bc" layoutX="444.0" layoutY="442.0" prefHeight="36.0" prefWidth="140.0" promptText="Name your video" style="-fx-font-family: Ubuntu;" styleClass="jfx-text-area" />
       <JFXSlider fx:id="numImages" blockIncrement="1.0" layoutX="851.0" layoutY="456.0" majorTickUnit="9.0" max="10.0" min="1.0" minorTickCount="8" showTickLabels="true" showTickMarks="true" snapToTicks="true" styleClass="jfx-slider" value="5.0" />
       <Label layoutX="731.0" layoutY="453.0" style="-fx-font-family: Ubuntu;" text="Num. Images:">
@@ -38,19 +38,19 @@
             <Font name="Ubuntu" size="18.0" />
          </font>
       </Label>
-      <JFXListView fx:id="textListView" layoutX="608.0" layoutY="63.0" prefHeight="329.0" prefWidth="406.0" styleClass="jfx-list-view" />
-      <JFXButton fx:id="addTextButton" layoutX="550.0" layoutY="165.0" onAction="#add" prefHeight="25.0" prefWidth="34.0" style="-fx-background-color: #2196F3;" text="&gt;" />
-      <JFXButton fx:id="removeTextButton" layoutX="550.0" layoutY="241.0" onAction="#remove" prefHeight="25.0" prefWidth="34.0" style="-fx-background-color: #2196F3;" text="&lt;" />
-      <JFXButton fx:id="moveTextUpButton" layoutX="1040.0" layoutY="165.0" onAction="#moveUp" prefHeight="25.0" prefWidth="34.0" style="-fx-background-color: #2196F3;" text="^" />
-      <JFXButton fx:id="moveTextDownButton" layoutX="1040.0" layoutY="241.0" onAction="#moveDown" prefHeight="25.0" prefWidth="34.0" style="-fx-background-color: #2196F3;" text="v" />
+      <JFXListView fx:id="textListView" layoutX="603.0" layoutY="63.0" prefHeight="329.0" prefWidth="411.0" styleClass="jfx-list-view" />
+      <JFXButton fx:id="addTextButton" layoutX="550.0" layoutY="165.0" onAction="#add" prefHeight="25.0" prefWidth="24.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px;" text="&gt;" />
+      <JFXButton fx:id="removeTextButton" layoutX="550.0" layoutY="241.0" onAction="#remove" prefHeight="25.0" prefWidth="24.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px;" text="&lt;" />
+      <JFXButton fx:id="moveTextUpButton" layoutX="1044.0" layoutY="165.0" onAction="#moveUp" prefHeight="25.0" prefWidth="26.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px;" text="^" />
+      <JFXButton fx:id="moveTextDownButton" layoutX="1045.0" layoutY="241.0" onAction="#moveDown" prefHeight="25.0" prefWidth="24.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px;" text="v" />
       <Label layoutX="575.0" layoutY="21.0" style="-fx-font-family: Ubuntu;" styleClass="title" text="Add text for your video here, or rearrange:">
          <font>
             <Font name="Ubuntu" size="18.0" />
          </font>
       </Label>
       <JFXComboBox fx:id="voiceChoiceBox" layoutX="605.0" layoutY="451.0" prefHeight="25.0" prefWidth="105.0" />
-      <JFXButton layoutX="514.0" layoutY="51.0" onAction="#describeSearchResults" prefHeight="25.0" prefWidth="21.0" styleClass="jfx-button-q" text="?" />
-      <JFXButton layoutX="555.0" layoutY="202.0" onAction="#describeAddRemoveText" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <JFXButton layoutX="514.0" layoutY="51.0" onAction="#describeSearchResults" prefHeight="25.0" prefWidth="21.0" style="-fx-background-radius: 12px; -fx-border-radius: 12px;" styleClass="jfx-button-q" text="?" />
+      <JFXButton layoutX="551.0" layoutY="202.0" onAction="#describeAddRemoveText" prefHeight="25.0" prefWidth="21.0" text="?" />
       <JFXButton layoutX="1045.0" layoutY="202.0" onAction="#describeShuffleText" prefHeight="25.0" prefWidth="21.0" text="?" />
       <JFXButton layoutX="79.0" layoutY="426.0" onAction="#describeBackButton" prefHeight="25.0" prefWidth="21.0" text="?" />
       <JFXButton layoutX="392.0" layoutY="426.0" onAction="#describeSearchFunction" prefHeight="25.0" prefWidth="21.0" text="?" />
@@ -59,6 +59,6 @@
       <JFXButton layoutX="827.0" layoutY="426.0" onAction="#describeImagesSlider" prefHeight="25.0" prefWidth="21.0" text="?" />
       <JFXButton layoutX="1062.0" layoutY="414.0" onAction="#describeCreateButton" prefHeight="25.0" prefWidth="21.0" text="?" />
       <JFXButton layoutX="1062.0" layoutY="24.0" onAction="#describeTextList" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <StackPane fx:id="stackPane" layoutX="450.0" layoutY="152.0" prefHeight="150.0" prefWidth="200.0" />
+      <StackPane fx:id="stackPane" layoutX="463.0" layoutY="152.0" prefHeight="150.0" prefWidth="200.0" />
    </children>
 </AnchorPane>
