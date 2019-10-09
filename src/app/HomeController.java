@@ -98,32 +98,38 @@ public class HomeController {
 
     @FXML
     private void describeVarPedia() {
-
+        Describe desc = new Describe("description here");
+        desc.describeSearchResults();
     }
 
     @FXML
     private void describeTableView() {
-
+        Describe desc = new Describe("All of your video creations are listed here! The Name column holds all the names of your videos; the Search Term column shows you what the word you searched to make that video was; the #Images column shows you how many pictures are shown in the video; the Rating column shows you what you rated the video out of 5, in terms of good you feel about your knowledge on the word: 0 being _, and 5 being _. Click on a row to select that video. ");
+        desc.describeSearchResults();
     }
 
     @FXML
     private void describeCreate() {
-
+        Describe desc = new Describe("description here");
+        desc.describeSearchResults();
     }
 
     @FXML
     private void describeDelete() {
-
+        Describe desc = new Describe("description here");
+        desc.describeSearchResults();
     }
 
     @FXML
     private void describePlay() {
-
+        Describe desc = new Describe("description here");
+        desc.describeSearchResults();
     }
 
     @FXML
     private void describeReview() {
-
+        Describe desc = new Describe("description here");
+        desc.describeSearchResults();
     }
 
     @FXML
