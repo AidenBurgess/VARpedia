@@ -174,9 +174,7 @@ public class ReviewController {
 		// Pass in video being rated
 		VideoCreation currentVideo = playList.get(playIndex);
 		((RatingController) windowBuilder.controller()).setVideo(currentVideo);
-		System.out.println("Just before setonclsoe");
 		windowBuilder.stage().setOnHidden(e-> {
-			System.out.println("Ratings closed");
 			Integer rating = ((RatingController) windowBuilder.controller()).getRating();
 			if(rating != null) {
 				currentVideo.setRating(rating);
