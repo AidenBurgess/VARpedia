@@ -40,6 +40,10 @@ public class HomeController {
     @FXML
     private JFXButton helpVarPedia;
     @FXML
+    private JFXButton helpHelp;
+    @FXML
+    private JFXButton helpQuitButton;
+    @FXML
     private Label numVideoLabel;
     @FXML
     private StackPane stackPane;
@@ -108,47 +112,14 @@ public class HomeController {
     }
 
     private void setUpHelp() {
-        helpAddRemoveButton.setTooltip(new Tooltip(""));
-        helpAddRemoveButton.setTooltip(new Tooltip(""));
-        helpAddRemoveButton.setTooltip(new Tooltip(""));
-        helpAddRemoveButton.setTooltip(new Tooltip(""));
-        helpAddRemoveButton.setTooltip(new Tooltip(""));
-    }
-
-    @FXML
-    private void describeVarPedia() {
-        Describe desc = new Describe("description here");
-        desc.describeSearchResults();
-    }
-
-    @FXML
-    private void describeTableView() {
-        Describe desc = new Describe("All of your video creations are listed here! \nClick on a row to select that video.");
-        desc.describeSearchResults();
-    }
-
-    @FXML
-    private void describeCreate() {
-        Describe desc = new Describe("description here");
-        desc.describeSearchResults();
-    }
-
-    @FXML
-    private void describeDelete() {
-        Describe desc = new Describe("description here");
-        desc.describeSearchResults();
-    }
-
-    @FXML
-    private void describePlay() {
-        Describe desc = new Describe("description here");
-        desc.describeSearchResults();
-    }
-
-    @FXML
-    private void describeReview() {
-        Describe desc = new Describe("description here");
-        desc.describeSearchResults();
+        helpTableView.setTooltip(new Tooltip("All of your video creations are listed here! \nClick on a row to select that video."));
+        helpCreateButton.setTooltip(new Tooltip(""));
+        helpDeleteButton.setTooltip(new Tooltip(""));
+        helpHelp.setTooltip(new Tooltip(""));
+        helpPlayButton.setTooltip(new Tooltip(""));
+        helpQuitButton.setTooltip(new Tooltip(""));
+        helpReviewButton.setTooltip(new Tooltip(""));
+        helpVarPedia.setTooltip(new Tooltip(""));
     }
 
     @FXML
@@ -162,8 +133,9 @@ public class HomeController {
     }
     
     @FXML
-    private void initialize() {    	
-    	initTable();
+    private void initialize() {
+        initTable();
+        setUpHelp();
     }
         
     private void initTable() {
