@@ -1,5 +1,6 @@
 package app;
 
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -27,7 +28,7 @@ public class VideoManager {
 	}
 	
     public void writeSerializedVideos() {
-    	System.out.println("Reached writing serialization");
+    	System.out.println("Writing serialization");
 		try {
 			ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("VideoCreations.bin"));
 			objectOutputStream.writeObject(videos);
@@ -37,7 +38,7 @@ public class VideoManager {
     }
     
     public ArrayList<VideoCreation> readSerializedVideos() {
-    	System.out.println("Reached reading serialization");
+    	System.out.println("Reading serialization");
 
 		try {
 			ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("VideoCreations.bin"));			
@@ -47,9 +48,9 @@ public class VideoManager {
 			System.out.println("Videos now are: " + videos);
 			return videos;
 		} catch (IOException | ClassNotFoundException e) {
-			e.printStackTrace();
+			System.out.println("No videos are saved currently");
 		}
-		return null;
+		return videos;
     }
     
     public ArrayList<VideoCreation> getVideos() {
