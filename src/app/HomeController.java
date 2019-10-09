@@ -107,6 +107,14 @@ public class HomeController {
     	});
     }
 
+    private void setUpHelp() {
+        helpAddRemoveButton.setTooltip(new Tooltip(""));
+        helpAddRemoveButton.setTooltip(new Tooltip(""));
+        helpAddRemoveButton.setTooltip(new Tooltip(""));
+        helpAddRemoveButton.setTooltip(new Tooltip(""));
+        helpAddRemoveButton.setTooltip(new Tooltip(""));
+    }
+
     @FXML
     private void describeVarPedia() {
         Describe desc = new Describe("description here");

@@ -8,6 +8,7 @@ import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import processes.*;
@@ -47,6 +48,26 @@ public class VideoCreationController {
     private JFXButton moveTextUpButton;
     @FXML
     private JFXButton moveTextDownButton;
+    @FXML
+    private JFXButton helpCreateButton;
+    @FXML
+    private JFXButton helpSearchResultsButton;
+    @FXML
+    private JFXButton helpSearchButton;
+    @FXML
+    private JFXButton helpAddRemoveButton;
+    @FXML
+    private JFXButton helpTextListButton;
+    @FXML
+    private JFXButton helpNumImagesButton;
+    @FXML
+    private JFXButton helpVideoNameButton;
+    @FXML
+    private JFXButton helpBackButton;
+    @FXML
+    private JFXButton helpVoicesButton;
+    @FXML
+    private JFXButton helpShuffleButton;
     @FXML
     private StackPane stackPane;
     @FXML
@@ -215,6 +236,7 @@ public class VideoCreationController {
     private void initialize() {
     	stackPane.setPickOnBounds(false);
     	updateVoiceList();
+    	setUpHelp();
     }
 
     private void updateVoiceList() {
@@ -227,64 +249,18 @@ public class VideoCreationController {
         thread.start();
     }
 
-    @FXML
-    private void describeSearchResults() {
-        Describe desc = new Describe("description here");
-        desc.describeSearchResults();
-    }
+    private void setUpHelp() {
+        helpSearchResultsButton.setTooltip(new Tooltip("Your search results will appear here. \nYou can click and drag to select text, add text to the results by typing it in, or delete text you don't want to see!"));
+        helpAddRemoveButton.setTooltip(new Tooltip(""));
+        helpShuffleButton.setTooltip(new Tooltip(""));
+        helpBackButton.setTooltip(new Tooltip("Click this button to go back to the main menu!"));
+        helpSearchButton.setTooltip(new Tooltip(""));
+        helpSearchResultsButton.setTooltip(new Tooltip(""));
+        helpVoicesButton.setTooltip(new Tooltip("In this list are different voices you can choose to speak your text in your video"));
+        helpVideoNameButton.setTooltip(new Tooltip(""));
+        helpNumImagesButton.setTooltip(new Tooltip(""));
+        helpTextListButton.setTooltip(new Tooltip(""));
 
-    @FXML
-    private void describeAddRemoveText() {
-        Describe desc = new Describe("description here");
-        desc.describeAddRemoveText();
-    }
-
-    @FXML
-    private void describeShuffleText() {
-        Describe desc = new Describe("description here");
-        desc.describeShuffleText();
-    }
-
-    @FXML
-    private void describeBackButton() {
-        Describe desc = new Describe("Click this button to go back to the main menu!");
-        desc.describeBackButton();
-    }
-
-    @FXML
-    private void describeSearchFunction() {
-        Describe desc = new Describe("description here");
-        desc.describeSearchFunction();
-    }
-
-    @FXML
-    private void describeChooseVoice() {
-        Describe desc = new Describe("In this list are different voices you can choose to speak your text in your video");
-        desc.describeChooseVoice();
-    }
-
-    @FXML
-    private void describeVideoNameField() {
-        Describe desc = new Describe("description here");
-        desc.describeVideoNameField();
-    }
-
-    @FXML
-    private void describeImagesSlider() {
-        Describe desc = new Describe("description here");
-        desc.describeImagesSlider();
-    }
-
-    @FXML
-    private void describeCreateButton() {
-        Describe desc = new Describe("description here");
-        desc.describeCreateButton();
-    }
-
-    @FXML
-    private void describeTextList() {
-        Describe desc = new Describe("description here");
-        desc.describeTextList();
     }
 
     private int countWords(String input) {
