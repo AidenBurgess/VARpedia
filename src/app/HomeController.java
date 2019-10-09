@@ -26,7 +26,7 @@ public class HomeController {
     @FXML
     private JFXButton quitButton;
     @FXML
-    private TableView videoTableView;
+    private TableView videoTable;
     @FXML
     private JFXButton helpTableView;
     @FXML
@@ -51,7 +51,7 @@ public class HomeController {
     	Stage homeStage = (Stage) helpCreateButton.getScene().getWindow();
     	homeStage.hide();
 
-    	Stage creationStage = new WindowBuilder().popWindow("NewVideoCreation", "Create a Video!").getStage();
+    	Stage creationStage = new WindowBuilder().pop("NewVideoCreation", "Create a Video!").stage();
     	creationStage.setOnCloseRequest(e -> {
     		updateVideoTable(false);
     		homeStage.show();
@@ -60,19 +60,19 @@ public class HomeController {
     
     @FXML
     private void playVideo() {
-    	VideoCreation videoCreation = (VideoCreation) videoTableView.getSelectionModel().getSelectedItem();
+    	VideoCreation videoCreation = (VideoCreation) videoTable.getSelectionModel().getSelectedItem();
     	String videoName = videoCreation.getName();
     	if(videoName == null) return;
 
-    	WindowBuilder windowBuilder = new WindowBuilder().popWindow("VideoPlayer", "Video Player");
-    	FXMLLoader loader = windowBuilder.getLoader();
-    	((VideoPlayerController) windowBuilder.getLoader().getController()).setSource(videoName);
-    	windowBuilder.getStage().setOnCloseRequest(e -> ((VideoPlayerController) loader.getController()).shutdown());
+    	WindowBuilder windowBuilder = new WindowBuilder().pop("VideoPlayer", "Video Player");
+    	FXMLLoader loader = windowBuilder.loader();
+    	((VideoPlayerController) windowBuilder.loader().getController()).setSource(videoName);
+    	windowBuilder.stage().setOnCloseRequest(e -> ((VideoPlayerController) loader.getController()).shutdown());
     }
     
     @FXML
     private void deleteVideo() {
-    	VideoCreation videoCreation = (VideoCreation) videoTableView.getSelectionModel().getSelectedItem();
+    	VideoCreation videoCreation = (VideoCreation) videoTable.getSelectionModel().getSelectedItem();
     	String videoName = videoCreation.getName();
     	if(videoName == null) return;
     	System.out.println(videoName);
@@ -93,7 +93,18 @@ public class HomeController {
 
     @FXML
     private void reviewVideos() {
-
+    	// Determine which videos to review
+    	ArrayList<VideoCreation> toReview;
+    	toReview = new ArrayList(videoTable.getItems());
+    	// Launch review window
+    	WindowBuilder reviewWindow = new WindowBuilder().pop("ReviewPlayer", "Review Videos");
+    	ReviewController controller = reviewWindow.loader().getController();
+    	
+    	controller.setPlaylist(toReview);
+    	reviewWindow.stage().setOnHidden(e -> {
+    		controller.shutdown();
+    		updateVideoTable(false);
+    	});
     }
 
     @FXML
@@ -138,8 +149,8 @@ public class HomeController {
     }
 
     private void updateVideoTable(boolean startup) {
-    	videoTableView.getItems().clear();
-    	videoTableView.getItems().addAll(videoManager.getVideos());
+    	videoTable.getItems().clear();
+    	videoTable.getItems().addAll(videoManager.getVideos());
     }
     
     @FXML
@@ -150,7 +161,7 @@ public class HomeController {
     private void initTable() {
         TableColumn<VideoCreation, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setMinWidth(70);
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));        
 
         TableColumn<VideoCreation, String> searchTermColumn = new TableColumn<>("Search Term");
         searchTermColumn.setMinWidth(80);
@@ -164,8 +175,8 @@ public class HomeController {
         ratingColumn.setMinWidth(80);
         ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
 
-        videoTableView.getItems().addAll(videoManager.readSerializedVideos());
-        videoTableView.getColumns().addAll(nameColumn, searchTermColumn, numImagesColumn, ratingColumn);
+        videoTable.getItems().addAll(videoManager.readSerializedVideos());
+        videoTable.getColumns().addAll(nameColumn, searchTermColumn, numImagesColumn, ratingColumn);
     }
     	
     
