@@ -111,17 +111,6 @@ public class HomeController {
     	});
     }
 
-    private void setUpHelp() {
-        helpTableView.setTooltip(new Tooltip("All of your video creations are listed here! \nClick on a row to select that video."));
-        helpCreateButton.setTooltip(new Tooltip(""));
-        helpDeleteButton.setTooltip(new Tooltip(""));
-        helpHelp.setTooltip(new Tooltip(""));
-        helpPlayButton.setTooltip(new Tooltip(""));
-        helpQuitButton.setTooltip(new Tooltip(""));
-        helpReviewButton.setTooltip(new Tooltip(""));
-        helpVarPedia.setTooltip(new Tooltip(""));
-    }
-
     @FXML
     private void quit() {
     	quitButton.getScene().getWindow().hide();
@@ -158,8 +147,18 @@ public class HomeController {
         videoTable.getItems().addAll(videoManager.readSerializedVideos());
         videoTable.getColumns().addAll(nameColumn, searchTermColumn, numImagesColumn, ratingColumn);
     }
-    	
-    
+
+    private void setUpHelp() {
+        helpTableView.setTooltip(new Tooltip("All of your video creations are listed here! \nClick on a row to select that video."));
+        helpCreateButton.setTooltip(new Tooltip(""));
+        helpDeleteButton.setTooltip(new Tooltip(""));
+        helpHelp.setTooltip(new Tooltip(""));
+        helpPlayButton.setTooltip(new Tooltip(""));
+        helpQuitButton.setTooltip(new Tooltip(""));
+        helpReviewButton.setTooltip(new Tooltip(""));
+        helpVarPedia.setTooltip(new Tooltip(""));
+    }
+
     private int countWords(String input) {
         if (input == null || input.isEmpty()) {
           return 0;
