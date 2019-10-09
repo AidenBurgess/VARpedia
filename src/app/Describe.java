@@ -1,5 +1,7 @@
 package app;
 
+import javafx.scene.control.Alert;
+
 public class Describe {
     private String toDescribe;
 
