@@ -12,6 +12,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import processes.*;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class VideoCreationController {
 
@@ -227,42 +229,62 @@ public class VideoCreationController {
 
     @FXML
     private void describeSearchResults() {
+        Describe desc = new Describe("description here");
+        desc.describeSearchResults();
     }
 
     @FXML
     private void describeAddRemoveText() {
+        Describe desc = new Describe("description here");
+        desc.describeAddRemoveText();
     }
 
     @FXML
     private void describeShuffleText() {
+        Describe desc = new Describe("description here");
+        desc.describeShuffleText();
     }
 
     @FXML
     private void describeBackButton() {
+        Describe desc = new Describe("description here");
+        desc.describeBackButton();
     }
 
     @FXML
     private void describeSearchFunction() {
+        Describe desc = new Describe("description here");
+        desc.describeSearchFunction();
     }
 
     @FXML
     private void describeChooseVoice() {
+        Describe desc = new Describe("description here");
+        desc.describeChooseVoice();
     }
 
     @FXML
     private void describeVideoNameField() {
+        Describe desc = new Describe("description here");
+        desc.describeVideoNameField();
     }
 
     @FXML
     private void describeImagesSlider() {
+        Describe desc = new Describe("description here");
+        desc.describeImagesSlider();
     }
 
     @FXML
     private void describeCreateButton() {
+        Describe desc = new Describe("description here");
+        desc.describeCreateButton();
     }
 
     @FXML
     private void describeTextList() {
+        Describe desc = new Describe("description here");
+        desc.describeTextList();
     }
 
     private int countWords(String input) {
