@@ -24,7 +24,7 @@ public class RatingController {
 	
 	private Integer rating;
 	private VideoCreation videoCreation;
-	private String selected = "yellow";
+	private String selected = "lightblue";
 	private String unselected = "black";
 
 	public void setVideo(VideoCreation videoCreation) {

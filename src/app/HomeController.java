@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import processes.*;
@@ -153,6 +154,22 @@ public class HomeController {
     }
         
     private void initTable() {
+    	// Setup coloring of rows based on rating
+        videoTable.setRowFactory(tv -> new TableRow<VideoCreation>() {
+            @Override
+            protected void updateItem(VideoCreation item,boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null | empty)
+                    setStyle("");
+                else if (item.getRating() >= 4)
+                    setStyle("-fx-background-color: #baffba;");
+                else if (item.getRating() >= 2)
+                    setStyle("-fx-background-color: yellow;");
+                else
+                    setStyle("-fx-background-color: red;");
+            }
+        });
+        
         TableColumn<VideoCreation, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setMinWidth(70);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));        
@@ -168,11 +185,12 @@ public class HomeController {
         TableColumn<VideoCreation, String> ratingColumn = new TableColumn<>("Rating");
         ratingColumn.setMinWidth(80);
         ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
+        
+
 
         videoTable.getItems().addAll(videoManager.readSerializedVideos());
         videoTable.getColumns().addAll(nameColumn, searchTermColumn, numImagesColumn, ratingColumn);
     }
-    	
     
     private int countWords(String input) {
         if (input == null || input.isEmpty()) {
