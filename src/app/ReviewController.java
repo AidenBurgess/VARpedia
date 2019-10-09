@@ -2,8 +2,6 @@ package app;
 
 import java.io.File;
 import java.util.ArrayList;
-
-import com.jfoenix.controls.JFXListCell;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextArea;
@@ -11,15 +9,12 @@ import com.jfoenix.controls.JFXToggleButton;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.util.Duration;
 
@@ -212,7 +207,6 @@ public class ReviewController {
 		WindowBuilder windowBuilder = new WindowBuilder().noTop("RatingPopup", "Rate the video!");
 		// Pass in video being rated
 		VideoCreation currentVideo = playList.get(playIndex);
-		((RatingController) windowBuilder.controller()).setVideo(currentVideo);
 		windowBuilder.stage().setOnHidden(e-> {
 			Integer rating = ((RatingController) windowBuilder.controller()).getRating();
 			if(rating != null) {

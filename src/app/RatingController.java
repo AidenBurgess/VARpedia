@@ -1,7 +1,5 @@
 package app;
 
-import com.sun.org.apache.bcel.internal.generic.Select;
-
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
