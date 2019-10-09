@@ -1,5 +1,7 @@
 package app;
 
+import com.sun.org.apache.bcel.internal.generic.Select;
+
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -23,63 +25,54 @@ public class RatingController {
 	private Label ratingLabel;
 	
 	private Integer rating;
-	private VideoCreation videoCreation;
-	private String selected = "lightblue";
-	private String unselected = "black";
-
-	public void setVideo(VideoCreation videoCreation) {
-		this.videoCreation = videoCreation;
-	}
-	
-	@FXML
-	private void initialize() {
-		
-	}
+	private String selected = "-fx-fill:lightblue;";
+	private String unselected = "-fx-fill:black;";
 	
 	private void unselectAll() {
-		star1.setStyle("-fx-fill:" + unselected + ";");
-		star2.setStyle("-fx-fill:" + unselected + ";");
-		star3.setStyle("-fx-fill:" + unselected + ";");
-		star4.setStyle("-fx-fill:" + unselected + ";");
-		star5.setStyle("-fx-fill:" + unselected + ";");
+		star1.setStyle(unselected);
+		star2.setStyle(unselected);
+		star3.setStyle(unselected);
+		star4.setStyle(unselected);
+		star5.setStyle(unselected);
 	}
 	
+	/*********************ENTER FUNCTIONALITY***********************/
 	@FXML
 	private void star1Enter() {
 		unselectAll();
-        star1.setStyle("-fx-fill:" + selected +";");
+        star1.setStyle(selected);
 	}
 	@FXML
 	private void star2Enter() {
 		unselectAll();
-        star1.setStyle("-fx-fill:" + selected +";");
-        star2.setStyle("-fx-fill:" + selected +";");
+        star1.setStyle(selected);
+        star2.setStyle(selected);
 	}
 	@FXML
 	private void star3Enter() {
 		unselectAll();
-        star1.setStyle("-fx-fill:" + selected +";");
-        star2.setStyle("-fx-fill:" + selected +";");
-        star3.setStyle("-fx-fill:" + selected +";");
+        star1.setStyle(selected);
+        star2.setStyle(selected);
+        star3.setStyle(selected);
 	}
 	@FXML
 	private void star4Enter() {
 		unselectAll();
-        star1.setStyle("-fx-fill:" + selected +";");
-        star2.setStyle("-fx-fill:" + selected +";");
-        star3.setStyle("-fx-fill:" + selected +";");
-        star4.setStyle("-fx-fill:" + selected +";");
+        star1.setStyle(selected);
+        star2.setStyle(selected);
+        star3.setStyle(selected);
+        star4.setStyle(selected);
 	}
 	@FXML
 	private void star5Enter() {
 		unselectAll();
-        star1.setStyle("-fx-fill:" + selected +";");
-        star2.setStyle("-fx-fill:" + selected +";");
-        star3.setStyle("-fx-fill:" + selected +";");
-        star4.setStyle("-fx-fill:" + selected +";");
-        star5.setStyle("-fx-fill:" + selected +";");
+        star1.setStyle(selected);
+        star2.setStyle(selected);
+        star3.setStyle(selected);
+        star4.setStyle(selected);
+        star5.setStyle(selected);
 	}
-	
+	/*********************EXIT FUNCTIONALITY***********************/
 	@FXML
 	private void star1Exit() {
 		unselectAll();
@@ -106,6 +99,7 @@ public class RatingController {
 		if (rating != null) clickPrev();
 	}
 	
+	/*********************CLICK FUNCTIONALITY***********************/
 	@FXML
 	private void star1Click() {
 		star1Enter();
