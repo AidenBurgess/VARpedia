@@ -152,7 +152,7 @@ public class HomeController {
         helpTableView.setTooltip(new Tooltip("All of your video creations are listed here! \nClick on a row to select that video."));
         helpCreateButton.setTooltip(new Tooltip(""));
         helpDeleteButton.setTooltip(new Tooltip(""));
-        helpHelp.setTooltip(new Tooltip(""));
+        helpHelp.setTooltip(new Tooltip("This is what the hover text will look like!"));
         helpPlayButton.setTooltip(new Tooltip(""));
         helpQuitButton.setTooltip(new Tooltip(""));
         helpReviewButton.setTooltip(new Tooltip(""));

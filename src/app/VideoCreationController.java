@@ -250,16 +250,50 @@ public class VideoCreationController {
     }
 
     private void setUpHelp() {
-        helpSearchResultsButton.setTooltip(new Tooltip("Your search results will appear here. \nYou can click and drag to select text, add text to the results by typing it in, or delete text you don't want to see!"));
-        helpAddRemoveButton.setTooltip(new Tooltip(""));
-        helpShuffleButton.setTooltip(new Tooltip(""));
-        helpBackButton.setTooltip(new Tooltip("Click this button to go back to the main menu!"));
-        helpSearchButton.setTooltip(new Tooltip(""));
-        helpSearchResultsButton.setTooltip(new Tooltip(""));
-        helpVoicesButton.setTooltip(new Tooltip("In this list are different voices you can choose to speak your text in your video"));
-        helpVideoNameButton.setTooltip(new Tooltip(""));
-        helpNumImagesButton.setTooltip(new Tooltip(""));
-        helpTextListButton.setTooltip(new Tooltip(""));
+       Tooltip searchRes = new Tooltip("Your search results will appear here. \nYou can click and drag to select text, add text to the results by typing it in, or delete text you don't want to see!");
+       searchRes.setWidth(200.0);
+       searchRes.setWrapText(true);
+       helpSearchResultsButton.setTooltip(searchRes);
+
+       Tooltip addRem = new Tooltip("");
+       addRem.setWidth(200.0);
+       addRem.setWrapText(true);
+       helpAddRemoveButton.setTooltip(addRem);
+
+        Tooltip shuff = new Tooltip("");
+        shuff.setWidth(200.0);
+        shuff.setWrapText(true);
+        helpShuffleButton.setTooltip(shuff);
+
+        Tooltip backB = new Tooltip("Click this button to go back to the main menu!");
+        backB.setWidth(200.0);
+        backB.setWrapText(true);
+        helpBackButton.setTooltip(backB);
+
+        Tooltip searchB = new Tooltip("");
+        searchB.setWidth(200.0);
+        searchB.setWrapText(true);
+        helpSearchButton.setTooltip(searchB);
+
+        Tooltip voiceB = new Tooltip("In this list are different voices you can choose to speak your text in your video!");
+        voiceB.setWidth(200.0);
+        voiceB.setWrapText(true);
+        helpVoicesButton.setTooltip(voiceB);
+
+        Tooltip vidB = new Tooltip("");
+        vidB.setWidth(200.0);
+        vidB.setWrapText(true);
+        helpVideoNameButton.setTooltip(vidB);
+
+        Tooltip numIm = new Tooltip("");
+        numIm.setWidth(200.0);
+        numIm.setWrapText(true);
+        helpNumImagesButton.setTooltip(numIm);
+
+        Tooltip txtList = new Tooltip("");
+        txtList.setWidth(200.0);
+        txtList.setWrapText(true);
+        helpTextListButton.setTooltip(txtList);
 
     }
 
