@@ -58,7 +58,7 @@
       <JFXButton layoutX="572.0" layoutY="426.0" onAction="#describeVideoNameField" prefHeight="25.0" prefWidth="21.0" text="?" />
       <JFXButton layoutX="827.0" layoutY="426.0" onAction="#describeImagesSlider" prefHeight="25.0" prefWidth="21.0" text="?" />
       <JFXButton layoutX="1062.0" layoutY="414.0" onAction="#describeCreateButton" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton layoutX="1062.0" layoutY="24.0" onAction="#describeTextList" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <JFXButton layoutX="1000.0" layoutY="51.0" onAction="#describeTextList" prefHeight="25.0" prefWidth="21.0" text="?" />
       <StackPane fx:id="stackPane" layoutX="463.0" layoutY="152.0" prefHeight="150.0" prefWidth="200.0" />
    </children>
 </AnchorPane>
