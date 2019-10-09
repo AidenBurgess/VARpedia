@@ -250,7 +250,7 @@ public class VideoCreationController {
 
     @FXML
     private void describeBackButton() {
-        Describe desc = new Describe("description here");
+        Describe desc = new Describe("Click this button to go back to the main menu!");
         desc.describeBackButton();
     }
 
@@ -262,7 +262,7 @@ public class VideoCreationController {
 
     @FXML
     private void describeChooseVoice() {
-        Describe desc = new Describe("description here");
+        Describe desc = new Describe("In this list are different voices you can choose to speak your text in your video");
         desc.describeChooseVoice();
     }
 

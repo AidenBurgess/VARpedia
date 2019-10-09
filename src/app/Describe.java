@@ -45,9 +45,7 @@ public class Describe {
         alerter("Help", "Create Button", this.toDescribe);
     }
 
-    protected void describeTextList() {
-        alerter("Help", "List of Text", this.toDescribe);
-    }
+    protected void describeTextList() { alerter("Help", "List of Text", this.toDescribe); }
 
     private void alerter(String title, String head, String desc) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
