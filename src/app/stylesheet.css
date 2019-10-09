@@ -13,6 +13,8 @@
     -fx-disabled-text-color: rgba(255,255,255,0.38);
 
     -fx-green-accent-color: rgb(203.0,252.0,118.0);
+    -fx-red-accent-color: rgb(235.0,106.0,101.0);
+    -fx-blue-accent-color: rgb(120.0,190.0,249.0);
 }
 
 .root {
@@ -38,8 +40,17 @@
 /****************** Button ******************/
 
 .jfx-button {
-    -fx-background-color: #2196F3;
-    -fx-text-fill: white;
+    -fx-background-color: -fx-green-accent-color;
+    -fx-text-fill: -fx-dark-text-color;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+}
+
+.jfx-button-q {
+    -fx-background-image: url(".qmark.png");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 900 506;
+    -fx-background-position: center center;
 }
 
 .jfx-button:hover {

@@ -111,32 +111,38 @@ public class HomeController {
 
     @FXML
     private void describeVarPedia() {
-
+        Describe desc = new Describe("description here");
+        desc.describeSearchResults();
     }
 
     @FXML
     private void describeTableView() {
-
+        Describe desc = new Describe("All of your video creations are listed here! \nClick on a row to select that video.");
+        desc.describeSearchResults();
     }
 
     @FXML
     private void describeCreate() {
-
+        Describe desc = new Describe("description here");
+        desc.describeSearchResults();
     }
 
     @FXML
     private void describeDelete() {
-
+        Describe desc = new Describe("description here");
+        desc.describeSearchResults();
     }
 
     @FXML
     private void describePlay() {
-
+        Describe desc = new Describe("description here");
+        desc.describeSearchResults();
     }
 
     @FXML
     private void describeReview() {
-
+        Describe desc = new Describe("description here");
+        desc.describeSearchResults();
     }
 
     @FXML
