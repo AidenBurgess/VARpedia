@@ -101,7 +101,10 @@ public class HomeController {
     	ReviewController controller = reviewWindow.loader().getController();
     	
     	controller.setPlaylist(toReview);
-    	reviewWindow.stage().setOnCloseRequest(e -> controller.shutdown());
+    	reviewWindow.stage().setOnCloseRequest(e -> {
+    		controller.shutdown();
+    		updateVideoTable(false);
+    	});
     }
 
     @FXML

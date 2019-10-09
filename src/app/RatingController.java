@@ -161,4 +161,8 @@ public class RatingController {
 		System.out.println("User rating is: " + rating);
 		root.getScene().getWindow().hide();
 	}
+	
+	public Integer getRating() {
+		return rating;
+	}
 }

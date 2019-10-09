@@ -7,6 +7,8 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
+
 public class WindowBuilder {
 	
 	private FXMLLoader loader;
@@ -62,5 +64,9 @@ public class WindowBuilder {
     public Scene scene() {
 		return scene;
 	}
+    
+    public Object controller() {
+    	return loader.getController();
+    }
 
 }
