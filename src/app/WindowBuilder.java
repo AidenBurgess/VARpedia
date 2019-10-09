@@ -3,6 +3,7 @@ package app;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -10,21 +11,42 @@ public class WindowBuilder {
 	
 	private FXMLLoader loader;
 	private Stage stage;
+	private Scene scene;
 
     public WindowBuilder pop(String screenName, String title) {
         loader = new FXMLLoader();
         loader.setLocation(this.getClass().getResource(screenName + ".fxml"));
-        Scene scene = null;
+        scene = null;
         try {
             scene = new Scene(loader.load());
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
         stage = new Stage();
-
         stage.setTitle(title);
         stage.setResizable(false);
         stage.setScene(scene);
+        stage.show();
+        return this;
+    }
+    
+    public WindowBuilder noTop(String screenName, String title) {
+        loader = new FXMLLoader();
+        loader.setLocation(this.getClass().getResource(screenName + ".fxml"));
+        scene = null;
+        try {
+            scene = new Scene(loader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        stage = new Stage();
+        stage.setTitle(title);
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.initStyle(StageStyle.TRANSPARENT);
+//    	scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
         stage.show();
         return this;
     }
@@ -35,6 +57,10 @@ public class WindowBuilder {
     
     public Stage stage() {
 		return stage;
+	}
+    
+    public Scene scene() {
+		return scene;
 	}
 
 }
