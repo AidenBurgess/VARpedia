@@ -1,19 +1,17 @@
 package app;
 
 import com.jfoenix.controls.*;
+
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import processes.*;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 public class VideoCreationController {
 
@@ -63,7 +61,7 @@ public class VideoCreationController {
         String searchTerm = searchField.getText();
         if (searchTerm == null || searchTerm.isEmpty()) return;
 
-        JFXDialog dialog = loadingDialog("Searching for " + searchTerm + "...");
+        dialog = new DialogBuilder().loadingDialog(stackPane, "Searching for " + searchTerm + "...");
 
         Task<ArrayList<String>> search = new SearchWiki(searchTerm, textArea);
         search.setOnSucceeded(e -> {
@@ -89,44 +87,25 @@ public class VideoCreationController {
 //        String searchTerm = searchField.getText();
 //        if (customName == null || customName.isEmpty()) return;
 //        if (searchTerm == null || searchTerm == "") return;
-
-    	System.out.println(textListView.getItems());
+    	
+        dialog = new DialogBuilder().loadingDialog(stackPane, "Creating Video");
     	createAudio();
     }
 
     private void createAudio() {
-        JFXDialogLayout dialogContent = new JFXDialogLayout();
-        dialogContent.setHeading(new Text("Creating video"));
-        dialogContent.setBody(new JFXSpinner());
-        dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.RIGHT);
-        dialog.show();
-
-    	System.out.println("Create audio called");
     	Task createAudiosTask = new CreateAudios(textListView.getItems(), voiceChoiceBox.getSelectionModel().getSelectedItem());
     	createAudiosTask.setOnSucceeded(e-> {;
-    		System.out.println("Finished making audio");
     		stitchAudio((ArrayList<String>) createAudiosTask.getValue());
     	});
     	Thread thread = new Thread(createAudiosTask);
     	thread.start();
-    	try {
-			thread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
     }
 
     private void stitchAudio(ArrayList<String> audioFiles) {
-    	System.out.println("Stitch audio called");
     	Task stitchAudioTask = new StitchAudio(audioFiles);
     	stitchAudioTask.setOnSucceeded(e-> combineAudioVideo());
     	Thread thread = new Thread(stitchAudioTask);
     	thread.start();
-    	try {
-			thread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
     }
 
     private void combineAudioVideo() {
@@ -134,22 +113,14 @@ public class VideoCreationController {
         Double val = numImages.getValue();
         String finNumImages = Integer.toString(val.intValue());
 
-        Task<Boolean> task = new VideoExists(videoName);
-        task.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, (EventHandler<WorkerStateEvent>) t -> {
-            Task<ArrayList<String>> videoCreation = new CreateVideo(currentSearch, finNumImages, videoName);
-            Thread video = new Thread(videoCreation);
-            video.start();
+        Task<ArrayList<String>> videoCreation = new CreateVideo(currentSearch, finNumImages, videoName);
+        videoCreation.setOnSucceeded(e-> {
             dialog.close();
-            VideoManager.getVideoManager().add(new VideoCreation(videoName, currentSearch, (int) numImages.getValue()));
+            VideoManager.getVideoManager().add(new VideoCreation(videoName, currentSearch, (int) numImages.getValue()));    
+            new DialogBuilder().closeDialog(stackPane, "Video Creation Successful!", videoName + " was created.");
         });
-
-        Thread thread = new Thread(task);
-        thread.start();
-        try {
-			thread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+        Thread video = new Thread(videoCreation);
+        video.start();
     }
 
     @FXML
@@ -157,21 +128,11 @@ public class VideoCreationController {
         // Error checking for empty/null selected
         String selectedText = selectedText();
         if (selectedText == null || selectedText.isEmpty()) return;
-        System.out.println(selectedText);
-
         if (countWords(selectedText) > 40) {
-            JFXDialogLayout dialogContent = new JFXDialogLayout();
-            dialogContent.setHeading(new Text("Invalid Selection"));
-            dialogContent.setBody(new Text("Please select less than 40 words."));
-            JFXButton close = new JFXButton("Close");
-            close.getStyleClass().add("JFXButton");
-            dialogContent.setActions(close);
-            JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.RIGHT);
-            close.setOnAction( e -> dialog.close());
-            dialog.show();
+        	new DialogBuilder().closeDialog(stackPane, "Invalid selection", "Please select less than 40 words");
             return;
         }
-        //fix so new when adding text it comes up in its own item in the list
+        // Add selected as a line in listview
         textListView.getItems().add(selectedText);
     }
 
@@ -304,34 +265,6 @@ public class VideoCreationController {
     		processedText += woo;
     	}
     	return processedText;
-    }
-
-    private JFXDialog loadingDialog(String title) {
-    	JFXDialogLayout dialogContent = new JFXDialogLayout();
-        dialogContent.setHeading(new Text(title));
-        JFXSpinner spinner = new JFXSpinner();
-        spinner.setPrefSize(50, 50);
-        dialogContent.setBody(spinner);
-        JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.RIGHT);
-        dialog.show();
-        return dialog;
-    }
-
-    private static boolean isNumeric(String str) {
-        for (char c : str.toCharArray()) if (!Character.isDigit(c)) return false;
-        return true;
-    }
-
-    private void alertCreator(String title, String header, String content) {
-        JFXDialogLayout dialogContent = new JFXDialogLayout();
-        dialogContent.setHeading(new Text(header == null ? title : title + "\n" + header));
-        dialogContent.setBody(new Text(content));
-        JFXButton close = new JFXButton("Close");
-        close.getStyleClass().add("JFXButton");
-        dialogContent.setActions(close);
-        JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
-        close.setOnAction(e-> dialog.close());
-        dialog.show();
     }
 
 }

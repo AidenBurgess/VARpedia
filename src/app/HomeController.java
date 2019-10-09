@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import processes.*;
 import java.util.ArrayList;
@@ -45,6 +44,10 @@ public class HomeController {
     private StackPane stackPane;
     
     private VideoManager videoManager = VideoManager.getVideoManager();
+    private ArrayList<VideoCreation> toReview = new ArrayList<>();
+    private int greenRating = 4;
+    private int yellowRating = 2;
+    private int redRating = 0;
 
     @FXML
     private void createVideo() {
@@ -52,8 +55,8 @@ public class HomeController {
     	homeStage.hide();
 
     	Stage creationStage = new WindowBuilder().pop("NewVideoCreation", "Create a Video!").stage();
-    	creationStage.setOnCloseRequest(e -> {
-    		updateVideoTable(false);
+    	creationStage.setOnHidden(e -> {
+    		updateVideoTable();
     		homeStage.show();
     	});
     }
@@ -67,7 +70,7 @@ public class HomeController {
     	WindowBuilder windowBuilder = new WindowBuilder().pop("VideoPlayer", "Video Player");
     	FXMLLoader loader = windowBuilder.loader();
     	((VideoPlayerController) windowBuilder.loader().getController()).setSource(videoName);
-    	windowBuilder.stage().setOnCloseRequest(e -> ((VideoPlayerController) loader.getController()).shutdown());
+    	windowBuilder.stage().setOnHidden(e -> ((VideoPlayerController) loader.getController()).shutdown());
     }
     
     @FXML
@@ -85,7 +88,7 @@ public class HomeController {
         if (result.get() != ButtonType.OK) return;
         
         Task<ArrayList<String>> task = new DeleteVideo(videoName);
-        task.setOnSucceeded(event -> updateVideoTable(false));
+        task.setOnSucceeded(event -> updateVideoTable());
         Thread thread = new Thread(task);
         thread.start();
         videoManager.delete(videoCreation);
@@ -94,8 +97,7 @@ public class HomeController {
     @FXML
     private void reviewVideos() {
     	// Determine which videos to review
-    	ArrayList<VideoCreation> toReview;
-    	toReview = new ArrayList(videoTable.getItems());
+    	updateVideosToReview();
     	// Launch review window
     	WindowBuilder reviewWindow = new WindowBuilder().pop("ReviewPlayer", "Review Videos");
     	ReviewController controller = reviewWindow.loader().getController();
@@ -103,7 +105,7 @@ public class HomeController {
     	controller.setPlaylist(toReview);
     	reviewWindow.stage().setOnHidden(e -> {
     		controller.shutdown();
-    		updateVideoTable(false);
+    		updateVideoTable();
     	});
     }
 
@@ -145,22 +147,43 @@ public class HomeController {
 
     @FXML
     private void quit() {
+    	VideoManager.getVideoManager().writeSerializedVideos();
     	quitButton.getScene().getWindow().hide();
     }
 
-    private void updateVideoTable(boolean startup) {
+    private void updateVideoTable() {
     	videoTable.getItems().clear();
     	videoTable.getItems().addAll(videoManager.getVideos());
     }
     
     @FXML
-    private void initialize() {    	
+    private void initialize() {
+    	stackPane.setPickOnBounds(false);
     	initTable();
+    	updateVideosToReview();
+    	remindReview();
     }
         
     private void initTable() {
+    	// Setup coloring of rows based on rating
+        videoTable.setRowFactory(tv -> new TableRow<VideoCreation>() {
+            @Override
+            protected void updateItem(VideoCreation item,boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null | empty)
+                    setStyle("");
+                else if (item.getRating() >= greenRating)
+                    setStyle("-fx-background-color: #baffba;");
+                else if (item.getRating() >= yellowRating)
+                    setStyle("-fx-background-color: yellow;");
+                else
+                    setStyle("-fx-background-color: red;");
+            }
+        });
+        
+        // Populate table with columns of parameters of videocreations
         TableColumn<VideoCreation, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setMinWidth(70);
+        nameColumn.setMinWidth(100);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));        
 
         TableColumn<VideoCreation, String> searchTermColumn = new TableColumn<>("Search Term");
@@ -168,36 +191,45 @@ public class HomeController {
         searchTermColumn.setCellValueFactory(new PropertyValueFactory<>("searchTerm"));
         
         TableColumn<VideoCreation, String> numImagesColumn = new TableColumn<>("#Images");
-        numImagesColumn.setMinWidth(80);
+        numImagesColumn.setMinWidth(70);
         numImagesColumn.setCellValueFactory(new PropertyValueFactory<>("numImages"));
         
         TableColumn<VideoCreation, String> ratingColumn = new TableColumn<>("Rating");
-        ratingColumn.setMinWidth(80);
+        ratingColumn.setMinWidth(70);
         ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
+        
+        TableColumn<VideoCreation, String> viewsColumn = new TableColumn<>("Views");
+        viewsColumn.setMinWidth(70);
+        viewsColumn.setCellValueFactory(new PropertyValueFactory<>("views"));
 
         videoTable.getItems().addAll(videoManager.readSerializedVideos());
-        videoTable.getColumns().addAll(nameColumn, searchTermColumn, numImagesColumn, ratingColumn);
+        videoTable.getColumns().addAll(nameColumn, searchTermColumn, numImagesColumn, ratingColumn, viewsColumn);
     }
-    	
     
-    private int countWords(String input) {
-        if (input == null || input.isEmpty()) {
-          return 0;
-        }
-
-        String[] words = input.split("\\s+");
-        return words.length;
-      }
-
-    private JFXDialog loadingDialog(String title) {
-    	JFXDialogLayout dialogContent = new JFXDialogLayout();
-        dialogContent.setHeading(new Text(title));
-        JFXSpinner spinner = new JFXSpinner();
-        spinner.setPrefSize(50, 50);
-        dialogContent.setBody(spinner);
-        JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.RIGHT);
-        dialog.show();
-        return dialog;
+    private void updateVideosToReview() {
+    	toReview.clear();
+    	// Add all videos with red ratings
+    	for (VideoCreation v: videoManager.getVideos()) {
+    		if (v.getRating() < yellowRating) toReview.add(v);
+    	}
+    	// If no videos with red ratings exist then review yellow ratings
+    	if (toReview.size() == 0) {
+    		for (VideoCreation v: videoManager.getVideos()) {
+        		if (v.getRating() < greenRating) toReview.add(v);
+        	}
+    	}
+    	// If no red or yellow ratings then review everything
+    	if (toReview.size() == 0) {
+    		toReview = new ArrayList<VideoCreation>(videoTable.getItems());
+    	}
+    }
+    
+    private void remindReview() {
+    	String body = "";
+    	for(VideoCreation v: toReview) {
+    		body+= v.getName() + "\n";
+    	}
+    	new DialogBuilder().closeDialog(stackPane, "Review Reminder", body);
     }
 
 }
