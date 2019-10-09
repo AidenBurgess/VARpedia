@@ -8,16 +8,22 @@ import com.jfoenix.controls.JFXToggleButton;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.util.Duration;
 
 public class ReviewController {
-
+	
+	@FXML
+	private AnchorPane root;
 	@FXML
 	private MediaView screen;
 	@FXML
@@ -33,6 +39,7 @@ public class ReviewController {
 	private int playIndex = 0;
 
 	public void setPlaylist(ArrayList<VideoCreation> playList) {
+//		root.setBackground(Background.EMPTY); 
 		this.playList = playList;
 		// Setup background music player
 		File fileUrl = new File("backgroundMusic" + ".wav");
@@ -51,6 +58,7 @@ public class ReviewController {
 		Media video = new Media(fileUrl.toURI().toString());
 		player = new MediaPlayer(video);
 		player.setAutoPlay(true);
+		player.setOnEndOfMedia(()-> showRating());
 		screen.setMediaPlayer(player);
 		slider();
 		
@@ -83,7 +91,7 @@ public class ReviewController {
 		timeSlider.setOnMouseReleased(e-> player.play());
 		timeSlider.setOnDragDropped(e-> player.play());
 
-		// Custom indicator labelling
+		// Custom indicator labeling
 		timeSlider.setValueFactory(arg0-> {
 			return Bindings.createStringBinding(()->{
 				String time = "";
@@ -113,17 +121,17 @@ public class ReviewController {
 
 	@FXML
 	private void back() {
-		player.seek( player.getCurrentTime().add( Duration.seconds(-5)) );
+		player.seek(player.getCurrentTime().add( Duration.seconds(-5)) );
 	}
 
 	@FXML
 	private void forward() {
-		player.seek( player.getCurrentTime().add( Duration.seconds(5)) );
+		player.seek(player.getCurrentTime().add( Duration.seconds(5)) );
 	}
 
 	@FXML
 	private void mute() {
-		player.setMute( !player.isMute() );
+		player.setMute(!player.isMute() );
 	}
 
 	@FXML
@@ -151,6 +159,18 @@ public class ReviewController {
 	private void quit() {
 		timeLabel.getScene().getWindow().hide();
 		shutdown();
+	}
+	
+	@FXML
+	private void initialize() {
+////		Scene scene = timeLabel.getScene();
+////		Stage currentStage = (Stage) timeLabel.getScene().getWindow();
+////		currentStage.initStyle(StageStyle.TRANSPARENT);
+////		scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+	}
+
+	private void showRating() {
+		WindowBuilder windowBuilder = new WindowBuilder().noTop("RatingPopup", "Rate the video!");
 	}
 
 	public void shutdown() {

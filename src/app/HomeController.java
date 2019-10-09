@@ -99,6 +99,7 @@ public class HomeController {
     	// Launch review window
     	WindowBuilder reviewWindow = new WindowBuilder().pop("ReviewPlayer", "Review Videos");
     	ReviewController controller = reviewWindow.loader().getController();
+    	
     	controller.setPlaylist(toReview);
     	reviewWindow.stage().setOnCloseRequest(e -> controller.shutdown());
     }

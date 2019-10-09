@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.validation.*?>
+<?import com.jfoenix.svg.*?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
 <?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
@@ -26,16 +29,25 @@
                <font>
                   <Font name="Ubuntu" size="22.0" />
                </font>
+               <graphic>
+                  <FontAwesomeIcon glyphName="PLAY" />
+               </graphic>
             </JFXButton>
             <JFXButton buttonType="RAISED" onAction="#back" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Back 5s" textFill="WHITE">
                <font>
                   <Font name="Ubuntu" size="22.0" />
                </font>
+               <graphic>
+                  <FontAwesomeIcon glyphName="BACKWARD" />
+               </graphic>
             </JFXButton>
             <JFXButton buttonType="RAISED" onAction="#forward" prefHeight="42.0" prefWidth="141.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Forward 5s" textFill="WHITE">
                <font>
                   <Font name="Ubuntu" size="22.0" />
                </font>
+               <graphic>
+                  <FontAwesomeIcon glyphName="ANGLE_DOUBLE_RIGHT" />
+               </graphic>
             </JFXButton>
             <JFXButton buttonType="RAISED" onAction="#mute" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Mute" textFill="WHITE">
                <font>
