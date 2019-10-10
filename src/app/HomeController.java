@@ -132,6 +132,7 @@ public class HomeController {
     private void updateVideoTable() {
     	videoTable.getItems().clear();
     	videoTable.getItems().addAll(videoManager.getVideos());
+    	numVideoLabel.setText("There are " + videoTable.getItems().size() + " videos");
     }
     
     @FXML
@@ -151,12 +152,18 @@ public class HomeController {
                 super.updateItem(item, empty);
                 if (item == null | empty)
                     setStyle("");
-                else if (item.getRating() >= greenRating)
-                    setStyle("-fx-background-color: #baffba;");
-                else if (item.getRating() >= yellowRating)
-                    setStyle("-fx-background-color: yellow;");
-                else
-                    setStyle("-fx-background-color: red;");
+                else if (item.getRating() >= greenRating) {
+                    getStyleClass().clear();
+                    getStyleClass().add("green-row");
+                }
+                else if (item.getRating() >= yellowRating) {
+                    getStyleClass().clear();
+                    getStyleClass().add("yellow-row");
+                }
+                else {
+                    getStyleClass().clear();
+                    getStyleClass().add("red-row");
+                }
             }
         });
       
@@ -179,11 +186,12 @@ public class HomeController {
         ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
 
         TableColumn<VideoCreation, String> viewsColumn = new TableColumn<>("Views");
-        viewsColumn.setMinWidth(70);
+        viewsColumn.setMinWidth(70);	
         viewsColumn.setCellValueFactory(new PropertyValueFactory<>("views"));
         
         videoTable.getItems().addAll(videoManager.readSerializedVideos());
         videoTable.getColumns().addAll(nameColumn, searchTermColumn, numImagesColumn, ratingColumn, viewsColumn);
+    	numVideoLabel.setText("There are " + videoTable.getItems().size() + " videos");
     }
 
     private void setUpHelp() {
