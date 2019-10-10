@@ -33,26 +33,26 @@
          </font>
       </Label>
       <JFXListView fx:id="textListView" layoutX="603.0" layoutY="63.0" prefHeight="329.0" prefWidth="411.0" styleClass="jfx-list-view" />
-      <JFXButton fx:id="addTextButton" layoutX="550.0" layoutY="165.0" onAction="#add" prefHeight="25.0" prefWidth="24.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px;" text="&gt;" />
-      <JFXButton fx:id="removeTextButton" layoutX="550.0" layoutY="241.0" onAction="#remove" prefHeight="25.0" prefWidth="24.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px;" text="&lt;" />
-      <JFXButton fx:id="moveTextUpButton" layoutX="1044.0" layoutY="165.0" onAction="#moveUp" prefHeight="25.0" prefWidth="26.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px;" text="^" />
-      <JFXButton fx:id="moveTextDownButton" layoutX="1045.0" layoutY="241.0" onAction="#moveDown" prefHeight="25.0" prefWidth="24.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px;" text="v" />
+      <JFXButton fx:id="addTextButton" layoutX="550.0" layoutY="165.0" onAction="#add" prefHeight="25.0" prefWidth="24.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px; -fx-text-fill: WHITE;" text="&gt;" />
+      <JFXButton fx:id="removeTextButton" layoutX="550.0" layoutY="241.0" onAction="#remove" prefHeight="25.0" prefWidth="24.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px; -fx-text-fill: WHITE;" text="&lt;" />
+      <JFXButton fx:id="moveTextUpButton" layoutX="1044.0" layoutY="165.0" onAction="#moveUp" prefHeight="25.0" prefWidth="26.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px; -fx-text-fill: WHITE;" text="^" />
+      <JFXButton fx:id="moveTextDownButton" layoutX="1045.0" layoutY="241.0" onAction="#moveDown" prefHeight="25.0" prefWidth="24.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px; -fx-text-fill: WHITE;" text="v" />
       <Label layoutX="575.0" layoutY="21.0" style="-fx-font-family: Ubuntu;" styleClass="title" text="Add text for your video here, or rearrange:">
          <font>
             <Font name="Ubuntu" size="18.0" />
          </font>
       </Label>
       <JFXComboBox fx:id="voiceChoiceBox" layoutX="605.0" layoutY="451.0" prefHeight="25.0" prefWidth="105.0" />
-      <JFXButton layoutX="514.0" layoutY="51.0" onAction="#describeSearchResults" prefHeight="25.0" prefWidth="21.0" style="-fx-background-radius: 12px; -fx-border-radius: 12px;" styleClass="jfx-button-q" text="?" />
-      <JFXButton layoutX="551.0" layoutY="202.0" onAction="#describeAddRemoveText" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton layoutX="1045.0" layoutY="202.0" onAction="#describeShuffleText" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton layoutX="79.0" layoutY="426.0" onAction="#describeBackButton" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton layoutX="392.0" layoutY="426.0" onAction="#describeSearchFunction" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton layoutX="698.0" layoutY="426.0" onAction="#describeChooseVoice" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton layoutX="572.0" layoutY="426.0" onAction="#describeVideoNameField" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton layoutX="827.0" layoutY="426.0" onAction="#describeImagesSlider" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton layoutX="1062.0" layoutY="414.0" onAction="#describeCreateButton" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton layoutX="1000.0" layoutY="51.0" onAction="#describeTextList" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <StackPane fx:id="stackPane" layoutX="463.0" layoutY="152.0" prefHeight="150.0" prefWidth="200.0" />
+      <JFXButton fx:id="helpSearchResultsButton" layoutX="514.0" layoutY="51.0" prefHeight="25.0" prefWidth="21.0" style="-fx-background-radius: 12px; -fx-border-radius: 12px;" styleClass="jfx-button-q" text="?" />
+      <JFXButton fx:id="helpAddRemoveButton" layoutX="567.0" layoutY="153.0" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <JFXButton fx:id="helpShuffleButton" layoutX="1062.0" layoutY="153.0" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <JFXButton fx:id="helpBackButton" layoutX="73.0" layoutY="426.0" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <JFXButton fx:id="helpSearchButton" layoutX="386.0" layoutY="426.0" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <JFXButton fx:id="helpVoicesButton" layoutX="698.0" layoutY="427.0" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <JFXButton fx:id="helpVideoNameButton" layoutX="572.0" layoutY="427.0" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <JFXButton fx:id="helpNumImagesButton" layoutX="816.0" layoutY="430.0" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <JFXButton fx:id="helpCreateButton" layoutX="1074.0" layoutY="426.0" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <JFXButton fx:id="helpTextListButton" layoutX="1000.0" layoutY="51.0" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <StackPane fx:id="stackPane" layoutX="463.0" layoutY="-12.0" prefHeight="150.0" prefWidth="200.0" />
    </children>
 </AnchorPane>

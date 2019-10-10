@@ -48,6 +48,28 @@ public class ReviewController {
 	private JFXButton muteButton;
 	@FXML
 	private FontAwesomeIcon muteIcon;
+  @FXML
+	private JFXButton helpQuit;
+	@FXML
+	private JFXButton helpMute;
+	@FXML
+	private JFXButton helpFor5;
+	@FXML
+	private JFXButton helpBack5;
+	@FXML
+	private JFXButton helpPlayPause;
+	@FXML
+	private JFXButton helpMusicToggle;
+	@FXML
+	private JFXButton helpNext;
+	@FXML
+	private JFXButton helpPrev;
+	@FXML
+	private JFXButton helpList;
+	@FXML
+	private JFXButton helpPlayButton;
+	@FXML
+	private JFXButton helpTextArea;
 
 	private MediaPlayer player;
 	private MediaPlayer music;
@@ -85,7 +107,7 @@ public class ReviewController {
 
 	private void setupPlayer() {
 		// Setup video player with source file
-		File fileUrl = new File("videos/" + currentVideo.getName() + ".mp4"); 
+		File fileUrl = new File("videos/" + currentVideo.getName() + ".mp4");
 		Media video = new Media(fileUrl.toURI().toString());
 		player = new MediaPlayer(video);
 		player.setAutoPlay(true);
@@ -118,7 +140,6 @@ public class ReviewController {
 		playListView.getSelectionModel().select(playIndex);
 		// Update transcript
 		transcript.setText(currentVideo.getName() + " " + currentVideo.getSearchTerm());
-
 	}
 
 	private void slider() {
@@ -211,7 +232,7 @@ public class ReviewController {
 		setSource();
 	}
 
-	@FXML
+  @FXML
 	private void playVideo() {
 		playIndex = playListView.getSelectionModel().getSelectedIndex();
 		player.dispose();
@@ -230,6 +251,30 @@ public class ReviewController {
 		////		Stage currentStage = (Stage) timeLabel.getScene().getWindow();
 		////		currentStage.initStyle(StageStyle.TRANSPARENT);
 		////		scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+	}
+
+	private void setUpHelp() {
+		helpMute.setTooltip(new HoverToolTip("Click this to mute the video's voice!").getToolTip());
+
+		helpFor5.setTooltip(new HoverToolTip("Click this to go 5 seconds further into the video!").getToolTip());
+
+		helpBack5.setTooltip(new HoverToolTip("Click this to go 5 seconds back in the video!").getToolTip());
+
+		helpQuit.setTooltip(new HoverToolTip("Click this button to go back to the main menu!").getToolTip());
+
+		helpPlayPause.setTooltip(new HoverToolTip("Click this to play the video if it is paused, or pause the video if it is playing!").getToolTip());
+
+		helpMusicToggle.setTooltip(new HoverToolTip("Click this to turn on some background music (or to turn it off if it is already playing!)").getToolTip());
+
+		helpList.setTooltip(new HoverToolTip("This is where all the videos you can play are listed!").getToolTip());
+
+		helpPlayButton.setTooltip(new HoverToolTip("After choosing a video from the list above by clicking on it, click this button to play that video!").getToolTip());
+
+		helpNext.setTooltip(new HoverToolTip("Click this to play the next video in the list!").getToolTip());
+
+		helpPrev.setTooltip(new HoverToolTip("Click this to play the previous video in the list!").getToolTip());
+
+		helpTextArea.setTooltip(new HoverToolTip("").getToolTip());
 	}
 
 	private void showRating() {

@@ -1,12 +1,15 @@
 package app;
 
 import java.io.File;
+
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -23,6 +26,18 @@ public class VideoPlayerController {
 	private JFXToggleButton toggleMusicButton;
 	@FXML
 	private JFXSlider timeSlider;
+	@FXML
+	private JFXButton helpQuit;
+	@FXML
+	private JFXButton helpMute;
+	@FXML
+	private JFXButton helpFor5;
+	@FXML
+	private JFXButton helpBack5;
+	@FXML
+	private JFXButton helpPlayPause;
+	@FXML
+	private JFXButton helpMusicToggle;
 
 	private MediaPlayer player;
 	private MediaPlayer music;
@@ -118,9 +133,26 @@ public class VideoPlayerController {
 	}
 
 	@FXML
+	private void initialize() { setUpHelp(); }
+
+	@FXML
 	private void quit() {
 		timeLabel.getScene().getWindow().hide();
 		shutdown();
+	}
+
+	private void setUpHelp() {
+		helpMute.setTooltip(new HoverToolTip("Click this to mute the video's voice!").getToolTip());
+
+		helpFor5.setTooltip(new HoverToolTip("Click this to go 5 seconds further into the video!").getToolTip());
+
+		helpBack5.setTooltip(new HoverToolTip("Click this to go 5 seconds back in the video!").getToolTip());
+
+		helpQuit.setTooltip(new HoverToolTip("Click this button to go back to the main menu!").getToolTip());
+
+		helpPlayPause.setTooltip(new HoverToolTip("Click this to play the video if it is paused, or pause the video if it is playing!").getToolTip());
+
+		helpMusicToggle.setTooltip(new HoverToolTip("Click this to turn on some background music (or to turn it off if it is already playing!)").getToolTip());
 	}
 
 	public void shutdown() {

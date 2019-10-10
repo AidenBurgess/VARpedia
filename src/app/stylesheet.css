@@ -13,7 +13,7 @@
     -fx-disabled-text-color: rgba(255,255,255,0.38);
 
     -fx-green-accent-color: rgb(203.0,252.0,118.0);
-    -fx-red-accent-color: rgb(235.0,106.0,101.0);
+    -fx-purple-accent-color: rgb(233.0,195.0,248.0);
     -fx-blue-accent-color: rgb(120.0,190.0,249.0);
 }
 
@@ -40,7 +40,7 @@
 /****************** Button ******************/
 
 .jfx-button {
-    -fx-background-color: -fx-green-accent-color;
+    -fx-background-color: -fx-purple-accent-color;
     -fx-text-fill: -fx-dark-text-color;
     -fx-border-radius: 12px;
     -fx-background-radius: 12px;

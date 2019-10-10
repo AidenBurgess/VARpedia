@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import processes.*;
@@ -45,6 +46,26 @@ public class VideoCreationController {
     private JFXButton moveTextUpButton;
     @FXML
     private JFXButton moveTextDownButton;
+    @FXML
+    private JFXButton helpCreateButton;
+    @FXML
+    private JFXButton helpSearchResultsButton;
+    @FXML
+    private JFXButton helpSearchButton;
+    @FXML
+    private JFXButton helpAddRemoveButton;
+    @FXML
+    private JFXButton helpTextListButton;
+    @FXML
+    private JFXButton helpNumImagesButton;
+    @FXML
+    private JFXButton helpVideoNameButton;
+    @FXML
+    private JFXButton helpBackButton;
+    @FXML
+    private JFXButton helpVoicesButton;
+    @FXML
+    private JFXButton helpShuffleButton;
     @FXML
     private StackPane stackPane;
     @FXML
@@ -175,6 +196,7 @@ public class VideoCreationController {
     private void initialize() {
     	stackPane.setPickOnBounds(false);
     	updateVoiceList();
+    	setUpHelp();
     }
 
     private void updateVoiceList() {
@@ -187,64 +209,24 @@ public class VideoCreationController {
         thread.start();
     }
 
-    @FXML
-    private void describeSearchResults() {
-        Describe desc = new Describe("description here");
-        desc.describeSearchResults();
-    }
+    private void setUpHelp() {
+        helpSearchResultsButton.setTooltip(new HoverToolTip("Your search results will appear here. \nYou can click and drag to select text, add text to the results by typing it in, or delete text you don't want to see!").getToolTip());
 
-    @FXML
-    private void describeAddRemoveText() {
-        Describe desc = new Describe("description here");
-        desc.describeAddRemoveText();
-    }
+        helpAddRemoveButton.setTooltip(new HoverToolTip("After selecting some text from the left, press the \">\" button to add it to the list on the right. \nOr, after selecting one or more of the pieces of text from the right, click the \"<\" button to delete them from the list on the right!").getToolTip());
 
-    @FXML
-    private void describeShuffleText() {
-        Describe desc = new Describe("description here");
-        desc.describeShuffleText();
-    }
+        helpShuffleButton.setTooltip(new HoverToolTip("After selecting a piece of text from the right, click the \"^\" or \"v\" buttons to move that piec up or down in the list!").getToolTip());
 
-    @FXML
-    private void describeBackButton() {
-        Describe desc = new Describe("Click this button to go back to the main menu!");
-        desc.describeBackButton();
-    }
+        helpBackButton.setTooltip(new HoverToolTip("Click this button to go back to the main menu!").getToolTip());
 
-    @FXML
-    private void describeSearchFunction() {
-        Describe desc = new Describe("description here");
-        desc.describeSearchFunction();
-    }
+        helpSearchButton.setTooltip(new HoverToolTip("Type in the word you want to search the meaning for to the left of this button, then click this button to search it!").getToolTip());
 
-    @FXML
-    private void describeChooseVoice() {
-        Describe desc = new Describe("In this list are different voices you can choose to speak your text in your video");
-        desc.describeChooseVoice();
-    }
+        helpVoicesButton.setTooltip(new HoverToolTip("In this list are different voices you can choose to speak your text in your video! \nClick it to see the options, then click one of the options shown to choose it!").getToolTip());
 
-    @FXML
-    private void describeVideoNameField() {
-        Describe desc = new Describe("description here");
-        desc.describeVideoNameField();
-    }
+        helpVideoNameButton.setTooltip(new HoverToolTip("Type in what you want to name your final video here!").getToolTip());
 
-    @FXML
-    private void describeImagesSlider() {
-        Describe desc = new Describe("description here");
-        desc.describeImagesSlider();
-    }
+        helpNumImagesButton.setTooltip(new HoverToolTip("Click and drag the dot along the line to choose how many picture you want to have in your video, from 1 to 10!").getToolTip());
 
-    @FXML
-    private void describeCreateButton() {
-        Describe desc = new Describe("description here");
-        desc.describeCreateButton();
-    }
-
-    @FXML
-    private void describeTextList() {
-        Describe desc = new Describe("description here");
-        desc.describeTextList();
+        helpTextListButton.setTooltip(new HoverToolTip("This is where each bit of text is shown in a list! Select one or more by clicking on a bit.").getToolTip());
     }
     
     @FXML

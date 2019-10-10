@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import processes.*;
 import java.util.ArrayList;
@@ -38,6 +39,10 @@ public class HomeController {
     private JFXButton helpReviewButton;
     @FXML
     private JFXButton helpVarPedia;
+    @FXML
+    private JFXButton helpHelp;
+    @FXML
+    private JFXButton helpQuitButton;
     @FXML
     private Label numVideoLabel;
     @FXML
@@ -109,42 +114,6 @@ public class HomeController {
     }
 
     @FXML
-    private void describeVarPedia() {
-        Describe desc = new Describe("description here");
-        desc.describeSearchResults();
-    }
-
-    @FXML
-    private void describeTableView() {
-        Describe desc = new Describe("All of your video creations are listed here! \nClick on a row to select that video.");
-        desc.describeSearchResults();
-    }
-
-    @FXML
-    private void describeCreate() {
-        Describe desc = new Describe("description here");
-        desc.describeSearchResults();
-    }
-
-    @FXML
-    private void describeDelete() {
-        Describe desc = new Describe("description here");
-        desc.describeSearchResults();
-    }
-
-    @FXML
-    private void describePlay() {
-        Describe desc = new Describe("description here");
-        desc.describeSearchResults();
-    }
-
-    @FXML
-    private void describeReview() {
-        Describe desc = new Describe("description here");
-        desc.describeSearchResults();
-    }
-
-    @FXML
     private void quit() {
     	VideoManager.getVideoManager().writeSerializedVideos();
     	quitButton.getScene().getWindow().hide();
@@ -161,6 +130,7 @@ public class HomeController {
     	initTable();
     	updateVideosToReview();
     	remindReview();
+        setUpHelp();
     }
         
     private void initTable() {
@@ -179,10 +149,8 @@ public class HomeController {
                     setStyle("-fx-background-color: red;");
             }
         });
-        
+      
         videoTable.setStyle("-fx-selection-bar: blue; -fx-selection-bar-non-focused: purple;");
-
-        
         // Populate table with columns of parameters of videocreations
         TableColumn<VideoCreation, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setMinWidth(100);
@@ -199,7 +167,7 @@ public class HomeController {
         TableColumn<VideoCreation, String> ratingColumn = new TableColumn<>("Rating");
         ratingColumn.setMinWidth(70);
         ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
-        
+
         TableColumn<VideoCreation, String> viewsColumn = new TableColumn<>("Views");
         viewsColumn.setMinWidth(70);
         viewsColumn.setCellValueFactory(new PropertyValueFactory<>("views"));
@@ -207,7 +175,36 @@ public class HomeController {
         videoTable.getItems().addAll(videoManager.readSerializedVideos());
         videoTable.getColumns().addAll(nameColumn, searchTermColumn, numImagesColumn, ratingColumn, viewsColumn);
     }
-    
+
+    private void setUpHelp() {
+        helpTableView.setTooltip(new HoverToolTip("All of your video creations are listed here! Click on a row to select that video. The columns show you: \nthe name of each video; \nthe word you searched to create the video; \nthe number of images the video has in it; \nthe rating out of 5 you gave each video; \nthe number of times you have watched each video.").getToolTip());
+
+        helpCreateButton.setTooltip(new HoverToolTip("Click this button to start creating a new video! (Opens a new window)").getToolTip());
+
+        helpDeleteButton.setTooltip(new HoverToolTip("After selecting a video from the table by clicking on one of the rows, click this button to delete it!").getToolTip());
+
+        helpHelp.setTooltip(new HoverToolTip("This is what the hover text will look like!").getToolTip());
+
+        helpPlayButton.setTooltip(new HoverToolTip("After selecting a video from the table by clicking on one of the rows, click this button to play it!").getToolTip());
+
+        helpQuitButton.setTooltip(new HoverToolTip("Click this button to exit the application!").getToolTip());
+
+        helpReviewButton.setTooltip(new HoverToolTip("Click this button to watch and review multiple videos in a playlist shown to you, and rate your understanding of each of them!").getToolTip());
+
+        helpVarPedia.setTooltip(new HoverToolTip("Welcome! This is VARpedia. \nThis application is made for you to learn new words by letting you create videos about them. \nThese videos will show you images of the word you choose, have a voice saying text about the word to you, and show you the word written down. \nThese videos are saved so you can go back to review words you are unsure about, and rate the different videos you have made based on your understanding of it!").getToolTip());
+    }
+
+    private JFXDialog loadingDialog(String title) {
+        JFXDialogLayout dialogContent = new JFXDialogLayout();
+        dialogContent.setHeading(new Text(title));
+        JFXSpinner spinner = new JFXSpinner();
+        spinner.setPrefSize(50, 50);
+        dialogContent.setBody(spinner);
+        JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.RIGHT);
+        dialog.show();
+        return dialog;
+    }
+
     private void updateVideosToReview() {
     	toReview.clear();
     	// Add all videos with red ratings
@@ -225,7 +222,7 @@ public class HomeController {
     		toReview = new ArrayList<VideoCreation>(videoTable.getItems());
     	}
     }
-    
+
     private void remindReview() {
     	String body = "";
     	for(VideoCreation v: toReview) {
