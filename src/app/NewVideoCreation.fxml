@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXListView?>
-<?import com.jfoenix.controls.JFXSlider?>
-<?import com.jfoenix.controls.JFXTextArea?>
-<?import com.jfoenix.controls.JFXTextField?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="507.0" prefWidth="1100.0" style="-fx-font-family: Ubuntu;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.VideoCreationController">
+<AnchorPane prefHeight="507.0" prefWidth="1100.0" style="-fx-font-family: Ubuntu;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.VideoCreationController">
    <children>
       <Label fx:id="searchLabel" layoutX="38.0" layoutY="21.0" style="-fx-font-family: Ubuntu;" styleClass="title" text="Feel free to search!">
          <font>
@@ -33,10 +32,10 @@
          </font>
       </Label>
       <JFXListView fx:id="textListView" layoutX="603.0" layoutY="63.0" prefHeight="329.0" prefWidth="411.0" styleClass="jfx-list-view" />
-      <JFXButton fx:id="addTextButton" layoutX="550.0" layoutY="165.0" onAction="#add" prefHeight="25.0" prefWidth="24.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px; -fx-text-fill: WHITE;" text="&gt;" />
-      <JFXButton fx:id="removeTextButton" layoutX="550.0" layoutY="241.0" onAction="#remove" prefHeight="25.0" prefWidth="24.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px; -fx-text-fill: WHITE;" text="&lt;" />
-      <JFXButton fx:id="moveTextUpButton" layoutX="1044.0" layoutY="165.0" onAction="#moveUp" prefHeight="25.0" prefWidth="26.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px; -fx-text-fill: WHITE;" text="^" />
-      <JFXButton fx:id="moveTextDownButton" layoutX="1045.0" layoutY="241.0" onAction="#moveDown" prefHeight="25.0" prefWidth="24.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px; -fx-text-fill: WHITE;" text="v" />
+      <JFXButton layoutX="550.0" layoutY="165.0" onAction="#add" prefHeight="25.0" prefWidth="24.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px; -fx-text-fill: WHITE;" text="&gt;" />
+      <JFXButton layoutX="550.0" layoutY="241.0" onAction="#remove" prefHeight="25.0" prefWidth="24.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px; -fx-text-fill: WHITE;" text="&lt;" />
+      <JFXButton layoutX="1044.0" layoutY="165.0" onAction="#moveUp" prefHeight="25.0" prefWidth="26.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px; -fx-text-fill: WHITE;" text="^" />
+      <JFXButton layoutX="1045.0" layoutY="241.0" onAction="#moveDown" prefHeight="25.0" prefWidth="24.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px; -fx-text-fill: WHITE;" text="v" />
       <Label layoutX="575.0" layoutY="21.0" style="-fx-font-family: Ubuntu;" styleClass="title" text="Add text for your video here, or rearrange:">
          <font>
             <Font name="Ubuntu" size="18.0" />

@@ -2,34 +2,18 @@ package app;
 
 import com.jfoenix.controls.*;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import processes.*;
 import java.util.ArrayList;
 
 public class VideoCreationController {
 
     @FXML
-    private JFXButton playButton;
-    @FXML
-    private JFXButton deleteButton;
-    @FXML
-    private JFXButton createButton;
-    @FXML
-    private JFXButton reviewButton;
-    @FXML
-    private JFXButton quitButton;
-    @FXML
     private JFXTextField searchField;
-    @FXML
-    private JFXButton searchButton;
     @FXML
     private JFXTextField videoNameField;
     @FXML
@@ -38,14 +22,6 @@ public class VideoCreationController {
     private JFXListView<String> textListView;
     @FXML
     private JFXComboBox<String> voiceChoiceBox;
-    @FXML
-    private JFXButton addTextButton;
-    @FXML
-    private JFXButton removeTextButton;
-    @FXML
-    private JFXButton moveTextUpButton;
-    @FXML
-    private JFXButton moveTextDownButton;
     @FXML
     private JFXButton helpCreateButton;
     @FXML
@@ -67,6 +43,10 @@ public class VideoCreationController {
     @FXML
     private JFXButton helpShuffleButton;
     @FXML
+    private JFXButton searchButton;
+    @FXML
+    private JFXButton createButton;
+    @FXML
     private StackPane stackPane;
     @FXML
     private Label searchLabel;
@@ -81,6 +61,8 @@ public class VideoCreationController {
     @FXML
     private void searchWiki() {
         String searchTerm = searchField.getText();
+        if (searchTerm == null || searchTerm.isEmpty()) return;
+        textListView.getItems().clear();
         dialog = new DialogBuilder().loadingDialog(stackPane, "Searching for " + searchTerm + "...");
 
         Task<ArrayList<String>> search = new SearchWiki(searchTerm, textArea);
@@ -96,19 +78,11 @@ public class VideoCreationController {
     @FXML
     private void createVideo() {
 
-//         If no text is selected then raise an error
+        // If no text is selected then raise an error
         if (textListView.getItems().size() == 0) {
-            new DialogBuilder().closeDialog(stackPane, "Invalid Selection", "Please select some text.");
+            new DialogBuilder().closeDialog(stackPane, "Invalid Text", "Please add some text to the list.");
             return;
         }
-        
-
-        // Error checking for empty/null selected
-//        String customName = videoNameField.getText();
-//        String searchTerm = searchField.getText();
-//        if (customName == null || customName.isEmpty()) return;
-//        if (searchTerm == null || searchTerm == "") return;
-    	
         dialog = new DialogBuilder().loadingDialog(stackPane, "Creating Video");
     	createAudio();
     }
@@ -169,11 +143,8 @@ public class VideoCreationController {
         int index= textListView.getSelectionModel().getSelectedIndex();
         String selected = textListView.getSelectionModel().getSelectedItem();
         if (index < 1 | selected == null) return;
-        // Now swap items
-        String tempString = textListView.getItems().get(index-1);
-        chosenTextItems.set(index, tempString);
-        chosenTextItems.set(index-1, selected);
-        textListView.getSelectionModel().select(index-1);
+        textListView.getItems().remove(selected);
+        textListView.getItems().add((index-1), selected);
     }
 
     @FXML
@@ -181,11 +152,8 @@ public class VideoCreationController {
         int index= textListView.getSelectionModel().getSelectedIndex();
         String selected = textListView.getSelectionModel().getSelectedItem();
         if (index >= textListView.getItems().size() -1 | selected == null) return;
-        // Now swap items
-        String tempString = textListView.getItems().get(index+1);
-        chosenTextItems.set(index, tempString);
-        chosenTextItems.set(index+1, selected);
-        textListView.getSelectionModel().select(index+1);
+        textListView.getItems().remove(selected);
+        textListView.getItems().add((index+1), selected);
     }
 
     @FXML
@@ -221,22 +189,24 @@ public class VideoCreationController {
 
         helpSearchButton.setTooltip(new HoverToolTip("Type in the word you want to search the meaning for to the left of this button, then click this button to search it!").getToolTip());
 
+        helpCreateButton.setTooltip(new HoverToolTip("After filling in the video name, number of images, and the voice you would like to use in the areas to the left, click this button to make your video!").getToolTip());
+
         helpVoicesButton.setTooltip(new HoverToolTip("In this list are different voices you can choose to speak your text in your video! \nClick it to see the options, then click one of the options shown to choose it!").getToolTip());
 
         helpVideoNameButton.setTooltip(new HoverToolTip("Type in what you want to name your final video here!").getToolTip());
 
         helpNumImagesButton.setTooltip(new HoverToolTip("Click and drag the dot along the line to choose how many picture you want to have in your video, from 1 to 10!").getToolTip());
 
-        helpTextListButton.setTooltip(new HoverToolTip("This is where each bit of text is shown in a list! Select one or more by clicking on a bit.").getToolTip());
+        helpTextListButton.setTooltip(new HoverToolTip("This is where each bit of text is shown in a list! \nSelect one piece of text by clicking on it!").getToolTip());
     }
-    
+
     @FXML
     private void checkValidSearch() {
         String searchTerm = searchField.getText();
         if (searchTerm == null || searchTerm.trim().isEmpty()) searchButton.setDisable(true);
         else searchButton.setDisable(false);
     }
-    
+
     @FXML
     private void checkValidCreate() {
         String videoName = videoNameField.getText();
