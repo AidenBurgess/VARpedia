@@ -59,8 +59,6 @@ public class VideoCreationController {
     @FXML
     private void searchWiki() {
         String searchTerm = searchField.getText();
-        if (searchTerm == null || searchTerm.isEmpty()) return;
-
         dialog = new DialogBuilder().loadingDialog(stackPane, "Searching for " + searchTerm + "...");
 
         Task<ArrayList<String>> search = new SearchWiki(searchTerm, textArea);
@@ -76,11 +74,12 @@ public class VideoCreationController {
     @FXML
     private void createVideo() {
 
-        // If no text is selected then raise an error
-//        if (textListView.getSelectionModel().getSelectedItems().size() == 0) {
-//            alertCreator("Selection Process", "Invalid Selection", "Please select some text.");
-//            return;
-//        }
+//         If no text is selected then raise an error
+        if (textListView.getSelectionModel().getSelectedItems().size() == 0) {
+            new DialogBuilder().closeDialog(stackPane, "Invalid Selection", "Please select some text.");
+            return;
+        }
+        
 
         // Error checking for empty/null selected
 //        String customName = videoNameField.getText();
@@ -246,6 +245,20 @@ public class VideoCreationController {
     private void describeTextList() {
         Describe desc = new Describe("description here");
         desc.describeTextList();
+    }
+    
+    @FXML
+    private void checkValidSearch() {
+        String searchTerm = searchField.getText();
+        if (searchTerm == null || searchTerm.trim().isEmpty()) searchButton.setDisable(true);
+        else searchButton.setDisable(false);
+    }
+    
+    @FXML
+    private void checkValidCreate() {
+        String videoName = videoNameField.getText();
+        if (videoName == null || videoName.trim().isEmpty() || videoName.contains(" ")) createButton.setDisable(true);
+        else createButton.setDisable(false);
     }
 
     private int countWords(String input) {

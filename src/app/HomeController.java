@@ -181,6 +181,9 @@ public class HomeController {
             }
         });
         
+        videoTable.setStyle("-fx-selection-bar: blue; -fx-selection-bar-non-focused: purple;");
+
+        
         // Populate table with columns of parameters of videocreations
         TableColumn<VideoCreation, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setMinWidth(100);
@@ -201,7 +204,7 @@ public class HomeController {
         TableColumn<VideoCreation, String> viewsColumn = new TableColumn<>("Views");
         viewsColumn.setMinWidth(70);
         viewsColumn.setCellValueFactory(new PropertyValueFactory<>("views"));
-
+        
         videoTable.getItems().addAll(videoManager.readSerializedVideos());
         videoTable.getColumns().addAll(nameColumn, searchTermColumn, numImagesColumn, ratingColumn, viewsColumn);
     }
