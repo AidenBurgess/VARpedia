@@ -221,6 +221,8 @@ public class VideoCreationController {
 
         helpSearchButton.setTooltip(new HoverToolTip("Type in the word you want to search the meaning for to the left of this button, then click this button to search it!").getToolTip());
 
+        helpCreateButton.setTooltip(new HoverToolTip("After filling in the video name, number of images, and the voice you would like to use in the areas to the left, click this button to make your video!").getToolTip());
+
         helpVoicesButton.setTooltip(new HoverToolTip("In this list are different voices you can choose to speak your text in your video! \nClick it to see the options, then click one of the options shown to choose it!").getToolTip());
 
         helpVideoNameButton.setTooltip(new HoverToolTip("Type in what you want to name your final video here!").getToolTip());
