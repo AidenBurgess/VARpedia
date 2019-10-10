@@ -170,11 +170,8 @@ public class VideoCreationController {
         int index= textListView.getSelectionModel().getSelectedIndex();
         String selected = textListView.getSelectionModel().getSelectedItem();
         if (index < 1 | selected == null) return;
-        // Now swap items
-        String tempString = textListView.getItems().get(index-1);
-        chosenTextItems.set(index, tempString);
-        chosenTextItems.set(index-1, selected);
-        textListView.getSelectionModel().select(index-1);
+        textListView.getItems().remove(selected);
+        textListView.getItems().add((index-1), selected);
     }
 
     @FXML
@@ -182,11 +179,8 @@ public class VideoCreationController {
         int index= textListView.getSelectionModel().getSelectedIndex();
         String selected = textListView.getSelectionModel().getSelectedItem();
         if (index >= textListView.getItems().size() -1 | selected == null) return;
-        // Now swap items
-        String tempString = textListView.getItems().get(index+1);
-        chosenTextItems.set(index, tempString);
-        chosenTextItems.set(index+1, selected);
-        textListView.getSelectionModel().select(index+1);
+        textListView.getItems().remove(selected);
+        textListView.getItems().add((index+1), selected);
     }
 
     @FXML
@@ -197,7 +191,6 @@ public class VideoCreationController {
     @FXML
     private void initialize() {
     	stackPane.setPickOnBounds(false);
-    	textListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     	updateVoiceList();
     	setUpHelp();
     }

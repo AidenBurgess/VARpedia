@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXListView?>
-<?import com.jfoenix.controls.JFXSlider?>
-<?import com.jfoenix.controls.JFXTextArea?>
-<?import com.jfoenix.controls.JFXTextField?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="507.0" prefWidth="1100.0" style="-fx-font-family: Ubuntu;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.VideoCreationController">
+<AnchorPane prefHeight="507.0" prefWidth="1100.0" style="-fx-font-family: Ubuntu;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.VideoCreationController">
    <children>
       <Label fx:id="searchLabel" layoutX="38.0" layoutY="21.0" style="-fx-font-family: Ubuntu;" styleClass="title" text="Feel free to search!">
          <font>
@@ -53,6 +52,6 @@
       <JFXButton fx:id="helpNumImagesButton" layoutX="816.0" layoutY="430.0" prefHeight="25.0" prefWidth="21.0" text="?" />
       <JFXButton fx:id="helpCreateButton" layoutX="1074.0" layoutY="426.0" prefHeight="25.0" prefWidth="21.0" text="?" />
       <JFXButton fx:id="helpTextListButton" layoutX="1000.0" layoutY="51.0" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <StackPane fx:id="stackPane" layoutX="463.0" layoutY="-12.0" prefHeight="150.0" prefWidth="200.0" />
+      <StackPane fx:id="stackPane" layoutX="463.0" layoutY="166.0" prefHeight="150.0" prefWidth="200.0" />
    </children>
 </AnchorPane>
