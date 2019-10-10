@@ -84,7 +84,6 @@
 </AnchorPane>
       <AnchorPane fx:id="sidePanel" layoutX="700.0" layoutY="2.0" prefHeight="576.0" prefWidth="302.0">
          <children>
-            <JFXButton layoutX="8.0" layoutY="14.0" text="Playlist" />
             <JFXTextArea fx:id="transcript" layoutX="21.0" layoutY="278.0" prefHeight="178.0" prefWidth="211.0" />
             <Label fx:id="upcomingLabel" layoutX="21.0" layoutY="472.0" text="Upcoming..." />
             <JFXListView fx:id="playListView" layoutX="14.0" layoutY="57.0" prefHeight="150.0" prefWidth="200.0" />
@@ -125,6 +124,7 @@
             <JFXButton fx:id="helpList" layoutX="262.0" layoutY="17.0" prefHeight="25.0" prefWidth="21.0" text="?" />
             <JFXButton fx:id="helpTextArea" layoutX="220.0" layoutY="266.0" prefHeight="25.0" prefWidth="21.0" text="?" />
             <JFXButton fx:id="helpPlayButton" layoutX="111.0" layoutY="211.0" prefHeight="25.0" prefWidth="21.0" text="?" />
+            <Label layoutX="21.0" layoutY="22.0" style="-fx-text-fill: BLACK;" text="Playlist" />
          </children>
       </AnchorPane>
 </children>

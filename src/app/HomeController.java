@@ -16,16 +16,6 @@ import java.util.Optional;
 public class HomeController {
 
     @FXML
-    private JFXButton playButton;
-    @FXML
-    private JFXButton deleteButton;
-    @FXML
-    private JFXButton createButton;
-    @FXML
-    private JFXButton reviewButton;
-    @FXML
-    private JFXButton quitButton;
-    @FXML
     private TableView videoTable;
     @FXML
     private JFXButton helpTableView;
@@ -116,7 +106,7 @@ public class HomeController {
     @FXML
     private void quit() {
     	VideoManager.getVideoManager().writeSerializedVideos();
-    	quitButton.getScene().getWindow().hide();
+    	helpQuitButton.getScene().getWindow().hide();
     }
 
     private void updateVideoTable() {
@@ -153,23 +143,23 @@ public class HomeController {
         videoTable.setStyle("-fx-selection-bar: blue; -fx-selection-bar-non-focused: purple;");
         // Populate table with columns of parameters of videocreations
         TableColumn<VideoCreation, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setMinWidth(100);
+        nameColumn.setMinWidth(150);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));        
 
         TableColumn<VideoCreation, String> searchTermColumn = new TableColumn<>("Search Term");
-        searchTermColumn.setMinWidth(80);
+        searchTermColumn.setMinWidth(150);
         searchTermColumn.setCellValueFactory(new PropertyValueFactory<>("searchTerm"));
         
         TableColumn<VideoCreation, String> numImagesColumn = new TableColumn<>("#Images");
-        numImagesColumn.setMinWidth(70);
+        numImagesColumn.setMinWidth(89);
         numImagesColumn.setCellValueFactory(new PropertyValueFactory<>("numImages"));
         
         TableColumn<VideoCreation, String> ratingColumn = new TableColumn<>("Rating");
-        ratingColumn.setMinWidth(70);
+        ratingColumn.setMinWidth(89);
         ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
 
         TableColumn<VideoCreation, String> viewsColumn = new TableColumn<>("Views");
-        viewsColumn.setMinWidth(70);
+        viewsColumn.setMinWidth(89);
         viewsColumn.setCellValueFactory(new PropertyValueFactory<>("views"));
         
         videoTable.getItems().addAll(videoManager.readSerializedVideos());
