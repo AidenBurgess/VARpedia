@@ -69,12 +69,11 @@ public class HomeController {
     @FXML
     private void playVideo() {
     	VideoCreation videoCreation = (VideoCreation) videoTable.getSelectionModel().getSelectedItem();
-    	String videoName = videoCreation.getName();
-    	if(videoName == null) return;
+    	if(videoCreation == null) return;
 
     	WindowBuilder windowBuilder = new WindowBuilder().pop("VideoPlayer", "Video Player");
     	FXMLLoader loader = windowBuilder.loader();
-    	((VideoPlayerController) windowBuilder.loader().getController()).setSource(videoName);
+    	((VideoPlayerController) windowBuilder.loader().getController()).setSource(videoCreation.getName());
     	windowBuilder.stage().setOnHidden(e -> ((VideoPlayerController) loader.getController()).shutdown());
     }
     
@@ -150,7 +149,8 @@ public class HomeController {
                     setStyle("-fx-background-color: red;");
             }
         });
-
+      
+        videoTable.setStyle("-fx-selection-bar: blue; -fx-selection-bar-non-focused: purple;");
         // Populate table with columns of parameters of videocreations
         TableColumn<VideoCreation, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setMinWidth(100);
@@ -171,7 +171,7 @@ public class HomeController {
         TableColumn<VideoCreation, String> viewsColumn = new TableColumn<>("Views");
         viewsColumn.setMinWidth(70);
         viewsColumn.setCellValueFactory(new PropertyValueFactory<>("views"));
-
+        
         videoTable.getItems().addAll(videoManager.readSerializedVideos());
         videoTable.getColumns().addAll(nameColumn, searchTermColumn, numImagesColumn, ratingColumn, viewsColumn);
     }

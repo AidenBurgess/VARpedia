@@ -8,6 +8,8 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXToggleButton;
+
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -21,7 +23,7 @@ import javafx.scene.media.MediaPlayer.Status;
 import javafx.util.Duration;
 
 public class ReviewController {
-	
+
 	@FXML
 	private AnchorPane root;
 	@FXML
@@ -39,6 +41,14 @@ public class ReviewController {
 	@FXML
 	private Label upcomingLabel;
 	@FXML
+	private JFXButton playButton;
+	@FXML
+	private FontAwesomeIcon playIcon;
+	@FXML
+	private JFXButton muteButton;
+	@FXML
+	private FontAwesomeIcon muteIcon;
+  @FXML
 	private JFXButton helpQuit;
 	@FXML
 	private JFXButton helpMute;
@@ -68,7 +78,7 @@ public class ReviewController {
 	private int playIndex = 0;
 
 	public void setPlaylist(ArrayList<VideoCreation> playList) {
-//		root.setBackground(Background.EMPTY); 
+		//		root.setBackground(Background.EMPTY); 
 		this.playList = playList;
 		for (VideoCreation v: playList) playListView.getItems().add(v.getName());
 		// Setup background music player
@@ -81,7 +91,7 @@ public class ReviewController {
 		// Setup video player
 		setSource();
 	}
-	
+
 	private void setSource() {
 		currentVideo = playList.get(playIndex);
 
@@ -101,30 +111,35 @@ public class ReviewController {
 		Media video = new Media(fileUrl.toURI().toString());
 		player = new MediaPlayer(video);
 		player.setAutoPlay(true);
+		// Reset okay and mute buttons
+		playButton.setText("Pause");
+		playIcon.setStyle("-glyph-name:PAUSE");
+		muteButton.setText("Mute");
+		muteIcon.setStyle("-glyph-name:VOLUME_OFF");
+		// Show the rating window when finished playing
 		player.setOnEndOfMedia(()-> {
 			currentVideo.incrementViews();
 			showRating();
 		});
 		screen.setMediaPlayer(player);
-
 		// Timer label tracks the time of the video
-				player.currentTimeProperty().addListener((observable,oldValue,newValue) -> {
-					String time = "";
-					time += String.format("%02d", (int)newValue.toMinutes());
-					time += ":";
-					time += String.format("%02d", (int)newValue.toSeconds()%60);
-					timeLabel.setText(time);
-				});
+		player.currentTimeProperty().addListener((observable,oldValue,newValue) -> {
+			String time = "";
+			time += String.format("%02d", (int)newValue.toMinutes());
+			time += ":";
+			time += String.format("%02d", (int)newValue.toSeconds()%60);
+			timeLabel.setText(time);
+		});
 	}
 
 	private void updateSidePanel() {
 		// Update upcoming label
-    	if ((playIndex+1) == playList.size()) upcomingLabel.setText("Upcoming: None." );
-    	else upcomingLabel.setText("Upcoming: " + playList.get(playIndex+1).getName());
-
-    	// Update transcript
-    	transcript.setText(currentVideo.getName() + " " + currentVideo.getSearchTerm());
-
+		if ((playIndex+1) == playList.size()) upcomingLabel.setText("Upcoming: None." );
+		else upcomingLabel.setText("Upcoming: " + playList.get(playIndex+1).getName());
+		//
+		playListView.getSelectionModel().select(playIndex);
+		// Update transcript
+		transcript.setText(currentVideo.getName() + " " + currentVideo.getSearchTerm());
 	}
 
 	private void slider() {
@@ -165,8 +180,12 @@ public class ReviewController {
 	private void playPause() {
 		if (player.getStatus() == Status.PLAYING) {
 			player.pause();
+			playButton.setText("Play");
+			playIcon.setStyle("-glyph-name:PLAY");
 		} else {
 			player.play();
+			playButton.setText("Pause");
+			playIcon.setStyle("-glyph-name:PAUSE");
 		}
 	}
 
@@ -182,35 +201,42 @@ public class ReviewController {
 
 	@FXML
 	private void mute() {
-		player.setMute(!player.isMute() );
+		player.setMute(!player.isMute());
+		if (player.isMute()) {
+			muteButton.setText("Unmute");
+			muteIcon.setStyle("-glyph-name:VOLUME_UP");
+		} else {
+			muteButton.setText("Mute");
+			muteIcon.setStyle("-glyph-name:VOLUME_OFF");
+		}
 	}
 
 	@FXML
 	private void toggleMusic() {
 		music.setMute(!toggleMusicButton.isSelected());
 	}
-	
-    @FXML
-    private void nextVideo() {
-    	if ((playIndex+1) == playList.size()) return;
-    	playIndex++;
-    	player.dispose();
-    	setSource();
-	}
-    
-    @FXML
-    private void prevVideo() {
-    	if (playIndex == 0) return;
-    	playIndex--;
-    	player.dispose();
-    	setSource();
+
+	@FXML
+	private void nextVideo() {
+		if ((playIndex+1) == playList.size()) return;
+		playIndex++;
+		player.dispose();
+		setSource();
 	}
 
-    @FXML
+	@FXML
+	private void prevVideo() {
+		if (playIndex == 0) return;
+		playIndex--;
+		player.dispose();
+		setSource();
+	}
+
+  @FXML
 	private void playVideo() {
-    	playIndex = playListView.getSelectionModel().getSelectedIndex();
-    	player.dispose();
-    	setSource();
+		playIndex = playListView.getSelectionModel().getSelectedIndex();
+		player.dispose();
+		setSource();
 	}
 
 	@FXML
@@ -218,13 +244,13 @@ public class ReviewController {
 		timeLabel.getScene().getWindow().hide();
 		shutdown();
 	}
-	
+
 	@FXML
 	private void initialize() {
-////		Scene scene = timeLabel.getScene();
-////		Stage currentStage = (Stage) timeLabel.getScene().getWindow();
-////		currentStage.initStyle(StageStyle.TRANSPARENT);
-////		scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+		////		Scene scene = timeLabel.getScene();
+		////		Stage currentStage = (Stage) timeLabel.getScene().getWindow();
+		////		currentStage.initStyle(StageStyle.TRANSPARENT);
+		////		scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
 	}
 
 	private void setUpHelp() {

@@ -80,8 +80,6 @@ public class VideoCreationController {
     @FXML
     private void searchWiki() {
         String searchTerm = searchField.getText();
-        if (searchTerm == null || searchTerm.isEmpty()) return;
-
         dialog = new DialogBuilder().loadingDialog(stackPane, "Searching for " + searchTerm + "...");
 
         Task<ArrayList<String>> search = new SearchWiki(searchTerm, textArea);
@@ -97,11 +95,12 @@ public class VideoCreationController {
     @FXML
     private void createVideo() {
 
-        // If no text is selected then raise an error
-//        if (textListView.getSelectionModel().getSelectedItems().size() == 0) {
-//            alertCreator("Selection Process", "Invalid Selection", "Please select some text.");
-//            return;
-//        }
+//         If no text is selected then raise an error
+        if (textListView.getSelectionModel().getSelectedItems().size() == 0) {
+            new DialogBuilder().closeDialog(stackPane, "Invalid Selection", "Please select some text.");
+            return;
+        }
+        
 
         // Error checking for empty/null selected
 //        String customName = videoNameField.getText();
@@ -228,6 +227,20 @@ public class VideoCreationController {
         helpNumImagesButton.setTooltip(new HoverToolTip("Click and drag the dot along the line to choose how many picture you want to have in your video, from 1 to 10!").getToolTip());
 
         helpTextListButton.setTooltip(new HoverToolTip("This is where each bit of text is shown in a list! Select one or more by clicking on a bit.").getToolTip());
+    }
+    
+    @FXML
+    private void checkValidSearch() {
+        String searchTerm = searchField.getText();
+        if (searchTerm == null || searchTerm.trim().isEmpty()) searchButton.setDisable(true);
+        else searchButton.setDisable(false);
+    }
+    
+    @FXML
+    private void checkValidCreate() {
+        String videoName = videoNameField.getText();
+        if (videoName == null || videoName.trim().isEmpty() || videoName.contains(" ")) createButton.setDisable(true);
+        else createButton.setDisable(false);
     }
 
     private int countWords(String input) {
