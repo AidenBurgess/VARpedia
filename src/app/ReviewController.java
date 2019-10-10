@@ -2,6 +2,8 @@ package app;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextArea;
@@ -36,6 +38,26 @@ public class ReviewController {
 	private JFXTextArea transcript;
 	@FXML
 	private Label upcomingLabel;
+	@FXML
+	private JFXButton helpQuit;
+	@FXML
+	private JFXButton helpMute;
+	@FXML
+	private JFXButton helpFor5;
+	@FXML
+	private JFXButton helpBack5;
+	@FXML
+	private JFXButton helpPlayPause;
+	@FXML
+	private JFXButton helpMusicToggle;
+	@FXML
+	private JFXButton helpNext;
+	@FXML
+	private JFXButton helpPrev;
+	@FXML
+	private JFXButton helpList;
+	@FXML
+	private JFXButton helpPlaylist;
 
 	private MediaPlayer player;
 	private MediaPlayer music;
@@ -60,20 +82,20 @@ public class ReviewController {
 	
 	private void setSource() {
 		currentVideo = playList.get(playIndex);
-		
+
 		setupPlayer();
 		updateSidePanel();
 		slider();
-		
+
 		// Update stage title to video name
 		Stage currentStage = (Stage) timeLabel.getScene().getWindow();
 		currentStage.setTitle("Currently playing: " + currentVideo.getName());
 
 	}
-	
+
 	private void setupPlayer() {
 		// Setup video player with source file
-		File fileUrl = new File("videos/" + currentVideo.getName() + ".mp4"); 
+		File fileUrl = new File("videos/" + currentVideo.getName() + ".mp4");
 		Media video = new Media(fileUrl.toURI().toString());
 		player = new MediaPlayer(video);
 		player.setAutoPlay(true);
@@ -82,7 +104,7 @@ public class ReviewController {
 			showRating();
 		});
 		screen.setMediaPlayer(player);
-		
+
 		// Timer label tracks the time of the video
 				player.currentTimeProperty().addListener((observable,oldValue,newValue) -> {
 					String time = "";
@@ -92,15 +114,15 @@ public class ReviewController {
 					timeLabel.setText(time);
 				});
 	}
-	
+
 	private void updateSidePanel() {
 		// Update upcoming label
     	if ((playIndex+1) == playList.size()) upcomingLabel.setText("Upcoming: None." );
     	else upcomingLabel.setText("Upcoming: " + playList.get(playIndex+1).getName());
-    	
+
     	// Update transcript
     	transcript.setText(currentVideo.getName() + " " + currentVideo.getSearchTerm());
-    	
+
 	}
 
 	private void slider() {
@@ -181,7 +203,7 @@ public class ReviewController {
     	player.dispose();
     	setSource();
 	}
-    
+
     @FXML
 	private void playVideo() {
     	playIndex = playListView.getSelectionModel().getSelectedIndex();
@@ -201,6 +223,28 @@ public class ReviewController {
 ////		Stage currentStage = (Stage) timeLabel.getScene().getWindow();
 ////		currentStage.initStyle(StageStyle.TRANSPARENT);
 ////		scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+	}
+
+	private void setUpHelp() {
+		helpMute.setTooltip(new HoverToolTip("Click this to mute the video's voice!").getToolTip());
+
+		helpFor5.setTooltip(new HoverToolTip("Click this to go 5 seconds further into the video!").getToolTip());
+
+		helpBack5.setTooltip(new HoverToolTip("Click this to go 5 seconds back in the video!").getToolTip());
+
+		helpQuit.setTooltip(new HoverToolTip("Click this button to go back to the main menu!").getToolTip());
+
+		helpPlayPause.setTooltip(new HoverToolTip("Click this to play the video if it is paused, or pause the video if it is playing!").getToolTip());
+
+		helpMusicToggle.setTooltip(new HoverToolTip("Click this to turn on some background music (or to turn it off if it is already playing!)").getToolTip());
+
+		helpList.setTooltip(new HoverToolTip("This is where all the videos you can play are listed!").getToolTip());
+
+		helpPlaylist.setTooltip(new HoverToolTip("").getToolTip());
+
+		helpNext.setTooltip(new HoverToolTip("Click this to play the next video in the list!").getToolTip());
+
+		helpPrev.setTooltip(new HoverToolTip("Click this to play the previous video in the list!").getToolTip());
 	}
 
 	private void showRating() {
