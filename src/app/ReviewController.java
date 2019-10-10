@@ -229,11 +229,18 @@ public class ReviewController {
 		setSource();
 	}
 
-  @FXML
+	@FXML
 	private void playVideo() {
 		playIndex = playListView.getSelectionModel().getSelectedIndex();
 		player.dispose();
 		setSource();
+	}
+
+	@FXML
+	private void home() {
+		timeLabel.getScene().getWindow().hide();
+		shutdown();
+		new WindowBuilder().noTop("NewHomePage", "VarPedia");
 	}
 
 	@FXML

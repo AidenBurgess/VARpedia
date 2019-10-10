@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -8,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="927.0" style="-fx-font-family: Ubuntu;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.HomeController">
+<AnchorPane fx:id="root" prefHeight="500.0" prefWidth="927.0" style="-fx-font-family: Ubuntu;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.HomeController">
    <children>
       <Label layoutX="542.0" layoutY="457.0" style="-fx-font-family: Ubuntu;" text="Hover over a          button to find out more!">
          <font>
@@ -23,11 +24,26 @@
       </Label>
       <VBox layoutX="668.0" layoutY="101.0" prefHeight="324.0" prefWidth="202.0" spacing="33.0">
          <children>
-            <JFXButton fx:id="playButton" buttonType="RAISED" onAction="#playVideo" prefHeight="35.0" prefWidth="270.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3; -fx-background-radius: 6px; -fx-text-fill: WHITE;" text="Play" textFill="WHITE" />
-            <JFXButton fx:id="deleteButton" buttonType="RAISED" onAction="#deleteVideo" prefHeight="35.0" prefWidth="284.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3; -fx-background-radius: 6px; -fx-text-fill: WHITE;" text="Delete" textFill="WHITE" />
-            <JFXButton fx:id="createButton" buttonType="RAISED" onAction="#createVideo" prefHeight="36.0" prefWidth="267.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3; -fx-background-radius: 6px; -fx-text-fill: WHITE;" text="Create" textFill="WHITE" />
-            <JFXButton fx:id="reviewButton" buttonType="RAISED" onAction="#reviewVideos" prefHeight="36.0" prefWidth="248.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3; -fx-background-radius: 6px; -fx-text-fill: WHITE;" text="Review" textFill="WHITE" />
-            <JFXButton fx:id="quitButton" buttonType="RAISED" onAction="#quit" prefHeight="35.0" prefWidth="333.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3; -fx-background-radius: 6px; -fx-text-fill: WHITE;" text="Quit" textFill="WHITE" />
+            <JFXButton fx:id="playButton" buttonType="RAISED" onAction="#playVideo" prefHeight="35.0" prefWidth="270.0" ripplerFill="WHITE" text="Play" textFill="WHITE">
+               <graphic>
+                  <MaterialDesignIconView glyphName="PLAY" />
+               </graphic></JFXButton>
+            <JFXButton fx:id="deleteButton" buttonType="RAISED" onAction="#deleteVideo" prefHeight="35.0" prefWidth="284.0" ripplerFill="WHITE" text="Delete" textFill="WHITE">
+               <graphic>
+                  <MaterialDesignIconView glyphName="DELETE" />
+               </graphic></JFXButton>
+            <JFXButton fx:id="createButton" buttonType="RAISED" onAction="#createVideo" prefHeight="36.0" prefWidth="267.0" ripplerFill="WHITE" text="Create" textFill="WHITE">
+               <graphic>
+                  <MaterialDesignIconView glyphName="FILE_OUTLINE" />
+               </graphic></JFXButton>
+            <JFXButton fx:id="reviewButton" buttonType="RAISED" onAction="#reviewVideos" prefHeight="36.0" prefWidth="248.0" ripplerFill="WHITE" text="Review" textFill="WHITE">
+               <graphic>
+                  <MaterialDesignIconView glyphName="BOOK_OPEN_VARIANT" />
+               </graphic></JFXButton>
+            <JFXButton fx:id="quitButton" buttonType="RAISED" onAction="#quit" prefHeight="35.0" prefWidth="333.0" ripplerFill="WHITE" text="Quit" textFill="WHITE">
+               <graphic>
+                  <MaterialDesignIconView glyphName="CLOSE" />
+               </graphic></JFXButton>
          </children>
       </VBox>
       <Label layoutX="658.0" layoutY="64.0" style="-fx-font-family: Ubuntu;" text="What would you like to do?">
@@ -36,19 +52,19 @@
          </font>
       </Label>
       <TableView fx:id="videoTable" layoutX="33.0" layoutY="97.0" prefHeight="332.0" prefWidth="567.0" />
-      <JFXButton fx:id="helpTableView" layoutX="588.0" layoutY="89.0" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton fx:id="helpDeleteButton" layoutX="858.0" layoutY="156.0" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton fx:id="helpCreateButton" layoutX="858.0" layoutY="225.0" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton fx:id="helpPlayButton" layoutX="858.0" layoutY="89.0" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton fx:id="helpReviewButton" layoutX="858.0" layoutY="294.0" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton fx:id="helpVarPedia" layoutX="594.0" layoutY="34.0" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <JFXButton fx:id="helpTableView" layoutX="588.0" layoutY="89.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpDeleteButton" layoutX="858.0" layoutY="156.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpCreateButton" layoutX="858.0" layoutY="225.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpPlayButton" layoutX="858.0" layoutY="89.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpReviewButton" layoutX="858.0" layoutY="294.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpVarPedia" layoutX="594.0" layoutY="34.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
       <Label layoutX="52.0" layoutY="64.0" style="-fx-font-family: Ubuntu;" text="Video Creations">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <JFXButton fx:id="helpHelp" layoutX="656.0" layoutY="455.0" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton fx:id="helpQuitButton" layoutX="858.0" layoutY="365.0" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <JFXButton fx:id="helpHelp" layoutX="656.0" layoutY="455.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpQuitButton" layoutX="858.0" layoutY="365.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
       <StackPane fx:id="stackPane" layoutX="364.0" layoutY="181.0" prefHeight="150.0" prefWidth="200.0" />
    </children>
 </AnchorPane>

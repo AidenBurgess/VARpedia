@@ -39,18 +39,22 @@
 /****************** Button ******************/
 
 .jfx-button {
-    -fx-background-color: -fx-purple-accent-color;
-    -fx-text-fill: -fx-dark-text-color;
-    -fx-border-radius: 12px;
-    -fx-background-radius: 12px;
+    -fx-background-color:  #2196F3;
+    -fx-text-fill: WHITE;
+    -fx-border-radius: 50%;
+    -fx-background-radius: 8px;
 }
 
-.jfx-button-q {
+.help-button {
+    -fx-background-color: -fx-purple-accent-color;
     -fx-background-image: url(".qmark.png");
     -fx-background-repeat: stretch;
     -fx-background-size: 900 506;
     -fx-background-position: center center;
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
 }
+
 
 .jfx-button:hover {
     -fx-background-color: #59a6e3;
@@ -147,6 +151,6 @@
 /****************** Icons ******************/
 
 .glyph-icon {
-    -fx-fill: #d3d3d3;
-    /*-glyph-size: 48px;*/
+    -fx-fill: WHITE;
+    -glyph-size: 24px;
 }

@@ -14,9 +14,9 @@
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="637.0" prefWidth="1001.0" style="-fx-background-color: transparent;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ReviewController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="637.0" prefWidth="1079.0" style="-fx-background-color: transparent;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ReviewController">
 <children>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="637.0" prefWidth="700.0" style="-fx-background-color: #131313;">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="637.0" prefWidth="700.0" style="-fx-background-color: #131313; -fx-background-radius: 10px; -fx-border-radius: 30px;">
    <children>
       <MediaView fx:id="screen" fitHeight="380.0" fitWidth="640.0" layoutX="30.0" layoutY="74.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="74.0" />
       <Label fx:id="timeLabel" layoutX="318.0" layoutY="567.0" prefHeight="36.0" prefWidth="105.0" text="Time" textFill="WHITE">
@@ -26,7 +26,7 @@
       </Label>
       <HBox layoutX="67.0" layoutY="511.0" prefHeight="55.0" prefWidth="565.0" spacing="10.0">
          <children>
-            <JFXButton buttonType="RAISED" onAction="#back" prefHeight="45.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Back" textFill="WHITE">
+            <JFXButton buttonType="RAISED" onAction="#back" prefHeight="45.0" ripplerFill="WHITE" text="Back" textFill="WHITE">
                <font>
                   <Font name="Ubuntu" size="22.0" />
                </font>
@@ -34,7 +34,7 @@
                         <FontAwesomeIconView glyphName="BACKWARD" size="25" />
                      </graphic>
             </JFXButton>
-            <JFXButton fx:id="playButton" buttonType="RAISED" onAction="#playPause" prefHeight="45.0" prefWidth="124.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Pause" textFill="WHITE">
+            <JFXButton fx:id="playButton" buttonType="RAISED" onAction="#playPause" prefHeight="45.0" prefWidth="124.0" ripplerFill="WHITE" text="Pause" textFill="WHITE">
                <font>
                   <Font name="Ubuntu" size="22.0" />
                </font>
@@ -42,7 +42,7 @@
                         <MaterialDesignIconView id="playIcon" fx:id="playIcon" glyphName="PAUSE" size="30" translateX="-10.0" wrappingWidth="18.0" />
                      </graphic>
             </JFXButton>
-            <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#forward" prefHeight="45.0" prefWidth="143.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Forward" textFill="WHITE">
+            <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#forward" prefHeight="45.0" prefWidth="143.0" ripplerFill="WHITE" text="Forward" textFill="WHITE">
                <font>
                   <Font name="Ubuntu" size="22.0" />
                </font>
@@ -50,7 +50,7 @@
                         <FontAwesomeIconView glyphName="FORWARD" size="25" />
                      </graphic>
             </JFXButton>
-            <JFXButton fx:id="muteButton" buttonType="RAISED" contentDisplay="RIGHT" onAction="#mute" prefHeight="45.0" prefWidth="151.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Mute" textFill="WHITE">
+            <JFXButton fx:id="muteButton" buttonType="RAISED" contentDisplay="RIGHT" onAction="#mute" prefHeight="45.0" prefWidth="151.0" ripplerFill="WHITE" text="Mute" textFill="WHITE">
                <font>
                   <Font size="22.0" />
                </font>
@@ -65,27 +65,24 @@
                <children>
                  <StackPane prefHeight="150.0" prefWidth="479.0" />
                </children></StackPane>
-      <JFXButton buttonType="RAISED" layoutX="13.0" layoutY="14.0" onAction="#quit" prefHeight="36.0" prefWidth="25.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text=" " textFill="WHITE">
-         <font>
-            <Font name="Ubuntu" size="20.0" />
-         </font>
+            <JFXButton fx:id="helpMute" layoutX="606.0" layoutY="503.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+            <JFXButton fx:id="helpFor5" layoutX="446.0" layoutY="498.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+            <JFXButton fx:id="helpBack5" layoutX="157.0" layoutY="498.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+            <JFXButton fx:id="helpPlayPause" layoutX="287.0" layoutY="498.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+            <JFXButton layoutX="14.0" layoutY="14.0" onAction="#home" prefHeight="45.0" prefWidth="49.0" textOverrun="CLIP">
                <graphic>
-                  <MaterialDesignIconView id="playIcon" fx:id="playIcon1" glyphName="HOME" size="30" wrappingWidth="18.0" />
+                  <MaterialDesignIconView id="playIcon" glyphName="HOME" size="50" wrappingWidth="18.0" />
                </graphic>
-      </JFXButton>
-            <JFXButton fx:id="helpMute" layoutX="606.0" layoutY="503.0" prefHeight="25.0" prefWidth="21.0" text="?" />
-            <JFXButton fx:id="helpFor5" layoutX="446.0" layoutY="498.0" prefHeight="25.0" prefWidth="21.0" text="?" />
-            <JFXButton fx:id="helpBack5" layoutX="157.0" layoutY="498.0" prefHeight="25.0" prefWidth="21.0" text="?" />
-            <JFXButton fx:id="helpPlayPause" layoutX="287.0" layoutY="498.0" prefHeight="25.0" prefWidth="21.0" text="?" />
+            </JFXButton>
    </children>
 </AnchorPane>
-      <AnchorPane fx:id="sidePanel" layoutX="700.0" layoutY="2.0" prefHeight="576.0" prefWidth="302.0">
+      <AnchorPane fx:id="sidePanel" layoutX="709.0" prefHeight="576.0" prefWidth="302.0" style="-fx-background-color: #595959; -fx-background-radius: 10px;">
          <children>
             <JFXButton layoutX="8.0" layoutY="14.0" text="Playlist" />
             <JFXTextArea fx:id="transcript" layoutX="21.0" layoutY="337.0" prefHeight="150.0" prefWidth="211.0" />
             <Label fx:id="upcomingLabel" layoutX="21.0" layoutY="498.0" text="Upcoming..." />
             <JFXListView fx:id="playListView" layoutX="14.0" layoutY="57.0" prefHeight="150.0" prefWidth="200.0" />
-            <JFXButton buttonType="RAISED" layoutX="8.0" layoutY="216.0" onAction="#playVideo" prefHeight="43.0" prefWidth="105.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Play" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="8.0" layoutY="216.0" onAction="#playVideo" prefHeight="43.0" prefWidth="105.0" ripplerFill="WHITE" text="Play" textFill="WHITE">
                <font>
                   <Font name="Ubuntu" size="18.0" />
                </font>
@@ -93,7 +90,7 @@
                   <MaterialDesignIconView id="playIcon" glyphName="PLAY" size="30" />
                </graphic>
             </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="7.0" layoutY="278.0" onAction="#prevVideo" prefHeight="42.0" prefWidth="138.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Previous" textFill="WHITE">
+      <JFXButton buttonType="RAISED" layoutX="7.0" layoutY="278.0" onAction="#prevVideo" prefHeight="42.0" prefWidth="138.0" ripplerFill="WHITE" text="Previous" textFill="WHITE">
          <font>
             <Font name="Ubuntu" size="18.0" />
          </font>
@@ -101,7 +98,7 @@
                   <MaterialDesignIconView id="playIcon" glyphName="SKIP_BACKWARD" size="30" />
                </graphic>
       </JFXButton>
-      <JFXButton buttonType="RAISED" contentDisplay="RIGHT" layoutX="162.0" layoutY="278.0" onAction="#nextVideo" prefHeight="42.0" prefWidth="124.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Next" textFill="WHITE">
+      <JFXButton buttonType="RAISED" contentDisplay="RIGHT" layoutX="162.0" layoutY="278.0" onAction="#nextVideo" prefHeight="42.0" prefWidth="124.0" ripplerFill="WHITE" text="Next" textFill="WHITE">
          <font>
             <Font name="Ubuntu" size="18.0" />
          </font>
@@ -114,7 +111,7 @@
             <Font size="17.0" />
          </font>
       </JFXToggleButton>
-            <JFXButton buttonType="RAISED" ellipsisString="" layoutX="246.0" maxWidth="44.0" onAction="#quit" prefHeight="26.0" prefWidth="25.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="227.0" layoutY="8.0" maxWidth="143.0" onAction="#quit" prefHeight="38.0" prefWidth="15.0" ripplerFill="WHITE" textFill="WHITE" textOverrun="CLIP">
                <font>
                   <Font name="Ubuntu" size="20.0" />
                </font>
@@ -122,13 +119,13 @@
                   <MaterialDesignIconView id="playIcon" glyphName="WINDOW_CLOSE" size="25" wrappingWidth="18.0" />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="helpList" layoutX="202.0" layoutY="44.0" prefHeight="25.0" prefWidth="21.0" text="?" />
-            <JFXButton fx:id="helpTextArea" layoutX="202.0" layoutY="337.0" prefHeight="25.0" prefWidth="21.0" text="?" />
-            <JFXButton fx:id="helpPlayButton" layoutX="101.0" layoutY="203.0" prefHeight="25.0" prefWidth="21.0" text="?" />
-            <JFXButton fx:id="helpPrev" layoutX="133.0" layoutY="266.0" prefHeight="25.0" prefWidth="21.0" text="?" />
-            <JFXButton fx:id="helpMusicToggle" layoutX="193.0" layoutY="504.0" prefHeight="25.0" prefWidth="21.0" text="?" />
-            <JFXButton fx:id="helpNext" layoutX="271.0" layoutY="266.0" prefHeight="25.0" prefWidth="21.0" text="?" />
-            <JFXButton fx:id="helpQuit" layoutX="271.0" layoutY="374.0" prefHeight="25.0" prefWidth="21.0" text="?" />
+            <JFXButton fx:id="helpList" layoutX="202.0" layoutY="44.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+            <JFXButton fx:id="helpTextArea" layoutX="220.0" layoutY="324.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+            <JFXButton fx:id="helpPlayButton" layoutX="101.0" layoutY="203.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+            <JFXButton fx:id="helpPrev" layoutX="133.0" layoutY="266.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+            <JFXButton fx:id="helpMusicToggle" layoutX="193.0" layoutY="504.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+            <JFXButton fx:id="helpNext" layoutX="271.0" layoutY="266.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+            <JFXButton fx:id="helpQuit" layoutX="271.0" layoutY="374.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
          </children>
       </AnchorPane>
 </children>

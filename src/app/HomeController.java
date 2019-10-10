@@ -6,16 +6,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import jdk.management.resource.internal.inst.DatagramDispatcherRMHooks;
 import processes.*;
 import java.util.ArrayList;
 import java.util.Optional;
 
 public class HomeController {
-
+	
+	@FXML
+	private AnchorPane root;
     @FXML
     private JFXButton playButton;
     @FXML
@@ -54,6 +55,8 @@ public class HomeController {
     private int greenRating = 4;
     private int yellowRating = 2;
     private int redRating = 0;
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     @FXML
     private void createVideo() {
@@ -81,18 +84,16 @@ public class HomeController {
     @FXML
     private void deleteVideo() {
     	VideoCreation videoCreation = (VideoCreation) videoTable.getSelectionModel().getSelectedItem();
-    	String videoName = videoCreation.getName();
-    	if(videoName == null) return;
-    	System.out.println(videoName);
+    	if(videoCreation == null) return;
     	
     	Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Deletion Process");
         alert.setHeaderText("Deletion Confirmation");
-        alert.setContentText("Would you really like to delete " + videoName + "?");
+        alert.setContentText("Would you really like to delete " + videoCreation.getName() + "?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() != ButtonType.OK) return;
         
-        Task<ArrayList<String>> task = new DeleteVideo(videoName);
+        Task<ArrayList<String>> task = new DeleteVideo(videoCreation.getName());
         task.setOnSucceeded(event -> updateVideoTable());
         Thread thread = new Thread(task);
         thread.start();
@@ -112,15 +113,9 @@ public class HomeController {
     	Stage homeStage = (Stage) helpCreateButton.getScene().getWindow();
     	homeStage.hide();
     	// Launch review window
-    	WindowBuilder reviewWindow = new WindowBuilder().pop("ReviewPlayer", "Review Videos");
+    	WindowBuilder reviewWindow = new WindowBuilder().noTop("ReviewPlayer", "Review Videos");
     	ReviewController controller = reviewWindow.loader().getController();
-    	
     	controller.setPlaylist(toReview);
-    	reviewWindow.stage().setOnHidden(e -> {
-    		controller.shutdown();
-    		updateVideoTable();
-    		homeStage.show();
-    	});
     }
 
     @FXML
@@ -140,7 +135,6 @@ public class HomeController {
     	stackPane.setPickOnBounds(false);
     	initTable();
     	updateVideosToReview();
-    	remindReview();
         setUpHelp();
     }
         
@@ -230,12 +224,31 @@ public class HomeController {
     	}
     }
 
-    private void remindReview() {
+    public void remindReview() {
     	String body = "";
     	for(VideoCreation v: toReview) {
     		body+= v.getName() + "\n";
     	}
     	new DialogBuilder().closeDialog(stackPane, "Review Reminder", body);
+    }
+    
+    public void makeStageDrageable() {
+    	Stage stage = (Stage) root.getScene().getWindow();
+        root.setOnMousePressed(event-> {
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+        });
+        root.setOnMouseDragged(event-> {
+                stage.setX(event.getScreenX() - xOffset);
+                stage.setY(event.getScreenY() - yOffset);
+                stage.setOpacity(0.8f);
+        });
+        root.setOnDragDone((e) -> {
+            stage.setOpacity(1.0f);
+        });
+        root.setOnMouseReleased((e) -> {
+            stage.setOpacity(1.0f);
+        });
     }
 
 }
