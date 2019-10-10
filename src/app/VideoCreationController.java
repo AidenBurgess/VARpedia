@@ -82,7 +82,7 @@ public class VideoCreationController {
     private void searchWiki() {
         String searchTerm = searchField.getText();
         if (searchTerm == null || searchTerm.isEmpty()) return;
-
+        textListView.getItems().clear();
         dialog = new DialogBuilder().loadingDialog(stackPane, "Searching for " + searchTerm + "...");
 
         Task<ArrayList<String>> search = new SearchWiki(searchTerm, textArea);
