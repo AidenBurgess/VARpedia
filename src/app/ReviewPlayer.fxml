@@ -49,19 +49,19 @@
                         <FontAwesomeIcon glyphName="FORWARD" />
                      </graphic>
             </JFXButton>
-            <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#mute" prefHeight="40.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Mute" textFill="WHITE">
+            <JFXButton fx:id="muteButton" buttonType="RAISED" contentDisplay="RIGHT" onAction="#mute" prefHeight="40.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Mute" textFill="WHITE">
                <font>
                   <Font name="Ubuntu" size="22.0" />
                </font>
                      <graphic>
-                        <FontAwesomeIcon glyphName="VOLUME_OFF" />
+                        <FontAwesomeIcon fx:id="muteIcon" glyphName="VOLUME_OFF" />
                      </graphic>
             </JFXButton>
          </children>
       </HBox>
       <JFXSlider fx:id="timeSlider" layoutX="69.0" layoutY="508.0" prefHeight="16.0" prefWidth="537.0" />
            <StackPane layoutX="119.0" layoutY="195.0" prefHeight="150.0" prefWidth="479.0" />
-      <JFXButton buttonType="RAISED" layoutX="13.0" layoutY="14.0" onAction="#quit" prefHeight="40.0" prefWidth="113.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Home" textFill="WHITE">
+      <JFXButton buttonType="RAISED" layoutX="13.0" layoutY="14.0" onAction="#quit" prefHeight="40.0" prefWidth="24.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text=" " textFill="WHITE">
          <font>
             <Font name="Ubuntu" size="20.0" />
          </font>
@@ -69,14 +69,6 @@
                   <FontAwesomeIcon glyphName="HOME" />
                </graphic>
       </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="30.0" layoutY="528.0" onAction="#quit" prefHeight="40.0" prefWidth="97.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Quit" textFill="WHITE">
-               <font>
-                  <Font name="Ubuntu" size="20.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIcon glyphName="POWER_OFF" />
-               </graphic>
-            </JFXButton>
    </children>
 </AnchorPane>
       <AnchorPane fx:id="sidePanel" layoutX="700.0" layoutY="2.0" prefHeight="576.0" prefWidth="302.0">
@@ -111,6 +103,14 @@
             <Font size="17.0" />
          </font>
       </JFXToggleButton>
+            <JFXButton buttonType="RAISED" ellipsisString="" layoutX="182.0" layoutY="20.0" maxWidth="15.0" onAction="#quit" prefHeight="40.0" prefWidth="11.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" textFill="WHITE">
+               <font>
+                  <Font name="Ubuntu" size="20.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon glyphName="CLOSE" onMouseClicked="#quit" size="1.5em" />
+               </graphic>
+            </JFXButton>
          </children>
       </AnchorPane>
 </children>
