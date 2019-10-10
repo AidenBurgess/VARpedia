@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import processes.*;
 import java.util.ArrayList;
@@ -194,7 +195,7 @@ public class HomeController {
     }
 
     private JFXDialog loadingDialog(String title) {
-    	JFXDialogLayout dialogContent = new JFXDialogLayout();
+        JFXDialogLayout dialogContent = new JFXDialogLayout();
         dialogContent.setHeading(new Text(title));
         JFXSpinner spinner = new JFXSpinner();
         spinner.setPrefSize(50, 50);
@@ -202,6 +203,7 @@ public class HomeController {
         JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.RIGHT);
         dialog.show();
         return dialog;
+    }
 
     private void updateVideosToReview() {
     	toReview.clear();
