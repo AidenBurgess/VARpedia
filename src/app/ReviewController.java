@@ -2,10 +2,14 @@ package app;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXToggleButton;
+
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -36,6 +40,10 @@ public class ReviewController {
 	private JFXTextArea transcript;
 	@FXML
 	private Label upcomingLabel;
+	@FXML
+	private JFXButton playButton;
+	@FXML
+	private FontAwesomeIcon playIcon;
 
 	private MediaPlayer player;
 	private MediaPlayer music;
@@ -141,8 +149,12 @@ public class ReviewController {
 	private void playPause() {
 		if (player.getStatus() == Status.PLAYING) {
 			player.pause();
+			playButton.setText("Play");
+			playIcon.setStyle("-glyph-name:PLAY");
 		} else {
 			player.play();
+			playButton.setText("Pause");
+			playIcon.setStyle("-glyph-name:PAUSE");
 		}
 	}
 

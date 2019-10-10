@@ -64,12 +64,11 @@ public class HomeController {
     @FXML
     private void playVideo() {
     	VideoCreation videoCreation = (VideoCreation) videoTable.getSelectionModel().getSelectedItem();
-    	String videoName = videoCreation.getName();
-    	if(videoName == null) return;
+    	if(videoCreation == null) return;
 
     	WindowBuilder windowBuilder = new WindowBuilder().pop("VideoPlayer", "Video Player");
     	FXMLLoader loader = windowBuilder.loader();
-    	((VideoPlayerController) windowBuilder.loader().getController()).setSource(videoName);
+    	((VideoPlayerController) windowBuilder.loader().getController()).setSource(videoCreation.getName());
     	windowBuilder.stage().setOnHidden(e -> ((VideoPlayerController) loader.getController()).shutdown());
     }
     
