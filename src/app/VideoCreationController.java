@@ -75,12 +75,10 @@ public class VideoCreationController {
 
     @FXML
     private void createVideo() {
-//       If no text is selected then raise an error
-        if (textListView.getSelectionModel().getSelectedItems().size() == 0) {
-            new DialogBuilder().closeDialog(stackPane, "Invalid Selection", "Please select some text.");
+        if (textListView.getItems().size() == 0) {
+            new DialogBuilder().closeDialog(stackPane, "Invalid Text", "Please add some text to the list.");
             return;
         }
-    	
         dialog = new DialogBuilder().loadingDialog(stackPane, "Creating Video");
     	createAudio();
     }
