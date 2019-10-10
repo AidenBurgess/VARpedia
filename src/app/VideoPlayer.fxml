@@ -67,5 +67,11 @@
          </font>
       </JFXToggleButton>
       <JFXSlider fx:id="timeSlider" layoutX="59.0" layoutY="510.0" prefHeight="16.0" prefWidth="588.0" />
+      <JFXButton fx:id="helpPlayPause" layoutX="181.0" layoutY="435.0" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <JFXButton fx:id="helpBack5" layoutX="296.0" layoutY="435.0" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <JFXButton fx:id="helpFor5" layoutX="446.0" layoutY="435.0" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <JFXButton fx:id="helpMute" layoutX="539.0" layoutY="435.0" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <JFXButton fx:id="helpQuit" layoutX="624.0" layoutY="436.0" prefHeight="25.0" prefWidth="21.0" text="?" />
+      <JFXButton fx:id="helpMusicToggle" layoutX="624.0" layoutY="526.0" prefHeight="25.0" prefWidth="21.0" text="?" />
    </children>
 </AnchorPane>

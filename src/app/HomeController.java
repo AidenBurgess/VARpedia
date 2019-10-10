@@ -149,45 +149,21 @@ public class HomeController {
     }
 
     private void setUpHelp() {
-        Tooltip tabView = new Tooltip("All of your video creations are listed here! \nClick on a row to select that video.");
-        tabView.setWidth(200.0);
-        tabView.setWrapText(true);
-        helpTableView.setTooltip(tabView);
+        helpTableView.setTooltip(new HoverToolTip("All of your video creations are listed here! \nClick on a row to select that video.").getToolTip());
 
-        Tooltip crte = new Tooltip("");
-        crte.setWidth(200.0);
-        crte.setWrapText(true);
-        helpCreateButton.setTooltip(crte);
+        helpCreateButton.setTooltip(new HoverToolTip("").getToolTip());
 
-        Tooltip dlte = new Tooltip("");
-        dlte.setWidth(200.0);
-        dlte.setWrapText(true);
-        helpDeleteButton.setTooltip(dlte);
+        helpDeleteButton.setTooltip(new HoverToolTip("").getToolTip());
 
-        Tooltip help = new Tooltip("This is what the hover text will look like!");
-        help.setWidth(200.0);
-        help.setWrapText(true);
-        helpHelp.setTooltip(help);
+        helpHelp.setTooltip(new HoverToolTip("This is what the hover text will look like!").getToolTip());
 
-        Tooltip play = new Tooltip("");
-        play.setWidth(200.0);
-        play.setWrapText(true);
-        helpPlayButton.setTooltip(play);
+        helpPlayButton.setTooltip(new HoverToolTip("").getToolTip());
 
-        Tooltip quit = new Tooltip("");
-        quit.setWidth(200.0);
-        quit.setWrapText(true);
-        helpQuitButton.setTooltip(quit);
+        helpQuitButton.setTooltip(new HoverToolTip("").getToolTip());
 
-        Tooltip revB = new Tooltip("");
-        revB.setWidth(200.0);
-        revB.setWrapText(true);
-        helpReviewButton.setTooltip(revB);
+        helpReviewButton.setTooltip(new HoverToolTip("").getToolTip());
 
-        Tooltip var = new Tooltip("");
-        var.setWidth(200.0);
-        var.setWrapText(true);
-        helpVarPedia.setTooltip(var);
+        helpVarPedia.setTooltip(new HoverToolTip("").getToolTip());
     }
 
     private int countWords(String input) {

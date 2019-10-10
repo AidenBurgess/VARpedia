@@ -250,51 +250,23 @@ public class VideoCreationController {
     }
 
     private void setUpHelp() {
-       Tooltip searchRes = new Tooltip("Your search results will appear here. \nYou can click and drag to select text, add text to the results by typing it in, or delete text you don't want to see!");
-       searchRes.setWidth(200.0);
-       searchRes.setWrapText(true);
-       helpSearchResultsButton.setTooltip(searchRes);
+       helpSearchResultsButton.setTooltip(new HoverToolTip("Your search results will appear here. \nYou can click and drag to select text, add text to the results by typing it in, or delete text you don't want to see!").getToolTip());
 
-       Tooltip addRem = new Tooltip("");
-       addRem.setWidth(200.0);
-       addRem.setWrapText(true);
-       helpAddRemoveButton.setTooltip(addRem);
+       helpAddRemoveButton.setTooltip(new HoverToolTip("").getToolTip());
 
-        Tooltip shuff = new Tooltip("");
-        shuff.setWidth(200.0);
-        shuff.setWrapText(true);
-        helpShuffleButton.setTooltip(shuff);
+        helpShuffleButton.setTooltip(new HoverToolTip("").getToolTip());
 
-        Tooltip backB = new Tooltip("Click this button to go back to the main menu!");
-        backB.setWidth(200.0);
-        backB.setWrapText(true);
-        helpBackButton.setTooltip(backB);
+        helpBackButton.setTooltip(new HoverToolTip("Click this button to go back to the main menu!").getToolTip());
 
-        Tooltip searchB = new Tooltip("");
-        searchB.setWidth(200.0);
-        searchB.setWrapText(true);
-        helpSearchButton.setTooltip(searchB);
+        helpSearchButton.setTooltip(new HoverToolTip("").getToolTip());
 
-        Tooltip voiceB = new Tooltip("In this list are different voices you can choose to speak your text in your video!");
-        voiceB.setWidth(200.0);
-        voiceB.setWrapText(true);
-        helpVoicesButton.setTooltip(voiceB);
+        helpVoicesButton.setTooltip(new HoverToolTip("In this list are different voices you can choose to speak your text in your video!").getToolTip());
 
-        Tooltip vidB = new Tooltip("");
-        vidB.setWidth(200.0);
-        vidB.setWrapText(true);
-        helpVideoNameButton.setTooltip(vidB);
+        helpVideoNameButton.setTooltip(new HoverToolTip("").getToolTip());
 
-        Tooltip numIm = new Tooltip("");
-        numIm.setWidth(200.0);
-        numIm.setWrapText(true);
-        helpNumImagesButton.setTooltip(numIm);
+        helpNumImagesButton.setTooltip(new HoverToolTip("").getToolTip());
 
-        Tooltip txtList = new Tooltip("");
-        txtList.setWidth(200.0);
-        txtList.setWrapText(true);
-        helpTextListButton.setTooltip(txtList);
-
+        helpTextListButton.setTooltip(new HoverToolTip("").getToolTip());
     }
 
     private int countWords(String input) {

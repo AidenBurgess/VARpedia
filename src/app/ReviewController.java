@@ -3,6 +3,7 @@ package app;
 import java.io.File;
 import java.util.ArrayList;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.application.Platform;
@@ -32,6 +33,26 @@ public class ReviewController {
 	private JFXToggleButton toggleMusicButton;
 	@FXML
 	private JFXSlider timeSlider;
+	@FXML
+	private JFXButton helpQuit;
+	@FXML
+	private JFXButton helpMute;
+	@FXML
+	private JFXButton helpFor5;
+	@FXML
+	private JFXButton helpBack5;
+	@FXML
+	private JFXButton helpPlayPause;
+	@FXML
+	private JFXButton helpMusicToggle;
+	@FXML
+	private JFXButton helpNext;
+	@FXML
+	private JFXButton helpPrev;
+	@FXML
+	private JFXButton helpList;
+	@FXML
+	private JFXButton helpPlaylist;
 
 	private MediaPlayer player;
 	private MediaPlayer music;
@@ -167,6 +188,28 @@ public class ReviewController {
 ////		Stage currentStage = (Stage) timeLabel.getScene().getWindow();
 ////		currentStage.initStyle(StageStyle.TRANSPARENT);
 ////		scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+	}
+
+	private void setUpHelp() {
+		helpMute.setTooltip(new HoverToolTip("Click this to mute the video's voice!").getToolTip());
+
+		helpFor5.setTooltip(new HoverToolTip("Click this to go 5 seconds further into the video!").getToolTip());
+
+		helpBack5.setTooltip(new HoverToolTip("Click this to go 5 seconds back in the video!").getToolTip());
+
+		helpQuit.setTooltip(new HoverToolTip("Click this button to go back to the main menu!").getToolTip());
+
+		helpPlayPause.setTooltip(new HoverToolTip("Click this to play the video if it is paused, or pause the video if it is playing!").getToolTip());
+
+		helpMusicToggle.setTooltip(new HoverToolTip("Click this to turn on some background music (or to turn it off if it is already playing!)").getToolTip());
+
+		helpList.setTooltip(new HoverToolTip("").getToolTip());
+
+		helpPlaylist.setTooltip(new HoverToolTip("").getToolTip());
+
+		helpNext.setTooltip(new HoverToolTip("Click this to play the next video in the list!").getToolTip());
+
+		helpPrev.setTooltip(new HoverToolTip("Click this to play the previous video in the list!").getToolTip());
 	}
 
 	private void showRating() {
