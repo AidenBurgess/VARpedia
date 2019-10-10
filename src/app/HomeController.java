@@ -16,16 +16,6 @@ import java.util.Optional;
 public class HomeController {
 
     @FXML
-    private JFXButton playButton;
-    @FXML
-    private JFXButton deleteButton;
-    @FXML
-    private JFXButton createButton;
-    @FXML
-    private JFXButton reviewButton;
-    @FXML
-    private JFXButton quitButton;
-    @FXML
     private TableView videoTable;
     @FXML
     private JFXButton helpTableView;
@@ -117,7 +107,7 @@ public class HomeController {
     @FXML
     private void quit() {
     	VideoManager.getVideoManager().writeSerializedVideos();
-    	quitButton.getScene().getWindow().hide();
+    	helpQuitButton.getScene().getWindow().hide();
     }
 
     private void updateVideoTable() {

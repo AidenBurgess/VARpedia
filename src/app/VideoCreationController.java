@@ -2,16 +2,11 @@ package app;
 
 import com.jfoenix.controls.*;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import processes.*;
 import java.util.ArrayList;
 
@@ -54,7 +49,6 @@ public class VideoCreationController {
     @FXML
     private JFXTextArea textArea;
 
-    private ObservableList<String> chosenTextItems;
     private String currentSearch = "banana";
     private JFXDialog dialog;
 
