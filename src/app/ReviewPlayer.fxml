@@ -7,8 +7,6 @@
 <?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TreeTableColumn?>
-<?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
@@ -25,7 +23,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <HBox layoutX="56.0" layoutY="445.0" prefHeight="55.0" prefWidth="588.0" spacing="10.0">
+      <HBox layoutX="56.0" layoutY="445.0" prefHeight="55.0" prefWidth="607.0" spacing="10.0">
          <children>
             <JFXButton buttonType="RAISED" onAction="#playPause" prefHeight="42.0" prefWidth="142.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Play/Pause" textFill="WHITE">
                <font>
@@ -47,7 +45,7 @@
                   <Font name="Ubuntu" size="22.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" onAction="#quit" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Quit" textFill="WHITE">
+            <JFXButton buttonType="RAISED" onAction="#quit" prefHeight="43.0" prefWidth="86.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Quit" textFill="WHITE">
                <font>
                   <Font name="Ubuntu" size="22.0" />
                </font>
@@ -59,7 +57,7 @@
             <Font size="17.0" />
          </font>
       </JFXToggleButton>
-      <JFXSlider fx:id="timeSlider" layoutX="59.0" layoutY="510.0" prefHeight="16.0" prefWidth="588.0" />
+      <JFXSlider fx:id="timeSlider" layoutX="59.0" layoutY="508.0" prefHeight="16.0" prefWidth="597.0" />
       <JFXButton buttonType="RAISED" layoutX="567.0" layoutY="530.0" onAction="#nextVideo" prefHeight="42.0" prefWidth="90.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Next" textFill="WHITE">
          <font>
             <Font name="Ubuntu" size="22.0" />
@@ -81,16 +79,17 @@
             <JFXButton fx:id="helpPlayPause" layoutX="182.0" layoutY="432.0" prefHeight="25.0" prefWidth="21.0" text="?" />
    </children>
 </AnchorPane>
-      <AnchorPane fx:id="sidePanel" layoutX="700.0" layoutY="2.0" prefHeight="446.0" prefWidth="302.0">
+      <AnchorPane fx:id="sidePanel" layoutX="700.0" layoutY="2.0" prefHeight="502.0" prefWidth="302.0">
          <children>
-            <JFXButton layoutX="25.0" layoutY="425.0" text="Playlist" />
-            <TreeTableView prefHeight="200.0" prefWidth="200.0">
-              <columns>
-                <TreeTableColumn prefWidth="75.0" text="C1" />
-                <TreeTableColumn prefWidth="75.0" text="C2" />
-              </columns>
-            </TreeTableView>
-            <JFXTextArea layoutX="14.0" layoutY="216.0" prefHeight="178.0" prefWidth="211.0" />
+            <JFXButton layoutX="8.0" layoutY="14.0" text="Playlist" />
+            <JFXTextArea fx:id="transcript" layoutX="21.0" layoutY="278.0" prefHeight="178.0" prefWidth="211.0" />
+            <Label fx:id="upcomingLabel" layoutX="21.0" layoutY="472.0" text="Upcoming..." />
+            <JFXListView fx:id="playListView" layoutX="14.0" layoutY="57.0" prefHeight="150.0" prefWidth="200.0" />
+            <JFXButton buttonType="RAISED" layoutX="21.0" layoutY="221.0" onAction="#playVideo" prefHeight="43.0" prefWidth="105.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3;" text="Play" textFill="WHITE">
+               <font>
+                  <Font name="Ubuntu" size="22.0" />
+               </font>
+            </JFXButton>
             <JFXButton fx:id="helpList" layoutX="262.0" layoutY="17.0" prefHeight="25.0" prefWidth="21.0" text="?" />
             <JFXButton fx:id="helpPlaylist" layoutX="262.0" layoutY="394.0" prefHeight="25.0" prefWidth="21.0" text="?" />
          </children>

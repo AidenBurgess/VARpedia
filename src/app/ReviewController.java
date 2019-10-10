@@ -4,20 +4,19 @@ import java.io.File;
 import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXSlider;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.util.Duration;
 
@@ -33,6 +32,12 @@ public class ReviewController {
 	private JFXToggleButton toggleMusicButton;
 	@FXML
 	private JFXSlider timeSlider;
+	@FXML
+	private JFXListView playListView;
+	@FXML
+	private JFXTextArea transcript;
+	@FXML
+	private Label upcomingLabel;
 	@FXML
 	private JFXButton helpQuit;
 	@FXML
@@ -57,11 +62,13 @@ public class ReviewController {
 	private MediaPlayer player;
 	private MediaPlayer music;
 	private ArrayList<VideoCreation> playList;
+	private VideoCreation currentVideo;
 	private int playIndex = 0;
 
 	public void setPlaylist(ArrayList<VideoCreation> playList) {
 //		root.setBackground(Background.EMPTY); 
 		this.playList = playList;
+		for (VideoCreation v: playList) playListView.getItems().add(v.getName());
 		// Setup background music player
 		File fileUrl = new File("backgroundMusic" + ".wav");
 		Media audio = new Media(fileUrl.toURI().toString());
@@ -74,27 +81,48 @@ public class ReviewController {
 	}
 	
 	private void setSource() {
+		currentVideo = playList.get(playIndex);
+
+		setupPlayer();
+		updateSidePanel();
+		slider();
+
+		// Update stage title to video name
+		Stage currentStage = (Stage) timeLabel.getScene().getWindow();
+		currentStage.setTitle("Currently playing: " + currentVideo.getName());
+
+	}
+
+	private void setupPlayer() {
 		// Setup video player with source file
-		File fileUrl = new File("videos/" + playList.get(playIndex).getName() + ".mp4"); 
+		File fileUrl = new File("videos/" + currentVideo.getName() + ".mp4");
 		Media video = new Media(fileUrl.toURI().toString());
 		player = new MediaPlayer(video);
 		player.setAutoPlay(true);
-		player.setOnEndOfMedia(()-> showRating());
+		player.setOnEndOfMedia(()-> {
+			currentVideo.incrementViews();
+			showRating();
+		});
 		screen.setMediaPlayer(player);
-		slider();
-		
-		// Update stage title to video name
-		Stage currentStage = (Stage) timeLabel.getScene().getWindow();
-		currentStage.setTitle("Currently playing: " + playList.get(playIndex).getName());
 
 		// Timer label tracks the time of the video
-		player.currentTimeProperty().addListener((observable,oldValue,newValue) -> {
-			String time = "";
-			time += String.format("%02d", (int)newValue.toMinutes());
-			time += ":";
-			time += String.format("%02d", (int)newValue.toSeconds()%60);
-			timeLabel.setText(time);
-		});
+				player.currentTimeProperty().addListener((observable,oldValue,newValue) -> {
+					String time = "";
+					time += String.format("%02d", (int)newValue.toMinutes());
+					time += ":";
+					time += String.format("%02d", (int)newValue.toSeconds()%60);
+					timeLabel.setText(time);
+				});
+	}
+
+	private void updateSidePanel() {
+		// Update upcoming label
+    	if ((playIndex+1) == playList.size()) upcomingLabel.setText("Upcoming: None." );
+    	else upcomingLabel.setText("Upcoming: " + playList.get(playIndex+1).getName());
+
+    	// Update transcript
+    	transcript.setText(currentVideo.getName() + " " + currentVideo.getSearchTerm());
+
 	}
 
 	private void slider() {
@@ -176,6 +204,13 @@ public class ReviewController {
     	setSource();
 	}
 
+    @FXML
+	private void playVideo() {
+    	playIndex = playListView.getSelectionModel().getSelectedIndex();
+    	player.dispose();
+    	setSource();
+	}
+
 	@FXML
 	private void quit() {
 		timeLabel.getScene().getWindow().hide();
@@ -216,7 +251,6 @@ public class ReviewController {
 		WindowBuilder windowBuilder = new WindowBuilder().noTop("RatingPopup", "Rate the video!");
 		// Pass in video being rated
 		VideoCreation currentVideo = playList.get(playIndex);
-		((RatingController) windowBuilder.controller()).setVideo(currentVideo);
 		windowBuilder.stage().setOnHidden(e-> {
 			Integer rating = ((RatingController) windowBuilder.controller()).getRating();
 			if(rating != null) {
