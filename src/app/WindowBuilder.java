@@ -4,10 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.io.IOException;
-
-import com.sun.org.apache.bcel.internal.generic.RETURN;
 
 public class WindowBuilder {
 	
@@ -48,7 +45,7 @@ public class WindowBuilder {
         stage.setResizable(false);
         stage.setScene(scene);
         stage.initStyle(StageStyle.TRANSPARENT);
-//    	scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+    	scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
         stage.show();
         return this;
     }

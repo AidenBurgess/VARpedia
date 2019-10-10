@@ -6,15 +6,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import processes.*;
 import java.util.ArrayList;
 import java.util.Optional;
 
 public class HomeController {
-
+	
+	@FXML
+	private AnchorPane root;
     @FXML
     private TableView videoTable;
     @FXML
@@ -43,6 +45,8 @@ public class HomeController {
     private int greenRating = 4;
     private int yellowRating = 2;
     private int redRating = 0;
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     @FXML
     private void createVideo() {
@@ -60,7 +64,7 @@ public class HomeController {
     private void playVideo() {
     	VideoCreation videoCreation = (VideoCreation) videoTable.getSelectionModel().getSelectedItem();
     	if(videoCreation == null) return;
-
+    	
     	WindowBuilder windowBuilder = new WindowBuilder().pop("VideoPlayer", "Video Player");
     	FXMLLoader loader = windowBuilder.loader();
     	((VideoPlayerController) windowBuilder.loader().getController()).setSource(videoCreation.getName());
@@ -70,18 +74,16 @@ public class HomeController {
     @FXML
     private void deleteVideo() {
     	VideoCreation videoCreation = (VideoCreation) videoTable.getSelectionModel().getSelectedItem();
-    	String videoName = videoCreation.getName();
-    	if(videoName == null) return;
-    	System.out.println(videoName);
+    	if(videoCreation == null) return;
     	
     	Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Deletion Process");
         alert.setHeaderText("Deletion Confirmation");
-        alert.setContentText("Would you really like to delete " + videoName + "?");
+        alert.setContentText("Would you really like to delete " + videoCreation.getName() + "?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() != ButtonType.OK) return;
         
-        Task<ArrayList<String>> task = new DeleteVideo(videoName);
+        Task<ArrayList<String>> task = new DeleteVideo(videoCreation.getName());
         task.setOnSucceeded(event -> updateVideoTable());
         Thread thread = new Thread(task);
         thread.start();
@@ -90,17 +92,20 @@ public class HomeController {
 
     @FXML
     private void reviewVideos() {
-    	// Determine which videos to review
+    	// Update videos to review
     	updateVideosToReview();
+    	// Don't launch if there are zero videos
+    	if(toReview.isEmpty()) {
+    		new DialogBuilder().closeDialog(stackPane, "Review Videos", "There are currently no videos to review.");
+    		return;
+    	}
+    	// Close current stage
+    	Stage homeStage = (Stage) helpCreateButton.getScene().getWindow();
+    	homeStage.hide();
     	// Launch review window
-    	WindowBuilder reviewWindow = new WindowBuilder().pop("ReviewPlayer", "Review Videos");
+    	WindowBuilder reviewWindow = new WindowBuilder().noTop("ReviewPlayer", "Review Videos");
     	ReviewController controller = reviewWindow.loader().getController();
-    	
     	controller.setPlaylist(toReview);
-    	reviewWindow.stage().setOnHidden(e -> {
-    		controller.shutdown();
-    		updateVideoTable();
-    	});
     }
 
     @FXML
@@ -122,7 +127,6 @@ public class HomeController {
     	stackPane.setPickOnBounds(false);
     	initTable();
     	updateVideosToReview();
-    	remindReview();
         setUpHelp();
         updateVideoTable();
     }
@@ -135,12 +139,18 @@ public class HomeController {
                 super.updateItem(item, empty);
                 if (item == null | empty)
                     setStyle("");
-                else if (item.getRating() >= greenRating)
-                    setStyle("-fx-background-color: #baffba;");
-                else if (item.getRating() >= yellowRating)
-                    setStyle("-fx-background-color: yellow;");
-                else
-                    setStyle("-fx-background-color: red;");
+                else if (item.getRating() >= greenRating) {
+                    getStyleClass().clear();
+                    getStyleClass().add("green-row");
+                }
+                else if (item.getRating() >= yellowRating) {
+                    getStyleClass().clear();
+                    getStyleClass().add("yellow-row");
+                }
+                else {
+                    getStyleClass().clear();
+                    getStyleClass().add("red-row");
+                }
             }
         });
       
@@ -168,6 +178,7 @@ public class HomeController {
         
         videoTable.getItems().addAll(videoManager.readSerializedVideos());
         videoTable.getColumns().addAll(nameColumn, searchTermColumn, numImagesColumn, ratingColumn, viewsColumn);
+    	numVideoLabel.setText("There are " + videoTable.getItems().size() + " videos");
     }
 
     private void setUpHelp() {
@@ -188,17 +199,6 @@ public class HomeController {
         helpVarPedia.setTooltip(new HoverToolTip("Welcome! This is VARpedia. \nThis application is made for you to learn new words by letting you create videos about them. \nThese videos will show you images of the word you choose, have a voice saying text about the word to you, and show you the word written down. \nThese videos are saved so you can go back to review words you are unsure about, and rate the different videos you have made based on your understanding of it!").getToolTip());
     }
 
-    private JFXDialog loadingDialog(String title) {
-        JFXDialogLayout dialogContent = new JFXDialogLayout();
-        dialogContent.setHeading(new Text(title));
-        JFXSpinner spinner = new JFXSpinner();
-        spinner.setPrefSize(50, 50);
-        dialogContent.setBody(spinner);
-        JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.RIGHT);
-        dialog.show();
-        return dialog;
-    }
-
     private void updateVideosToReview() {
     	toReview.clear();
     	// Add all videos with red ratings
@@ -217,12 +217,31 @@ public class HomeController {
     	}
     }
 
-    private void remindReview() {
+    public void remindReview() {
     	String body = "";
     	for(VideoCreation v: toReview) {
     		body+= v.getName() + "\n";
     	}
     	new DialogBuilder().closeDialog(stackPane, "Review Reminder", body);
+    }
+    
+    public void makeStageDrageable() {
+    	Stage stage = (Stage) root.getScene().getWindow();
+        root.setOnMousePressed(event-> {
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+        });
+        root.setOnMouseDragged(event-> {
+                stage.setX(event.getScreenX() - xOffset);
+                stage.setY(event.getScreenY() - yOffset);
+                stage.setOpacity(0.8f);
+        });
+        root.setOnDragDone((e) -> {
+            stage.setOpacity(1.0f);
+        });
+        root.setOnMouseReleased((e) -> {
+            stage.setOpacity(1.0f);
+        });
     }
 
 }

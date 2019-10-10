@@ -1,6 +1,6 @@
 package app;
 
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -10,15 +10,15 @@ public class RatingController {
 	@FXML
 	private AnchorPane root;
 	@FXML
-	private FontAwesomeIcon star1;
+	private MaterialDesignIconView star1;
 	@FXML
-	private FontAwesomeIcon star2;
+	private MaterialDesignIconView star2;
 	@FXML
-	private FontAwesomeIcon star3;
+	private MaterialDesignIconView star3;
 	@FXML
-	private FontAwesomeIcon star4;
+	private MaterialDesignIconView star4;
 	@FXML
-	private FontAwesomeIcon star5;
+	private MaterialDesignIconView star5;
 	@FXML
 	private Label ratingLabel;
 	

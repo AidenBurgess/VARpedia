@@ -53,6 +53,8 @@ public class VideoCreationController {
     @FXML
     private JFXTextArea textArea;
 
+    private int wordLimit = 40;
+    private ObservableList<String> chosenTextItems;
     private String currentSearch = "banana";
     private JFXDialog dialog;
 
@@ -75,6 +77,8 @@ public class VideoCreationController {
 
     @FXML
     private void createVideo() {
+
+        // If no text is selected then raise an error
         if (textListView.getItems().size() == 0) {
             new DialogBuilder().closeDialog(stackPane, "Invalid Text", "Please add some text to the list.");
             return;
@@ -119,8 +123,8 @@ public class VideoCreationController {
         // Error checking for empty/null selected
         String selectedText = selectedText();
         if (selectedText == null || selectedText.isEmpty()) return;
-        if (countWords(selectedText) > 40) {
-        	new DialogBuilder().closeDialog(stackPane, "Invalid selection", "Please select less than 40 words");
+        if (countWords(selectedText) > wordLimit) {
+        	new DialogBuilder().closeDialog(stackPane, "Invalid selection", "Please select less than "+ wordLimit +" words");
             return;
         }
         // Add selected as a line in listview

@@ -42,16 +42,16 @@
          </font>
       </Label>
       <JFXComboBox fx:id="voiceChoiceBox" layoutX="605.0" layoutY="451.0" prefHeight="25.0" prefWidth="105.0" />
-      <JFXButton fx:id="helpSearchResultsButton" layoutX="514.0" layoutY="51.0" prefHeight="25.0" prefWidth="21.0" style="-fx-background-radius: 12px; -fx-border-radius: 12px;" styleClass="jfx-button-q" text="?" />
-      <JFXButton fx:id="helpAddRemoveButton" layoutX="567.0" layoutY="153.0" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton fx:id="helpShuffleButton" layoutX="1062.0" layoutY="153.0" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton fx:id="helpBackButton" layoutX="73.0" layoutY="426.0" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton fx:id="helpSearchButton" layoutX="386.0" layoutY="426.0" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton fx:id="helpVoicesButton" layoutX="698.0" layoutY="427.0" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton fx:id="helpVideoNameButton" layoutX="572.0" layoutY="427.0" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton fx:id="helpNumImagesButton" layoutX="816.0" layoutY="430.0" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton fx:id="helpCreateButton" layoutX="1074.0" layoutY="426.0" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <JFXButton fx:id="helpTextListButton" layoutX="1000.0" layoutY="51.0" prefHeight="25.0" prefWidth="21.0" text="?" />
-      <StackPane fx:id="stackPane" layoutX="463.0" layoutY="166.0" prefHeight="150.0" prefWidth="200.0" />
+      <JFXButton fx:id="helpSearchResultsButton" layoutX="514.0" layoutY="51.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpAddRemoveButton" layoutX="567.0" layoutY="153.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpShuffleButton" layoutX="1062.0" layoutY="153.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpBackButton" layoutX="73.0" layoutY="426.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpSearchButton" layoutX="386.0" layoutY="426.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpVoicesButton" layoutX="698.0" layoutY="427.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpVideoNameButton" layoutX="572.0" layoutY="427.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpNumImagesButton" layoutX="816.0" layoutY="430.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpCreateButton" layoutX="1074.0" layoutY="426.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpTextListButton" layoutX="1000.0" layoutY="51.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <StackPane fx:id="stackPane" layoutX="463.0" layoutY="-12.0" prefHeight="150.0" prefWidth="200.0" />
    </children>
 </AnchorPane>
