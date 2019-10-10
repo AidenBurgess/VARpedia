@@ -4,7 +4,7 @@
     -fx-lighter-color: derive(-fx-basic-color, 80% );
     -fx-lightest-color: derive(-fx-basic-color, 95% );
     -fx-dark-text-color: rgb(47.0, 52.0, 57.0);
-    -fx-text-color: derive(-fx-basic-color, 70%);
+    /*-fx-text-color: derive(-fx-basic-color, 70%);*/
     -fx-light-gray-color: rgb(200.0, 200.0, 200.0);
     -fx-lightest-gray-color: rgb(230.0, 230.0, 230.0);
 
@@ -18,7 +18,7 @@
 }
 
 .root {
-    -fx-font-family: "Roboto Medium";
+    /*-fx-font-family: "Roboto Medium";*/
     -fx-background-color: rgb(230.0, 230.0, 230.0);
     -fx-text-fill: rgb(0,0,0);
 }
@@ -118,4 +118,6 @@
 .table-row-cell:selected .text {
        -fx-fill: red ;
 }
+
+
 

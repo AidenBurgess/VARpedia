@@ -9,6 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import jdk.management.resource.internal.inst.DatagramDispatcherRMHooks;
 import processes.*;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -70,7 +71,7 @@ public class HomeController {
     private void playVideo() {
     	VideoCreation videoCreation = (VideoCreation) videoTable.getSelectionModel().getSelectedItem();
     	if(videoCreation == null) return;
-
+    	
     	WindowBuilder windowBuilder = new WindowBuilder().pop("VideoPlayer", "Video Player");
     	FXMLLoader loader = windowBuilder.loader();
     	((VideoPlayerController) windowBuilder.loader().getController()).setSource(videoCreation.getName());
@@ -100,8 +101,16 @@ public class HomeController {
 
     @FXML
     private void reviewVideos() {
-    	// Determine which videos to review
+    	// Update videos to review
     	updateVideosToReview();
+    	// Don't launch if there are zero videos
+    	if(toReview.isEmpty()) {
+    		new DialogBuilder().closeDialog(stackPane, "Review Videos", "There are currently no videos to review.");
+    		return;
+    	}
+    	// Close current stage
+    	Stage homeStage = (Stage) helpCreateButton.getScene().getWindow();
+    	homeStage.hide();
     	// Launch review window
     	WindowBuilder reviewWindow = new WindowBuilder().pop("ReviewPlayer", "Review Videos");
     	ReviewController controller = reviewWindow.loader().getController();
@@ -110,6 +119,7 @@ public class HomeController {
     	reviewWindow.stage().setOnHidden(e -> {
     		controller.shutdown();
     		updateVideoTable();
+    		homeStage.show();
     	});
     }
 
@@ -192,17 +202,6 @@ public class HomeController {
         helpReviewButton.setTooltip(new HoverToolTip("Click this button to watch and review multiple videos in a playlist shown to you, and rate your understanding of each of them!").getToolTip());
 
         helpVarPedia.setTooltip(new HoverToolTip("Welcome! This is VARpedia. \nThis application is made for you to learn new words by letting you create videos about them. \nThese videos will show you images of the word you choose, have a voice saying text about the word to you, and show you the word written down. \nThese videos are saved so you can go back to review words you are unsure about, and rate the different videos you have made based on your understanding of it!").getToolTip());
-    }
-
-    private JFXDialog loadingDialog(String title) {
-        JFXDialogLayout dialogContent = new JFXDialogLayout();
-        dialogContent.setHeading(new Text(title));
-        JFXSpinner spinner = new JFXSpinner();
-        spinner.setPrefSize(50, 50);
-        dialogContent.setBody(spinner);
-        JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.RIGHT);
-        dialog.show();
-        return dialog;
     }
 
     private void updateVideosToReview() {

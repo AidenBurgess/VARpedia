@@ -8,8 +8,7 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXToggleButton;
-
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -43,12 +42,12 @@ public class ReviewController {
 	@FXML
 	private JFXButton playButton;
 	@FXML
-	private FontAwesomeIcon playIcon;
+	private MaterialDesignIconView playIcon;
 	@FXML
 	private JFXButton muteButton;
 	@FXML
-	private FontAwesomeIcon muteIcon;
-  @FXML
+	private MaterialDesignIconView muteIcon;
+	@FXML
 	private JFXButton helpQuit;
 	@FXML
 	private JFXButton helpMute;
@@ -94,7 +93,6 @@ public class ReviewController {
 
 	private void setSource() {
 		currentVideo = playList.get(playIndex);
-
 		setupPlayer();
 		updateSidePanel();
 		slider();
@@ -102,7 +100,6 @@ public class ReviewController {
 		// Update stage title to video name
 		Stage currentStage = (Stage) timeLabel.getScene().getWindow();
 		currentStage.setTitle("Currently playing: " + currentVideo.getName());
-
 	}
 
 	private void setupPlayer() {
@@ -204,7 +201,7 @@ public class ReviewController {
 		player.setMute(!player.isMute());
 		if (player.isMute()) {
 			muteButton.setText("Unmute");
-			muteIcon.setStyle("-glyph-name:VOLUME_UP");
+			muteIcon.setStyle("-glyph-name:VOLUME_HIGH");
 		} else {
 			muteButton.setText("Mute");
 			muteIcon.setStyle("-glyph-name:VOLUME_OFF");
