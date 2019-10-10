@@ -112,6 +112,9 @@ public class HomeController {
     private void updateVideoTable() {
     	videoTable.getItems().clear();
     	videoTable.getItems().addAll(videoManager.getVideos());
+
+    	int num = videoTable.getItems().size();
+    	numVideoLabel.setText("There are currently " + num + " videos!");
     }
     
     @FXML
@@ -121,6 +124,7 @@ public class HomeController {
     	updateVideosToReview();
     	remindReview();
         setUpHelp();
+        updateVideoTable();
     }
         
     private void initTable() {
