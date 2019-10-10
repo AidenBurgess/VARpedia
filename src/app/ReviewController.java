@@ -203,7 +203,7 @@ public class ReviewController {
 
 		helpMusicToggle.setTooltip(new HoverToolTip("Click this to turn on some background music (or to turn it off if it is already playing!)").getToolTip());
 
-		helpList.setTooltip(new HoverToolTip("").getToolTip());
+		helpList.setTooltip(new HoverToolTip("This is where all the videos you can play are listed!").getToolTip());
 
 		helpPlaylist.setTooltip(new HoverToolTip("").getToolTip());
 
