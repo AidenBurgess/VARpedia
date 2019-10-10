@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
@@ -196,6 +197,7 @@ public class VideoCreationController {
     @FXML
     private void initialize() {
     	stackPane.setPickOnBounds(false);
+    	textListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     	updateVoiceList();
     	setUpHelp();
     }
@@ -229,7 +231,7 @@ public class VideoCreationController {
 
         helpNumImagesButton.setTooltip(new HoverToolTip("Click and drag the dot along the line to choose how many picture you want to have in your video, from 1 to 10!").getToolTip());
 
-        helpTextListButton.setTooltip(new HoverToolTip("This is where each bit of text is shown in a list! Select one or more by clicking on a bit.").getToolTip());
+        helpTextListButton.setTooltip(new HoverToolTip("This is where each bit of text is shown in a list! \nSelect one piece of text by clicking on it... \nor... hold down the control button while clicking on bits of text you want to select multiple!").getToolTip());
     }
 
     private int countWords(String input) {
