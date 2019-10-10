@@ -18,19 +18,7 @@ import java.util.ArrayList;
 public class VideoCreationController {
 
     @FXML
-    private JFXButton playButton;
-    @FXML
-    private JFXButton deleteButton;
-    @FXML
-    private JFXButton createButton;
-    @FXML
-    private JFXButton reviewButton;
-    @FXML
-    private JFXButton quitButton;
-    @FXML
     private JFXTextField searchField;
-    @FXML
-    private JFXButton searchButton;
     @FXML
     private JFXTextField videoNameField;
     @FXML
@@ -39,14 +27,6 @@ public class VideoCreationController {
     private JFXListView<String> textListView;
     @FXML
     private JFXComboBox<String> voiceChoiceBox;
-    @FXML
-    private JFXButton addTextButton;
-    @FXML
-    private JFXButton removeTextButton;
-    @FXML
-    private JFXButton moveTextUpButton;
-    @FXML
-    private JFXButton moveTextDownButton;
     @FXML
     private JFXButton helpCreateButton;
     @FXML
@@ -97,19 +77,6 @@ public class VideoCreationController {
 
     @FXML
     private void createVideo() {
-
-        // If no text is selected then raise an error
-//        if (textListView.getSelectionModel().getSelectedItems().size() == 0) {
-//            alertCreator("Selection Process", "Invalid Selection", "Please select some text.");
-//            return;
-//        }
-
-        // Error checking for empty/null selected
-//        String customName = videoNameField.getText();
-//        String searchTerm = searchField.getText();
-//        if (customName == null || customName.isEmpty()) return;
-//        if (searchTerm == null || searchTerm == "") return;
-    	
         dialog = new DialogBuilder().loadingDialog(stackPane, "Creating Video");
     	createAudio();
     }
@@ -224,7 +191,7 @@ public class VideoCreationController {
 
         helpNumImagesButton.setTooltip(new HoverToolTip("Click and drag the dot along the line to choose how many picture you want to have in your video, from 1 to 10!").getToolTip());
 
-        helpTextListButton.setTooltip(new HoverToolTip("This is where each bit of text is shown in a list! \nSelect one piece of text by clicking on it... \nor... hold down the control button while clicking on bits of text you want to select multiple!").getToolTip());
+        helpTextListButton.setTooltip(new HoverToolTip("This is where each bit of text is shown in a list! \nSelect one piece of text by clicking on it!").getToolTip());
     }
 
     private int countWords(String input) {
