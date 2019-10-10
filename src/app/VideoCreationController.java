@@ -43,6 +43,10 @@ public class VideoCreationController {
     @FXML
     private JFXButton helpShuffleButton;
     @FXML
+    private JFXButton searchButton;
+    @FXML
+    private JFXButton createButton;
+    @FXML
     private StackPane stackPane;
     @FXML
     private Label searchLabel;
