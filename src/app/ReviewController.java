@@ -57,7 +57,9 @@ public class ReviewController {
 	@FXML
 	private JFXButton helpList;
 	@FXML
-	private JFXButton helpPlaylist;
+	private JFXButton helpPlayButton;
+	@FXML
+	private JFXButton helpTextArea;
 
 	private MediaPlayer player;
 	private MediaPlayer music;
@@ -240,11 +242,13 @@ public class ReviewController {
 
 		helpList.setTooltip(new HoverToolTip("This is where all the videos you can play are listed!").getToolTip());
 
-		helpPlaylist.setTooltip(new HoverToolTip("").getToolTip());
+		helpPlayButton.setTooltip(new HoverToolTip("After choosing a video from the list above by clicking on it, click this button to play that video!").getToolTip());
 
 		helpNext.setTooltip(new HoverToolTip("Click this to play the next video in the list!").getToolTip());
 
 		helpPrev.setTooltip(new HoverToolTip("Click this to play the previous video in the list!").getToolTip());
+
+		helpTextArea.setTooltip(new HoverToolTip("").getToolTip());
 	}
 
 	private void showRating() {
