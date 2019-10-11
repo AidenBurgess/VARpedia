@@ -94,7 +94,7 @@ public class VideoCreationController extends DraggableWindow {
 
         // If the user cheekily entered a different word in the search term box (but didn't click search) and tries to make a video, prevent the user from doing so as this new term will be associated with text from a different search term
         if (!currentSearch.equalsIgnoreCase(searchField.getText())) {
-            new DialogBuilder().closeDialog(stackPane, "Invalid Text", "Complete this search before making a new video. \nOtherwise, change this new word back to the one you previously searched.");
+            new DialogBuilder().close(stackPane, "Invalid Text", "Complete this search before making a new video. \nOtherwise, change this new word back to the one you previously searched.");
             return;
         }
 
