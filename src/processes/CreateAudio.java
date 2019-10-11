@@ -29,6 +29,7 @@ public class CreateAudio extends Task<ArrayList<String>> {
     }
 
     private void createAudio() throws Exception {
+        // Run bash script to create audio file from input
         ProcessBuilder pb = new ProcessBuilder().command("bash", "src/scripts/createAudio.sh", videoName, text, voice);
         Process process = pb.start();
         process.waitFor();

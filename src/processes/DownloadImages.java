@@ -39,16 +39,18 @@ public class DownloadImages extends Task<ArrayList<String>> {
         }
         return null;
     }
-	
+
+    // Flickr requires the use of a key that they give out to users so that only approved users can download images
 	public String getAPIKey(String key) throws Exception {
-		
+		// Get file that the key is stored in
 		String config = System.getProperty("user.dir") 
 				+ System.getProperty("file.separator")+ "build"
 				+ System.getProperty("file.separator")+ "flickr-api-keys.txt";
 		
 		File file = new File(config); 
 		BufferedReader br = new BufferedReader(new FileReader(file)); 
-		
+
+		// Read the file to find the key
 		String line;
 		while ( (line = br.readLine()) != null ) {
 			if (line.trim().startsWith(key)) {
@@ -57,6 +59,8 @@ public class DownloadImages extends Task<ArrayList<String>> {
 			}
 		}
 		br.close();
+
+		// in case the key doesn't exist
 		throw new RuntimeException("Couldn't find " + key +" in config file "+file.getName());
 	}
 	
@@ -69,16 +73,19 @@ public class DownloadImages extends Task<ArrayList<String>> {
 
 			int resultsPerPage = Integer.valueOf(numImages);
 			int page = 0;
-			
+
+			// Set the parameters for the Flickr search
 	        PhotosInterface photos = flickr.getPhotosInterface();
 	        SearchParameters params = new SearchParameters();
 	        params.setSort(SearchParameters.RELEVANCE);
 	        params.setMedia("photos"); 
 	        params.setText(searchTerm);
-	        
+
+	        // Fetch the search results
 	        PhotoList<Photo> results = photos.search(params, resultsPerPage, page);
 	        System.out.println("Retrieving " + results.size()+ " results");
-	        
+
+	        // Save every image from the search in the images directory
 	        for (Photo photo: results) {
 	        	try {
 	        		BufferedImage image = photos.getImage(photo,Size.MEDIUM);	

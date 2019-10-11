@@ -27,6 +27,7 @@ public class CreateAudios extends Task<ArrayList<String>> {
     private ArrayList<String> createAudios() throws Exception {
     	ArrayList<String> indiceStrings = new ArrayList<String>();
     	int i = 0;
+    	// Create an audio file for every piece of text selected by the user
         for (String audio: audioText) {
         	Thread thread = new Thread(new CreateAudio(Integer.toString(i), audio, voice));
         	thread.start();
