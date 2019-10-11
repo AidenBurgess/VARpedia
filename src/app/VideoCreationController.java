@@ -174,6 +174,7 @@ public class VideoCreationController extends DraggableWindow {
         if (index < 1 | selected == null) return;
         textListView.getItems().remove(selected);
         textListView.getItems().add((index-1), selected);
+        textListView.getSelectionModel().select(index-1);;
     }
 
     // Swap selected text piece with the piece below it in the list
@@ -185,6 +186,7 @@ public class VideoCreationController extends DraggableWindow {
         if (index >= textListView.getItems().size() -1 | selected == null) return;
         textListView.getItems().remove(selected);
         textListView.getItems().add((index+1), selected);
+        textListView.getSelectionModel().select(index+1);;
     }
     
     @FXML
