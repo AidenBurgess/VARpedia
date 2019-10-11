@@ -224,6 +224,8 @@ public class HomeController extends DraggableWindow {
 
     // Shown on startup, present a list of suggested videos for the user to review
     public void remindReview() {
+    	// Dont show dialog if there is nothing to review.
+    	if (toReview.size() == 0) return;
     	String body = "";
     	for(VideoCreation v: toReview) {
     		body+= v.getName() + "\n";
