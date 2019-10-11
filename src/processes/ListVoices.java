@@ -1,5 +1,6 @@
 package processes;
 
+import app.Voice;
 import javafx.concurrent.Task;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -29,8 +30,11 @@ public class ListVoices extends Task<ArrayList<String>> {
         if (exitStatus == 0) {
             String line;
             ArrayList<String> outputList = new ArrayList<>();
+            int i = 1;
             while ((line = stdout.readLine()) != null) {
-                outputList.add(line);
+                Voice voice = new Voice(line, "Voice Option " + i);
+                outputList.add(voice.toString());
+                i++;
             }
             out = outputList;
         } else {
