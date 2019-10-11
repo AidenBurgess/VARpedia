@@ -81,7 +81,7 @@ public class ReviewController extends DraggableWindow {
 		this.playList = playList;
 		for (VideoCreation v: playList) playListView.getItems().add(v.getName());
 		// Setup background music player
-		File fileUrl = new File("backgroundMusic" + ".wav");
+		File fileUrl = new File("musica" + ".wav");
 		Media audio = new Media(fileUrl.toURI().toString());
 		music = new MediaPlayer(audio);
 		music.setAutoPlay(true);
