@@ -3,7 +3,6 @@ package app;
 import com.jfoenix.controls.*;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -50,32 +49,42 @@ public class HomeController extends DraggableWindow {
         // Hide current window
     	Stage homeStage = (Stage) helpCreateButton.getScene().getWindow();
     	homeStage.hide();
-    	Stage creationStage = new WindowBuilder().noTop("NewVideoCreation", "Create a Video!").stage();
+    	new WindowBuilder().noTop("NewVideoCreation", "Create a Video!").stage();
     }
     
     @FXML
     private void playVideo() {
         // Get the video that the user selected
     	VideoCreation videoCreation = (VideoCreation) videoTable.getSelectionModel().getSelectedItem();
-    	if(videoCreation == null) return;
-
-    	// Brings up the video player with the selected video
-    	WindowBuilder windowBuilder = new WindowBuilder().pop("VideoPlayer", "Video Player");
-    	FXMLLoader loader = windowBuilder.loader();
-    	((VideoPlayerController) windowBuilder.loader().getController()).setSource(videoCreation.getName());
-    	windowBuilder.stage().setOnHidden(e -> ((VideoPlayerController) loader.getController()).shutdown());
+    	// If not video selected display a warning
+    	if(videoCreation == null) {
+    		new DialogBuilder().close(stackPane, "Selection Warning", "Please select a video to play.");
+    		return;
+    	}
+    	// Close current stage
+    	Stage homeStage = (Stage) helpCreateButton.getScene().getWindow();
+    	homeStage.hide();
+    	// Launch review window
+    	WindowBuilder reviewWindow = new WindowBuilder().noTop("ReviewPlayer", "Review Videos");
+    	ReviewController controller = reviewWindow.loader().getController();
+    	
+    	ArrayList<VideoCreation> playList = new ArrayList<VideoCreation>();
+    	playList.add(videoCreation);
+    	controller.setPlaylist(playList);
     }
     
     @FXML
     private void deleteVideo() {
         // Get the video that the user selected
     	VideoCreation videoCreation = (VideoCreation) videoTable.getSelectionModel().getSelectedItem();
-    	if(videoCreation == null) return;    	
-        JFXButton confirm = new DialogBuilder().confirm(stackPane, "Deletion Confirmation", "Would you really like to delete " + videoCreation.getName() + "?");
+    	if(videoCreation == null) return;    
+    	DialogBuilder confirmDelete = new DialogBuilder();
+        JFXButton confirm = confirmDelete.confirm(stackPane, "Deletion Confirmation", "Would you really like to delete " + videoCreation.getName() + "?");
         confirm.setOnAction( e-> {
             Task<ArrayList<String>> task = new DeleteVideo(videoCreation.getName());
             task.setOnSucceeded(event -> {
             	updateVideoTable();
+            	confirmDelete.dialog().close();
             	new DialogBuilder().close(stackPane, "Deletion Success", videoCreation.getName() + " has been deleted!");
             });
             Thread thread = new Thread(task);
@@ -152,11 +161,11 @@ public class HomeController extends DraggableWindow {
         videoTable.setStyle("-fx-selection-bar: blue; -fx-selection-bar-non-focused: purple;");
         // Populate table with columns of parameters of videocreations (Name, search term, #images, rating, views)
         TableColumn<VideoCreation, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setMinWidth(150);
+        nameColumn.setMinWidth(149);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));        
 
         TableColumn<VideoCreation, String> searchTermColumn = new TableColumn<>("Search Term");
-        searchTermColumn.setMinWidth(150);
+        searchTermColumn.setMinWidth(149);
         searchTermColumn.setCellValueFactory(new PropertyValueFactory<>("searchTerm"));
         
         TableColumn<VideoCreation, String> numImagesColumn = new TableColumn<>("#Images");

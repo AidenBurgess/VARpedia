@@ -1,12 +1,7 @@
 package processes;
 
-import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.scene.control.Alert;
-
 import java.util.ArrayList;
-
-import app.DialogBuilder;
 
 public class DeleteVideo extends Task<ArrayList<String>> {
 

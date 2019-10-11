@@ -4,11 +4,12 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXSpinner;
-
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
 public class DialogBuilder {
+	
+	private JFXDialog dialog;
 	
 	public void close(StackPane stackPane, String title, String body) {
 		 JFXDialogLayout dialogContent = new JFXDialogLayout();
@@ -17,7 +18,7 @@ public class DialogBuilder {
          JFXButton close = new JFXButton("Close");
          close.getStyleClass().add("JFXButton");
          dialogContent.setActions(close);
-         JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.TOP);
+         dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.TOP);
          close.setOnAction( e -> dialog.close());
          dialog.show();
 	}
@@ -28,7 +29,7 @@ public class DialogBuilder {
         JFXSpinner spinner = new JFXSpinner();
         spinner.setPrefSize(50, 50);
         dialogContent.setBody(spinner);
-        JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.TOP);
+        dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.TOP);
         dialog.show();
         return dialog;
 	}
@@ -42,10 +43,14 @@ public class DialogBuilder {
          JFXButton confirm= new JFXButton("Confirm");
          confirm.getStyleClass().add("JFXButton");
          dialogContent.setActions(cancel, confirm);
-         JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.TOP);
+         dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.TOP);
          cancel.setOnAction( e -> dialog.close());
          dialog.show();
          return confirm;
+	}
+	
+	public JFXDialog dialog() {
+		return dialog;
 	}
 
 }
