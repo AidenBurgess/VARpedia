@@ -115,7 +115,9 @@ public class VideoCreationController extends DraggableWindow {
         Task<ArrayList<String>> videoCreation = new CreateVideo(currentSearch, finNumImages, videoName);
         videoCreation.setOnSucceeded(e-> {
             dialog.close();
-            VideoManager.getVideoManager().add(new VideoCreation(videoName, currentSearch, (int) numImages.getValue()));    
+            ArrayList<String> textContent = new ArrayList<>(textListView.getItems());
+            VideoCreation video = new VideoCreation(videoName, currentSearch, (int) numImages.getValue(), textContent);
+            VideoManager.getVideoManager().add(video);    
             new DialogBuilder().close(stackPane, "Video Creation Successful!", videoName + " was created.");
         });
         Thread video = new Thread(videoCreation);

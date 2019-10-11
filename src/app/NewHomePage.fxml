@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
@@ -66,5 +67,7 @@
       <JFXButton fx:id="helpHelp" layoutX="656.0" layoutY="455.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
       <JFXButton fx:id="helpQuitButton" layoutX="858.0" layoutY="365.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
       <StackPane fx:id="stackPane" layoutX="364.0" layoutY="181.0" prefHeight="150.0" prefWidth="200.0" />
+      <FontAwesomeIconView glyphName="CREATIVE_COMMONS" layoutX="274.0" layoutY="486.0" />
+      <Label layoutX="316.0" layoutY="470.0" text="Music by  Martijn de Boer" />
    </children>
 </AnchorPane>

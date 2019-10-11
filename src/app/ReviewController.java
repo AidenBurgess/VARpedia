@@ -136,9 +136,13 @@ public class ReviewController extends DraggableWindow {
 		//
 		playListView.getSelectionModel().select(playIndex);
 		// Update transcript
-		transcript.setText(currentVideo.getName() + " " + currentVideo.getSearchTerm());
+		String transcriptString = "";
+		for(String line: currentVideo.getTextContent()) {
+			transcriptString += line.trim() + "\n";
+		}
+		transcript.setText(transcriptString);
 	}
-
+	
 	private void slider() {
 		// Providing functionality to time slider 
 		player.currentTimeProperty().addListener(ov -> updatesValues());
@@ -248,14 +252,6 @@ public class ReviewController extends DraggableWindow {
 		timeLabel.getScene().getWindow().hide();
     	VideoManager.getVideoManager().writeSerializedVideos();
 		shutdown();
-	}
-
-	@FXML
-	private void initialize() {
-		////		Scene scene = timeLabel.getScene();
-		////		Stage currentStage = (Stage) timeLabel.getScene().getWindow();
-		////		currentStage.initStyle(StageStyle.TRANSPARENT);
-		////		scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
 	}
 
 	private void setUpHelp() {
