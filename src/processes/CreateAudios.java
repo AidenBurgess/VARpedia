@@ -1,5 +1,6 @@
 package processes;
 
+import app.Voice;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import java.util.ArrayList;

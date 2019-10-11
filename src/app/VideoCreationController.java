@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import processes.*;
 import java.util.ArrayList;
+import app.Voice;
 
 public class VideoCreationController {
 
@@ -101,7 +102,10 @@ public class VideoCreationController {
 
     // Convert all text currently displayed in the text list to audio files
     private void createAudio() {
-    	Task createAudiosTask = new CreateAudios(textListView.getItems(), voiceChoiceBox.getSelectionModel().getSelectedItem());
+        // Find the original voice name
+        String voice = Voice.findVoice(voiceChoiceBox.getSelectionModel().getSelectedItem());
+        // Create audio
+    	Task createAudiosTask = new CreateAudios(textListView.getItems(), voice);
     	createAudiosTask.setOnSucceeded(e-> {;
     		stitchAudio((ArrayList<String>) createAudiosTask.getValue());
     	});

@@ -1,5 +1,6 @@
 package processes;
 
+import app.Voice;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.control.Alert;

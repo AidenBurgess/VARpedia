@@ -10,8 +10,18 @@ public class Voice {
         this.newName=newName;
     }
 
-    protected String getOriginalName() {
+    public String getOriginalName() {
         return this.originalName;
+    }
+
+    public static String findVoice(String name) {
+        if (name.equals("Default/Normal")) {
+            return "kal_diphone";
+        } else if (name.equals("NZ voice")) {
+            return "akl_nz";
+        } else {
+            return "kal_diphone";
+        }
     }
 
     @Override
