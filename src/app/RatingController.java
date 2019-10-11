@@ -23,7 +23,7 @@ public class RatingController {
 	private Label ratingLabel;
 	
 	private Integer rating;
-	private String selected = "-fx-fill:lightblue;";
+	private String selected = "-fx-fill:rgb(233.0,195.0,248.0);";
 	private String unselected = "-fx-fill:black;";
 	
 	private void unselectAll() {
