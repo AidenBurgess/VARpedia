@@ -65,11 +65,11 @@ public class VideoCreationController extends DraggableWindow {
     @FXML
     private void searchWiki() {
         String searchTerm = searchField.getText();
-        if (searchTerm == null || searchTerm.isEmpty()) return;
+        if (searchTerm == null || searchTerm.trim().isEmpty()) return;
         textListView.getItems().clear();
-        dialog = new DialogBuilder().loadingDialog(stackPane, "Searching for " + searchTerm + "...");
+        dialog = new DialogBuilder().loading(stackPane, "Searching for " + searchTerm + "...");
 
-        Task<ArrayList<String>> search = new SearchWiki(searchTerm, textArea);
+        Task<ArrayList<String>> search = new SearchWiki(searchTerm, textArea, stackPane);
         search.setOnSucceeded(e -> {
             searchLabel.setText("You searched for: " + searchTerm + "\n");
             dialog.close();
@@ -84,10 +84,10 @@ public class VideoCreationController extends DraggableWindow {
 
         // If no text is selected then raise an error
         if (textListView.getItems().size() == 0) {
-            new DialogBuilder().closeDialog(stackPane, "Invalid Text", "Please add some text to the list.");
+            new DialogBuilder().close(stackPane, "Invalid Text", "Please add some text to the list.");
             return;
         }
-        dialog = new DialogBuilder().loadingDialog(stackPane, "Creating Video");
+        dialog = new DialogBuilder().loading(stackPane, "Creating Video");
     	createAudio();
     }
 
@@ -116,7 +116,7 @@ public class VideoCreationController extends DraggableWindow {
         videoCreation.setOnSucceeded(e-> {
             dialog.close();
             VideoManager.getVideoManager().add(new VideoCreation(videoName, currentSearch, (int) numImages.getValue()));    
-            new DialogBuilder().closeDialog(stackPane, "Video Creation Successful!", videoName + " was created.");
+            new DialogBuilder().close(stackPane, "Video Creation Successful!", videoName + " was created.");
         });
         Thread video = new Thread(videoCreation);
         video.start();
@@ -128,7 +128,7 @@ public class VideoCreationController extends DraggableWindow {
         String selectedText = selectedText();
         if (selectedText == null || selectedText.isEmpty()) return;
         if (countWords(selectedText) > wordLimit) {
-        	new DialogBuilder().closeDialog(stackPane, "Invalid selection", "Please select less than "+ wordLimit +" words");
+        	new DialogBuilder().close(stackPane, "Invalid selection", "Please select less than "+ wordLimit +" words");
             return;
         }
         // Add selected as a line in listview
@@ -159,10 +159,17 @@ public class VideoCreationController extends DraggableWindow {
         textListView.getItems().remove(selected);
         textListView.getItems().add((index+1), selected);
     }
+    
+    @FXML
+    private void home() {
+    	searchLabel.getScene().getWindow().hide();
+		new WindowBuilder().noTop("NewHomePage", "VarPedia");
+    }
 
     @FXML
     private void quit() {
     	searchLabel.getScene().getWindow().hide();
+    	VideoManager.getVideoManager().writeSerializedVideos();
     }
     
     @FXML
