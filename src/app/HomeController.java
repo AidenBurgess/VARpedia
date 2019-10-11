@@ -50,9 +50,11 @@ public class HomeController {
 
     @FXML
     private void createVideo() {
+        // Hide current window
     	Stage homeStage = (Stage) helpCreateButton.getScene().getWindow();
     	homeStage.hide();
 
+    	// Bring up the create video scene
     	Stage creationStage = new WindowBuilder().pop("NewVideoCreation", "Create a Video!").stage();
     	creationStage.setOnHidden(e -> {
     		updateVideoTable();
@@ -62,9 +64,11 @@ public class HomeController {
     
     @FXML
     private void playVideo() {
+        // Get the video that the user selected
     	VideoCreation videoCreation = (VideoCreation) videoTable.getSelectionModel().getSelectedItem();
     	if(videoCreation == null) return;
-    	
+
+    	// Brings up the video player with the selected video
     	WindowBuilder windowBuilder = new WindowBuilder().pop("VideoPlayer", "Video Player");
     	FXMLLoader loader = windowBuilder.loader();
     	((VideoPlayerController) windowBuilder.loader().getController()).setSource(videoCreation.getName());
@@ -73,9 +77,11 @@ public class HomeController {
     
     @FXML
     private void deleteVideo() {
+        // Get the video that the user selected
     	VideoCreation videoCreation = (VideoCreation) videoTable.getSelectionModel().getSelectedItem();
     	if(videoCreation == null) return;
-    	
+
+    	// Confirm user wants to delete the video
     	Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Deletion Process");
         alert.setHeaderText("Deletion Confirmation");
@@ -114,6 +120,7 @@ public class HomeController {
     	helpQuitButton.getScene().getWindow().hide();
     }
 
+    // Refresh the video table with any updates
     private void updateVideoTable() {
     	videoTable.getItems().clear();
     	videoTable.getItems().addAll(videoManager.getVideos());
@@ -121,7 +128,8 @@ public class HomeController {
     	int num = videoTable.getItems().size();
     	numVideoLabel.setText("There are currently " + num + " videos!");
     }
-    
+
+    // Is run first on startup to set up the tableView and help buttons
     @FXML
     private void initialize() {
     	stackPane.setPickOnBounds(false);
@@ -155,7 +163,7 @@ public class HomeController {
         });
       
         videoTable.setStyle("-fx-selection-bar: blue; -fx-selection-bar-non-focused: purple;");
-        // Populate table with columns of parameters of videocreations
+        // Populate table with columns of parameters of videocreations (Name, search term, #images, rating, views)
         TableColumn<VideoCreation, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setMinWidth(150);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));        
@@ -181,6 +189,7 @@ public class HomeController {
     	numVideoLabel.setText("There are " + videoTable.getItems().size() + " videos");
     }
 
+    // Add on-hover help messages to the "?" buttons
     private void setUpHelp() {
         helpTableView.setTooltip(new HoverToolTip("All of your video creations are listed here! Click on a row to select that video. The columns show you: \nthe name of each video; \nthe word you searched to create the video; \nthe number of images the video has in it; \nthe rating out of 5 you gave each video; \nthe number of times you have watched each video.").getToolTip());
 
@@ -217,6 +226,7 @@ public class HomeController {
     	}
     }
 
+    // Shown on startup, present a list of suggested videos for the user to review
     public void remindReview() {
     	String body = "";
     	for(VideoCreation v: toReview) {
