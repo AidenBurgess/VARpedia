@@ -13,6 +13,7 @@ public class HoverToolTip {
         Tooltip tip = new Tooltip(desc);
         tip.setWidth(200.0);
         tip.setWrapText(true);
+        tip.setStyle("-fx-font-size: 16");
         return tip;
     }
 }
