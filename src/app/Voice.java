@@ -16,7 +16,13 @@ public class Voice {
 
     @Override
     public String toString() {
-        return this.newName;
-    }
+        if (this.originalName.equals("kal_diphone")) {
+            return "Default/Normal";
+        } else if (this.originalName.equals("akl_nz")) {
+            return "NZ voice";
+        } else {
+            return this.newName;
+        }
+        }
 
 }
