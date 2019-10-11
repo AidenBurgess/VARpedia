@@ -94,6 +94,7 @@ public class VideoCreationController {
             return;
         }
 
+        // Start actual creation process
         dialog = new DialogBuilder().loadingDialog(stackPane, "Creating Video");
     	createAudio();
     }
@@ -133,6 +134,7 @@ public class VideoCreationController {
         video.start();
     }
 
+    // Take the highlighted section of text from the search and add it as an item to the list of selected text pieces
     @FXML
     private void add() {
         // Error checking for empty/null selected
@@ -146,6 +148,7 @@ public class VideoCreationController {
         textListView.getItems().add(selectedText);
     }
 
+    // Remove a piece of text from the list
     @FXML
     private void remove() {
         String selected = textListView.getSelectionModel().getSelectedItem();
@@ -153,29 +156,35 @@ public class VideoCreationController {
         textListView.getItems().remove(selected);
     }
 
+    // Swap selected text piece with the piece above it in the list
     @FXML
     private void moveUp() {
         int index= textListView.getSelectionModel().getSelectedIndex();
         String selected = textListView.getSelectionModel().getSelectedItem();
+        // Only allow this if there is a piece of text to swap with
         if (index < 1 | selected == null) return;
         textListView.getItems().remove(selected);
         textListView.getItems().add((index-1), selected);
     }
 
+    // Swap selected text piece with the piece below it in the list
     @FXML
     private void moveDown() {
         int index= textListView.getSelectionModel().getSelectedIndex();
         String selected = textListView.getSelectionModel().getSelectedItem();
+        // Only allow this if there is a piece of text to swap with
         if (index >= textListView.getItems().size() -1 | selected == null) return;
         textListView.getItems().remove(selected);
         textListView.getItems().add((index+1), selected);
     }
 
+    // Go back to home page
     @FXML
     private void quit() {
     	searchLabel.getScene().getWindow().hide();
     }
-    
+
+    // Sets up the help buttons and voices dropdown on startup
     @FXML
     private void initialize() {
     	stackPane.setPickOnBounds(false);
