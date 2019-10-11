@@ -236,6 +236,7 @@ public class ReviewController {
 		setSource();
 	}
 
+	// Quit back to the home page
 	@FXML
 	private void home() {
 		timeLabel.getScene().getWindow().hide();
@@ -255,8 +256,10 @@ public class ReviewController {
 		////		Stage currentStage = (Stage) timeLabel.getScene().getWindow();
 		////		currentStage.initStyle(StageStyle.TRANSPARENT);
 		////		scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+		setUpHelp();
 	}
 
+	// Add on-hover help messages to the "?" buttons
 	private void setUpHelp() {
 		helpMute.setTooltip(new HoverToolTip("Click this to mute the video's voice!").getToolTip());
 
@@ -281,6 +284,7 @@ public class ReviewController {
 		helpTextArea.setTooltip(new HoverToolTip("").getToolTip());
 	}
 
+	// Allows user to rate the videos as they watch them
 	private void showRating() {
 		WindowBuilder windowBuilder = new WindowBuilder().noTop("RatingPopup", "Rate the video!");
 		// Pass in video being rated

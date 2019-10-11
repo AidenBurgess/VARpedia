@@ -61,11 +61,14 @@ public class VideoCreationController {
 
     @FXML
     private void searchWiki() {
+        // Retrieve the term to search
         String searchTerm = searchField.getText();
         if (searchTerm == null || searchTerm.isEmpty()) return;
+        // Clear the text list of any remaining text from the last search, so no videos can be made with text corresponding to multiple search terms
         textListView.getItems().clear();
         dialog = new DialogBuilder().loadingDialog(stackPane, "Searching for " + searchTerm + "...");
 
+        // Actually search the term
         Task<ArrayList<String>> search = new SearchWiki(searchTerm, textArea);
         search.setOnSucceeded(e -> {
             searchLabel.setText("You searched for: " + searchTerm + "\n");
@@ -76,18 +79,26 @@ public class VideoCreationController {
         currentSearch = searchTerm;
     }
 
+    // starts the video creation process
     @FXML
     private void createVideo() {
-
         // If no text is selected then raise an error
         if (textListView.getItems().size() == 0) {
             new DialogBuilder().closeDialog(stackPane, "Invalid Text", "Please add some text to the list.");
             return;
         }
+
+        // If the user cheekily entered a different word in the search term box (but didn't click search) and tries to make a video, prevent the user from doing so as this new term will be associated with text from a different search term
+        if (!currentSearch.equalsIgnoreCase(searchField.getText())) {
+            new DialogBuilder().closeDialog(stackPane, "Invalid Text", "Complete this search before making a new video. \nOtherwise, change this new word back to the one you previously searched.");
+            return;
+        }
+
         dialog = new DialogBuilder().loadingDialog(stackPane, "Creating Video");
     	createAudio();
     }
 
+    // Convert all text currently displayed in the text list to audio files
     private void createAudio() {
     	Task createAudiosTask = new CreateAudios(textListView.getItems(), voiceChoiceBox.getSelectionModel().getSelectedItem());
     	createAudiosTask.setOnSucceeded(e-> {;
@@ -97,6 +108,7 @@ public class VideoCreationController {
     	thread.start();
     }
 
+    // Combine input audio files to make one final audio file
     private void stitchAudio(ArrayList<String> audioFiles) {
     	Task stitchAudioTask = new StitchAudio(audioFiles);
     	stitchAudioTask.setOnSucceeded(e-> combineAudioVideo());
@@ -105,10 +117,12 @@ public class VideoCreationController {
     }
 
     private void combineAudioVideo() {
+        // Retrieve selected number of images
         String videoName = videoNameField.getText();
         Double val = numImages.getValue();
         String finNumImages = Integer.toString(val.intValue());
 
+        // Create the video
         Task<ArrayList<String>> videoCreation = new CreateVideo(currentSearch, finNumImages, videoName);
         videoCreation.setOnSucceeded(e-> {
             dialog.close();
@@ -169,6 +183,7 @@ public class VideoCreationController {
     	setUpHelp();
     }
 
+    // Refresh the dropdown list of voice options for the video creations
     private void updateVoiceList() {
     	Task<ArrayList<String>> listVoices = new ListVoices();
     	listVoices.setOnSucceeded(e -> {
@@ -179,6 +194,7 @@ public class VideoCreationController {
         thread.start();
     }
 
+    // Add on-hover help messages to the "?" buttons
     private void setUpHelp() {
         helpSearchResultsButton.setTooltip(new HoverToolTip("Your search results will appear here. \nYou can click and drag to select text, add text to the results by typing it in, or delete text you don't want to see!").getToolTip());
 
@@ -203,6 +219,7 @@ public class VideoCreationController {
 
     @FXML
     private void checkValidSearch() {
+        // Check search term is valid before allowing the user to press the search button
         String searchTerm = searchField.getText();
         if (searchTerm == null || searchTerm.trim().isEmpty()) searchButton.setDisable(true);
         else searchButton.setDisable(false);
@@ -210,11 +227,13 @@ public class VideoCreationController {
 
     @FXML
     private void checkValidCreate() {
+        // Check creation name is valid before allowing the user to press the button
         String videoName = videoNameField.getText();
         if (videoName == null || videoName.trim().isEmpty() || videoName.contains(" ")) createButton.setDisable(true);
         else createButton.setDisable(false);
     }
 
+    // return number of words in the input
     private int countWords(String input) {
         if (input == null || input.isEmpty()) {
           return 0;
@@ -223,7 +242,8 @@ public class VideoCreationController {
         String[] words = input.split("\\s+");
         return words.length;
       }
-    
+
+      // Format selected text for use
     private String selectedText() {
     	String[] processString = textArea.getSelectedText().split("\t");
     	String processedText = "";

@@ -234,7 +234,8 @@ public class HomeController {
     	}
     	new DialogBuilder().closeDialog(stackPane, "Review Reminder", body);
     }
-    
+
+    // Allows the user to move window around on the screen
     public void makeStageDrageable() {
     	Stage stage = (Stage) root.getScene().getWindow();
         root.setOnMousePressed(event-> {

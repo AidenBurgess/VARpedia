@@ -141,6 +141,7 @@ public class VideoPlayerController {
 		shutdown();
 	}
 
+	// Add on-hover help messages to the "?" buttons
 	private void setUpHelp() {
 		helpMute.setTooltip(new HoverToolTip("Click this to mute the video's voice!").getToolTip());
 
