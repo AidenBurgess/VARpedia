@@ -268,7 +268,7 @@ public class ReviewController extends DraggableWindow {
 
 		helpBack5.setTooltip(new HoverToolTip("Click this to go 5 seconds back in the video!").getToolTip());
 
-		helpQuit.setTooltip(new HoverToolTip("Click this button to go back to the main menu!").getToolTip());
+		helpQuit.setTooltip(new HoverToolTip("Click this button to quit the application!").getToolTip());
 
 		helpPlayPause.setTooltip(new HoverToolTip("Click this to play the video if it is paused, or pause the video if it is playing!").getToolTip());
 
@@ -282,7 +282,7 @@ public class ReviewController extends DraggableWindow {
 
 		helpPrev.setTooltip(new HoverToolTip("Click this to play the previous video in the list!").getToolTip());
 
-		helpTextArea.setTooltip(new HoverToolTip("").getToolTip());
+		helpTextArea.setTooltip(new HoverToolTip("This is where the text you selected for the video that is currently playing shows up so you can read along with the video!").getToolTip());
 	}
 
 	// Allows user to rate the videos as they watch them
