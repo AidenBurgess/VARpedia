@@ -3,7 +3,6 @@ package app;
 import com.jfoenix.controls.*;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -50,7 +49,7 @@ public class HomeController extends DraggableWindow {
         // Hide current window
     	Stage homeStage = (Stage) helpCreateButton.getScene().getWindow();
     	homeStage.hide();
-    	Stage creationStage = new WindowBuilder().noTop("NewVideoCreation", "Create a Video!").stage();
+    	new WindowBuilder().noTop("NewVideoCreation", "Create a Video!").stage();
     }
     
     @FXML

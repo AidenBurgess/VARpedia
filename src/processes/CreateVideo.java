@@ -1,8 +1,6 @@
 package processes;
 
-import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.scene.control.Alert;
 import java.util.ArrayList;
 
 public class CreateVideo extends Task<ArrayList<String>> {
@@ -30,10 +28,8 @@ public class CreateVideo extends Task<ArrayList<String>> {
     private void createVideo() throws Exception {
         // Run bash script to make an images directory that stores the image files if it doesn't already exist
     	ProcessBuilder p = new ProcessBuilder().command("bash", "src/scripts/makeImages.sh");
-    	Process pro = p.start();
+    	p.start();
     	
-    	int exit = pro.waitFor();
-
     	// Download images off of Flickr
     	Task<ArrayList<String>> createVideo = new DownloadImages(Integer.valueOf(numImages), searchTerm);
     	Thread create = new Thread(createVideo);
@@ -42,9 +38,7 @@ public class CreateVideo extends Task<ArrayList<String>> {
 
     	// Run bash script to create the final video and save it as an mp4 file
     	ProcessBuilder pb = new ProcessBuilder().command("bash", "src/scripts/createVideo.sh", searchTerm, videoName, numImages);
-    	Process process = pb.start();
-    	
-        int exitStatus = process.waitFor();
+    	pb.start();
     }
 
 }
