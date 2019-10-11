@@ -72,7 +72,10 @@ public class HomeController extends DraggableWindow {
         JFXButton confirm = new DialogBuilder().confirm(stackPane, "Deletion Confirmation", "Would you really like to delete " + videoCreation.getName() + "?");
         confirm.setOnAction( e-> {
             Task<ArrayList<String>> task = new DeleteVideo(videoCreation.getName());
-            task.setOnSucceeded(event -> updateVideoTable());
+            task.setOnSucceeded(event -> {
+            	updateVideoTable();
+            	new DialogBuilder().close(stackPane, "Deletion Success", videoCreation.getName() + " has been deleted!");
+            });
             Thread thread = new Thread(task);
             thread.start();
             videoManager.delete(videoCreation);
