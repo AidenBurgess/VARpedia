@@ -8,10 +8,12 @@ public class HoverToolTip {
         this.desc=desc;
     }
 
+    // Create tooltip base
     protected Tooltip getToolTip() {
         Tooltip tip = new Tooltip(desc);
         tip.setWidth(200.0);
         tip.setWrapText(true);
+        tip.setStyle("-fx-font-size: 16");
         return tip;
     }
 }

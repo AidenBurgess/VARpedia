@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import processes.*;
 import java.util.ArrayList;
+import app.Voice;
 
 public class VideoCreationController extends DraggableWindow {
 
@@ -64,11 +65,14 @@ public class VideoCreationController extends DraggableWindow {
 
     @FXML
     private void searchWiki() {
+        // Retrieve the term to search
         String searchTerm = searchField.getText();
         if (searchTerm == null || searchTerm.trim().isEmpty()) return;
+      
+        // Clear the text list of any remaining text from the last search, so no videos can be made with text corresponding to multiple search terms
         textListView.getItems().clear();
         dialog = new DialogBuilder().loading(stackPane, "Searching for " + searchTerm + "...");
-
+        // Perform search
         Task<ArrayList<String>> search = new SearchWiki(searchTerm, textArea, stackPane);
         search.setOnSucceeded(e -> {
             searchLabel.setText("You searched for: " + searchTerm + "\n");
@@ -79,20 +83,32 @@ public class VideoCreationController extends DraggableWindow {
         currentSearch = searchTerm;
     }
 
+    // Start the video creation process
     @FXML
     private void createVideo() {
-
         // If no text is selected then raise an error
         if (textListView.getItems().size() == 0) {
             new DialogBuilder().close(stackPane, "Invalid Text", "Please add some text to the list.");
             return;
         }
+
+        // If the user cheekily entered a different word in the search term box (but didn't click search) and tries to make a video, prevent the user from doing so as this new term will be associated with text from a different search term
+        if (!currentSearch.equalsIgnoreCase(searchField.getText())) {
+            new DialogBuilder().closeDialog(stackPane, "Invalid Text", "Complete this search before making a new video. \nOtherwise, change this new word back to the one you previously searched.");
+            return;
+        }
+
+        // Start actual creation process
         dialog = new DialogBuilder().loading(stackPane, "Creating Video");
     	createAudio();
     }
 
+    // Convert all text currently displayed in the text list to audio files
     private void createAudio() {
-    	Task createAudiosTask = new CreateAudios(textListView.getItems(), voiceChoiceBox.getSelectionModel().getSelectedItem());
+        // Find the original voice name
+        String voice = Voice.findVoice(voiceChoiceBox.getSelectionModel().getSelectedItem());
+        // Create audio
+    	Task createAudiosTask = new CreateAudios(textListView.getItems(), voice);
     	createAudiosTask.setOnSucceeded(e-> {;
     		stitchAudio((ArrayList<String>) createAudiosTask.getValue());
     	});
@@ -100,6 +116,7 @@ public class VideoCreationController extends DraggableWindow {
     	thread.start();
     }
 
+    // Combine input audio files to make one final audio file
     private void stitchAudio(ArrayList<String> audioFiles) {
     	Task stitchAudioTask = new StitchAudio(audioFiles);
     	stitchAudioTask.setOnSucceeded(e-> combineAudioVideo());
@@ -108,10 +125,12 @@ public class VideoCreationController extends DraggableWindow {
     }
 
     private void combineAudioVideo() {
+        // Retrieve selected number of images
         String videoName = videoNameField.getText();
         Double val = numImages.getValue();
         String finNumImages = Integer.toString(val.intValue());
 
+        // Create the video
         Task<ArrayList<String>> videoCreation = new CreateVideo(currentSearch, finNumImages, videoName);
         videoCreation.setOnSucceeded(e-> {
             dialog.close();
@@ -124,6 +143,7 @@ public class VideoCreationController extends DraggableWindow {
         video.start();
     }
 
+    // Take the highlighted section of text from the search and add it as an item to the list of selected text pieces
     @FXML
     private void add() {
         // Error checking for empty/null selected
@@ -137,6 +157,7 @@ public class VideoCreationController extends DraggableWindow {
         textListView.getItems().add(selectedText);
     }
 
+    // Remove a piece of text from the list
     @FXML
     private void remove() {
         String selected = textListView.getSelectionModel().getSelectedItem();
@@ -144,19 +165,23 @@ public class VideoCreationController extends DraggableWindow {
         textListView.getItems().remove(selected);
     }
 
+    // Swap selected text piece with the piece above it in the list
     @FXML
     private void moveUp() {
         int index= textListView.getSelectionModel().getSelectedIndex();
         String selected = textListView.getSelectionModel().getSelectedItem();
+        // Only allow this if there is a piece of text to swap with
         if (index < 1 | selected == null) return;
         textListView.getItems().remove(selected);
         textListView.getItems().add((index-1), selected);
     }
 
+    // Swap selected text piece with the piece below it in the list
     @FXML
     private void moveDown() {
         int index= textListView.getSelectionModel().getSelectedIndex();
         String selected = textListView.getSelectionModel().getSelectedItem();
+        // Only allow this if there is a piece of text to swap with
         if (index >= textListView.getItems().size() -1 | selected == null) return;
         textListView.getItems().remove(selected);
         textListView.getItems().add((index+1), selected);
@@ -168,12 +193,14 @@ public class VideoCreationController extends DraggableWindow {
 		new WindowBuilder().noTop("NewHomePage", "VarPedia");
     }
 
+    // Go back to home page
     @FXML
     private void quit() {
     	searchLabel.getScene().getWindow().hide();
     	VideoManager.getVideoManager().writeSerializedVideos();
     }
-    
+
+    // Sets up the help buttons and voices dropdown on startup
     @FXML
     private void initialize() {
     	stackPane.setPickOnBounds(false);
@@ -181,6 +208,7 @@ public class VideoCreationController extends DraggableWindow {
     	setUpHelp();
     }
 
+    // Refresh the dropdown list of voice options for the video creations
     private void updateVoiceList() {
     	Task<ArrayList<String>> listVoices = new ListVoices();
     	listVoices.setOnSucceeded(e -> {
@@ -191,6 +219,7 @@ public class VideoCreationController extends DraggableWindow {
         thread.start();
     }
 
+    // Add on-hover help messages to the "?" buttons
     private void setUpHelp() {
         helpSearchResultsButton.setTooltip(new HoverToolTip("Your search results will appear here. \nYou can click and drag to select text, add text to the results by typing it in, or delete text you don't want to see!").getToolTip());
 
@@ -215,6 +244,7 @@ public class VideoCreationController extends DraggableWindow {
 
     @FXML
     private void checkValidSearch() {
+        // Check search term is valid before allowing the user to press the search button
         String searchTerm = searchField.getText();
         if (searchTerm == null || searchTerm.trim().isEmpty()) searchButton.setDisable(true);
         else searchButton.setDisable(false);
@@ -222,11 +252,13 @@ public class VideoCreationController extends DraggableWindow {
 
     @FXML
     private void checkValidCreate() {
+        // Check creation name is valid before allowing the user to press the button
         String videoName = videoNameField.getText();
         if (videoName == null || videoName.trim().isEmpty() || videoName.contains(" ")) createButton.setDisable(true);
         else createButton.setDisable(false);
     }
 
+    // return number of words in the input
     private int countWords(String input) {
         if (input == null || input.isEmpty()) {
           return 0;
@@ -235,7 +267,8 @@ public class VideoCreationController extends DraggableWindow {
         String[] words = input.split("\\s+");
         return words.length;
       }
-    
+
+      // Format selected text for use
     private String selectedText() {
     	String[] processString = textArea.getSelectedText().split("\t");
     	String processedText = "";

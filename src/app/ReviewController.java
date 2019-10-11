@@ -240,6 +240,7 @@ public class ReviewController extends DraggableWindow {
 		setSource();
 	}
 
+	// Quit back to the home page
 	@FXML
 	private void home() {
 		timeLabel.getScene().getWindow().hide();
@@ -252,6 +253,12 @@ public class ReviewController extends DraggableWindow {
 		timeLabel.getScene().getWindow().hide();
     	VideoManager.getVideoManager().writeSerializedVideos();
 		shutdown();
+	}
+
+
+	@FXML
+	private void initialize() {
+		setUpHelp();
 	}
 
 	private void setUpHelp() {
@@ -278,6 +285,7 @@ public class ReviewController extends DraggableWindow {
 		helpTextArea.setTooltip(new HoverToolTip("").getToolTip());
 	}
 
+	// Allows user to rate the videos as they watch them
 	private void showRating() {
 		WindowBuilder windowBuilder = new WindowBuilder().noTop("RatingPopup", "Rate the video!");
 		// Pass in video being rated
