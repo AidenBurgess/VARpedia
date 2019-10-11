@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.util.Duration;
 
-public class ReviewController {
+public class ReviewController extends DraggableWindow {
 
 	@FXML
 	private AnchorPane root;
@@ -246,6 +246,7 @@ public class ReviewController {
 	@FXML
 	private void quit() {
 		timeLabel.getScene().getWindow().hide();
+    	VideoManager.getVideoManager().writeSerializedVideos();
 		shutdown();
 	}
 

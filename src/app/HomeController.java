@@ -13,7 +13,7 @@ import processes.*;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class HomeController {
+public class HomeController extends DraggableWindow {
 	
 	@FXML
 	private AnchorPane root;
@@ -45,19 +45,13 @@ public class HomeController {
     private int greenRating = 4;
     private int yellowRating = 2;
     private int redRating = 0;
-    private double xOffset = 0;
-    private double yOffset = 0;
 
     @FXML
     private void createVideo() {
     	Stage homeStage = (Stage) helpCreateButton.getScene().getWindow();
     	homeStage.hide();
 
-    	Stage creationStage = new WindowBuilder().pop("NewVideoCreation", "Create a Video!").stage();
-    	creationStage.setOnHidden(e -> {
-    		updateVideoTable();
-    		homeStage.show();
-    	});
+    	Stage creationStage = new WindowBuilder().noTop("NewVideoCreation", "Create a Video!").stage();
     }
     
     @FXML
@@ -135,19 +129,18 @@ public class HomeController {
     	// Setup coloring of rows based on rating
         videoTable.setRowFactory(tv -> new TableRow<VideoCreation>() {
             @Override
-            protected void updateItem(VideoCreation item,boolean empty) {
+            protected void updateItem(VideoCreation item, boolean empty) {
                 super.updateItem(item, empty);
-                if (item == null | empty)
+                if (item == null | empty) {
+                    getStyleClass().clear();
                     setStyle("");
-                else if (item.getRating() >= greenRating) {
+                } else if (item.getRating() >= greenRating) {
                     getStyleClass().clear();
                     getStyleClass().add("green-row");
-                }
-                else if (item.getRating() >= yellowRating) {
+                } else if (item.getRating() >= yellowRating) {
                     getStyleClass().clear();
                     getStyleClass().add("yellow-row");
-                }
-                else {
+                } else {
                     getStyleClass().clear();
                     getStyleClass().add("red-row");
                 }
@@ -225,23 +218,4 @@ public class HomeController {
     	new DialogBuilder().closeDialog(stackPane, "Review Reminder", body);
     }
     
-    public void makeStageDrageable() {
-    	Stage stage = (Stage) root.getScene().getWindow();
-        root.setOnMousePressed(event-> {
-                xOffset = event.getSceneX();
-                yOffset = event.getSceneY();
-        });
-        root.setOnMouseDragged(event-> {
-                stage.setX(event.getScreenX() - xOffset);
-                stage.setY(event.getScreenY() - yOffset);
-                stage.setOpacity(0.8f);
-        });
-        root.setOnDragDone((e) -> {
-            stage.setOpacity(1.0f);
-        });
-        root.setOnMouseReleased((e) -> {
-            stage.setOpacity(1.0f);
-        });
-    }
-
 }

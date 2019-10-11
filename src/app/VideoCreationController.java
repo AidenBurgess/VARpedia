@@ -7,12 +7,15 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import processes.*;
 import java.util.ArrayList;
 
-public class VideoCreationController {
+public class VideoCreationController extends DraggableWindow {
 
+	@FXML
+	private AnchorPane root;
     @FXML
     private JFXTextField searchField;
     @FXML

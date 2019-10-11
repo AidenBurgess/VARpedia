@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
-public class RatingController {
+public class RatingController extends DraggableWindow {
 	
 	@FXML
 	private AnchorPane root;
