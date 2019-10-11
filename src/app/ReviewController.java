@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.util.Duration;
 
-public class ReviewController {
+public class ReviewController extends DraggableWindow {
 
 	@FXML
 	private AnchorPane root;
@@ -136,9 +136,13 @@ public class ReviewController {
 		//
 		playListView.getSelectionModel().select(playIndex);
 		// Update transcript
-		transcript.setText(currentVideo.getName() + " " + currentVideo.getSearchTerm());
+		String transcriptString = "";
+		for(String line: currentVideo.getTextContent()) {
+			transcriptString += line.trim() + "\n";
+		}
+		transcript.setText(transcriptString);
 	}
-
+	
 	private void slider() {
 		// Providing functionality to time slider 
 		player.currentTimeProperty().addListener(ov -> updatesValues());
@@ -247,19 +251,16 @@ public class ReviewController {
 	@FXML
 	private void quit() {
 		timeLabel.getScene().getWindow().hide();
+    	VideoManager.getVideoManager().writeSerializedVideos();
 		shutdown();
 	}
 
+
 	@FXML
 	private void initialize() {
-		////		Scene scene = timeLabel.getScene();
-		////		Stage currentStage = (Stage) timeLabel.getScene().getWindow();
-		////		currentStage.initStyle(StageStyle.TRANSPARENT);
-		////		scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
 		setUpHelp();
 	}
 
-	// Add on-hover help messages to the "?" buttons
 	private void setUpHelp() {
 		helpMute.setTooltip(new HoverToolTip("Click this to mute the video's voice!").getToolTip());
 

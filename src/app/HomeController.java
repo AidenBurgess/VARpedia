@@ -11,9 +11,8 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import processes.*;
 import java.util.ArrayList;
-import java.util.Optional;
 
-public class HomeController {
+public class HomeController extends DraggableWindow {
 	
 	@FXML
 	private AnchorPane root;
@@ -45,21 +44,13 @@ public class HomeController {
     private int greenRating = 4;
     private int yellowRating = 2;
     private int redRating = 0;
-    private double xOffset = 0;
-    private double yOffset = 0;
 
     @FXML
     private void createVideo() {
         // Hide current window
     	Stage homeStage = (Stage) helpCreateButton.getScene().getWindow();
     	homeStage.hide();
-
-    	// Bring up the create video scene
-    	Stage creationStage = new WindowBuilder().pop("NewVideoCreation", "Create a Video!").stage();
-    	creationStage.setOnHidden(e -> {
-    		updateVideoTable();
-    		homeStage.show();
-    	});
+    	Stage creationStage = new WindowBuilder().noTop("NewVideoCreation", "Create a Video!").stage();
     }
     
     @FXML
@@ -79,21 +70,18 @@ public class HomeController {
     private void deleteVideo() {
         // Get the video that the user selected
     	VideoCreation videoCreation = (VideoCreation) videoTable.getSelectionModel().getSelectedItem();
-    	if(videoCreation == null) return;
-
-    	// Confirm user wants to delete the video
-    	Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Deletion Process");
-        alert.setHeaderText("Deletion Confirmation");
-        alert.setContentText("Would you really like to delete " + videoCreation.getName() + "?");
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() != ButtonType.OK) return;
-        
-        Task<ArrayList<String>> task = new DeleteVideo(videoCreation.getName());
-        task.setOnSucceeded(event -> updateVideoTable());
-        Thread thread = new Thread(task);
-        thread.start();
-        videoManager.delete(videoCreation);
+    	if(videoCreation == null) return;    	
+        JFXButton confirm = new DialogBuilder().confirm(stackPane, "Deletion Confirmation", "Would you really like to delete " + videoCreation.getName() + "?");
+        confirm.setOnAction( e-> {
+            Task<ArrayList<String>> task = new DeleteVideo(videoCreation.getName());
+            task.setOnSucceeded(event -> {
+            	updateVideoTable();
+            	new DialogBuilder().close(stackPane, "Deletion Success", videoCreation.getName() + " has been deleted!");
+            });
+            Thread thread = new Thread(task);
+            thread.start();
+            videoManager.delete(videoCreation);
+        });
     }
 
     @FXML
@@ -102,7 +90,7 @@ public class HomeController {
     	updateVideosToReview();
     	// Don't launch if there are zero videos
     	if(toReview.isEmpty()) {
-    		new DialogBuilder().closeDialog(stackPane, "Review Videos", "There are currently no videos to review.");
+    		new DialogBuilder().close(stackPane, "Review Videos", "There are currently no videos to review.");
     		return;
     	}
     	// Close current stage
@@ -143,19 +131,18 @@ public class HomeController {
     	// Setup coloring of rows based on rating
         videoTable.setRowFactory(tv -> new TableRow<VideoCreation>() {
             @Override
-            protected void updateItem(VideoCreation item,boolean empty) {
+            protected void updateItem(VideoCreation item, boolean empty) {
                 super.updateItem(item, empty);
-                if (item == null | empty)
+                if (item == null | empty) {
+                    getStyleClass().clear();
                     setStyle("");
-                else if (item.getRating() >= greenRating) {
+                } else if (item.getRating() >= greenRating) {
                     getStyleClass().clear();
                     getStyleClass().add("green-row");
-                }
-                else if (item.getRating() >= yellowRating) {
+                } else if (item.getRating() >= yellowRating) {
                     getStyleClass().clear();
                     getStyleClass().add("yellow-row");
-                }
-                else {
+                } else {
                     getStyleClass().clear();
                     getStyleClass().add("red-row");
                 }
@@ -184,7 +171,7 @@ public class HomeController {
         viewsColumn.setMinWidth(89);
         viewsColumn.setCellValueFactory(new PropertyValueFactory<>("views"));
         
-        videoTable.getItems().addAll(videoManager.readSerializedVideos());
+        videoTable.getItems().addAll(videoManager.getVideos());
         videoTable.getColumns().addAll(nameColumn, searchTermColumn, numImagesColumn, ratingColumn, viewsColumn);
     	numVideoLabel.setText("There are " + videoTable.getItems().size() + " videos");
     }
@@ -232,27 +219,6 @@ public class HomeController {
     	for(VideoCreation v: toReview) {
     		body+= v.getName() + "\n";
     	}
-    	new DialogBuilder().closeDialog(stackPane, "Review Reminder", body);
+    	new DialogBuilder().close(stackPane, "Review Reminder", body);
     }
-
-    // Allows the user to move window around on the screen
-    public void makeStageDrageable() {
-    	Stage stage = (Stage) root.getScene().getWindow();
-        root.setOnMousePressed(event-> {
-                xOffset = event.getSceneX();
-                yOffset = event.getSceneY();
-        });
-        root.setOnMouseDragged(event-> {
-                stage.setX(event.getScreenX() - xOffset);
-                stage.setY(event.getScreenY() - yOffset);
-                stage.setOpacity(0.8f);
-        });
-        root.setOnDragDone((e) -> {
-            stage.setOpacity(1.0f);
-        });
-        root.setOnMouseReleased((e) -> {
-            stage.setOpacity(1.0f);
-        });
-    }
-
 }

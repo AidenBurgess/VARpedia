@@ -6,6 +6,8 @@ import javafx.scene.control.Alert;
 
 import java.util.ArrayList;
 
+import app.DialogBuilder;
+
 public class DeleteVideo extends Task<ArrayList<String>> {
 
     private String video;
@@ -36,17 +38,4 @@ public class DeleteVideo extends Task<ArrayList<String>> {
             System.out.println("Error code: " + exitStatus + " occurred");
         }
     }
-
-    @Override
-    protected void done() {
-        Platform.runLater(() -> {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Deletion Process");
-            alert.setHeaderText("Deletion Success");
-            alert.setContentText(video + " has been deleted!");
-            alert.showAndWait();
-        });
-
-    }
-
 }

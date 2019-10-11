@@ -10,27 +10,42 @@ import javafx.scene.text.Text;
 
 public class DialogBuilder {
 	
-	public void closeDialog(StackPane stackPane, String title, String body) {
+	public void close(StackPane stackPane, String title, String body) {
 		 JFXDialogLayout dialogContent = new JFXDialogLayout();
          dialogContent.setHeading(new Text(title));
          dialogContent.setBody(new Text(body));
          JFXButton close = new JFXButton("Close");
          close.getStyleClass().add("JFXButton");
          dialogContent.setActions(close);
-         JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.RIGHT);
+         JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.TOP);
          close.setOnAction( e -> dialog.close());
          dialog.show();
 	}
 	
-	public JFXDialog loadingDialog(StackPane stackPane, String title) {
+	public JFXDialog loading(StackPane stackPane, String title) {
     	JFXDialogLayout dialogContent = new JFXDialogLayout();
         dialogContent.setHeading(new Text(title));
         JFXSpinner spinner = new JFXSpinner();
         spinner.setPrefSize(50, 50);
         dialogContent.setBody(spinner);
-        JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.RIGHT);
+        JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.TOP);
         dialog.show();
         return dialog;
+	}
+	
+	public JFXButton confirm(StackPane stackPane, String title, String body) {
+		 JFXDialogLayout dialogContent = new JFXDialogLayout();
+         dialogContent.setHeading(new Text(title));
+         dialogContent.setBody(new Text(body));
+         JFXButton cancel = new JFXButton("Cancel");
+         cancel.getStyleClass().add("JFXButton");
+         JFXButton confirm= new JFXButton("Confirm");
+         confirm.getStyleClass().add("JFXButton");
+         dialogContent.setActions(cancel, confirm);
+         JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.TOP);
+         cancel.setOnAction( e -> dialog.close());
+         dialog.show();
+         return confirm;
 	}
 
 }

@@ -47,6 +47,7 @@ public class WindowBuilder {
         stage.initStyle(StageStyle.TRANSPARENT);
     	scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
         stage.show();
+    	((DraggableWindow) loader.getController()).makeStageDrageable();
         return this;
     }
     

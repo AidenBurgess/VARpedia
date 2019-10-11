@@ -8,7 +8,6 @@ public class HomePage extends Application {
     @Override
     public void start(Stage stage) throws Exception {
     	WindowBuilder windowBuilder = new WindowBuilder().noTop("NewHomePage", "VARpedia");
-    	((HomeController) windowBuilder.controller()).makeStageDrageable();
     	((HomeController) windowBuilder.controller()).remindReview();
         stage.setOnCloseRequest(e-> {
         	VideoManager.getVideoManager().writeSerializedVideos();

@@ -2,22 +2,24 @@ package processes;
 
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
-
+import javafx.scene.layout.StackPane;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import app.DialogBuilder;
 
 public class SearchWiki extends Task<ArrayList<String>> {
 
     private TextArea textArea;
     private String videoName;
+    private StackPane stackPane;
     private ArrayList<String> out;
 
-    public SearchWiki(String videoName, TextArea textArea) {
+    public SearchWiki(String videoName, TextArea textArea, StackPane stackPane) {
         this.videoName = videoName;
         this.textArea = textArea;
+        this.stackPane = stackPane;
     }
 
     @Override
@@ -46,13 +48,8 @@ public class SearchWiki extends Task<ArrayList<String>> {
             out = outputList;
             return outputList;
         } else {
-            System.out.println("Error code: " + exitStatus + " occurred");
             Platform.runLater(() -> {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Search Process");
-                alert.setHeaderText("Search error");
-                alert.setContentText(videoName + " can not be found!");
-                alert.showAndWait();
+            	new DialogBuilder().close(stackPane, "Search error", videoName + " can not be found!");
             });
         }
         return null;

@@ -1,6 +1,7 @@
 package app;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 @SuppressWarnings("serial")
 public class VideoCreation implements Serializable {
@@ -9,13 +10,15 @@ public class VideoCreation implements Serializable {
 	private int numImages;
 	private int rating;
 	private int views;
+	private ArrayList<String> textContent;
 	
-	public VideoCreation(String name, String searchTerm, int numImages) {
+	public VideoCreation(String name, String searchTerm, int numImages, ArrayList<String> textContent) {
 		this.name = name;
 		this.searchTerm = searchTerm;
 		this.numImages = numImages;
 		this.rating = 0;
 		this.views = 0;
+		this.textContent = textContent;
 	}
 	
 	public String getName() {
@@ -48,6 +51,10 @@ public class VideoCreation implements Serializable {
 	
 	public void incrementViews() {
 		this.views++;
+	}
+	
+	public ArrayList<String> getTextContent() {
+		return textContent;
 	}
 	
 	@Override

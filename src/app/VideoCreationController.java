@@ -7,13 +7,16 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import processes.*;
 import java.util.ArrayList;
 import app.Voice;
 
-public class VideoCreationController {
+public class VideoCreationController extends DraggableWindow {
 
+	@FXML
+	private AnchorPane root;
     @FXML
     private JFXTextField searchField;
     @FXML
@@ -64,13 +67,13 @@ public class VideoCreationController {
     private void searchWiki() {
         // Retrieve the term to search
         String searchTerm = searchField.getText();
-        if (searchTerm == null || searchTerm.isEmpty()) return;
+        if (searchTerm == null || searchTerm.trim().isEmpty()) return;
+      
         // Clear the text list of any remaining text from the last search, so no videos can be made with text corresponding to multiple search terms
         textListView.getItems().clear();
-        dialog = new DialogBuilder().loadingDialog(stackPane, "Searching for " + searchTerm + "...");
-
-        // Actually search the term
-        Task<ArrayList<String>> search = new SearchWiki(searchTerm, textArea);
+        dialog = new DialogBuilder().loading(stackPane, "Searching for " + searchTerm + "...");
+        // Perform search
+        Task<ArrayList<String>> search = new SearchWiki(searchTerm, textArea, stackPane);
         search.setOnSucceeded(e -> {
             searchLabel.setText("You searched for: " + searchTerm + "\n");
             dialog.close();
@@ -80,12 +83,12 @@ public class VideoCreationController {
         currentSearch = searchTerm;
     }
 
-    // starts the video creation process
+    // Start the video creation process
     @FXML
     private void createVideo() {
         // If no text is selected then raise an error
         if (textListView.getItems().size() == 0) {
-            new DialogBuilder().closeDialog(stackPane, "Invalid Text", "Please add some text to the list.");
+            new DialogBuilder().close(stackPane, "Invalid Text", "Please add some text to the list.");
             return;
         }
 
@@ -96,7 +99,7 @@ public class VideoCreationController {
         }
 
         // Start actual creation process
-        dialog = new DialogBuilder().loadingDialog(stackPane, "Creating Video");
+        dialog = new DialogBuilder().loading(stackPane, "Creating Video");
     	createAudio();
     }
 
@@ -131,8 +134,10 @@ public class VideoCreationController {
         Task<ArrayList<String>> videoCreation = new CreateVideo(currentSearch, finNumImages, videoName);
         videoCreation.setOnSucceeded(e-> {
             dialog.close();
-            VideoManager.getVideoManager().add(new VideoCreation(videoName, currentSearch, (int) numImages.getValue()));    
-            new DialogBuilder().closeDialog(stackPane, "Video Creation Successful!", videoName + " was created.");
+            ArrayList<String> textContent = new ArrayList<>(textListView.getItems());
+            VideoCreation video = new VideoCreation(videoName, currentSearch, (int) numImages.getValue(), textContent);
+            VideoManager.getVideoManager().add(video);    
+            new DialogBuilder().close(stackPane, "Video Creation Successful!", videoName + " was created.");
         });
         Thread video = new Thread(videoCreation);
         video.start();
@@ -145,7 +150,7 @@ public class VideoCreationController {
         String selectedText = selectedText();
         if (selectedText == null || selectedText.isEmpty()) return;
         if (countWords(selectedText) > wordLimit) {
-        	new DialogBuilder().closeDialog(stackPane, "Invalid selection", "Please select less than "+ wordLimit +" words");
+        	new DialogBuilder().close(stackPane, "Invalid selection", "Please select less than "+ wordLimit +" words");
             return;
         }
         // Add selected as a line in listview
@@ -181,11 +186,18 @@ public class VideoCreationController {
         textListView.getItems().remove(selected);
         textListView.getItems().add((index+1), selected);
     }
+    
+    @FXML
+    private void home() {
+    	searchLabel.getScene().getWindow().hide();
+		new WindowBuilder().noTop("NewHomePage", "VarPedia");
+    }
 
     // Go back to home page
     @FXML
     private void quit() {
     	searchLabel.getScene().getWindow().hide();
+    	VideoManager.getVideoManager().writeSerializedVideos();
     }
 
     // Sets up the help buttons and voices dropdown on startup

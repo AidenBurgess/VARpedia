@@ -1,57 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import com.jfoenix.controls.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXSlider?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="507.0" prefWidth="1100.0" style="-fx-font-family: Ubuntu;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.VideoCreationController">
+<AnchorPane fx:id="root" prefHeight="532.0" prefWidth="1100.0" style="-fx-font-family: Ubuntu;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.VideoCreationController">
    <children>
-      <Label fx:id="searchLabel" layoutX="38.0" layoutY="21.0" style="-fx-font-family: Ubuntu;" styleClass="title" text="Feel free to search!">
+      <Label fx:id="searchLabel" layoutX="38.0" layoutY="82.0" style="-fx-font-family: Ubuntu;" styleClass="title" text="Search here!">
          <font>
             <Font name="Ubuntu" size="18.0" />
          </font>
       </Label>
-      <JFXTextArea fx:id="textArea" layoutX="34.0" layoutY="63.0" prefHeight="329.0" prefWidth="490.0" promptText="Search results will appear here... You can edit or add to any text in this box!" style="-fx-font-family: Ubuntu;" />
-      <HBox layoutX="314.0" layoutY="376.0" prefHeight="43.0" prefWidth="156.0" spacing="15.0" style="-fx-font-family: Ubuntu;" />
-      <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="438.0" onAction="#quit" prefHeight="36.0" prefWidth="65.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3; -fx-background-radius: 6px;" text="Back" textFill="WHITE" />
-      <JFXTextField fx:id="searchField" focusColor="#09b6bc" layoutX="147.0" layoutY="438.0" onAction="#searchWiki" onKeyReleased="#checkValidSearch" prefHeight="36.0" prefWidth="167.0" promptText="Search for..." style="-fx-font-family: Ubuntu;" styleClass="jfx-text-area" />
-      <JFXButton fx:id="searchButton" buttonType="RAISED" disable="true" layoutX="327.0" layoutY="438.0" onAction="#searchWiki" prefHeight="36.0" prefWidth="65.0" ripplerFill="WHITE" style="-fx-font-family: Ubuntu; -fx-background-color: #2196F3; -fx-background-radius: 6px;" text="Search" textFill="WHITE" textOverrun="CLIP" />
-      <JFXButton fx:id="createButton" buttonType="RAISED" disable="true" layoutX="1012.0" layoutY="438.0" onAction="#createVideo" onKeyReleased="#checkValidCreate" prefHeight="36.0" prefWidth="74.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3; -fx-background-radius: 6px;" text="Create" textFill="WHITE" />
-      <JFXTextField fx:id="videoNameField" focusColor="#09b6bc" layoutX="444.0" layoutY="442.0" onAction="#createVideo" onKeyReleased="#checkValidCreate" prefHeight="36.0" prefWidth="140.0" promptText="Name your video" style="-fx-font-family: Ubuntu;" styleClass="jfx-text-area" />
-      <JFXSlider fx:id="numImages" blockIncrement="1.0" layoutX="851.0" layoutY="456.0" majorTickUnit="9.0" max="10.0" min="1.0" minorTickCount="8" showTickLabels="true" showTickMarks="true" snapToTicks="true" styleClass="jfx-slider" value="5.0" />
-      <Label layoutX="731.0" layoutY="453.0" style="-fx-font-family: Ubuntu;" text="Num. Images:">
+      <JFXTextArea fx:id="textArea" layoutX="34.0" layoutY="124.0" prefHeight="329.0" prefWidth="490.0" promptText="Search results will appear here... You can edit or add to any text in this box!" style="-fx-font-family: Ubuntu;" />
+      <JFXButton buttonType="RAISED" ellipsisString="" layoutX="34.0" layoutY="20.0" onAction="#home" prefHeight="38.0" prefWidth="116.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3; -fx-background-radius: 6px;" text="Home" textFill="WHITE" textOverrun="CLIP">
+         <graphic>
+            <MaterialDesignIconView glyphName="HOME" />
+         </graphic></JFXButton>
+      <JFXTextField fx:id="searchField" focusColor="#09b6bc" layoutX="234.0" layoutY="77.0" onAction="#searchWiki" onKeyReleased="#checkValidSearch" prefHeight="35.0" prefWidth="141.0" promptText="Search for..." style="-fx-font-family: Ubuntu;" styleClass="jfx-text-area" />
+      <JFXButton fx:id="searchButton" buttonType="RAISED" disable="true" layoutX="394.0" layoutY="74.0" onAction="#searchWiki" prefHeight="38.0" prefWidth="119.0" ripplerFill="WHITE" style="-fx-font-family: Ubuntu; -fx-background-color: #2196F3; -fx-background-radius: 6px;" text="Search" textFill="WHITE" textOverrun="CLIP">
+         <graphic>
+            <MaterialDesignIconView glyphName="MAGNIFY" />
+         </graphic></JFXButton>
+      <JFXListView fx:id="textListView" layoutX="611.0" layoutY="120.0" prefHeight="329.0" prefWidth="411.0" styleClass="jfx-list-view" />
+      <JFXButton layoutX="550.0" layoutY="226.0" onAction="#add" prefHeight="25.0" prefWidth="24.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px; -fx-text-fill: WHITE;" text="&gt;" />
+      <JFXButton layoutX="550.0" layoutY="302.0" onAction="#remove" prefHeight="25.0" prefWidth="24.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px; -fx-text-fill: WHITE;" text="&lt;" />
+      <JFXButton layoutX="1038.0" layoutY="230.0" onAction="#moveUp" prefHeight="25.0" prefWidth="26.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px; -fx-text-fill: WHITE;" text="^" />
+      <JFXButton layoutX="1039.0" layoutY="292.0" onAction="#moveDown" prefHeight="25.0" prefWidth="24.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px; -fx-text-fill: WHITE;" text="v" />
+      <Label layoutX="576.0" layoutY="82.0" style="-fx-font-family: Ubuntu;" styleClass="title" text="Add text for your video here, or rearrange:">
          <font>
             <Font name="Ubuntu" size="18.0" />
          </font>
       </Label>
-      <JFXListView fx:id="textListView" layoutX="603.0" layoutY="63.0" prefHeight="329.0" prefWidth="411.0" styleClass="jfx-list-view" />
-      <JFXButton layoutX="550.0" layoutY="165.0" onAction="#add" prefHeight="25.0" prefWidth="24.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px; -fx-text-fill: WHITE;" text="&gt;" />
-      <JFXButton layoutX="550.0" layoutY="241.0" onAction="#remove" prefHeight="25.0" prefWidth="24.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px; -fx-text-fill: WHITE;" text="&lt;" />
-      <JFXButton layoutX="1044.0" layoutY="165.0" onAction="#moveUp" prefHeight="25.0" prefWidth="26.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px; -fx-text-fill: WHITE;" text="^" />
-      <JFXButton layoutX="1045.0" layoutY="241.0" onAction="#moveDown" prefHeight="25.0" prefWidth="24.0" style="-fx-background-color: #2196F3; -fx-background-radius: 12px; -fx-border-radius: 12px; -fx-text-fill: WHITE;" text="v" />
-      <Label layoutX="575.0" layoutY="21.0" style="-fx-font-family: Ubuntu;" styleClass="title" text="Add text for your video here, or rearrange:">
-         <font>
-            <Font name="Ubuntu" size="18.0" />
-         </font>
-      </Label>
-      <JFXComboBox fx:id="voiceChoiceBox" layoutX="605.0" layoutY="451.0" prefHeight="25.0" prefWidth="105.0" />
-      <JFXButton fx:id="helpSearchResultsButton" layoutX="514.0" layoutY="51.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
-      <JFXButton fx:id="helpAddRemoveButton" layoutX="567.0" layoutY="153.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
-      <JFXButton fx:id="helpShuffleButton" layoutX="1062.0" layoutY="153.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
-      <JFXButton fx:id="helpBackButton" layoutX="73.0" layoutY="426.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
-      <JFXButton fx:id="helpSearchButton" layoutX="386.0" layoutY="426.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
-      <JFXButton fx:id="helpVoicesButton" layoutX="698.0" layoutY="427.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
-      <JFXButton fx:id="helpVideoNameButton" layoutX="572.0" layoutY="427.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
-      <JFXButton fx:id="helpNumImagesButton" layoutX="816.0" layoutY="430.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
-      <JFXButton fx:id="helpCreateButton" layoutX="1074.0" layoutY="426.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
-      <JFXButton fx:id="helpTextListButton" layoutX="1000.0" layoutY="51.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
-      <StackPane fx:id="stackPane" layoutX="463.0" layoutY="-12.0" prefHeight="150.0" prefWidth="200.0" />
+      <HBox layoutX="402.0" layoutY="464.0" prefHeight="43.0" prefWidth="663.0" spacing="20.0">
+         <children>
+            <JFXTextField fx:id="videoNameField" focusColor="#09b6bc" onAction="#createVideo" onKeyReleased="#checkValidCreate" prefHeight="35.0" prefWidth="127.0" promptText="Name your video..." style="-fx-font-family: Ubuntu;" styleClass="jfx-text-area" />
+            <JFXComboBox fx:id="voiceChoiceBox" prefHeight="35.0" prefWidth="119.0" />
+            <Label prefHeight="35.0" style="-fx-font-family: Ubuntu;" text="#Images:">
+               <font>
+                  <Font name="Ubuntu" size="18.0" />
+               </font>
+            </Label>
+            <JFXSlider fx:id="numImages" blockIncrement="1.0" majorTickUnit="9.0" max="10.0" min="1.0" minorTickCount="8" prefHeight="35.0" prefWidth="116.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" styleClass="jfx-slider" translateY="10.0" value="5.0" />
+            <JFXButton fx:id="createButton" buttonType="RAISED" disable="true" onAction="#createVideo" onKeyReleased="#checkValidCreate" prefHeight="35.0" prefWidth="125.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3; -fx-background-radius: 6px;" text="Create" textFill="WHITE">
+               <graphic>
+                  <MaterialDesignIconView glyphName="CONTENT_SAVE" />
+               </graphic>
+            </JFXButton>
+         </children>
+      </HBox>
+      <JFXButton fx:id="helpSearchResultsButton" layoutX="514.0" layoutY="110.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpAddRemoveButton" layoutX="578.0" layoutY="214.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpShuffleButton" layoutX="1061.0" layoutY="217.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpBackButton" layoutX="144.0" layoutY="9.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpVoicesButton" layoutX="651.0" layoutY="450.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpSearchButton" layoutX="500.0" layoutY="63.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpNumImagesButton" layoutX="886.0" layoutY="453.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpCreateButton" layoutX="1032.0" layoutY="451.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpVideoNameButton" layoutX="514.0" layoutY="450.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpTextListButton" layoutX="1010.0" layoutY="108.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <StackPane fx:id="stackPane" layoutX="467.0" prefHeight="150.0" prefWidth="200.0" />
+      <JFXButton fx:id="quitButton" buttonType="RAISED" layoutX="976.0" layoutY="18.0" onAction="#quit" prefHeight="38.0" prefWidth="102.0" ripplerFill="WHITE" text="Quit" textFill="WHITE">
+         <graphic>
+            <MaterialDesignIconView glyphName="CLOSE" />
+         </graphic>
+      </JFXButton>
    </children>
 </AnchorPane>
