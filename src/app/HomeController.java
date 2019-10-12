@@ -34,6 +34,12 @@ public class HomeController extends DraggableWindow {
     @FXML
     private JFXButton helpQuitButton;
     @FXML
+    private JFXButton playButton;
+    @FXML
+    private JFXButton deleteButton;
+    @FXML
+    private JFXButton reviewButton;
+    @FXML
     private Label numVideoLabel;
     @FXML
     private StackPane stackPane;
@@ -134,6 +140,7 @@ public class HomeController extends DraggableWindow {
     	updateVideosToReview();
         setUpHelp();
         updateVideoTable();
+        checkVideosExist();
     }
         
     private void initTable() {
@@ -230,4 +237,21 @@ public class HomeController extends DraggableWindow {
     	}
     	new DialogBuilder().close(stackPane, "Review Reminder", body);
     }
+
+    // Disable the play, review, and delete buttons if no videos exist
+    private void checkVideosExist() {
+        // Get the current number of videos in the table
+        int numVideos = videoTable.getItems().size();
+        // Disable/enable the buttons
+        if (numVideos == 0) {
+            playButton.setDisable(true);
+            deleteButton.setDisable(true);
+            reviewButton.setDisable(true);
+        } else {
+            playButton.setDisable(false);
+            deleteButton.setDisable(false);
+            reviewButton.setDisable(false);
+        }
+    }
+
 }
