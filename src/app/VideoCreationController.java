@@ -44,6 +44,8 @@ public class VideoCreationController extends DraggableWindow {
     @FXML
     private JFXButton helpBackButton;
     @FXML
+    private JFXButton helpQuitButton;
+    @FXML
     private JFXButton helpVoicesButton;
     @FXML
     private JFXButton helpShuffleButton;
@@ -240,6 +242,8 @@ public class VideoCreationController extends DraggableWindow {
         helpNumImagesButton.setTooltip(new HoverToolTip("Click and drag the dot along the line to choose how many picture you want to have in your video, from 1 to 10!").getToolTip());
 
         helpTextListButton.setTooltip(new HoverToolTip("This is where each bit of text is shown in a list! \nSelect one piece of text by clicking on it!").getToolTip());
+
+        helpQuitButton.setTooltip(new HoverToolTip("Click this button to exit the application!").getToolTip());
     }
 
     @FXML

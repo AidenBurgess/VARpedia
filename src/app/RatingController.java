@@ -1,5 +1,6 @@
 package app;
 
+import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -21,6 +22,8 @@ public class RatingController extends DraggableWindow {
 	private MaterialDesignIconView star5;
 	@FXML
 	private Label ratingLabel;
+	@FXML
+	private JFXButton helpRating;
 	
 	private Integer rating;
 	private String selected = "-fx-fill:rgb(233.0,195.0,248.0);";
@@ -157,4 +160,15 @@ public class RatingController extends DraggableWindow {
 	public Integer getRating() {
 		return rating;
 	}
+
+	/**************Tooltip Setup**************/
+	@FXML
+	private void initialize() {
+		setUpHelp();
+	}
+
+	private void setUpHelp() {
+		helpRating.setTooltip(new HoverToolTip("Click on the stars below to set how well you think you understand the video you just watched. \nThis rating is out of 5, with 5 being you fully understand! \nClick Confirm when you're done, or cancel if you don't want to rate the video!").getToolTip());
+	}
+
 }

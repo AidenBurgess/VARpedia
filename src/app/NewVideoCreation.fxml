@@ -73,5 +73,6 @@
             <MaterialDesignIconView glyphName="CLOSE" />
          </graphic>
       </JFXButton>
+      <JFXButton fx:id="helpQuitButton" layoutX="1066.0" layoutY="9.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
    </children>
 </AnchorPane>
