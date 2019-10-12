@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXSlider?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.scene.control.Label?>
@@ -70,14 +75,15 @@
                   <MaterialDesignIconView id="playIcon" glyphName="HOME" size="50" wrappingWidth="18.0" />
                </graphic>
             </JFXButton>
+            <JFXButton fx:id="helpBack" layoutX="64.0" layoutY="43.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
    </children>
 </AnchorPane>
       <AnchorPane fx:id="sidePanel" layoutX="715.0" prefHeight="637.0" prefWidth="302.0" style="-fx-background-color: #e6e6e6; -fx-background-radius: 10px;">
          <children>
-            <JFXTextArea fx:id="transcript" layoutX="9.0" layoutY="378.0" prefHeight="150.0" prefWidth="277.0" />
+            <JFXTextArea fx:id="transcript" layoutX="20.0" layoutY="378.0" prefHeight="150.0" prefWidth="263.0" />
             <Label fx:id="upcomingLabel" layoutX="21.0" layoutY="539.0" text="Upcoming..." />
-            <JFXListView fx:id="playListView" layoutX="14.0" layoutY="57.0" prefHeight="150.0" prefWidth="200.0" />
-            <JFXButton buttonType="RAISED" layoutX="8.0" layoutY="216.0" onAction="#playVideo" prefHeight="43.0" prefWidth="105.0" ripplerFill="WHITE" text="Play" textFill="WHITE">
+            <JFXListView fx:id="playListView" layoutX="40.0" layoutY="57.0" prefHeight="150.0" prefWidth="219.0" />
+            <JFXButton buttonType="RAISED" layoutX="99.0" layoutY="216.0" onAction="#playVideo" prefHeight="43.0" prefWidth="105.0" ripplerFill="WHITE" text="Play" textFill="WHITE">
                <font>
                   <Font name="Ubuntu" size="18.0" />
                </font>
@@ -114,13 +120,13 @@
                   <MaterialDesignIconView id="playIcon" glyphName="WINDOW_CLOSE" size="25" wrappingWidth="18.0" />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="helpList" layoutX="202.0" layoutY="44.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
-            <JFXButton fx:id="helpTextArea" layoutX="274.0" layoutY="324.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
-            <JFXButton fx:id="helpPlayButton" layoutX="101.0" layoutY="203.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+            <JFXButton fx:id="helpList" layoutX="247.0" layoutY="49.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+            <JFXButton fx:id="helpTextArea" layoutX="271.0" layoutY="365.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+            <JFXButton fx:id="helpPlayButton" layoutX="192.0" layoutY="203.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
             <JFXButton fx:id="helpPrev" layoutX="135.0" layoutY="264.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
             <JFXButton fx:id="helpMusicToggle" layoutX="262.0" layoutY="574.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
             <JFXButton fx:id="helpNext" layoutX="271.0" layoutY="266.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
-            <JFXButton fx:id="helpQuit" layoutX="271.0" layoutY="34.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+            <JFXButton fx:id="helpQuit" layoutX="276.0" layoutY="31.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
             <Label layoutX="16.0" layoutY="19.0" styleClass="title" text="Playlist" />
             <Label layoutX="13.0" layoutY="337.0" styleClass="title" text="Transcript" />
             <JFXComboBox layoutX="15.0" layoutY="592.0" prefHeight="26.0" prefWidth="117.0" />

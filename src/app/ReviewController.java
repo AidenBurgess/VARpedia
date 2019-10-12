@@ -69,6 +69,8 @@ public class ReviewController extends DraggableWindow {
 	private JFXButton helpPlayButton;
 	@FXML
 	private JFXButton helpTextArea;
+	@FXML
+	private JFXButton helpBack;
 
 	private MediaPlayer player;
 	private MediaPlayer music;
@@ -283,6 +285,8 @@ public class ReviewController extends DraggableWindow {
 		helpPrev.setTooltip(new HoverToolTip("Click this to play the previous video in the list!").getToolTip());
 
 		helpTextArea.setTooltip(new HoverToolTip("This is where the text you selected for the video that is currently playing shows up so you can read along with the video!").getToolTip());
+
+		helpBack.setTooltip(new HoverToolTip("Click this button to go back to the main menu!").getToolTip());
 	}
 
 	// Allows user to rate the videos as they watch them
