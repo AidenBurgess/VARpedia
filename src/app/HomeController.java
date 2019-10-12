@@ -130,6 +130,8 @@ public class HomeController extends DraggableWindow {
 
     	int num = videoTable.getItems().size();
     	numVideoLabel.setText("There are currently " + num + " videos!");
+        // When the video table is updated, see if there are any videos in it, and enable/disable buttons accordingly
+        checkVideosExist();
     }
 
     // Is run first on startup to set up the tableView and help buttons
