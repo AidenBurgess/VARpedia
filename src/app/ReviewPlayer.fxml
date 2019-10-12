@@ -129,7 +129,8 @@
             <JFXButton fx:id="helpQuit" layoutX="276.0" layoutY="31.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
             <Label layoutX="16.0" layoutY="19.0" styleClass="title" text="Playlist" />
             <Label layoutX="13.0" layoutY="337.0" styleClass="title" text="Transcript" />
-            <JFXComboBox layoutX="15.0" layoutY="592.0" prefHeight="26.0" prefWidth="117.0" />
+            <JFXComboBox fx:id="musicList" layoutX="31.0" layoutY="592.0" prefHeight="26.0" prefWidth="117.0" />
+            <JFXButton fx:id="helpMusicList" layoutX="135.0" layoutY="574.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
          </children>
       </AnchorPane>
 </children>
