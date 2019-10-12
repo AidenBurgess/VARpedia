@@ -62,11 +62,6 @@ public class HomeController extends DraggableWindow {
     private void playVideo() {
         // Get the video that the user selected
     	VideoCreation videoCreation = (VideoCreation) videoTable.getSelectionModel().getSelectedItem();
-    	// If not video selected display a warning
-    	if(videoCreation == null) {
-    		new DialogBuilder().close(stackPane, "Selection Warning", "Please select a video to play.");
-    		return;
-    	}
     	// Close current stage
     	Stage homeStage = (Stage) helpCreateButton.getScene().getWindow();
     	homeStage.hide();
@@ -83,7 +78,6 @@ public class HomeController extends DraggableWindow {
     private void deleteVideo() {
         // Get the video that the user selected
     	VideoCreation videoCreation = (VideoCreation) videoTable.getSelectionModel().getSelectedItem();
-    	if(videoCreation == null) return;    
     	DialogBuilder confirmDelete = new DialogBuilder();
         JFXButton confirm = confirmDelete.confirm(stackPane, "Deletion Confirmation", "Would you really like to delete " + videoCreation.getName() + "?");
         confirm.setOnAction( e-> {
@@ -103,11 +97,6 @@ public class HomeController extends DraggableWindow {
     private void reviewVideos() {
     	// Update videos to review
     	updateVideosToReview();
-    	// Don't launch if there are zero videos
-    	if(toReview.isEmpty()) {
-    		new DialogBuilder().close(stackPane, "Review Videos", "There are currently no videos to review.");
-    		return;
-    	}
     	// Close current stage
     	Stage homeStage = (Stage) helpCreateButton.getScene().getWindow();
     	homeStage.hide();
