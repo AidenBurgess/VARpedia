@@ -19,36 +19,21 @@ import java.util.ArrayList;
 
 public class HomeController extends DraggableWindow {
 	
-	@FXML
-	private AnchorPane root;
-    @FXML
-    private TableView videoTable;
-    @FXML
-    private JFXButton helpTableView;
-    @FXML
-    private JFXButton helpDeleteButton;
-    @FXML
-    private JFXButton helpCreateButton;
-    @FXML
-    private JFXButton helpPlayButton;
-    @FXML
-    private JFXButton helpReviewButton;
-    @FXML
-    private JFXButton helpVarPedia;
-    @FXML
-    private JFXButton helpHelp;
-    @FXML
-    private JFXButton helpQuitButton;
-    @FXML
-    private JFXButton playButton;
-    @FXML
-    private JFXButton deleteButton;
-    @FXML
-    private JFXButton reviewButton;
-    @FXML
-    private Label numVideoLabel;
-    @FXML
-    private StackPane stackPane;
+	@FXML private AnchorPane root;
+    @FXML private TableView videoTable;
+    @FXML private JFXButton helpTableView;
+    @FXML private JFXButton helpDeleteButton;
+    @FXML private JFXButton helpCreateButton;
+    @FXML private JFXButton helpPlayButton;
+    @FXML private JFXButton helpReviewButton;
+    @FXML private JFXButton helpVarPedia;
+    @FXML private JFXButton helpHelp;
+    @FXML private JFXButton helpQuitButton;
+    @FXML private JFXButton playButton;
+    @FXML private JFXButton deleteButton;
+    @FXML private JFXButton reviewButton;
+    @FXML private Label numVideoLabel;
+    @FXML private StackPane stackPane;
     
     private VideoManager videoManager = VideoManager.getVideoManager();
     private ArrayList<VideoCreation> toReview = new ArrayList<>();
@@ -86,7 +71,6 @@ public class HomeController extends DraggableWindow {
             Task<ArrayList<String>> task = new DeleteVideo(videoCreation.getName());
             task.setOnSucceeded(event -> {
             	videoManager.delete(videoCreation);
-            	System.out.println("after deletion" + videoManager.getVideos());
             	updateVideoTable();
             	confirmDelete.dialog().close();
             	new DialogBuilder().close(stackPane, "Deletion Success", videoCreation.getName() + " has been deleted!");

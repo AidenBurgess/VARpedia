@@ -10,9 +10,6 @@ public class HomePage extends Application {
     public void start(Stage stage) throws Exception {
     	WindowBuilder windowBuilder = new WindowBuilder().noTop("NewHomePage", "VARpedia");
     	((HomeController) windowBuilder.controller()).remindReview();
-        stage.setOnCloseRequest(e-> {
-        	VideoManager.getVideoManager().writeSerializedVideos();
-        });
     }
     
     public static void main(String[] args) {

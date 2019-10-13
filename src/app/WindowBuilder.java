@@ -12,24 +12,6 @@ public class WindowBuilder {
 	private Stage stage;
 	private Scene scene;
 
-    public WindowBuilder pop(String screenName, String title) {
-        loader = new FXMLLoader();
-        loader.setLocation(this.getClass().getResource(screenName + ".fxml"));
-        scene = null;
-        try {
-            scene = new Scene(loader.load());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        stage = new SingleStage().stage();
-        stage.setTitle(title);
-        stage.setResizable(false);
-        stage.setScene(scene);
-        stage.show();
-        return this;
-    }
-    
     public WindowBuilder noTop(String screenName, String title) {
         loader = new FXMLLoader();
         loader.setLocation(this.getClass().getResource("resources/" + screenName + ".fxml"));

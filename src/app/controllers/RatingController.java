@@ -11,22 +11,14 @@ import javafx.scene.layout.AnchorPane;
 
 public class RatingController extends DraggableWindow {
 	
-	@FXML
-	private AnchorPane root;
-	@FXML
-	private MaterialDesignIconView star1;
-	@FXML
-	private MaterialDesignIconView star2;
-	@FXML
-	private MaterialDesignIconView star3;
-	@FXML
-	private MaterialDesignIconView star4;
-	@FXML
-	private MaterialDesignIconView star5;
-	@FXML
-	private Label ratingLabel;
-	@FXML
-	private JFXButton helpRating;
+	@FXML private AnchorPane root;
+	@FXML private MaterialDesignIconView star1;
+	@FXML private MaterialDesignIconView star2;
+	@FXML private MaterialDesignIconView star3;
+	@FXML private MaterialDesignIconView star4;
+	@FXML private MaterialDesignIconView star5;
+	@FXML private Label ratingLabel;
+	@FXML private JFXButton helpRating;
 	
 	private Integer rating;
 	private String selected = "-fx-fill:rgb(233.0,195.0,248.0);";

@@ -20,58 +20,32 @@ import javafx.util.Duration;
 
 public class ReviewController extends DraggableWindow {
 
-	@FXML
-	private AnchorPane root;
-	@FXML
-	private MediaView screen;
-	@FXML
-	private Label timeLabel;
-	@FXML
-	private JFXToggleButton toggleMusicButton;
-	@FXML
-	private JFXSlider timeSlider;
-	@FXML
-	private JFXListView playListView;
-	@FXML
-	private JFXTextArea transcript;
-	@FXML
-	private Label upcomingLabel;
-	@FXML
-	private JFXButton playButton;
-	@FXML
-	private MaterialDesignIconView playIcon;
-	@FXML
-	private JFXButton muteButton;
-	@FXML
-	private MaterialDesignIconView muteIcon;
-	@FXML
-	private JFXComboBox<String> musicList;
-	@FXML
-	private JFXButton helpQuit;
-	@FXML
-	private JFXButton helpMusicList;
-	@FXML
-	private JFXButton helpMute;
-	@FXML
-	private JFXButton helpFor5;
-	@FXML
-	private JFXButton helpBack5;
-	@FXML
-	private JFXButton helpPlayPause;
-	@FXML
-	private JFXButton helpMusicToggle;
-	@FXML
-	private JFXButton helpNext;
-	@FXML
-	private JFXButton helpPrev;
-	@FXML
-	private JFXButton helpList;
-	@FXML
-	private JFXButton helpPlayButton;
-	@FXML
-	private JFXButton helpTextArea;
-	@FXML
-	private JFXButton helpBack;
+	@FXML private AnchorPane root;
+	@FXML private MediaView screen;
+	@FXML private Label timeLabel;
+	@FXML private JFXToggleButton toggleMusicButton;
+	@FXML private JFXSlider timeSlider;
+	@FXML private JFXListView playListView;
+	@FXML private JFXTextArea transcript;
+	@FXML private Label upcomingLabel;
+	@FXML private JFXButton playButton;
+	@FXML private MaterialDesignIconView playIcon;
+	@FXML private JFXButton muteButton;
+	@FXML private MaterialDesignIconView muteIcon;
+	@FXML private JFXComboBox<String> musicList;
+	@FXML private JFXButton helpQuit;
+	@FXML private JFXButton helpMusicList;
+	@FXML private JFXButton helpMute;
+	@FXML private JFXButton helpFor5;
+	@FXML private JFXButton helpBack5;
+	@FXML private JFXButton helpPlayPause;
+	@FXML private JFXButton helpMusicToggle;
+	@FXML private JFXButton helpNext;
+	@FXML private JFXButton helpPrev;
+	@FXML private JFXButton helpList;
+	@FXML private JFXButton helpPlayButton;
+	@FXML private JFXButton helpTextArea;
+	@FXML private JFXButton helpBack;
 
 	private MediaPlayer player;
 	private MediaPlayer music;

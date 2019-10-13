@@ -21,53 +21,30 @@ import java.util.ArrayList;
 
 public class VideoCreationController extends DraggableWindow {
 
-	@FXML
-	private AnchorPane root;
-    @FXML
-    private JFXTextField searchField;
-    @FXML
-    private JFXTextField videoNameField;
-    @FXML
-    private JFXSlider numImages;
-    @FXML
-    private JFXListView<String> textListView;
-    @FXML
-    private JFXComboBox<String> voiceChoiceBox;
-    @FXML
-    private JFXButton helpCreateButton;
-    @FXML
-    private JFXButton helpSearchResultsButton;
-    @FXML
-    private JFXButton helpSearchButton;
-    @FXML
-    private JFXButton helpAddRemoveButton;
-    @FXML
-    private JFXButton helpTextListButton;
-    @FXML
-    private JFXButton helpNumImagesButton;
-    @FXML
-    private JFXButton helpVideoNameButton;
-    @FXML
-    private JFXButton helpBackButton;
-    @FXML
-    private JFXButton helpQuitButton;
-    @FXML
-    private JFXButton helpVoicesButton;
-    @FXML
-    private JFXButton helpShuffleButton;
-    @FXML
-    private JFXButton searchButton;
-    @FXML
-    private JFXButton createButton;
-    @FXML
-    private StackPane stackPane;
-    @FXML
-    private Label searchLabel;
-    @FXML
-    private JFXTextArea textArea;
+	@FXML private AnchorPane root;
+    @FXML private JFXTextField searchField;
+    @FXML private JFXTextField videoNameField;
+    @FXML private JFXSlider numImages;
+    @FXML private JFXListView<String> textListView;
+    @FXML private JFXComboBox<String> voiceChoiceBox;
+    @FXML private JFXButton helpCreateButton;
+    @FXML private JFXButton helpSearchResultsButton;
+    @FXML private JFXButton helpSearchButton;
+    @FXML private JFXButton helpAddRemoveButton;
+    @FXML private JFXButton helpTextListButton;
+    @FXML private JFXButton helpNumImagesButton;
+    @FXML private JFXButton helpVideoNameButton;
+    @FXML private JFXButton helpBackButton;
+    @FXML private JFXButton helpQuitButton;
+    @FXML private JFXButton helpVoicesButton;
+    @FXML private JFXButton helpShuffleButton;
+    @FXML private JFXButton searchButton;
+    @FXML private JFXButton createButton;
+    @FXML private StackPane stackPane;
+    @FXML private Label searchLabel;
+    @FXML private JFXTextArea textArea;
 
     private int wordLimit = 40;
-    private ObservableList<String> chosenTextItems;
     private String currentSearch = "banana";
     private JFXDialog dialog;
     private VideoManager videoManager = VideoManager.getVideoManager();
@@ -84,7 +61,6 @@ public class VideoCreationController extends DraggableWindow {
         // Perform search
         Task<ArrayList<String>> search = new SearchWiki(searchTerm, textArea, stackPane);
         search.setOnSucceeded(e -> {
-//            searchLabel.setText("You searched for: " + searchTerm + "\n");
             dialog.close();
         });
         Thread thread = new Thread(search);
