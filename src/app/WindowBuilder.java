@@ -37,7 +37,8 @@ public class WindowBuilder {
         try {
             scene = new Scene(loader.load());
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         
         stage = new Stage();

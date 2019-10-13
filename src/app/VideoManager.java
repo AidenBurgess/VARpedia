@@ -36,14 +36,14 @@ public class VideoManager {
 		}
     }
     
-    public ArrayList<VideoCreation> readSerializedVideos() {
+    private ArrayList<VideoCreation> readSerializedVideos() {
     	System.out.println("Reading serialization");
 
 		try {
 			ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("VideoCreations.bin"));			
 			System.out.println("Stored in VideoCreations.bin:");
 			videos= (ArrayList<VideoCreation>) objectInputStream.readObject();
-			
+			if (videos == null) videos = new ArrayList<VideoCreation>();
 			System.out.println("Videos now are: " + videos);
 			return videos;
 		} catch (IOException | ClassNotFoundException e) {
@@ -53,6 +53,7 @@ public class VideoManager {
     }
     
     public ArrayList<VideoCreation> getVideos() {
+    	System.out.println("getting videos");
     	if (videos == null) {
     		readSerializedVideos();
     	}

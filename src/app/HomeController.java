@@ -7,7 +7,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 import processes.*;
 import java.util.ArrayList;
 
@@ -53,8 +52,6 @@ public class HomeController extends DraggableWindow {
     @FXML
     private void createVideo() {
         // Hide current window
-//    	Stage homeStage = (Stage) helpCreateButton.getScene().getWindow();
-//    	homeStage.hide();
     	new WindowBuilder().switchScene("NewVideoCreation", "Create a Video!", root.getScene());
     }
     
@@ -62,9 +59,6 @@ public class HomeController extends DraggableWindow {
     private void playVideo() {
         // Get the video that the user selected
     	VideoCreation videoCreation = (VideoCreation) videoTable.getSelectionModel().getSelectedItem();
-    	// Close current stage
-//    	Stage homeStage = (Stage) helpCreateButton.getScene().getWindow();
-//    	homeStage.hide();
     	// Launch review window
     	WindowBuilder reviewWindow = new WindowBuilder().switchScene("ReviewPlayer", "Review Videos", root.getScene());
     	ReviewController controller = reviewWindow.loader().getController();
