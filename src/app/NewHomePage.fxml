@@ -67,7 +67,7 @@
       <JFXButton fx:id="helpHelp" layoutX="656.0" layoutY="455.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
       <JFXButton fx:id="helpQuitButton" layoutX="858.0" layoutY="365.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
       <StackPane fx:id="stackPane" layoutX="364.0" layoutY="181.0" prefHeight="150.0" prefWidth="200.0" />
-      <FontAwesomeIconView glyphName="CREATIVE_COMMONS" layoutX="274.0" layoutY="486.0" />
-      <Label layoutX="316.0" layoutY="470.0" text="Music by  Martijn de Boer" />
+      <FontAwesomeIconView glyphName="CREATIVE_COMMONS" layoutX="282.0" layoutY="476.0" wrappingWidth="24.000009432435036" />
+      <Label layoutX="317.0" layoutY="458.0" style="-fx-font-size: 16;" text="Music by  Martijn de Boer" />
    </children>
 </AnchorPane>

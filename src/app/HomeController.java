@@ -34,6 +34,12 @@ public class HomeController extends DraggableWindow {
     @FXML
     private JFXButton helpQuitButton;
     @FXML
+    private JFXButton playButton;
+    @FXML
+    private JFXButton deleteButton;
+    @FXML
+    private JFXButton reviewButton;
+    @FXML
     private Label numVideoLabel;
     @FXML
     private StackPane stackPane;
@@ -56,11 +62,6 @@ public class HomeController extends DraggableWindow {
     private void playVideo() {
         // Get the video that the user selected
     	VideoCreation videoCreation = (VideoCreation) videoTable.getSelectionModel().getSelectedItem();
-    	// If not video selected display a warning
-    	if(videoCreation == null) {
-    		new DialogBuilder().close(stackPane, "Selection Warning", "Please select a video to play.");
-    		return;
-    	}
     	// Close current stage
 //    	Stage homeStage = (Stage) helpCreateButton.getScene().getWindow();
 //    	homeStage.hide();
@@ -77,7 +78,6 @@ public class HomeController extends DraggableWindow {
     private void deleteVideo() {
         // Get the video that the user selected
     	VideoCreation videoCreation = (VideoCreation) videoTable.getSelectionModel().getSelectedItem();
-    	if(videoCreation == null) return;    
     	DialogBuilder confirmDelete = new DialogBuilder();
         JFXButton confirm = confirmDelete.confirm(stackPane, "Deletion Confirmation", "Would you really like to delete " + videoCreation.getName() + "?");
         confirm.setOnAction( e-> {
@@ -103,6 +103,7 @@ public class HomeController extends DraggableWindow {
     		new DialogBuilder().close(stackPane, "Review Videos", "There are currently no videos to review.");
     		return;
     	}
+
     	// Launch review window
     	WindowBuilder reviewWindow = new WindowBuilder().switchScene("ReviewPlayer", "Review Videos", root.getScene());
     	ReviewController controller = reviewWindow.loader().getController();
@@ -123,6 +124,8 @@ public class HomeController extends DraggableWindow {
     	int num = videoTable.getItems().size();
     	if (num == 1) numVideoLabel.setText("There is currently " + num + " video!");
     	else numVideoLabel.setText("There are currently " + num + " videos!");
+        // When the video table is updated, see if there are any videos in it, and enable/disable buttons accordingly
+        checkVideosExist();
     }
 
     // Is run first on startup to set up the tableView and help buttons
@@ -133,6 +136,7 @@ public class HomeController extends DraggableWindow {
     	updateVideosToReview();
         setUpHelp();
         updateVideoTable();
+        checkVideosExist();
     }
         
     private void initTable() {
@@ -231,4 +235,21 @@ public class HomeController extends DraggableWindow {
     	}
     	new DialogBuilder().close(stackPane, "Review Reminder", body);
     }
+
+    // Disable the play, review, and delete buttons if no videos exist
+    private void checkVideosExist() {
+        // Get the current number of videos in the table
+        int numVideos = videoTable.getItems().size();
+        // Disable/enable the buttons
+        if (numVideos == 0) {
+            playButton.setDisable(true);
+            deleteButton.setDisable(true);
+            reviewButton.setDisable(true);
+        } else {
+            playButton.setDisable(false);
+            deleteButton.setDisable(false);
+            reviewButton.setDisable(false);
+        }
+    }
+
 }

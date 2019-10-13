@@ -75,11 +75,12 @@
                   <MaterialDesignIconView id="playIcon" glyphName="HOME" size="50" wrappingWidth="18.0" />
                </graphic>
             </JFXButton>
+            <JFXButton fx:id="helpBack" layoutX="64.0" layoutY="43.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
    </children>
 </AnchorPane>
       <AnchorPane fx:id="sidePanel" layoutX="718.0" prefHeight="637.0" prefWidth="302.0" style="-fx-background-color: #e6e6e6;">
          <children>
-            <JFXTextArea fx:id="transcript" layoutX="9.0" layoutY="378.0" prefHeight="150.0" prefWidth="277.0" />
+            <JFXTextArea fx:id="transcript" layoutX="20.0" layoutY="378.0" prefHeight="150.0" prefWidth="263.0" />
             <Label fx:id="upcomingLabel" layoutX="21.0" layoutY="539.0" text="Upcoming..." />
             <JFXListView fx:id="playListView" layoutX="28.0" layoutY="57.0" prefHeight="150.0" prefWidth="251.0" />
             <JFXButton buttonType="RAISED" layoutX="112.0" layoutY="216.0" onAction="#playVideo" prefHeight="43.0" prefWidth="105.0" ripplerFill="WHITE" text="Play" textFill="WHITE">
@@ -128,7 +129,8 @@
             <JFXButton fx:id="helpQuit" layoutX="274.0" layoutY="-5.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
             <Label layoutX="107.0" layoutY="13.0" styleClass="title" text="Playlist" />
             <Label layoutX="13.0" layoutY="337.0" styleClass="title" text="Transcript" />
-            <JFXComboBox layoutX="15.0" layoutY="592.0" prefHeight="26.0" prefWidth="117.0" />
+            <JFXComboBox fx:id="musicList" layoutX="31.0" layoutY="592.0" prefHeight="26.0" prefWidth="117.0" />
+            <JFXButton fx:id="helpMusicList" layoutX="135.0" layoutY="574.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
          </children>
       </AnchorPane>
 </children>

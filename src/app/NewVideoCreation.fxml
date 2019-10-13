@@ -40,7 +40,7 @@
             <Font name="Ubuntu" size="18.0" />
          </font>
       </Label>
-      <HBox layoutX="402.0" layoutY="464.0" prefHeight="43.0" prefWidth="663.0" spacing="20.0">
+      <HBox layoutX="432.0" layoutY="477.0" prefHeight="43.0" prefWidth="653.0" spacing="20.0">
          <children>
             <JFXTextField fx:id="videoNameField" focusColor="#09b6bc" onAction="#createVideo" onKeyReleased="#checkValidCreate" prefHeight="35.0" prefWidth="127.0" promptText="Name your video..." style="-fx-font-family: Ubuntu;" styleClass="jfx-text-area" />
             <JFXComboBox fx:id="voiceChoiceBox" prefHeight="35.0" prefWidth="119.0" />
@@ -61,11 +61,11 @@
       <JFXButton fx:id="helpAddRemoveButton" layoutX="578.0" layoutY="214.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
       <JFXButton fx:id="helpShuffleButton" layoutX="1061.0" layoutY="217.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
       <JFXButton fx:id="helpBackButton" layoutX="144.0" layoutY="9.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
-      <JFXButton fx:id="helpVoicesButton" layoutX="651.0" layoutY="450.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpVoicesButton" layoutX="686.0" layoutY="463.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
       <JFXButton fx:id="helpSearchButton" layoutX="500.0" layoutY="63.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
-      <JFXButton fx:id="helpNumImagesButton" layoutX="886.0" layoutY="453.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
-      <JFXButton fx:id="helpCreateButton" layoutX="1032.0" layoutY="451.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
-      <JFXButton fx:id="helpVideoNameButton" layoutX="514.0" layoutY="450.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpNumImagesButton" layoutX="921.0" layoutY="464.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpCreateButton" layoutX="1061.0" layoutY="463.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpVideoNameButton" layoutX="550.0" layoutY="463.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
       <JFXButton fx:id="helpTextListButton" layoutX="1010.0" layoutY="108.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
       <StackPane fx:id="stackPane" layoutX="467.0" prefHeight="150.0" prefWidth="200.0" />
       <JFXButton fx:id="quitButton" buttonType="RAISED" layoutX="976.0" layoutY="18.0" onAction="#quit" prefHeight="38.0" prefWidth="102.0" ripplerFill="WHITE" text="Quit" textFill="WHITE">
@@ -73,5 +73,6 @@
             <MaterialDesignIconView glyphName="CLOSE" />
          </graphic>
       </JFXButton>
+      <JFXButton fx:id="helpQuitButton" layoutX="1066.0" layoutY="9.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
    </children>
 </AnchorPane>
