@@ -262,9 +262,9 @@ public class ReviewController extends DraggableWindow {
 	// Quit back to the home page
 	@FXML
 	private void home() {
-		timeLabel.getScene().getWindow().hide();
+//		timeLabel.getScene().getWindow().hide();
 		shutdown();
-		new WindowBuilder().noTop("NewHomePage", "VarPedia");
+		new WindowBuilder().switchScene("NewHomePage", "VarPedia", root.getScene());
 	}
 
 	@FXML

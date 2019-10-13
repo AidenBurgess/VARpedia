@@ -59,7 +59,7 @@
 
 
 .jfx-button:hover {
-    -fx-background-color: #59a6e3;
+    -fx-background-color: -fx-purple-accent-color;
     -fx-text-fill: inherit;
 }
 
@@ -67,7 +67,7 @@
 
 
 .jfx-list-cell:hover {
-    -fx-background-color: #1bd79c;
+    -fx-background-color: -fx-purple-accent-color;
     -fx-text-fill: inherit;
 }
 
@@ -161,3 +161,98 @@
     -fx-fill: BLACK;
     -glyph-size: 50px;
 }
+
+
+
+.table-view {
+    /*-fx-table-color: #212121;*/
+    -fx-table-rippler-color: #303F9F;
+    /*-fx-border-color: #212121;*/
+    /*-fx-prompt-text-fill: white;*/
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    /*-fx-background-color: #212121;*/
+    -fx-padding: 0;
+}
+.table-view:focused {
+    /*-fx-background-color: #212121;*/
+    -fx-focus-color: transparent;
+    /*-fx-table-color: #212121;*/
+    -fx-faint-focus-color: transparent;
+    -fx-background-insets: -1.4, 0, 1;
+    -fx-background-radius: 0, 0, 0;
+    -fx-padding: 0; 
+}
+
+
+.table-view:focused .table-row-cell:selected{
+    -fx-background-color: #3F51B5;
+    -fx-table-cell-border-color: -fx-table-color;
+    -fx-text-fill: WHITE;
+    -fx-font-family: "Roboto";
+}
+
+.table-view:focused .table-row-cell:selected .table-cell {
+    -fx-text-fill: WHITE;
+    -fx-font-family: "Roboto";
+}
+
+/*.table-view .column-header,
+.table-view .column-header-background,
+.table-view .column-header-background .filler {
+    -fx-background-color: #37474F;
+}
+*/
+/*.table-view .column-header {
+    -fx-border-width: 0 1 0 1;
+    -fx-border-color: #263238;
+}*/
+/*
+.table-view .column-header .label {
+    -fx-text-fill: WHITE;
+    -fx-font-family: "Roboto Medium";
+    -fx-padding: 8 0 8;
+}
+*/
+.table-view .table-cell {
+    -fx-border-width: 0 0 0 0;
+    -fx-padding: 12 0 12 0;
+    /*-fx-text-fill: WHITE;*/
+    -fx-font-family: "Roboto";
+    -fx-alignment: top-center;
+}
+
+
+.table-view .column-resize-line, .table-view .column-drag-header {
+    -fx-background-color: -fx-table-rippler-color;
+}
+
+
+
+
+.table-row-group {
+    -fx-background-color: #424242;
+}
+
+.table-view .menu-item:focused {
+    -fx-background-color: #3F51B5;
+
+}
+
+.table-view .menu-item .label {
+    -fx-padding: 5 0 5 0;
+}
+
+/*
+.jfx-combo-box .cell {
+    -fx-text-fill: white;
+}
+*/
+
+/*
+.jfx-combo-box .list-cell:hover
+{
+    -fx-background-color: #3F51B5;
+}
+
+*/

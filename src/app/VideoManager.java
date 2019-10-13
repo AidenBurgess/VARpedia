@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class VideoManager {
 	private static VideoManager videoManager;
-	private ArrayList<VideoCreation> videos = new ArrayList<VideoCreation>();
+	private ArrayList<VideoCreation> videos;
 	
 	public static VideoManager getVideoManager() {
 		if (videoManager == null) videoManager = new VideoManager();
@@ -53,7 +53,7 @@ public class VideoManager {
     }
     
     public ArrayList<VideoCreation> getVideos() {
-    	if (videos.size() == 0) {
+    	if (videos == null) {
     		readSerializedVideos();
     	}
 		return videos;
