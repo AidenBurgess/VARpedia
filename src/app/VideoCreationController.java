@@ -62,6 +62,7 @@ public class VideoCreationController extends DraggableWindow {
     private ObservableList<String> chosenTextItems;
     private String currentSearch = "banana";
     private JFXDialog dialog;
+    private VideoManager videoManager = VideoManager.getVideoManager();
 
     @FXML
     private void searchWiki() {
@@ -75,12 +76,32 @@ public class VideoCreationController extends DraggableWindow {
         // Perform search
         Task<ArrayList<String>> search = new SearchWiki(searchTerm, textArea, stackPane);
         search.setOnSucceeded(e -> {
-            searchLabel.setText("You searched for: " + searchTerm + "\n");
+//            searchLabel.setText("You searched for: " + searchTerm + "\n");
             dialog.close();
         });
         Thread thread = new Thread(search);
         thread.start();
         currentSearch = searchTerm;
+        autoName();
+        checkValidCreate();
+    }
+    
+    private void autoName() {
+    	int i = 0;
+    	String currentName = currentSearch + i;
+    	System.out.println(videoExists(currentName));
+    	while (videoExists(currentName)){
+    		i++;
+    		currentName = currentSearch + i;
+    	}
+    	videoNameField.setText(currentName);
+    }
+    
+    private boolean videoExists(String name) {
+    	for (VideoCreation v: videoManager.getVideos()) {
+    		if (v.getName().equals(name)) return true;
+    	}
+    	return false;
     }
 
     // Start the video creation process
@@ -136,8 +157,9 @@ public class VideoCreationController extends DraggableWindow {
             dialog.close();
             ArrayList<String> textContent = new ArrayList<>(textListView.getItems());
             VideoCreation video = new VideoCreation(videoName, currentSearch, (int) numImages.getValue(), textContent);
-            VideoManager.getVideoManager().add(video);    
+            videoManager.add(video);    
             new DialogBuilder().close(stackPane, "Video Creation Successful!", videoName + " was created.");
+            autoName();
         });
         Thread video = new Thread(videoCreation);
         video.start();
@@ -191,7 +213,6 @@ public class VideoCreationController extends DraggableWindow {
     
     @FXML
     private void home() {
-//    	searchLabel.getScene().getWindow().hide();
 		new WindowBuilder().switchScene("NewHomePage", "VarPedia", root.getScene());
     }
 
@@ -199,7 +220,7 @@ public class VideoCreationController extends DraggableWindow {
     @FXML
     private void quit() {
     	searchLabel.getScene().getWindow().hide();
-    	VideoManager.getVideoManager().writeSerializedVideos();
+    	videoManager.writeSerializedVideos();
     }
 
     // Sets up the help buttons and voices dropdown on startup
@@ -258,6 +279,8 @@ public class VideoCreationController extends DraggableWindow {
         String videoName = videoNameField.getText();
         if (videoName == null || videoName.trim().isEmpty() || videoName.contains(" ")) createButton.setDisable(true);
         else createButton.setDisable(false);
+        // Disable button if creation of that name exists
+        if (videoExists(videoName)) createButton.setDisable(true);
     }
 
     // return number of words in the input
