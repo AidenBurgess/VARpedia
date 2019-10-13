@@ -9,7 +9,7 @@ public class HoverToolTip {
     }
 
     // Create tooltip base
-    protected Tooltip getToolTip() {
+    public Tooltip getToolTip() {
         Tooltip tip = new Tooltip(desc);
         tip.setWidth(200.0);
         tip.setWrapText(true);

@@ -32,15 +32,16 @@ public class WindowBuilder {
     
     public WindowBuilder noTop(String screenName, String title) {
         loader = new FXMLLoader();
-        loader.setLocation(this.getClass().getResource(screenName + ".fxml"));
+        loader.setLocation(this.getClass().getResource("resources/" + screenName + ".fxml"));
         scene = null;
         try {
             scene = new Scene(loader.load());
+            
         } catch (IOException e) {
-//            e.printStackTrace();
             System.out.println(e.getMessage());
         }
-        
+        System.out.println(scene.getHeight());
+        System.out.println(scene.getX());
         stage = new Stage();
         stage.setTitle(title);
         stage.setResizable(false);
@@ -54,7 +55,7 @@ public class WindowBuilder {
     
     public WindowBuilder switchScene(String screenName, String title, Scene scene) {
         loader = new FXMLLoader();
-        loader.setLocation(this.getClass().getResource(screenName + ".fxml"));
+        loader.setLocation(this.getClass().getResource("resources/" + screenName + ".fxml"));
         try {
 			loader.load();
 		} catch (IOException e) {

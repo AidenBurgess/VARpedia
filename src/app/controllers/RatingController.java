@@ -1,6 +1,9 @@
-package app;
+package app.controllers;
 
 import com.jfoenix.controls.JFXButton;
+
+import app.DraggableWindow;
+import app.HoverToolTip;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

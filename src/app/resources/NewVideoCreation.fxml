@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="532.0" prefWidth="1100.0" style="-fx-font-family: Ubuntu;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.VideoCreationController">
+<AnchorPane fx:id="root" prefHeight="532.0" prefWidth="1100.0" style="-fx-font-family: Ubuntu;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.VideoCreationController">
    <children>
       <Label fx:id="searchLabel" layoutX="38.0" layoutY="82.0" style="-fx-font-family: Ubuntu;" styleClass="title" text="Search here!">
          <font>

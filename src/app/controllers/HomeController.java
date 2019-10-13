@@ -1,6 +1,13 @@
-package app;
+package app.controllers;
 
 import com.jfoenix.controls.*;
+
+import app.DialogBuilder;
+import app.DraggableWindow;
+import app.HoverToolTip;
+import app.VideoCreation;
+import app.VideoManager;
+import app.WindowBuilder;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -66,6 +73,7 @@ public class HomeController extends DraggableWindow {
     	ArrayList<VideoCreation> playList = new ArrayList<VideoCreation>();
     	playList.add(videoCreation);
     	controller.setPlaylist(playList);
+    	controller.setPlaylist(playList);
     }
     
     @FXML
@@ -106,7 +114,7 @@ public class HomeController extends DraggableWindow {
 
     @FXML
     private void quit() {
-    	VideoManager.getVideoManager().writeSerializedVideos();
+    	videoManager.writeSerializedVideos();
     	helpQuitButton.getScene().getWindow().hide();
     }
 

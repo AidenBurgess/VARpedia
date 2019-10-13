@@ -1,5 +1,6 @@
 package app;
 
+import app.controllers.HomeController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

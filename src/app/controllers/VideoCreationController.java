@@ -1,7 +1,14 @@
-package app;
+package app.controllers;
 
 import com.jfoenix.controls.*;
 
+import app.DialogBuilder;
+import app.DraggableWindow;
+import app.HoverToolTip;
+import app.VideoCreation;
+import app.VideoManager;
+import app.Voice;
+import app.WindowBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -11,7 +18,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import processes.*;
 import java.util.ArrayList;
-import app.Voice;
 
 public class VideoCreationController extends DraggableWindow {
 

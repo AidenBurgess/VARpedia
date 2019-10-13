@@ -1,10 +1,9 @@
-package app;
+package app.controllers;
 
 import java.io.File;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-
 import com.jfoenix.controls.*;
+import app.*;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
