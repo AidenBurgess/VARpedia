@@ -53,7 +53,7 @@ public class VideoManager {
     }
     
     public ArrayList<VideoCreation> getVideos() {
-    	if (videos.size() == 0) {
+    	if (videos == null) {
     		readSerializedVideos();
     	}
 		return videos;

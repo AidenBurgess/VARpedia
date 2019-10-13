@@ -22,7 +22,7 @@ public class WindowBuilder {
             e.printStackTrace();
         }
         
-        stage = new Stage();
+        stage = new SingleStage().stage();
         stage.setTitle(title);
         stage.setResizable(false);
         stage.setScene(scene);
@@ -47,6 +47,20 @@ public class WindowBuilder {
         stage.initStyle(StageStyle.TRANSPARENT);
     	scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
         stage.show();
+    	((DraggableWindow) loader.getController()).makeStageDrageable();
+        return this;
+    }
+    
+    public WindowBuilder switchScene(String screenName, String title, Scene scene) {
+        loader = new FXMLLoader();
+        loader.setLocation(this.getClass().getResource(screenName + ".fxml"));
+        try {
+			loader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        scene.setRoot(loader.getRoot());
+        scene.getWindow().sizeToScene();
     	((DraggableWindow) loader.getController()).makeStageDrageable();
         return this;
     }

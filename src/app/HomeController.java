@@ -47,9 +47,9 @@ public class HomeController extends DraggableWindow {
     @FXML
     private void createVideo() {
         // Hide current window
-    	Stage homeStage = (Stage) helpCreateButton.getScene().getWindow();
-    	homeStage.hide();
-    	new WindowBuilder().noTop("NewVideoCreation", "Create a Video!").stage();
+//    	Stage homeStage = (Stage) helpCreateButton.getScene().getWindow();
+//    	homeStage.hide();
+    	new WindowBuilder().switchScene("NewVideoCreation", "Create a Video!", root.getScene());
     }
     
     @FXML
@@ -62,10 +62,10 @@ public class HomeController extends DraggableWindow {
     		return;
     	}
     	// Close current stage
-    	Stage homeStage = (Stage) helpCreateButton.getScene().getWindow();
-    	homeStage.hide();
+//    	Stage homeStage = (Stage) helpCreateButton.getScene().getWindow();
+//    	homeStage.hide();
     	// Launch review window
-    	WindowBuilder reviewWindow = new WindowBuilder().noTop("ReviewPlayer", "Review Videos");
+    	WindowBuilder reviewWindow = new WindowBuilder().switchScene("ReviewPlayer", "Review Videos", root.getScene());
     	ReviewController controller = reviewWindow.loader().getController();
     	
     	ArrayList<VideoCreation> playList = new ArrayList<VideoCreation>();
@@ -83,13 +83,14 @@ public class HomeController extends DraggableWindow {
         confirm.setOnAction( e-> {
             Task<ArrayList<String>> task = new DeleteVideo(videoCreation.getName());
             task.setOnSucceeded(event -> {
+            	videoManager.delete(videoCreation);
+            	System.out.println("after deletion" + videoManager.getVideos());
             	updateVideoTable();
             	confirmDelete.dialog().close();
             	new DialogBuilder().close(stackPane, "Deletion Success", videoCreation.getName() + " has been deleted!");
             });
             Thread thread = new Thread(task);
             thread.start();
-            videoManager.delete(videoCreation);
         });
     }
 
@@ -102,11 +103,8 @@ public class HomeController extends DraggableWindow {
     		new DialogBuilder().close(stackPane, "Review Videos", "There are currently no videos to review.");
     		return;
     	}
-    	// Close current stage
-    	Stage homeStage = (Stage) helpCreateButton.getScene().getWindow();
-    	homeStage.hide();
     	// Launch review window
-    	WindowBuilder reviewWindow = new WindowBuilder().noTop("ReviewPlayer", "Review Videos");
+    	WindowBuilder reviewWindow = new WindowBuilder().switchScene("ReviewPlayer", "Review Videos", root.getScene());
     	ReviewController controller = reviewWindow.loader().getController();
     	controller.setPlaylist(toReview);
     }
@@ -123,7 +121,8 @@ public class HomeController extends DraggableWindow {
     	videoTable.getItems().addAll(videoManager.getVideos());
 
     	int num = videoTable.getItems().size();
-    	numVideoLabel.setText("There are currently " + num + " videos!");
+    	if (num == 1) numVideoLabel.setText("There is currently " + num + " video!");
+    	else numVideoLabel.setText("There are currently " + num + " videos!");
     }
 
     // Is run first on startup to set up the tableView and help buttons
@@ -161,23 +160,23 @@ public class HomeController extends DraggableWindow {
         videoTable.setStyle("-fx-selection-bar: blue; -fx-selection-bar-non-focused: purple;");
         // Populate table with columns of parameters of videocreations (Name, search term, #images, rating, views)
         TableColumn<VideoCreation, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setMinWidth(149);
+        nameColumn.setMinWidth(145);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));        
 
         TableColumn<VideoCreation, String> searchTermColumn = new TableColumn<>("Search Term");
-        searchTermColumn.setMinWidth(149);
+        searchTermColumn.setMinWidth(145);
         searchTermColumn.setCellValueFactory(new PropertyValueFactory<>("searchTerm"));
         
         TableColumn<VideoCreation, String> numImagesColumn = new TableColumn<>("#Images");
-        numImagesColumn.setMinWidth(89);
+        numImagesColumn.setMinWidth(87);
         numImagesColumn.setCellValueFactory(new PropertyValueFactory<>("numImages"));
         
         TableColumn<VideoCreation, String> ratingColumn = new TableColumn<>("Rating");
-        ratingColumn.setMinWidth(89);
+        ratingColumn.setMinWidth(87);
         ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
 
         TableColumn<VideoCreation, String> viewsColumn = new TableColumn<>("Views");
-        viewsColumn.setMinWidth(89);
+        viewsColumn.setMinWidth(87);
         viewsColumn.setCellValueFactory(new PropertyValueFactory<>("views"));
         
         videoTable.getItems().addAll(videoManager.getVideos());

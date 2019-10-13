@@ -191,8 +191,8 @@ public class VideoCreationController extends DraggableWindow {
     
     @FXML
     private void home() {
-    	searchLabel.getScene().getWindow().hide();
-		new WindowBuilder().noTop("NewHomePage", "VarPedia");
+//    	searchLabel.getScene().getWindow().hide();
+		new WindowBuilder().switchScene("NewHomePage", "VarPedia", root.getScene());
     }
 
     // Go back to home page
