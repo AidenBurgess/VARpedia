@@ -43,8 +43,8 @@ public class VideoManager {
 		try {
 			ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("VideoCreations.bin"));			
 			System.out.println("Stored in VideoCreations.bin:");
-			//videos= (ArrayList<VideoCreation>) objectInputStream.readObject();
-			videos.add((VideoCreation)objectInputStream.readObject());
+			videos= (ArrayList<VideoCreation>) objectInputStream.readObject();
+			//videos.add((VideoCreation)objectInputStream.readObject());
 			//if (videos == null) videos = new ArrayList<VideoCreation>();
 			System.out.println("Videos now are: " + videos);
 			return videos;
