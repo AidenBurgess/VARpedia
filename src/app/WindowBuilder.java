@@ -13,12 +13,37 @@ public class WindowBuilder {
 	private Scene scene;
 
     public WindowBuilder noTop(String screenName, String title) {
-        loader = new FXMLLoader();
+        try {
+            loader = new FXMLLoader();
+            loader.setLocation(this.getClass().getResource("resources/" + screenName + ".fxml"));
+            scene = null;
+            System.out.println("What about here?");
+            scene = new Scene(loader.load());
+            System.out.println("Did we make it this far?");
+            System.out.println(scene.getHeight());
+            System.out.println(scene.getX());
+            stage = new Stage();
+            stage.setTitle(title);
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.initStyle(StageStyle.TRANSPARENT);
+            scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+            stage.show();
+            ((DraggableWindow) loader.getController()).makeStageDrageable();
+            return this;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+        /*loader = new FXMLLoader();
         loader.setLocation(this.getClass().getResource("resources/" + screenName + ".fxml"));
         scene = null;
+        System.out.println("What about here?");
         try {
             scene = new Scene(loader.load());
-            
+            System.out.println("Did we make it this far?");
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -32,7 +57,7 @@ public class WindowBuilder {
     	scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
         stage.show();
     	((DraggableWindow) loader.getController()).makeStageDrageable();
-        return this;
+        return this;*/
     }
     
     public WindowBuilder switchScene(String screenName, String title, Scene scene) {

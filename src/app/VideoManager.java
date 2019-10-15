@@ -38,12 +38,14 @@ public class VideoManager {
     
     private ArrayList<VideoCreation> readSerializedVideos() {
     	System.out.println("Reading serialization");
+		if (videos == null) videos = new ArrayList<>();
 
 		try {
 			ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("VideoCreations.bin"));			
 			System.out.println("Stored in VideoCreations.bin:");
-			videos= (ArrayList<VideoCreation>) objectInputStream.readObject();
-			if (videos == null) videos = new ArrayList<VideoCreation>();
+			//videos= (ArrayList<VideoCreation>) objectInputStream.readObject();
+			videos.add((VideoCreation)objectInputStream.readObject());
+			//if (videos == null) videos = new ArrayList<VideoCreation>();
 			System.out.println("Videos now are: " + videos);
 			return videos;
 		} catch (IOException | ClassNotFoundException e) {

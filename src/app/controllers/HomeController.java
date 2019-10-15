@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class HomeController extends DraggableWindow {
 	
 	@FXML private AnchorPane root;
-    @FXML private TableView videoTable;
+    @FXML private TableView<VideoCreation> videoTable;
     @FXML private JFXButton helpTableView;
     @FXML private JFXButton helpDeleteButton;
     @FXML private JFXButton helpCreateButton;
@@ -125,6 +125,7 @@ public class HomeController extends DraggableWindow {
         checkVideosExist();
     }
         
+    @SuppressWarnings("unchecked")
     private void initTable() {
     	// Setup coloring of rows based on rating
         videoTable.setRowFactory(tv -> new TableRow<VideoCreation>() {
