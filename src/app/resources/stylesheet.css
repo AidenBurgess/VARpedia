@@ -48,19 +48,23 @@
 
 .help-button {
     -fx-background-color: -fx-purple-accent-color;
-    /*-fx-background-image: url(".qmark.png");*/
     -fx-background-repeat: stretch;
     -fx-background-size: 900 506;
     -fx-background-position: center center;
     -fx-background-radius: 50%;
     -fx-border-radius: 50%;
     -fx-font-size: 13px;
+    -fx-text-fill: -fx-dark-text-color;
 }
-
 
 .jfx-button:hover {
     -fx-background-color: -fx-purple-accent-color;
     -fx-text-fill: inherit;
+}
+
+.help-button:hover {
+    -fx-background-color: -fx-purple-accent-color;
+    -fx-text-fill: WHITE;
 }
 
 /****************** LISTVIEW ******************/
