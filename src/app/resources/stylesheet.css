@@ -13,7 +13,7 @@
     -fx-disabled-text-color: rgba(255,255,255,0.38);
 
     -fx-green-accent-color: rgb(203.0,252.0,118.0);
-    -fx-purple-accent-color: rgb(233.0,195.0,248.0);
+    -fx-purple-accent-color: rgb(166.0,71.0,255.0);
     -fx-blue-accent-color: rgb(120.0,190.0,249.0);
 }
 
@@ -54,16 +54,16 @@
     -fx-background-radius: 50%;
     -fx-border-radius: 50%;
     -fx-font-size: 13px;
-    -fx-text-fill: -fx-dark-text-color;
+    -fx-text-fill: WHITE;
 }
 
 .jfx-button:hover {
     -fx-background-color: -fx-purple-accent-color;
-    -fx-text-fill: inherit;
+    -fx-text-fill: WHITE;
 }
 
 .help-button:hover {
-    -fx-background-color: -fx-purple-accent-color;
+    -fx-background-color: rgb(97.0, 49.0, 143.0);
     -fx-text-fill: WHITE;
 }
 
@@ -94,6 +94,7 @@
 
 .jfx-text-area {
     -fx-text-fill: BLACK;
+    -fx-font-size: 16px;
    -fx-background-color: WHITE;
 }
 
@@ -260,3 +261,9 @@
 }
 
 */
+
+/*****************Toggle******************/
+.jfx-toggle-button {
+    -jfx-toggle-line-color: #8CC5F5;
+    -jfx-toggle-color: #2196F3;
+}
