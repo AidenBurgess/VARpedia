@@ -15,10 +15,13 @@
     -fx-green-accent-color: rgb(203.0,252.0,118.0);
     -fx-purple-accent-color: rgb(166.0,71.0,255.0);
     -fx-blue-accent-color: rgb(120.0,190.0,249.0);
+
+    -fx-bg-accent-color: rgb(230.0, 245.0, 250.0);
 }
 
 .root {
-    -fx-background-color: rgb(230.0, 230.0, 230.0);
+    /*-fx-background-color: rgb(230.0, 230.0, 230.0);*/
+    -fx-background-color: -fx-bg-accent-color;
     -fx-text-fill: rgb(0,0,0);
 }
 
