@@ -159,15 +159,15 @@ public class HomeController extends DraggableWindow {
         searchTermColumn.setCellValueFactory(new PropertyValueFactory<>("searchTerm"));
         
         TableColumn<VideoCreation, String> numImagesColumn = new TableColumn<>("#Images");
-        numImagesColumn.setMinWidth(87);
+        numImagesColumn.setMinWidth(94);
         numImagesColumn.setCellValueFactory(new PropertyValueFactory<>("numImages"));
         
         TableColumn<VideoCreation, String> ratingColumn = new TableColumn<>("Rating");
-        ratingColumn.setMinWidth(87);
+        ratingColumn.setMinWidth(94);
         ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
 
         TableColumn<VideoCreation, String> viewsColumn = new TableColumn<>("Views");
-        viewsColumn.setMinWidth(87);
+        viewsColumn.setMinWidth(94);
         viewsColumn.setCellValueFactory(new PropertyValueFactory<>("views"));
         
         videoTable.getItems().addAll(videoManager.getVideos());
