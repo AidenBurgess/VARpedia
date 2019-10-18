@@ -1,14 +1,8 @@
 package app.controllers;
 
+import app.*;
 import com.jfoenix.controls.*;
 
-import app.DialogBuilder;
-import app.DraggableWindow;
-import app.HoverToolTip;
-import app.VideoCreation;
-import app.VideoManager;
-import app.Voice;
-import app.WindowBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -18,6 +12,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import processes.*;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class VideoCreationController extends DraggableWindow {
 
@@ -59,6 +55,9 @@ public class VideoCreationController extends DraggableWindow {
     private JFXDialog dialog;
     private VideoManager videoManager = VideoManager.getVideoManager();
 
+    // Naughty words to be checked for to protect child - set up
+    ArrayList<String> naughtyWords = new ArrayList<>();
+
 	// Search wikipedia for the term specified
     @FXML
     private void searchWiki() {
@@ -68,8 +67,9 @@ public class VideoCreationController extends DraggableWindow {
       
         // Clear the text list of any remaining text from the last search, so no videos can be made with text corresponding to multiple search terms
         textListView.getItems().clear();
-        dialog = new DialogBuilder().loading(stackPane, "Searching for " + searchTerm + "...");
+
         // Perform search
+        dialog = new DialogBuilder().loading(stackPane, "Searching for " + searchTerm + "...");
         Task<ArrayList<String>> search = new SearchWiki(searchTerm, textArea, stackPane);
         search.setOnSucceeded(e -> {
             dialog.close();
@@ -114,6 +114,20 @@ public class VideoCreationController extends DraggableWindow {
         if (!currentSearch.equalsIgnoreCase(searchField.getText())) {
             new DialogBuilder().close(stackPane, "Invalid Text", "Complete this search before making a new video. \nOtherwise, change this new word back to the one you previously searched.");
             return;
+        }
+
+        // If the user includes a space in the video name, ask them to enter a different video name
+        if (videoNameField.getText().contains(" ")) {
+            new DialogBuilder().close(stackPane, "Invalid Video Name", "Whoops! You can't have spaces in your video's name- please pick another name.");
+            return;
+        }
+
+        // If the user searched a banned word, say no results were found and allow to retry
+        for (String s : naughtyWords) {
+            if (searchField.getText().equals(s)) {
+                new DialogBuilder().close(stackPane, "Invalid Search Term", "Whoops! No results were found for this word. Please try another one!");
+                return;
+            }
         }
 
         // Start actual creation process
@@ -226,8 +240,13 @@ public class VideoCreationController extends DraggableWindow {
     @FXML
     private void initialize() {
     	stackPane.setPickOnBounds(false);
+    	//Voice list
     	updateVoiceList();
+    	// Tooltip setup
     	setUpHelp();
+    	// Naughty words to be checked for to protect child - set up
+        List<String> words = NaughtyWords.getRegularBadWordsList();
+        naughtyWords.addAll(words);
     }
 
     // Refresh the dropdown list of voice options for the video creations
@@ -270,8 +289,11 @@ public class VideoCreationController extends DraggableWindow {
     private void checkValidSearch() {
         // Check search term is valid before allowing the user to press the search button
         String searchTerm = searchField.getText();
-        if (searchTerm == null || searchTerm.trim().isEmpty()) searchButton.setDisable(true);
-        else searchButton.setDisable(false);
+        if (searchTerm == null || searchTerm.trim().isEmpty()) {
+            searchButton.setDisable(true);
+        } else {
+            searchButton.setDisable(false);
+        }
     }
 
     @FXML
