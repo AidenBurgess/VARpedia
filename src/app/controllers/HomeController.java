@@ -19,8 +19,10 @@ import java.util.ArrayList;
 
 public class HomeController extends DraggableWindow {
 	
+	// Root of the scene and main nodes
 	@FXML private AnchorPane root;
     @FXML private TableView<VideoCreation> videoTable;
+	// Help "?" Buttons for this scene
     @FXML private JFXButton helpTableView;
     @FXML private JFXButton helpDeleteButton;
     @FXML private JFXButton helpCreateButton;
@@ -29,22 +31,29 @@ public class HomeController extends DraggableWindow {
     @FXML private JFXButton helpVarPedia;
     @FXML private JFXButton helpHelp;
     @FXML private JFXButton helpQuitButton;
+	// Main menu buttons
     @FXML private JFXButton playButton;
     @FXML private JFXButton deleteButton;
     @FXML private JFXButton reviewButton;
+	// Bases for notifications (number of videos to review, number of saved videos, and dialogues)
     @FXML private JFXButton reviewNumAlert;
     @FXML private Label numVideoLabel;
     @FXML private StackPane stackPane;
     
+	// Set up the video manager and the list of videos to review
     private VideoManager videoManager = VideoManager.getVideoManager();
     private ArrayList<VideoCreation> toReview = new ArrayList<>();
-    private int greenRating = 4;
-    private int yellowRating = 2;
-    private int redRating = 0;
+	// Set up the threshold rating numbers for the colour coding of videos
+    private static final int greenRating = 4;
+    private static final int yellowRating = 2;
+    private static final int redRating = 0;
+	// Set up the column widths for the video table - avoiding magic numbers
+    private static final int nameAndSearchColWidth = 145;
+    private static final int columnWidthOther = 94;
 
     @FXML
     private void createVideo() {
-        // Hide current window
+        // Hide current window and switch to video creation scene
     	new WindowBuilder().switchScene("NewVideoCreation", "Create a Video!", root.getScene());
     }
     
@@ -55,7 +64,7 @@ public class HomeController extends DraggableWindow {
     	// Launch review window
     	WindowBuilder reviewWindow = new WindowBuilder().switchScene("ReviewPlayer", "Review Videos", root.getScene());
     	ReviewController controller = reviewWindow.loader().getController();
-    	
+    	// Set up the playlist of videos that will be played
     	ArrayList<VideoCreation> playList = new ArrayList<VideoCreation>();
     	playList.add(videoCreation);
     	controller.setPlaylist(playList);
@@ -66,12 +75,15 @@ public class HomeController extends DraggableWindow {
     private void deleteVideo() {
         // Get the video that the user selected
     	VideoCreation videoCreation = (VideoCreation) videoTable.getSelectionModel().getSelectedItem();
+	   // Use dialogue to make user confirm deletion of video
     	DialogBuilder confirmDelete = new DialogBuilder();
         JFXButton confirm = confirmDelete.confirm(stackPane, "Deletion Confirmation", "Would you really like to delete " + videoCreation.getName() + "?");
         confirm.setOnAction( e-> {
+		// Delete the video if confirmed
             Task<ArrayList<String>> task = new DeleteVideo(videoCreation.getName());
             task.setOnSucceeded(event -> {
             	videoManager.delete(videoCreation);
+		    // Update the video table and confirm that the video was deleted
             	updateVideoTable();
             	confirmDelete.dialog().close();
             	new DialogBuilder().close(stackPane, "Deletion Success", videoCreation.getName() + " has been deleted!");
@@ -99,7 +111,9 @@ public class HomeController extends DraggableWindow {
 
     @FXML
     private void quit() {
+	    // Write to video files
     	videoManager.writeSerializedVideos();
+	    // Quit the application
     	helpQuitButton.getScene().getWindow().hide();
     }
 
@@ -107,15 +121,16 @@ public class HomeController extends DraggableWindow {
     private void updateVideoTable() {
     	videoTable.getItems().clear();
     	videoTable.getItems().addAll(videoManager.getVideos());
-
+	    // Show user how many videos there are available
     	int num = videoTable.getItems().size();
     	if (num == 1) numVideoLabel.setText("There is currently " + num + " video!");
     	else numVideoLabel.setText("There are currently " + num + " videos!");
+	    
         // When the video table is updated, see if there are any videos in it, and enable/disable buttons accordingly
         checkVideosExist();
     }
 
-    // Is run first on startup to set up the tableView and help buttons
+    // Is run first on startup to set up the tableView, videos, and help buttons
     @FXML
     private void initialize() {
     	stackPane.setPickOnBounds(false);
@@ -149,28 +164,37 @@ public class HomeController extends DraggableWindow {
             }
         });
       
+	    // Set the colours of the video table's aspects
         videoTable.setStyle("-fx-selection-bar: blue; -fx-selection-bar-non-focused: purple;");
-        // Populate table with columns of parameters of videocreations (Name, search term, #images, rating, views)
+       
+	    // Populate table with columns of parameters of videocreations (Name, search term, #images, rating, views)
+	    
+	    // Name column
         TableColumn<VideoCreation, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setMinWidth(145);
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));        
-
+        nameColumn.setMinWidth(nameAndSearchColWidth);
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+	    
+	    //Search term
         TableColumn<VideoCreation, String> searchTermColumn = new TableColumn<>("Search Term");
-        searchTermColumn.setMinWidth(145);
+        searchTermColumn.setMinWidth(nameAndSearchColWidth);
         searchTermColumn.setCellValueFactory(new PropertyValueFactory<>("searchTerm"));
-        
+	    
+        // Number of images
         TableColumn<VideoCreation, String> numImagesColumn = new TableColumn<>("#Images");
-        numImagesColumn.setMinWidth(94);
+        numImagesColumn.setMinWidth(columnWidthOther);
         numImagesColumn.setCellValueFactory(new PropertyValueFactory<>("numImages"));
-        
+	    
+        // Rating
         TableColumn<VideoCreation, String> ratingColumn = new TableColumn<>("Rating");
-        ratingColumn.setMinWidth(94);
+        ratingColumn.setMinWidth(columnWidthOther);
         ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
-
+	    
+	// Number of views
         TableColumn<VideoCreation, String> viewsColumn = new TableColumn<>("Views");
-        viewsColumn.setMinWidth(94);
+        viewsColumn.setMinWidth(columnWidthOther);
         viewsColumn.setCellValueFactory(new PropertyValueFactory<>("views"));
-        
+	    
+        // Number of videos in the table
         videoTable.getItems().addAll(videoManager.getVideos());
         videoTable.getColumns().addAll(nameColumn, searchTermColumn, numImagesColumn, ratingColumn, viewsColumn);
     	numVideoLabel.setText("There are " + videoTable.getItems().size() + " videos");
@@ -195,6 +219,7 @@ public class HomeController extends DraggableWindow {
         helpVarPedia.setTooltip(new HoverToolTip("Welcome! This is VARpedia. \nThis application is made for you to learn new words by letting you create videos about them. \nThese videos will show you images of the word you choose, have a voice saying text about the word to you, and show you the word written down. \nThese videos are saved so you can go back to review words you are unsure about, and rate the different videos you have made based on your understanding of it!").getToolTip());
     }
 
+	Update the list of videos that will be prompted to the user to review
     private void updateVideosToReview() {
     	toReview.clear();
     	reviewNumAlert.setVisible(false);
