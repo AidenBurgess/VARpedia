@@ -21,12 +21,18 @@ import java.util.ArrayList;
 
 public class VideoCreationController extends DraggableWindow {
 
+	// Root of scene
 	@FXML private AnchorPane root;
+	
+	// Input fields for video creation
     @FXML private JFXTextField searchField;
     @FXML private JFXTextField videoNameField;
     @FXML private JFXSlider numImages;
     @FXML private JFXListView<String> textListView;
     @FXML private JFXComboBox<String> voiceChoiceBox;
+    @FXML private JFXTextArea textArea;
+	
+	// Help "?" tooltip buttons
     @FXML private JFXButton helpCreateButton;
     @FXML private JFXButton helpSearchResultsButton;
     @FXML private JFXButton helpSearchButton;
@@ -38,17 +44,22 @@ public class VideoCreationController extends DraggableWindow {
     @FXML private JFXButton helpQuitButton;
     @FXML private JFXButton helpVoicesButton;
     @FXML private JFXButton helpShuffleButton;
+	
+	// Main function buttons
     @FXML private JFXButton searchButton;
     @FXML private JFXButton createButton;
+	
+	// Dialogue and labels
     @FXML private StackPane stackPane;
     @FXML private Label searchLabel;
-    @FXML private JFXTextArea textArea;
 
-    private int wordLimit = 40;
+	// Set up values to be used later
+    private final int wordLimit = 40;
     private String currentSearch = "banana";
     private JFXDialog dialog;
     private VideoManager videoManager = VideoManager.getVideoManager();
 
+	// Search wikipedia for the term specified
     @FXML
     private void searchWiki() {
         // Retrieve the term to search
@@ -70,6 +81,7 @@ public class VideoCreationController extends DraggableWindow {
         checkValidCreate();
     }
     
+	// Automatically suggest a name for the video creation upon search of wiki - appears in the input field for video name
     private void autoName() {
     	int i = 0;
     	String currentName = currentSearch + i;
@@ -81,6 +93,7 @@ public class VideoCreationController extends DraggableWindow {
     	videoNameField.setText(currentName);
     }
     
+	// Check if a video already exists
     private boolean videoExists(String name) {
     	for (VideoCreation v: videoManager.getVideos()) {
     		if (v.getName().equals(name)) return true;
@@ -129,13 +142,14 @@ public class VideoCreationController extends DraggableWindow {
     	thread.start();
     }
 
+	// Combine text, audio, and video to create the final video creation
     private void combineAudioVideo() {
         // Retrieve selected number of images
         String videoName = videoNameField.getText();
         Double val = numImages.getValue();
         String finNumImages = Integer.toString(val.intValue());
 
-        // Create the video
+        // Create the video, and notify the user when it's done
         Task<ArrayList<String>> videoCreation = new CreateVideo(currentSearch, finNumImages, videoName);
         videoCreation.setOnSucceeded(e-> {
             dialog.close();
@@ -195,12 +209,13 @@ public class VideoCreationController extends DraggableWindow {
         textListView.getSelectionModel().select(index+1);;
     }
     
+	// Go back to the home page
     @FXML
     private void home() {
 		new WindowBuilder().switchScene("NewHomePage", "VarPedia", root.getScene());
     }
 
-    // Go back to home page
+    // Quit the application altogether
     @FXML
     private void quit() {
     	searchLabel.getScene().getWindow().hide();
