@@ -20,7 +20,10 @@ import javafx.util.Duration;
 
 public class ReviewController extends DraggableWindow {
 
+	// Root of the scene
 	@FXML private AnchorPane root;
+	
+	// Media player with buttons etc.
 	@FXML private MediaView screen;
 	@FXML private Label timeLabel;
 	@FXML private JFXToggleButton toggleMusicButton;
@@ -32,7 +35,11 @@ public class ReviewController extends DraggableWindow {
 	@FXML private MaterialDesignIconView playIcon;
 	@FXML private JFXButton muteButton;
 	@FXML private MaterialDesignIconView muteIcon;
+	
+	// List of background music
 	@FXML private JFXComboBox<String> musicList;
+	
+	// Help "?" buttons/tooltips
 	@FXML private JFXButton helpQuit;
 	@FXML private JFXButton helpMusicList;
 	@FXML private JFXButton helpMute;
@@ -47,14 +54,15 @@ public class ReviewController extends DraggableWindow {
 	@FXML private JFXButton helpTextArea;
 	@FXML private JFXButton helpBack;
 
+	// Set up media player and playlist
 	private MediaPlayer player;
 	private MediaPlayer music;
 	private ArrayList<VideoCreation> playList;
 	private VideoCreation currentVideo;
 	private int playIndex = 0;
 
+	// Populate the playlist with videos
 	public void setPlaylist(ArrayList<VideoCreation> playList) {
-		//		root.setBackground(Background.EMPTY); 
 		this.playList = playList;
 		for (VideoCreation v: playList) playListView.getItems().add(v.getName());
 		// Setup background music player
@@ -67,6 +75,7 @@ public class ReviewController extends DraggableWindow {
 		setSource();
 	}
 
+	// Get the song that the user selected from the music combo box
 	private Media getSong() {
 		String name = musicList.getSelectionModel().getSelectedItem();
 		String realName = Music.findMusic(name);
@@ -75,6 +84,7 @@ public class ReviewController extends DraggableWindow {
 		return audio;
 	}
 
+	// Set a new video as playing
 	private void setSource() {
 		currentVideo = playList.get(playIndex);
 		setupPlayer();
@@ -86,6 +96,7 @@ public class ReviewController extends DraggableWindow {
 		currentStage.setTitle("Currently playing: " + currentVideo.getName());
 	}
 
+	// Set up the video player with a video
 	private void setupPlayer() {
 		// Setup video player with source file
 		File fileUrl = new File("videos/" + currentVideo.getName() + ".mp4");
@@ -113,6 +124,7 @@ public class ReviewController extends DraggableWindow {
 		});
 	}
 
+	// Update playlist, upcoming video, and transcript of current video
 	private void updateSidePanel() {
 		// Update upcoming label
 		if ((playIndex+1) == playList.size()) upcomingLabel.setText("Upcoming: None." );
@@ -127,11 +139,12 @@ public class ReviewController extends DraggableWindow {
 		transcript.setText(transcriptString);
 	}
 	
+	// Time slider for videos
 	private void slider() {
 		// Providing functionality to time slider 
 		player.currentTimeProperty().addListener(ov -> updatesValues());
 
-		// Inorder to jump to the certain part of video 
+		// In order to jump to the certain part of video 
 		timeSlider.valueProperty().addListener(ov-> { 
 			if (timeSlider.isPressed()) {
 				player.pause();
@@ -154,6 +167,7 @@ public class ReviewController extends DraggableWindow {
 		});
 	}
 
+	// Set the time on the time slider
 	private void updatesValues() { 
 		Platform.runLater(()-> {
 			timeSlider.setMax(player.getTotalDuration().toSeconds());
@@ -161,12 +175,15 @@ public class ReviewController extends DraggableWindow {
 		}); 
 	} 
 
+	// Play or pause the video
 	@FXML
 	private void playPause() {
+		// Pause
 		if (player.getStatus() == Status.PLAYING) {
 			player.pause();
 			playButton.setText("Play");
 			playIcon.setStyle("-glyph-name:PLAY");
+		// Play
 		} else {
 			player.play();
 			playButton.setText("Pause");
@@ -174,28 +191,34 @@ public class ReviewController extends DraggableWindow {
 		}
 	}
 
+	// Go back 5 seconds in the video being played
 	@FXML
 	private void back() {
 		player.seek(player.getCurrentTime().add( Duration.seconds(-5)) );
 	}
 
+	// Go forward 5 seconds in the video being played
 	@FXML
 	private void forward() {
 		player.seek(player.getCurrentTime().add( Duration.seconds(5)) );
 	}
 
+	// Mute the sound of the video or unmute
 	@FXML
 	private void mute() {
 		player.setMute(!player.isMute());
+		// Mute
 		if (player.isMute()) {
 			muteButton.setText("Unmute");
 			muteIcon.setStyle("-glyph-name:VOLUME_HIGH");
+		// Unmute
 		} else {
 			muteButton.setText("Mute");
 			muteIcon.setStyle("-glyph-name:VOLUME_OFF");
 		}
 	}
 
+	// Turn on/off background music
 	@FXML
 	private void toggleMusic() {
 		music.setMute(!toggleMusicButton.isSelected());
@@ -209,6 +232,7 @@ public class ReviewController extends DraggableWindow {
 		}
 	}
 
+	// Play next video
 	@FXML
 	private void nextVideo() {
 		if ((playIndex+1) == playList.size()) return;
@@ -217,6 +241,7 @@ public class ReviewController extends DraggableWindow {
 		setSource();
 	}
 
+	// Play previous video
 	@FXML
 	private void prevVideo() {
 		if (playIndex == 0) return;
@@ -225,6 +250,7 @@ public class ReviewController extends DraggableWindow {
 		setSource();
 	}
 
+	// Play the video the user selected from the playlist
 	@FXML
 	private void playVideo() {
 		playIndex = playListView.getSelectionModel().getSelectedIndex();
@@ -235,11 +261,11 @@ public class ReviewController extends DraggableWindow {
 	// Quit back to the home page
 	@FXML
 	private void home() {
-//		timeLabel.getScene().getWindow().hide();
 		shutdown();
 		new WindowBuilder().switchScene("NewHomePage", "VarPedia", root.getScene());
 	}
 
+	// Quit the application altogether
 	@FXML
 	private void quit() {
 		timeLabel.getScene().getWindow().hide();
@@ -247,13 +273,16 @@ public class ReviewController extends DraggableWindow {
 		shutdown();
 	}
 
-
+	// Runs upon startup of the scene, sets up any nodes that need to be initialised
 	@FXML
 	private void initialize() {
+		// Set up tooltips
 		setUpHelp();
+		// Set up drop-down selection box for background music
 		setUpMusicSelection();
 	}
 
+	// Populate the drop-down selection box for music
 	private void setUpMusicSelection() {
 		ArrayList<String> musicChoices = new ArrayList<>();
 		musicChoices.add(0,"Mattioli Prelude");
@@ -263,6 +292,7 @@ public class ReviewController extends DraggableWindow {
 		musicList.getSelectionModel().select(0);
 	}
 
+	// Create help tooltips
 	private void setUpHelp() {
 		helpMute.setTooltip(new HoverToolTip("Click this to mute the video's voice!").getToolTip());
 
@@ -305,6 +335,7 @@ public class ReviewController extends DraggableWindow {
 		});
 	}
 
+	// Stop playing any media
 	public void shutdown() {
 		player.dispose();
 		music.dispose();
