@@ -44,17 +44,17 @@ public class HomeController extends DraggableWindow {
     private VideoManager videoManager = VideoManager.getVideoManager();
     private ArrayList<VideoCreation> toReview = new ArrayList<>();
 	// Set up the threshold rating numbers for the colour coding of videos
-    private static final int greenRating = 4;
-    private static final int yellowRating = 2;
-    private static final int redRating = 0;
+    private final int greenRating = 4;
+    private final int yellowRating = 2;
+    private final int redRating = 0;
 	// Set up the column widths for the video table - avoiding magic numbers
-    private static final int nameAndSearchColWidth = 145;
-    private static final int columnWidthOther = 94;
+    private final int nameAndSearchColWidth = 145;
+    private final int columnWidthOther = 94;
 
     @FXML
     private void createVideo() {
         // Hide current window and switch to video creation scene
-    	new WindowBuilder().switchScene("NewVideoCreation", "Create a Video!", root.getScene());
+    	new WindowBuilder().switchScene("VideoCreation", "Create a Video!", root.getScene());
     }
     
     @FXML
@@ -168,7 +168,6 @@ public class HomeController extends DraggableWindow {
         videoTable.setStyle("-fx-selection-bar: blue; -fx-selection-bar-non-focused: purple;");
        
 	    // Populate table with columns of parameters of videocreations (Name, search term, #images, rating, views)
-	    
 	    // Name column
         TableColumn<VideoCreation, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setMinWidth(nameAndSearchColWidth);
@@ -189,7 +188,7 @@ public class HomeController extends DraggableWindow {
         ratingColumn.setMinWidth(columnWidthOther);
         ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
 	    
-	// Number of views
+	    // Number of views
         TableColumn<VideoCreation, String> viewsColumn = new TableColumn<>("Views");
         viewsColumn.setMinWidth(columnWidthOther);
         viewsColumn.setCellValueFactory(new PropertyValueFactory<>("views"));
@@ -210,11 +209,11 @@ public class HomeController extends DraggableWindow {
 
         helpHelp.setTooltip(new HoverToolTip("This is what the hover text will look like!").getToolTip());
 
-        helpPlayButton.setTooltip(new HoverToolTip("After selecting a video from the table by clicking on one of the rows, click this button to play it!").getToolTip());
+        helpPlayButton.setTooltip(new HoverToolTip("After selecting a video from the table by clicking on one of the rows, click this button to play it, and rate it!").getToolTip());
 
         helpQuitButton.setTooltip(new HoverToolTip("Click this button to exit the application!").getToolTip());
 
-        helpReviewButton.setTooltip(new HoverToolTip("Click this button to watch and review multiple videos in a playlist shown to you, and rate your understanding of each of them!").getToolTip());
+        helpReviewButton.setTooltip(new HoverToolTip("Click this to watch videos that need to be reviewed based on their ratings, and rate your understanding of each of them!").getToolTip());
 
         helpVarPedia.setTooltip(new HoverToolTip("Welcome! This is VARpedia. \nThis application is made for you to learn new words by letting you create videos about them. \nThese videos will show you images of the word you choose, have a voice saying text about the word to you, and show you the word written down. \nThese videos are saved so you can go back to review words you are unsure about, and rate the different videos you have made based on your understanding of it!").getToolTip());
     }

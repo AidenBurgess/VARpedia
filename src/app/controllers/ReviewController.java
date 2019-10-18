@@ -262,7 +262,7 @@ public class ReviewController extends DraggableWindow {
 	@FXML
 	private void home() {
 		shutdown();
-		new WindowBuilder().switchScene("NewHomePage", "VarPedia", root.getScene());
+		new WindowBuilder().switchScene("HomePage", "VarPedia", root.getScene());
 	}
 
 	// Quit the application altogether

@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 public class HomePage extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-    	WindowBuilder windowBuilder = new WindowBuilder().noTop("NewHomePage", "VARpedia");
+    	WindowBuilder windowBuilder = new WindowBuilder().noTop("HomePage", "VARpedia");
     	((HomeController) windowBuilder.controller()).remindReview();
     }
     

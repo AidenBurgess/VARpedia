@@ -212,7 +212,7 @@ public class VideoCreationController extends DraggableWindow {
 	// Go back to the home page
     @FXML
     private void home() {
-		new WindowBuilder().switchScene("NewHomePage", "VarPedia", root.getScene());
+		new WindowBuilder().switchScene("HomePage", "VarPedia", root.getScene());
     }
 
     // Quit the application altogether
