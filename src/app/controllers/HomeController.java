@@ -219,7 +219,7 @@ public class HomeController extends DraggableWindow {
         helpVarPedia.setTooltip(new HoverToolTip("Welcome! This is VARpedia. \nThis application is made for you to learn new words by letting you create videos about them. \nThese videos will show you images of the word you choose, have a voice saying text about the word to you, and show you the word written down. \nThese videos are saved so you can go back to review words you are unsure about, and rate the different videos you have made based on your understanding of it!").getToolTip());
     }
 
-	Update the list of videos that will be prompted to the user to review
+	// Update the list of videos that will be prompted to the user to review
     private void updateVideosToReview() {
     	toReview.clear();
     	reviewNumAlert.setVisible(false);
