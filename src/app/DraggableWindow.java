@@ -4,6 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+* Make a window click-and-draggable 
+*/
 public class DraggableWindow {
 	
 	@FXML
