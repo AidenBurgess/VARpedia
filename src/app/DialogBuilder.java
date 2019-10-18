@@ -7,14 +7,20 @@ import com.jfoenix.controls.JFXSpinner;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
+/**
+* Helper class used to create different types of dialogues/popups
+*/
 public class DialogBuilder {
-	
+	// Set up dialog
 	private JFXDialog dialog;
 	
+	// Set up a dialog with a close button that closes it
 	public void close(StackPane stackPane, String title, String body) {
 		 JFXDialogLayout dialogContent = new JFXDialogLayout();
+		// Set the dialogue's text
          dialogContent.setHeading(new Text(title));
          dialogContent.setBody(new Text(body));
+		// Add close button
          JFXButton close = new JFXButton("Close");
          close.getStyleClass().add("JFXButton");
          dialogContent.setActions(close);
@@ -23,6 +29,7 @@ public class DialogBuilder {
          dialog.show();
 	}
 	
+	// Set up a loading dialog with a gif to show a process is taking place
 	public JFXDialog loading(StackPane stackPane, String title) {
     	JFXDialogLayout dialogContent = new JFXDialogLayout();
         dialogContent.setHeading(new Text(title));
@@ -34,6 +41,7 @@ public class DialogBuilder {
         return dialog;
 	}
 	
+	// Set up a dialog with a cancel button and a confirm button
 	public JFXButton confirm(StackPane stackPane, String title, String body) {
 		 JFXDialogLayout dialogContent = new JFXDialogLayout();
          dialogContent.setHeading(new Text(title));
@@ -49,6 +57,7 @@ public class DialogBuilder {
          return confirm;
 	}
 	
+	// Get the created dialog
 	public JFXDialog dialog() {
 		return dialog;
 	}
