@@ -4,7 +4,6 @@
     -fx-lighter-color: derive(-fx-basic-color, 80% );
     -fx-lightest-color: derive(-fx-basic-color, 95% );
     -fx-dark-text-color: rgb(47.0, 52.0, 57.0);
-    /*-fx-text-color: derive(-fx-basic-color, 70%);*/
     -fx-light-gray-color: rgb(200.0, 200.0, 200.0);
     -fx-lightest-gray-color: rgb(230.0, 230.0, 230.0);
 
@@ -12,7 +11,6 @@
     -fx-secondary-text-color: rgba(255,255,255,0.60);
     -fx-disabled-text-color: rgba(255,255,255,0.38);
 
-    -fx-green-accent-color: rgb(203.0,252.0,118.0);
     -fx-purple-accent-color: rgb(166.0,71.0,255.0);
     -fx-blue-accent-color: rgb(120.0,190.0,249.0);
 
@@ -20,7 +18,6 @@
 }
 
 .root {
-    /*-fx-background-color: rgb(230.0, 230.0, 230.0);*/
     -fx-background-color: -fx-bg-accent-color;
     -fx-text-fill: rgb(0,0,0);
 }
@@ -86,8 +83,8 @@
     -fx-text-fill: WHITE;
 }
 
-/****************** LISTVIEW ******************/
 
+/****************** LISTVIEW ******************/
 
 .jfx-list-cell:hover {
     -fx-background-color: -fx-purple-accent-color;
@@ -102,12 +99,14 @@
     -fx-text-fill: inherit;
 }
 
+
 /****************** Dialog ******************/
 
 .dialog {
     -fx-font-size: 20px;
     -fx-text-fill: -fx-primary-text-color;
 }
+
 
 /****************** TextArea ******************/
 
@@ -116,6 +115,7 @@
     -fx-font-size: 16px;
    -fx-background-color: WHITE;
 }
+
 
 /****************** Slider ******************/
 
@@ -130,6 +130,7 @@
 .jfx-slider > .colored-track {
     -fx-background-color: #2196F3;
 }
+
 
 /****************** TableView ******************/
 
@@ -174,40 +175,19 @@
 	-fx-background-color: #f04b48;
 }
 
-/****************** Icons ******************/
-
-.glyph-icon {
-    -fx-fill: WHITE;
-    -glyph-size: 24px;
-}
-
-.star-icon {
-    -fx-fill: BLACK;
-    -glyph-size: 50px;
-}
-
-
-
 .table-view {
-    /*-fx-table-color: #212121;*/
     -fx-table-rippler-color: #303F9F;
-    /*-fx-border-color: #212121;*/
-    /*-fx-prompt-text-fill: white;*/
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
-    /*-fx-background-color: #212121;*/
     -fx-padding: 0;
 }
 .table-view:focused {
-    /*-fx-background-color: #212121;*/
     -fx-focus-color: transparent;
-    /*-fx-table-color: #212121;*/
     -fx-faint-focus-color: transparent;
     -fx-background-insets: -1.4, 0, 1;
     -fx-background-radius: 0, 0, 0;
-    -fx-padding: 0; 
+    -fx-padding: 0;
 }
-
 
 .table-view:focused .table-row-cell:selected{
     -fx-background-color: #3F51B5;
@@ -221,23 +201,6 @@
     -fx-font-family: "Roboto";
 }
 
-/*.table-view .column-header,
-.table-view .column-header-background,
-.table-view .column-header-background .filler {
-    -fx-background-color: #37474F;
-}
-*/
-/*.table-view .column-header {
-    -fx-border-width: 0 1 0 1;
-    -fx-border-color: #263238;
-}*/
-/*
-.table-view .column-header .label {
-    -fx-text-fill: WHITE;
-    -fx-font-family: "Roboto Medium";
-    -fx-padding: 8 0 8;
-}
-*/
 .table-view .table-cell {
     -fx-border-width: 0 0 0 0;
     -fx-padding: 12 0 12 0;
@@ -246,13 +209,9 @@
     -fx-alignment: top-center;
 }
 
-
 .table-view .column-resize-line, .table-view .column-drag-header {
     -fx-background-color: -fx-table-rippler-color;
 }
-
-
-
 
 .table-row-group {
     -fx-background-color: #424242;
@@ -267,21 +226,22 @@
     -fx-padding: 5 0 5 0;
 }
 
-/*
-.jfx-combo-box .cell {
-    -fx-text-fill: white;
-}
-*/
 
-/*
-.jfx-combo-box .list-cell:hover
-{
-    -fx-background-color: #3F51B5;
+/****************** Icons ******************/
+
+.glyph-icon {
+    -fx-fill: WHITE;
+    -glyph-size: 24px;
 }
 
-*/
+.star-icon {
+    -fx-fill: BLACK;
+    -glyph-size: 50px;
+}
+
 
 /*****************Toggle******************/
+
 .jfx-toggle-button {
     -jfx-toggle-line-color: #8CC5F5;
     -jfx-toggle-color: #2196F3;
