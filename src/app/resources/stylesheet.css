@@ -71,6 +71,11 @@
     -fx-text-fill: WHITE;
 }
 
+.review-number-button:hover {
+    -fx-background-color: #f04b48;
+    -fx-text-fill: WHITE;
+}
+
 .jfx-button:hover {
     -fx-background-color: -fx-purple-accent-color;
     -fx-text-fill: WHITE;

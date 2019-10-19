@@ -17,11 +17,15 @@ import javafx.scene.layout.StackPane;
 import processes.*;
 import java.util.ArrayList;
 
+/**
+ * Controller class for HomePage - is a draggable window
+ */
 public class HomeController extends DraggableWindow {
 	
 	// Root of the scene and main nodes
 	@FXML private AnchorPane root;
     @FXML private TableView<VideoCreation> videoTable;
+
 	// Help "?" Buttons for this scene
     @FXML private JFXButton helpTableView;
     @FXML private JFXButton helpDeleteButton;
@@ -31,10 +35,12 @@ public class HomeController extends DraggableWindow {
     @FXML private JFXButton helpVarPedia;
     @FXML private JFXButton helpHelp;
     @FXML private JFXButton helpQuitButton;
+
 	// Main menu buttons
     @FXML private JFXButton playButton;
     @FXML private JFXButton deleteButton;
     @FXML private JFXButton reviewButton;
+
 	// Bases for notifications (number of videos to review, number of saved videos, and dialogues)
     @FXML private JFXButton reviewNumAlert;
     @FXML private Label numVideoLabel;
@@ -85,6 +91,10 @@ public class HomeController extends DraggableWindow {
             	videoManager.delete(videoCreation);
 		    // Update the video table and confirm that the video was deleted
             	updateVideoTable();
+                updateVideosToReview();
+                playButton.setDisable(true);
+                deleteButton.setDisable(true);
+                reviewButton.setDisable(true);
             	confirmDelete.dialog().close();
             	new DialogBuilder().close(stackPane, "Deletion Success", videoCreation.getName() + " has been deleted!");
             });
@@ -117,6 +127,19 @@ public class HomeController extends DraggableWindow {
     	helpQuitButton.getScene().getWindow().hide();
     }
 
+    @FXML
+    private void checkValidVideo() {
+        if (videoTable.getSelectionModel().getSelectedItem() == null) {
+            playButton.setDisable(true);
+            deleteButton.setDisable(true);
+            reviewButton.setDisable(true);
+        } else {
+            playButton.setDisable(false);
+            deleteButton.setDisable(false);
+            reviewButton.setDisable(false);
+        }
+    }
+
     // Refresh the video table with any updates
     private void updateVideoTable() {
     	videoTable.getItems().clear();
@@ -139,6 +162,9 @@ public class HomeController extends DraggableWindow {
         setUpHelp();
         updateVideoTable();
         checkVideosExist();
+        playButton.setDisable(true);
+        deleteButton.setDisable(true);
+        reviewButton.setDisable(true);
     }
         
     @SuppressWarnings("unchecked")

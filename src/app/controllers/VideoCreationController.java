@@ -4,7 +4,6 @@ import app.*;
 import com.jfoenix.controls.*;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -12,7 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import processes.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class VideoCreationController extends DraggableWindow {
@@ -56,7 +54,7 @@ public class VideoCreationController extends DraggableWindow {
     private VideoManager videoManager = VideoManager.getVideoManager();
 
     // Naughty words to be checked for to protect child - set up
-    ArrayList<String> naughtyWords = new ArrayList<>();
+    private ArrayList<String> naughtyWords = new ArrayList<>();
 
 	// Search wikipedia for the term specified
     @FXML
@@ -276,7 +274,7 @@ public class VideoCreationController extends DraggableWindow {
 
         helpVoicesButton.setTooltip(new HoverToolTip("In this list are different voices you can choose to speak your text in your video! \nClick it to see the options, then click one of the options shown to choose it!").getToolTip());
 
-        helpVideoNameButton.setTooltip(new HoverToolTip("Type in what you want to name your final video here!").getToolTip());
+        helpVideoNameButton.setTooltip(new HoverToolTip("Type in what you want to name your final video here! \nMake sure it doesn't include any spaces!").getToolTip());
 
         helpNumImagesButton.setTooltip(new HoverToolTip("Click and drag the dot along the line to choose how many picture you want to have in your video, from 1 to 10!").getToolTip());
 

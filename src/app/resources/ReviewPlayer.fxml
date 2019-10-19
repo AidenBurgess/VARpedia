@@ -78,12 +78,12 @@
             <JFXButton fx:id="helpBack" layoutX="74.0" layoutY="6.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
    </children>
 </AnchorPane>
-      <AnchorPane fx:id="sidePanel" layoutX="715.0" prefHeight="637.0" prefWidth="350.0" style="-fx-background-color: rgb(230.0, 245.0, 250.0);">
+      <AnchorPane fx:id="sidePanel" layoutX="717.0" prefHeight="637.0" prefWidth="350.0" style="-fx-background-color: rgb(230.0, 245.0, 250.0);">
          <children>
             <JFXTextArea fx:id="transcript" layoutX="20.0" layoutY="407.0" prefHeight="150.0" prefWidth="310.0" />
             <Label fx:id="upcomingLabel" layoutX="21.0" layoutY="566.0" text="Upcoming..." />
             <JFXListView fx:id="playListView" layoutX="20.0" layoutY="70.0" prefHeight="150.0" prefWidth="310.0" />
-            <JFXButton buttonType="RAISED" layoutX="17.0" layoutY="249.0" onAction="#playVideo" prefHeight="36.0" prefWidth="310.0" ripplerFill="WHITE" text="Play" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="243.0" onAction="#playVideo" prefHeight="36.0" prefWidth="310.0" ripplerFill="WHITE" text="Play" textFill="WHITE">
                <font>
                   <Font name="Ubuntu" size="18.0" />
                </font>
@@ -91,7 +91,7 @@
                   <MaterialDesignIconView id="playIcon" glyphName="PLAY" size="30" />
                </graphic>
             </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="311.0" onAction="#prevVideo" prefHeight="42.0" prefWidth="150.0" ripplerFill="WHITE" text="Previous" textFill="WHITE">
+      <JFXButton buttonType="RAISED" layoutX="19.0" layoutY="298.0" onAction="#prevVideo" prefHeight="42.0" prefWidth="142.0" ripplerFill="WHITE" text="Previous" textFill="WHITE">
          <font>
             <Font name="Ubuntu" size="18.0" />
          </font>
@@ -99,7 +99,7 @@
                   <MaterialDesignIconView id="playIcon" glyphName="SKIP_BACKWARD" size="30" />
                </graphic>
       </JFXButton>
-      <JFXButton buttonType="RAISED" contentDisplay="RIGHT" layoutX="177.0" layoutY="311.0" onAction="#nextVideo" prefHeight="42.0" prefWidth="150.0" ripplerFill="WHITE" text="Next" textFill="WHITE">
+      <JFXButton buttonType="RAISED" contentDisplay="RIGHT" layoutX="185.0" layoutY="298.0" onAction="#nextVideo" prefHeight="42.0" prefWidth="142.0" ripplerFill="WHITE" text="Next" textFill="WHITE">
          <font>
             <Font name="Ubuntu" size="18.0" />
          </font>
@@ -122,13 +122,13 @@
             </JFXButton>
             <JFXButton fx:id="helpList" layoutX="318.0" layoutY="57.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
             <JFXButton fx:id="helpTextArea" layoutX="317.0" layoutY="388.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
-            <JFXButton fx:id="helpPlayButton" layoutX="315.0" layoutY="236.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
-            <JFXButton fx:id="helpPrev" layoutX="152.0" layoutY="298.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+            <JFXButton fx:id="helpPlayButton" layoutX="315.0" layoutY="230.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+            <JFXButton fx:id="helpPrev" layoutX="149.0" layoutY="285.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
             <JFXButton fx:id="helpMusicToggle" layoutX="317.0" layoutY="574.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
-            <JFXButton fx:id="helpNext" layoutX="315.0" layoutY="298.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+            <JFXButton fx:id="helpNext" layoutX="315.0" layoutY="285.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
             <JFXButton fx:id="helpQuit" layoutX="319.0" layoutY="1.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
             <Label layoutX="22.0" layoutY="21.0" styleClass="title" text="Playlist" />
-            <Label layoutX="19.0" layoutY="371.0" styleClass="title" text="Text in video" />
+            <Label layoutX="19.0" layoutY="373.0" styleClass="title" text="Text in video" />
             <JFXComboBox fx:id="musicList" layoutX="21.0" layoutY="592.0" prefHeight="26.0" prefWidth="166.0" />
             <JFXButton fx:id="helpMusicList" layoutX="175.0" layoutY="574.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
          </children>

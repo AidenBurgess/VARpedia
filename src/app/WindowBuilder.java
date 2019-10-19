@@ -17,9 +17,7 @@ public class WindowBuilder {
             loader = new FXMLLoader();
             loader.setLocation(this.getClass().getResource("resources/" + screenName + ".fxml"));
             scene = null;
-            System.out.println("What about here?");
             scene = new Scene(loader.load());
-            System.out.println("Did we make it this far?");
             System.out.println(scene.getHeight());
             System.out.println(scene.getX());
             stage = new Stage();

@@ -2,8 +2,9 @@ package app.controllers;
 
 import java.io.File;
 import java.util.ArrayList;
-import com.jfoenix.controls.*;
+
 import app.*;
+import com.jfoenix.controls.*;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -79,7 +80,7 @@ public class ReviewController extends DraggableWindow {
 	private Media getSong() {
 		String name = musicList.getSelectionModel().getSelectedItem();
 		String realName = Music.findMusic(name);
-		File fileUrl = new File(realName + ".wav");
+		File fileUrl = new File("src/" + realName + ".wav");
 		Media audio = new Media(fileUrl.toURI().toString());
 		return audio;
 	}
