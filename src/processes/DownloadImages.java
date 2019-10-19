@@ -83,7 +83,6 @@ public class DownloadImages extends Task<ArrayList<String>> {
 
 	        // Fetch the search results
 	        PhotoList<Photo> results = photos.search(params, resultsPerPage, page);
-	        System.out.println("Retrieving " + results.size()+ " results");
 
 	        // Save every image from the search in the images directory
 	        for (Photo photo: results) {
@@ -92,9 +91,8 @@ public class DownloadImages extends Task<ArrayList<String>> {
 		        	String filename = photo.getId() + ".jpg";
 		        	File outputfile = new File("./images",filename);
 		        	ImageIO.write(image, "jpg", outputfile);
-		        	System.out.println("Downloaded "+filename);
 	        	} catch (FlickrException fe) {
-	        		System.err.println("Ignoring image " +photo.getId() +": "+ fe.getMessage());
+	        		//System.err.println("Ignoring image " +photo.getId() +": "+ fe.getMessage());
 				}
 	        }
     	} catch (Exception e) {
