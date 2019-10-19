@@ -92,9 +92,7 @@ public class HomeController extends DraggableWindow {
 		    // Update the video table and confirm that the video was deleted
             	updateVideoTable();
                 updateVideosToReview();
-                playButton.setDisable(true);
-                deleteButton.setDisable(true);
-                reviewButton.setDisable(true);
+                disableVideoButtons();
             	confirmDelete.dialog().close();
             	new DialogBuilder().close(stackPane, "Deletion Success", videoCreation.getName() + " has been deleted!");
             });
@@ -130,13 +128,9 @@ public class HomeController extends DraggableWindow {
     @FXML
     private void checkValidVideo() {
         if (videoTable.getSelectionModel().getSelectedItem() == null) {
-            playButton.setDisable(true);
-            deleteButton.setDisable(true);
-            reviewButton.setDisable(true);
+            disableVideoButtons();
         } else {
-            playButton.setDisable(false);
-            deleteButton.setDisable(false);
-            reviewButton.setDisable(false);
+            enableVideoButtons();
         }
     }
 
@@ -162,9 +156,7 @@ public class HomeController extends DraggableWindow {
         setUpHelp();
         updateVideoTable();
         checkVideosExist();
-        playButton.setDisable(true);
-        deleteButton.setDisable(true);
-        reviewButton.setDisable(true);
+        disableVideoButtons();
     }
         
     @SuppressWarnings("unchecked")
@@ -298,14 +290,22 @@ public class HomeController extends DraggableWindow {
         int numVideos = videoTable.getItems().size();
         // Disable/enable the buttons
         if (numVideos == 0) {
-            playButton.setDisable(true);
-            deleteButton.setDisable(true);
-            reviewButton.setDisable(true);
+            disableVideoButtons();
         } else {
-            playButton.setDisable(false);
-            deleteButton.setDisable(false);
-            reviewButton.setDisable(false);
+            enableVideoButtons();
         }
+    }
+
+    private void disableVideoButtons() {
+        playButton.setDisable(true);
+        deleteButton.setDisable(true);
+        reviewButton.setDisable(true);
+    }
+
+    private void enableVideoButtons() {
+        playButton.setDisable(false);
+        deleteButton.setDisable(false);
+        reviewButton.setDisable(false);
     }
 
 }
