@@ -3,10 +3,18 @@ package processes;
 import javafx.concurrent.Task;
 import java.util.ArrayList;
 
+/**
+ * Task that handles the deletion of a video creation from the file system
+ */
 public class DeleteVideo extends Task<ArrayList<String>> {
 
+    // Field declarations
     private String video;
 
+    /**
+     * Constructor for the task that handles the deletion of a video creation from the file system
+     * @param video
+     */
     public DeleteVideo(String video) {
         this.video = video;
     }
@@ -21,6 +29,7 @@ public class DeleteVideo extends Task<ArrayList<String>> {
         return null;
     }
 
+    // Actually delete the video
     private void delete() throws Exception {
         // Run bash script to delete the input video file from it's directory
         ProcessBuilder pb = new ProcessBuilder().command("bash", "src/scripts/deleteVideo.sh", video);
@@ -28,7 +37,6 @@ public class DeleteVideo extends Task<ArrayList<String>> {
 
         int exitStatus = process.waitFor();
         if (exitStatus == 0) {
-            System.out.println("Completed Successfully");
         } else {
             System.out.println("Error code: " + exitStatus + " occurred");
         }

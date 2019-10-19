@@ -6,10 +6,18 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Task that combines multiple audio files to create one audio file
+ */
 public class StitchAudio extends Task<ArrayList<String>> {
 
+    // Field declarations
     private List<String> audioFiles;
 
+    /**
+     * Constructor for the task that combines multiple audio files to create one audio file
+     * @param audioFiles
+     */
     public StitchAudio(List<String> audioFiles) {
         this.audioFiles = audioFiles;
     }
@@ -17,14 +25,18 @@ public class StitchAudio extends Task<ArrayList<String>> {
     @Override
     protected ArrayList<String> call() {
         try {
-        	stichVideo();
+        	stitchAudio();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    private void stichVideo() throws Exception {
+    /**
+     * Actuallu combine the audio files using a bash script
+     * @throws Exception
+     */
+    private void stitchAudio() throws Exception {
         ProcessBuilder pb = new ProcessBuilder().command("bash", "src/scripts/stitchAudio.sh", String.join(" ", audioFiles));
         Process process = pb.start();
 

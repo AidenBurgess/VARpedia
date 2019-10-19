@@ -8,11 +8,19 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+/**
+ * Task that finds and lists all available videos in the file system
+ */
 public class ListVideos extends Task<Integer> {
 
+    // Field declarations
     private ListView<String> videoList;
     private ArrayList<String> out;
 
+    /**
+     * Constructor for the task that finds and lists all available videos in the file system
+     * @param videoList
+     */
     public ListVideos(ListView<String> videoList) {
         this.videoList = videoList;
     }
@@ -28,6 +36,10 @@ public class ListVideos extends Task<Integer> {
         return 0;
     }
 
+    /**
+     * Runs the bash script that lists all available videos in the file system
+     * @throws Exception
+     */
     private ArrayList<String> listCreations() throws Exception {
         ProcessBuilder pb = new ProcessBuilder().command("bash", "src/scripts/listVideos.sh");
         Process process = pb.start();
@@ -48,6 +60,9 @@ public class ListVideos extends Task<Integer> {
         return null;
     }
 
+    /**
+     * Update the GUI if necessary
+     */
     @Override
     protected void done() {
         Platform.runLater(() -> {
@@ -55,7 +70,6 @@ public class ListVideos extends Task<Integer> {
         		videoList.getItems().clear();
         		videoList.getItems().addAll(out);
         	} catch(Exception e) {
-        		System.out.println("None present");
         		e.printStackTrace();
         	}
         });

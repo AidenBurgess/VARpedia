@@ -4,12 +4,22 @@ import javafx.concurrent.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Class that handles the task of creating one audio file by running a bash script
+ */
 public class CreateAudio extends Task<ArrayList<String>> {
 
+    // Field declarations
     private String videoName;
     private String text;
     private String voice;
 
+    /**
+     * Constructor for the task that handles the creation of one audio file using input text, and a voice to speak this text
+     * @param videoName
+     * @param text
+     * @param voice
+     */
     public CreateAudio(String videoName, String text, String voice) {
         this.videoName = videoName;
         this.text = text;

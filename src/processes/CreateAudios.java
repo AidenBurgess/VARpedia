@@ -4,11 +4,20 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import java.util.ArrayList;
 
+/**
+ * Class that handles the task of creating multiple audio files from the video's selected text
+ */
 public class CreateAudios extends Task<ArrayList<String>> {
 
+    // Field declarations
 	private ObservableList<String> audioText;
 	private String voice;
 
+    /**
+     * Constructor for the task that handles the creation of several audio files representing the text of the video creation
+     * @param audioText
+     * @param voice
+     */
     public CreateAudios(ObservableList<String> audioText, String voice) {
     	this.audioText = audioText;
     	this.voice = voice;
@@ -35,7 +44,6 @@ public class CreateAudios extends Task<ArrayList<String>> {
         	indiceStrings.add(Integer.toString(i));
         	i++;
         }
-        System.out.println(indiceStrings);
         return indiceStrings;
     }
 

@@ -9,15 +9,25 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import app.DialogBuilder;
 
+/**
+ * Task that takes a search term and retrieves the wikipedia definition for that term
+ */
 public class SearchWiki extends Task<ArrayList<String>> {
 
+    // Field declarations
     private TextArea textArea;
-    private String videoName;
+    private String searchTerm;
     private StackPane stackPane;
     private ArrayList<String> out;
 
-    public SearchWiki(String videoName, TextArea textArea, StackPane stackPane) {
-        this.videoName = videoName;
+    /**
+     * Constructor for the task that retrieves a wikipedia definition of a word, for it to be displayed on the textArea
+     * @param searchTerm
+     * @param textArea
+     * @param stackPane
+     */
+    public SearchWiki(String searchTerm, TextArea textArea, StackPane stackPane) {
+        this.searchTerm = searchTerm;
         this.textArea = textArea;
         this.stackPane = stackPane;
     }
@@ -32,8 +42,12 @@ public class SearchWiki extends Task<ArrayList<String>> {
         return null;
     }
 
+    /**
+     * Actually search the wiki using a bash script
+     * @throws Exception
+     */
     private ArrayList<String> search() throws Exception {
-        ProcessBuilder pb = new ProcessBuilder().command("bash", "src/scripts/searchWiki.sh", videoName);
+        ProcessBuilder pb = new ProcessBuilder().command("bash", "src/scripts/searchWiki.sh", searchTerm);
         Process process = pb.start();
 
         BufferedReader stdout = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -49,12 +63,15 @@ public class SearchWiki extends Task<ArrayList<String>> {
             return outputList;
         } else {
             Platform.runLater(() -> {
-            	new DialogBuilder().close(stackPane, "Search error", videoName + " can not be found!");
+            	new DialogBuilder().close(stackPane, "Search error", searchTerm + " can not be found!");
             });
         }
         return null;
     }
 
+    /**
+     * Update the GUI with the output of the wiki search - printing the definition found on it
+     */
     @Override
     protected void done() {
         Platform.runLater(() -> {

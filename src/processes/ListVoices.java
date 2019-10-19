@@ -6,8 +6,12 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+/**
+ * Task that lists the voices available on the computer
+ */
 public class ListVoices extends Task<ArrayList<String>> {
 
+    // Field declarations
     private ArrayList<String> out;
 
     @Override
@@ -20,6 +24,10 @@ public class ListVoices extends Task<ArrayList<String>> {
         return null;
     }
 
+    /**
+     * Run the bash script that lists the computer's voices
+     * @throws Exception
+     */
     private ArrayList<String> listVoices() throws Exception {
         ProcessBuilder pb = new ProcessBuilder().command("bash", "src/scripts/listVoices.sh");
         Process process = pb.start();

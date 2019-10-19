@@ -19,12 +19,20 @@ import com.flickr4java.flickr.photos.PhotosInterface;
 import com.flickr4java.flickr.photos.SearchParameters;
 import com.flickr4java.flickr.photos.Size;
 
-
+/**
+ * Task that handles downloading images from Flickr using an API key and a number of images to download of a specified term
+ */
 public class DownloadImages extends Task<ArrayList<String>> {
-	
+
+	//Field declarations
 	private int numImages;
 	private String searchTerm;
-	
+
+	/**
+	 * Constructor for the task that handles downloading #numImages images about the searchTerm from Flickr
+	 * @param numImages
+	 * @param searchTerm
+	 */
 	public DownloadImages(int numImages, String searchTerm) {
 		this.numImages = numImages;
 		this.searchTerm = searchTerm;
@@ -63,7 +71,8 @@ public class DownloadImages extends Task<ArrayList<String>> {
 		// in case the key doesn't exist
 		throw new RuntimeException("Couldn't find " + key +" in config file "+file.getName());
 	}
-	
+
+	// Actually downloading the images
 	public void downloadImages() {
 		try {
 			String apiKey = getAPIKey("apiKey");

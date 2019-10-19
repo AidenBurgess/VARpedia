@@ -3,10 +3,18 @@ package processes;
 import javafx.concurrent.Task;
 import java.io.IOException;
 
+/**
+ * Task that checks if a video already exists in the file system
+ */
 public class VideoExists extends Task<Boolean> {
 
+    // Field declarations
     private String videoName;
 
+    /**
+     * Constructor for the task that checks if a video by the name videoName already exists
+     * @param videoName
+     */
     public VideoExists(String videoName) {
         this.videoName = videoName;
     }
@@ -17,6 +25,10 @@ public class VideoExists extends Task<Boolean> {
 
     }
 
+    /**
+     * Checks if the video corresponding to this object exists in the file system using a bash script
+     * @return
+     */
     private boolean doesExist() {
         try {
             ProcessBuilder pb = new ProcessBuilder().command("bash", "src/scripts/checkExistence.sh", videoName);

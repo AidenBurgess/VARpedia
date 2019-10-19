@@ -3,12 +3,21 @@ package processes;
 import javafx.concurrent.Task;
 import java.util.ArrayList;
 
+/**
+ * Class that handles the creation of the video, specifically the image slideshow and combining this with the audio files
+ */
 public class CreateVideo extends Task<ArrayList<String>> {
-
+    // Field declarations
     private String searchTerm;
     private String numImages;
     private String videoName;
 
+    /**
+     * Constructor for the task that handles the creation of videos - including an image slideshow and combining this with the audio files
+     * @param searchTerm
+     * @param numImages
+     * @param videoName
+     */
     public CreateVideo(String searchTerm, String numImages, String videoName) {
         this.searchTerm = searchTerm;
         this.numImages = numImages;
