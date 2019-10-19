@@ -9,7 +9,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
+/**
+ * Controller class for the Rating scene - is a draggable window
+ */
 public class RatingController extends DraggableWindow {
+
+	/***************************** FIELD DECLARATIONS ********************************/
 	// Root of scene
 	@FXML private AnchorPane root;
 	
@@ -39,8 +44,10 @@ public class RatingController extends DraggableWindow {
 		star4.setStyle(unselected);
 		star5.setStyle(unselected);
 	}
-	
-	/*********************ENTER FUNCTIONALITY***********************/
+
+
+	/***************************** FXML METHODS - ENTER  ********************************/
+
 	// If star 1 was selected
 	@FXML
 	private void star1Enter() {
@@ -85,8 +92,10 @@ public class RatingController extends DraggableWindow {
         star4.setStyle(selected);
         star5.setStyle(selected);
 	}
-	
-	/*********************EXIT FUNCTIONALITY***********************/
+
+
+	/***************************** FXML METHODS - EXIT ********************************/
+
 	// Unselect all stars regardless of star selected
 	@FXML
 	private void star1Exit() {
@@ -113,8 +122,10 @@ public class RatingController extends DraggableWindow {
 		unselectAll();
 		if (rating != null) clickPrev();
 	}
-	
-	/*********************CLICK FUNCTIONALITY***********************/
+
+
+	/***************************** FXML METHODS - CLICK ********************************/
+
 	// Update rating based on which star selected
 	@FXML
 	private void star1Click() {
@@ -147,21 +158,6 @@ public class RatingController extends DraggableWindow {
         updateRatingLabel();
 	}
 	
-	// Update the rating label with the new rating based on what star was selected
-	private void updateRatingLabel() {
-		ratingLabel.setText("Rating: " + rating);
-	}
-	
-	// Show the previous rating for the video as selected stars 
-	private void clickPrev() {
-		if(rating == null) return;
-		if (rating.equals(1)) star1Click();
-		if (rating.equals(2)) star2Click();
-		if (rating.equals(3)) star3Click();
-		if (rating.equals(4)) star4Click();
-		if (rating.equals(5)) star5Click();
-	}
-	
 	// Delete rating and leave rating scene
 	@FXML
 	private void cancel() {
@@ -174,22 +170,39 @@ public class RatingController extends DraggableWindow {
 	private void confirm() {
 		root.getScene().getWindow().hide();
 	}
-	
-	// Getter for user's rating
-	public Integer getRating() {
-		return rating;
-	}
 
-	/**************Tooltip Setup**************/
 	// Set up the tooltips when the scene is opened
 	@FXML
 	private void initialize() {
 		setUpHelp();
 	}
-	
+
+
+	/***************************** HELPER METHODS ********************************/
+
+	// Getter for user's rating
+	public Integer getRating() {
+		return rating;
+	}
+
 	// Set the tooltip's text
 	private void setUpHelp() {
 		helpRating.setTooltip(new HoverToolTip("Click on the stars below to set how well you think you understand the video you just watched. \nThis rating is out of 5, with 5 being you fully understand! \nClick Confirm when you're done, or cancel if you don't want to rate the video!").getToolTip());
+	}
+
+	// Update the rating label with the new rating based on what star was selected
+	private void updateRatingLabel() {
+		ratingLabel.setText("Rating: " + rating);
+	}
+
+	// Show the previous rating for the video as selected stars
+	private void clickPrev() {
+		if(rating == null) return;
+		if (rating.equals(1)) star1Click();
+		if (rating.equals(2)) star2Click();
+		if (rating.equals(3)) star3Click();
+		if (rating.equals(4)) star4Click();
+		if (rating.equals(5)) star5Click();
 	}
 
 }

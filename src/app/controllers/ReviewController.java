@@ -19,12 +19,16 @@ import javafx.stage.Stage;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.util.Duration;
 
+/**
+ * Controller class for the Review scene / Media player - is a draggable window
+ */
 public class ReviewController extends DraggableWindow {
 
+	/***************************** FIELD DECLARATIONS ********************************/
 	// Root of the scene
 	@FXML private AnchorPane root;
 	
-	// Media player with buttons etc.
+	// Media player fields with buttons etc.
 	@FXML private MediaView screen;
 	@FXML private Label timeLabel;
 	@FXML private JFXToggleButton toggleMusicButton;
@@ -33,10 +37,12 @@ public class ReviewController extends DraggableWindow {
 	@FXML private JFXTextArea transcript;
 	@FXML private Label upcomingLabel;
 	@FXML private JFXButton playButton;
-	@FXML private MaterialDesignIconView playIcon;
 	@FXML private JFXButton muteButton;
+
+	// Icons
+	@FXML private MaterialDesignIconView playIcon;
 	@FXML private MaterialDesignIconView muteIcon;
-	
+
 	// List of background music
 	@FXML private JFXComboBox<String> musicList;
 	
@@ -61,6 +67,173 @@ public class ReviewController extends DraggableWindow {
 	private ArrayList<VideoCreation> playList;
 	private VideoCreation currentVideo;
 	private int playIndex = 0;
+
+
+
+	/***************************** FXML METHODS ********************************/
+
+	// Play or pause the video
+	@FXML
+	private void playPause() {
+		// Pause
+		if (player.getStatus() == Status.PLAYING) {
+			player.pause();
+			playButton.setText("Play");
+			playIcon.setStyle("-glyph-name:PLAY");
+			// Play
+		} else {
+			player.play();
+			playButton.setText("Pause");
+			playIcon.setStyle("-glyph-name:PAUSE");
+		}
+	}
+
+	// Go back 5 seconds in the video being played
+	@FXML
+	private void back() {
+		player.seek(player.getCurrentTime().add( Duration.seconds(-5)) );
+	}
+
+	// Go forward 5 seconds in the video being played
+	@FXML
+	private void forward() {
+		player.seek(player.getCurrentTime().add( Duration.seconds(5)) );
+	}
+
+	// Mute the sound of the video or unmute
+	@FXML
+	private void mute() {
+		player.setMute(!player.isMute());
+		// Mute
+		if (player.isMute()) {
+			muteButton.setText("Unmute");
+			muteIcon.setStyle("-glyph-name:VOLUME_HIGH");
+			// Unmute
+		} else {
+			muteButton.setText("Mute");
+			muteIcon.setStyle("-glyph-name:VOLUME_OFF");
+		}
+	}
+
+	// Turn on/off background music
+	@FXML
+	private void toggleMusic() {
+		music.setMute(!toggleMusicButton.isSelected());
+		// updates current song playing if user changes song while toggle is off
+		if (!toggleMusicButton.isSelected()) {
+			Media audio = getSong();
+			music = new MediaPlayer(audio);
+			music.setAutoPlay(true);
+			music.setMute(true);
+			music.setCycleCount(MediaPlayer.INDEFINITE);
+		}
+	}
+
+	// Play next video
+	@FXML
+	private void nextVideo() {
+		if ((playIndex+1) == playList.size()) return;
+		playIndex++;
+		player.dispose();
+		setSource();
+	}
+
+	// Play previous video
+	@FXML
+	private void prevVideo() {
+		if (playIndex == 0) return;
+		playIndex--;
+		player.dispose();
+		setSource();
+	}
+
+	// Play the video the user selected from the playlist
+	@FXML
+	private void playVideo() {
+		playIndex = playListView.getSelectionModel().getSelectedIndex();
+		player.dispose();
+		setSource();
+	}
+
+	// Quit back to the home page
+	@FXML
+	private void home() {
+		shutdown();
+		new WindowBuilder().switchScene("HomePage", "VarPedia", root.getScene());
+	}
+
+	// Quit the application altogether
+	@FXML
+	private void quit() {
+		timeLabel.getScene().getWindow().hide();
+		VideoManager.getVideoManager().writeSerializedVideos();
+		shutdown();
+	}
+
+	// Runs upon startup of the scene, sets up any nodes that need to be initialised
+	@FXML
+	private void initialize() {
+		// Set up tooltips
+		setUpHelp();
+		// Set up drop-down selection box for background music
+		setUpMusicSelection();
+	}
+
+
+	/***************************** HELPER METHODS ********************************/
+
+	// Populate the drop-down selection box for music
+	private void setUpMusicSelection() {
+		ArrayList<String> musicChoices = new ArrayList<>();
+		musicChoices.add(0,"Mattioli Prelude");
+		musicChoices.add("Piano and Cello");
+		musicChoices.add("Entre Les Murs");
+		musicList.setItems(FXCollections.observableArrayList(musicChoices));
+		musicList.getSelectionModel().select(0);
+	}
+
+	// Create help tooltips
+	private void setUpHelp() {
+		helpMute.setTooltip(new HoverToolTip("Click this to mute the video's voice!").getToolTip());
+
+		helpFor5.setTooltip(new HoverToolTip("Click this to go 5 seconds further into the video!").getToolTip());
+
+		helpBack5.setTooltip(new HoverToolTip("Click this to go 5 seconds back in the video!").getToolTip());
+
+		helpQuit.setTooltip(new HoverToolTip("Click this button to quit the application!").getToolTip());
+
+		helpPlayPause.setTooltip(new HoverToolTip("Click this to play the video if it is paused, or pause the video if it is playing!").getToolTip());
+
+		helpMusicToggle.setTooltip(new HoverToolTip("Click this to turn on some background music (or to turn it off if it is already playing!)").getToolTip());
+
+		helpList.setTooltip(new HoverToolTip("This is where all the videos you can play are listed!").getToolTip());
+
+		helpPlayButton.setTooltip(new HoverToolTip("After choosing a video from the list above by clicking on it, click this button to play that video!").getToolTip());
+
+		helpNext.setTooltip(new HoverToolTip("Click this to play the next video in the list!").getToolTip());
+
+		helpPrev.setTooltip(new HoverToolTip("Click this to play the previous video in the list!").getToolTip());
+
+		helpTextArea.setTooltip(new HoverToolTip("This is where the text you selected for the video that is currently playing shows up so you can read along with the video!").getToolTip());
+
+		helpBack.setTooltip(new HoverToolTip("Click this button to go back to the main menu!").getToolTip());
+
+		helpMusicList.setTooltip(new HoverToolTip("To change the song playing, click this box and then click on the song you want to play in the background. \nMake sure to turn the music off and on again using the toggle button to the right to make the music change!").getToolTip());
+	}
+
+	// Allows user to rate the videos as they watch them
+	private void showRating() {
+		WindowBuilder windowBuilder = new WindowBuilder().noTop("RatingPopup", "Rate the video!");
+		// Pass in video being rated
+		VideoCreation currentVideo = playList.get(playIndex);
+		windowBuilder.stage().setOnHidden(e-> {
+			Integer rating = ((RatingController) windowBuilder.controller()).getRating();
+			if(rating != null) {
+				currentVideo.setRating(rating);
+				System.out.println(VideoManager.getVideoManager().getVideos());
+			}
+		});
+	}
 
 	// Populate the playlist with videos
 	public void setPlaylist(ArrayList<VideoCreation> playList) {
@@ -139,20 +312,20 @@ public class ReviewController extends DraggableWindow {
 		}
 		transcript.setText(transcriptString);
 	}
-	
+
 	// Time slider for videos
 	private void slider() {
-		// Providing functionality to time slider 
+		// Providing functionality to time slider
 		player.currentTimeProperty().addListener(ov -> updatesValues());
 
-		// In order to jump to the certain part of video 
-		timeSlider.valueProperty().addListener(ov-> { 
+		// In order to jump to the certain part of video
+		timeSlider.valueProperty().addListener(ov-> {
 			if (timeSlider.isPressed()) {
 				player.pause();
 				double percent = timeSlider.getValue()/player.getTotalDuration().toSeconds();
-				player.seek(player.getTotalDuration().multiply(percent)); 
+				player.seek(player.getTotalDuration().multiply(percent));
 			}
-		}); 
+		});
 		timeSlider.setOnMouseReleased(e-> player.play());
 		timeSlider.setOnDragDropped(e-> player.play());
 
@@ -169,170 +342,10 @@ public class ReviewController extends DraggableWindow {
 	}
 
 	// Set the time on the time slider
-	private void updatesValues() { 
+	private void updatesValues() {
 		Platform.runLater(()-> {
 			timeSlider.setMax(player.getTotalDuration().toSeconds());
 			timeSlider.setValue(player.getCurrentTime().toSeconds());
-		}); 
-	} 
-
-	// Play or pause the video
-	@FXML
-	private void playPause() {
-		// Pause
-		if (player.getStatus() == Status.PLAYING) {
-			player.pause();
-			playButton.setText("Play");
-			playIcon.setStyle("-glyph-name:PLAY");
-		// Play
-		} else {
-			player.play();
-			playButton.setText("Pause");
-			playIcon.setStyle("-glyph-name:PAUSE");
-		}
-	}
-
-	// Go back 5 seconds in the video being played
-	@FXML
-	private void back() {
-		player.seek(player.getCurrentTime().add( Duration.seconds(-5)) );
-	}
-
-	// Go forward 5 seconds in the video being played
-	@FXML
-	private void forward() {
-		player.seek(player.getCurrentTime().add( Duration.seconds(5)) );
-	}
-
-	// Mute the sound of the video or unmute
-	@FXML
-	private void mute() {
-		player.setMute(!player.isMute());
-		// Mute
-		if (player.isMute()) {
-			muteButton.setText("Unmute");
-			muteIcon.setStyle("-glyph-name:VOLUME_HIGH");
-		// Unmute
-		} else {
-			muteButton.setText("Mute");
-			muteIcon.setStyle("-glyph-name:VOLUME_OFF");
-		}
-	}
-
-	// Turn on/off background music
-	@FXML
-	private void toggleMusic() {
-		music.setMute(!toggleMusicButton.isSelected());
-		// updates current song playing if user changes song while toggle is off
-		if (!toggleMusicButton.isSelected()) {
-			Media audio = getSong();
-			music = new MediaPlayer(audio);
-			music.setAutoPlay(true);
-			music.setMute(true);
-			music.setCycleCount(MediaPlayer.INDEFINITE);
-		}
-	}
-
-	// Play next video
-	@FXML
-	private void nextVideo() {
-		if ((playIndex+1) == playList.size()) return;
-		playIndex++;
-		player.dispose();
-		setSource();
-	}
-
-	// Play previous video
-	@FXML
-	private void prevVideo() {
-		if (playIndex == 0) return;
-		playIndex--;
-		player.dispose();
-		setSource();
-	}
-
-	// Play the video the user selected from the playlist
-	@FXML
-	private void playVideo() {
-		playIndex = playListView.getSelectionModel().getSelectedIndex();
-		player.dispose();
-		setSource();
-	}
-
-	// Quit back to the home page
-	@FXML
-	private void home() {
-		shutdown();
-		new WindowBuilder().switchScene("HomePage", "VarPedia", root.getScene());
-	}
-
-	// Quit the application altogether
-	@FXML
-	private void quit() {
-		timeLabel.getScene().getWindow().hide();
-    	VideoManager.getVideoManager().writeSerializedVideos();
-		shutdown();
-	}
-
-	// Runs upon startup of the scene, sets up any nodes that need to be initialised
-	@FXML
-	private void initialize() {
-		// Set up tooltips
-		setUpHelp();
-		// Set up drop-down selection box for background music
-		setUpMusicSelection();
-	}
-
-	// Populate the drop-down selection box for music
-	private void setUpMusicSelection() {
-		ArrayList<String> musicChoices = new ArrayList<>();
-		musicChoices.add(0,"Mattioli Prelude");
-		musicChoices.add("Piano and Cello");
-		musicChoices.add("Entre Les Murs");
-		musicList.setItems(FXCollections.observableArrayList(musicChoices));
-		musicList.getSelectionModel().select(0);
-	}
-
-	// Create help tooltips
-	private void setUpHelp() {
-		helpMute.setTooltip(new HoverToolTip("Click this to mute the video's voice!").getToolTip());
-
-		helpFor5.setTooltip(new HoverToolTip("Click this to go 5 seconds further into the video!").getToolTip());
-
-		helpBack5.setTooltip(new HoverToolTip("Click this to go 5 seconds back in the video!").getToolTip());
-
-		helpQuit.setTooltip(new HoverToolTip("Click this button to quit the application!").getToolTip());
-
-		helpPlayPause.setTooltip(new HoverToolTip("Click this to play the video if it is paused, or pause the video if it is playing!").getToolTip());
-
-		helpMusicToggle.setTooltip(new HoverToolTip("Click this to turn on some background music (or to turn it off if it is already playing!)").getToolTip());
-
-		helpList.setTooltip(new HoverToolTip("This is where all the videos you can play are listed!").getToolTip());
-
-		helpPlayButton.setTooltip(new HoverToolTip("After choosing a video from the list above by clicking on it, click this button to play that video!").getToolTip());
-
-		helpNext.setTooltip(new HoverToolTip("Click this to play the next video in the list!").getToolTip());
-
-		helpPrev.setTooltip(new HoverToolTip("Click this to play the previous video in the list!").getToolTip());
-
-		helpTextArea.setTooltip(new HoverToolTip("This is where the text you selected for the video that is currently playing shows up so you can read along with the video!").getToolTip());
-
-		helpBack.setTooltip(new HoverToolTip("Click this button to go back to the main menu!").getToolTip());
-
-		helpMusicList.setTooltip(new HoverToolTip("To change the song playing, click this box and then click on the song you want to play in the background. \nMake sure to turn the music off and on again using the toggle button to the right to make the music change!").getToolTip());
-	}
-
-	// Allows user to rate the videos as they watch them
-	private void showRating() {
-		WindowBuilder windowBuilder = new WindowBuilder().noTop("RatingPopup", "Rate the video!");
-		// Pass in video being rated
-		VideoCreation currentVideo = playList.get(playIndex);
-		windowBuilder.stage().setOnHidden(e-> {
-			Integer rating = ((RatingController) windowBuilder.controller()).getRating();
-			if(rating != null) {
-				currentVideo.setRating(rating);
-				System.out.println(VideoManager.getVideoManager().getVideos());
-			}
 		});
 	}
 

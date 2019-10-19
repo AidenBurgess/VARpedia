@@ -21,7 +21,8 @@ import java.util.ArrayList;
  * Controller class for HomePage - is a draggable window
  */
 public class HomeController extends DraggableWindow {
-	
+
+    /***************************** FIELD DECLARATIONS ********************************/
 	// Root of the scene and main nodes
 	@FXML private AnchorPane root;
     @FXML private TableView<VideoCreation> videoTable;
@@ -49,13 +50,18 @@ public class HomeController extends DraggableWindow {
 	// Set up the video manager and the list of videos to review
     private VideoManager videoManager = VideoManager.getVideoManager();
     private ArrayList<VideoCreation> toReview = new ArrayList<>();
+
 	// Set up the threshold rating numbers for the colour coding of videos
     private final int greenRating = 4;
     private final int yellowRating = 2;
     private final int redRating = 0;
+
 	// Set up the column widths for the video table - avoiding magic numbers
     private final int nameAndSearchColWidth = 145;
     private final int columnWidthOther = 94;
+
+
+    /***************************** FXML METHODS ********************************/
 
     @FXML
     private void createVideo() {
@@ -134,19 +140,6 @@ public class HomeController extends DraggableWindow {
         }
     }
 
-    // Refresh the video table with any updates
-    private void updateVideoTable() {
-    	videoTable.getItems().clear();
-    	videoTable.getItems().addAll(videoManager.getVideos());
-	    // Show user how many videos there are available
-    	int num = videoTable.getItems().size();
-    	if (num == 1) numVideoLabel.setText("There is currently " + num + " video!");
-    	else numVideoLabel.setText("There are currently " + num + " videos!");
-	    
-        // When the video table is updated, see if there are any videos in it, and enable/disable buttons accordingly
-        checkVideosExist();
-    }
-
     // Is run first on startup to set up the tableView, videos, and help buttons
     @FXML
     private void initialize() {
@@ -158,7 +151,23 @@ public class HomeController extends DraggableWindow {
         checkVideosExist();
         disableVideoButtons();
     }
-        
+
+
+    /***************************** HELPER METHODS ********************************/
+
+    // Refresh the video table with any updates
+    private void updateVideoTable() {
+        videoTable.getItems().clear();
+        videoTable.getItems().addAll(videoManager.getVideos());
+        // Show user how many videos there are available
+        int num = videoTable.getItems().size();
+        if (num == 1) numVideoLabel.setText("There is currently " + num + " video!");
+        else numVideoLabel.setText("There are currently " + num + " videos!");
+
+        // When the video table is updated, see if there are any videos in it, and enable/disable buttons accordingly
+        checkVideosExist();
+    }
+
     @SuppressWarnings("unchecked")
     private void initTable() {
     	// Setup coloring of rows based on rating
@@ -181,7 +190,6 @@ public class HomeController extends DraggableWindow {
                 }
             }
         });
-      
 	    // Set the colours of the video table's aspects
         videoTable.setStyle("-fx-selection-bar: blue; -fx-selection-bar-non-focused: purple;");
        

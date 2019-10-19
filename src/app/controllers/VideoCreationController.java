@@ -13,8 +13,12 @@ import processes.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller class for the video creation scene - is a draggable window
+ */
 public class VideoCreationController extends DraggableWindow {
 
+    /***************************** FIELD DECLARATIONS ********************************/
 	// Root of scene
 	@FXML private AnchorPane root;
 	
@@ -56,6 +60,9 @@ public class VideoCreationController extends DraggableWindow {
     // Naughty words to be checked for to protect child - set up
     private ArrayList<String> naughtyWords = new ArrayList<>();
 
+
+    /***************************** FXML METHODS ********************************/
+
 	// Search wikipedia for the term specified
     @FXML
     private void searchWiki() {
@@ -77,26 +84,6 @@ public class VideoCreationController extends DraggableWindow {
         currentSearch = searchTerm;
         autoName();
         checkValidCreate();
-    }
-    
-	// Automatically suggest a name for the video creation upon search of wiki - appears in the input field for video name
-    private void autoName() {
-    	int i = 0;
-    	String currentName = currentSearch + i;
-    	System.out.println(videoExists(currentName));
-    	while (videoExists(currentName)){
-    		i++;
-    		currentName = currentSearch + i;
-    	}
-    	videoNameField.setText(currentName);
-    }
-    
-	// Check if a video already exists
-    private boolean videoExists(String name) {
-    	for (VideoCreation v: videoManager.getVideos()) {
-    		if (v.getName().equals(name)) return true;
-    	}
-    	return false;
     }
 
     // Start the video creation process
@@ -131,48 +118,6 @@ public class VideoCreationController extends DraggableWindow {
         // Start actual creation process
         dialog = new DialogBuilder().loading(stackPane, "Creating Video");
     	createAudio();
-    }
-
-    // Convert all text currently displayed in the text list to audio files
-    private void createAudio() {
-        // Find the original voice name
-        String voice = Voice.findVoice(voiceChoiceBox.getSelectionModel().getSelectedItem());
-        // Create audio
-    	Task createAudiosTask = new CreateAudios(textListView.getItems(), voice);
-    	createAudiosTask.setOnSucceeded(e-> {;
-    		stitchAudio((ArrayList<String>) createAudiosTask.getValue());
-    	});
-    	Thread thread = new Thread(createAudiosTask);
-    	thread.start();
-    }
-
-    // Combine input audio files to make one final audio file
-    private void stitchAudio(ArrayList<String> audioFiles) {
-    	Task stitchAudioTask = new StitchAudio(audioFiles);
-    	stitchAudioTask.setOnSucceeded(e-> combineAudioVideo());
-    	Thread thread = new Thread(stitchAudioTask);
-    	thread.start();
-    }
-
-	// Combine text, audio, and video to create the final video creation
-    private void combineAudioVideo() {
-        // Retrieve selected number of images
-        String videoName = videoNameField.getText();
-        Double val = numImages.getValue();
-        String finNumImages = Integer.toString(val.intValue());
-
-        // Create the video, and notify the user when it's done
-        Task<ArrayList<String>> videoCreation = new CreateVideo(currentSearch, finNumImages, videoName);
-        videoCreation.setOnSucceeded(e-> {
-            dialog.close();
-            ArrayList<String> textContent = new ArrayList<>(textListView.getItems());
-            VideoCreation video = new VideoCreation(videoName, currentSearch, (int) numImages.getValue(), textContent);
-            videoManager.add(video);    
-            new DialogBuilder().close(stackPane, "Video Creation Successful!", videoName + " was created.");
-            autoName();
-        });
-        Thread video = new Thread(videoCreation);
-        video.start();
     }
 
     // Take the highlighted section of text from the search and add it as an item to the list of selected text pieces
@@ -247,13 +192,99 @@ public class VideoCreationController extends DraggableWindow {
         naughtyWords.addAll(words);
     }
 
+    @FXML
+    private void checkValidSearch() {
+        // Check search term is valid before allowing the user to press the search button
+        String searchTerm = searchField.getText();
+        if (searchTerm == null || searchTerm.trim().isEmpty()) {
+            searchButton.setDisable(true);
+        } else {
+            searchButton.setDisable(false);
+        }
+    }
+
+    @FXML
+    private void checkValidCreate() {
+        // Check creation name is valid before allowing the user to press the button
+        String videoName = videoNameField.getText();
+        if (videoName == null || videoName.trim().isEmpty() || videoName.contains(" ")) createButton.setDisable(true);
+        else createButton.setDisable(false);
+        // Disable button if creation of that name exists
+        if (videoExists(videoName)) createButton.setDisable(true);
+    }
+
+
+    /***************************** HELPER METHODS ********************************/
+
+    // Automatically suggest a name for the video creation upon search of wiki - appears in the input field for video name
+    private void autoName() {
+        int i = 0;
+        String currentName = currentSearch + i;
+        System.out.println(videoExists(currentName));
+        while (videoExists(currentName)){
+            i++;
+            currentName = currentSearch + i;
+        }
+        videoNameField.setText(currentName);
+    }
+
+    // Check if a video already exists
+    private boolean videoExists(String name) {
+        for (VideoCreation v: videoManager.getVideos()) {
+            if (v.getName().equals(name)) return true;
+        }
+        return false;
+    }
+
+    // Convert all text currently displayed in the text list to audio files
+    private void createAudio() {
+        // Find the original voice name
+        String voice = Voice.findVoice(voiceChoiceBox.getSelectionModel().getSelectedItem());
+        // Create audio
+        Task createAudiosTask = new CreateAudios(textListView.getItems(), voice);
+        createAudiosTask.setOnSucceeded(e-> {;
+            stitchAudio((ArrayList<String>) createAudiosTask.getValue());
+        });
+        Thread thread = new Thread(createAudiosTask);
+        thread.start();
+    }
+
+    // Combine input audio files to make one final audio file
+    private void stitchAudio(ArrayList<String> audioFiles) {
+        Task stitchAudioTask = new StitchAudio(audioFiles);
+        stitchAudioTask.setOnSucceeded(e-> combineAudioVideo());
+        Thread thread = new Thread(stitchAudioTask);
+        thread.start();
+    }
+
+    // Combine text, audio, and video to create the final video creation
+    private void combineAudioVideo() {
+        // Retrieve selected number of images
+        String videoName = videoNameField.getText();
+        Double val = numImages.getValue();
+        String finNumImages = Integer.toString(val.intValue());
+
+        // Create the video, and notify the user when it's done
+        Task<ArrayList<String>> videoCreation = new CreateVideo(currentSearch, finNumImages, videoName);
+        videoCreation.setOnSucceeded(e-> {
+            dialog.close();
+            ArrayList<String> textContent = new ArrayList<>(textListView.getItems());
+            VideoCreation video = new VideoCreation(videoName, currentSearch, (int) numImages.getValue(), textContent);
+            videoManager.add(video);
+            new DialogBuilder().close(stackPane, "Video Creation Successful!", videoName + " was created.");
+            autoName();
+        });
+        Thread video = new Thread(videoCreation);
+        video.start();
+    }
+
     // Refresh the dropdown list of voice options for the video creations
     private void updateVoiceList() {
-    	Task<ArrayList<String>> listVoices = new ListVoices();
-    	listVoices.setOnSucceeded(e -> {
-    		voiceChoiceBox.setItems(FXCollections.observableArrayList(listVoices.getValue()));
-    		voiceChoiceBox.getSelectionModel().select(0);
-    	});
+        Task<ArrayList<String>> listVoices = new ListVoices();
+        listVoices.setOnSucceeded(e -> {
+            voiceChoiceBox.setItems(FXCollections.observableArrayList(listVoices.getValue()));
+            voiceChoiceBox.getSelectionModel().select(0);
+        });
         Thread thread = new Thread(listVoices);
         thread.start();
     }
@@ -281,27 +312,6 @@ public class VideoCreationController extends DraggableWindow {
         helpTextListButton.setTooltip(new HoverToolTip("This is where each bit of text is shown in a list! \nSelect one piece of text by clicking on it!").getToolTip());
 
         helpQuitButton.setTooltip(new HoverToolTip("Click this button to exit the application!").getToolTip());
-    }
-
-    @FXML
-    private void checkValidSearch() {
-        // Check search term is valid before allowing the user to press the search button
-        String searchTerm = searchField.getText();
-        if (searchTerm == null || searchTerm.trim().isEmpty()) {
-            searchButton.setDisable(true);
-        } else {
-            searchButton.setDisable(false);
-        }
-    }
-
-    @FXML
-    private void checkValidCreate() {
-        // Check creation name is valid before allowing the user to press the button
-        String videoName = videoNameField.getText();
-        if (videoName == null || videoName.trim().isEmpty() || videoName.contains(" ")) createButton.setDisable(true);
-        else createButton.setDisable(false);
-        // Disable button if creation of that name exists
-        if (videoExists(videoName)) createButton.setDisable(true);
     }
 
     // return number of words in the input
