@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import processes.*;
@@ -211,6 +212,23 @@ public class VideoCreationController extends DraggableWindow {
     	// Add event handler for selection of listview
     	textListView.getSelectionModel().selectedItemProperty().addListener(e-> {
     		removeButton.setDisable(textListView.getSelectionModel().getSelectedItem() == null);
+    	});
+    	// Allow text wrapping in ListView
+    	textListView.setCellFactory(param -> new ListCell<String>(){
+    		@Override
+    		protected void updateItem(String item, boolean empty) {
+    			super.updateItem(item, empty);
+    			if (empty || item.isEmpty()) {
+    				setText("");
+    				setGraphic(null);
+    				return;
+    			}
+    			setMinWidth(param.getWidth()-2);
+    			setMaxWidth(param.getWidth()-2);
+    			setPrefWidth(param.getWidth()-2);
+    			setWrapText(true);
+    			setText(item.toString());
+    		}
     	});
     	//Voice list
     	updateVoiceList();
