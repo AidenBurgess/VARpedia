@@ -15,12 +15,14 @@
     -fx-blue-accent-color: rgb(120.0,190.0,249.0);
 
     -fx-bg-color: rgb(230.0, 245.0, 250.0);
+    -fx-alt-bg: rgb(215.0, 241.0, 250.0);
+    -fx-alt-gradient: rgb(217.0, 250.0, 230.0);
     -fx-bg-grad-accent-color: rgb(230.0, 250.0, 238.0);
 
 }
 
 .root {
-    -fx-background-color: linear-gradient(to bottom, -fx-bg-color, -fx-bg-grad-accent-color);
+    -fx-background-color: linear-gradient(to bottom, -fx-alt-bg, -fx-alt-gradient);
     -fx-text-fill: rgb(0,0,0);
 }
 

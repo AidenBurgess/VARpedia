@@ -259,21 +259,21 @@ public class HomeController extends DraggableWindow {
      * Add on-hover help messages to the "?" buttons on the HomePage
      */
     private void setUpHelp() {
-        helpTableView.setTooltip(new HoverToolTip("All of your video creations are listed here! Click on a row to select that video. The columns show you: \nthe name of each video; \nthe word you searched to create the video; \nthe number of images the video has in it; \nthe rating out of 5 you gave each video; \nthe number of times you have watched each video.").getToolTip());
+        helpTableView.setTooltip(new HoverToolTip("All of your video creations are listed here! The columns show you: \nthe video's name; \nthe word you searched; \nthe number of images in the video; \nthe rating out of 5 you gave each video; \nthe number of times you have watched each video.").getToolTip());
 
         helpCreateButton.setTooltip(new HoverToolTip("Click this button to start creating a new video! (Opens a new window)").getToolTip());
 
-        helpDeleteButton.setTooltip(new HoverToolTip("After selecting a video from the table by clicking on one of the rows, click this button to delete it!").getToolTip());
+        helpDeleteButton.setTooltip(new HoverToolTip("Click a row to choose a video, then click this button to delete it!").getToolTip());
 
         helpHelp.setTooltip(new HoverToolTip("This is what the hover text will look like!").getToolTip());
 
-        helpPlayButton.setTooltip(new HoverToolTip("After selecting a video from the table by clicking on one of the rows, click this button to play it, and rate it!").getToolTip());
+        helpPlayButton.setTooltip(new HoverToolTip("Click a row to choose a video, then click this button to play it, and rate it!").getToolTip());
 
         helpQuitButton.setTooltip(new HoverToolTip("Click this button to exit the application!").getToolTip());
 
-        helpReviewButton.setTooltip(new HoverToolTip("Click this to watch videos that need to be reviewed based on their ratings, and rate your understanding of each of them!").getToolTip());
+        helpReviewButton.setTooltip(new HoverToolTip("Click this to watch videos that you need to review, and to rate them!").getToolTip());
 
-        helpVarPedia.setTooltip(new HoverToolTip("Welcome! This is VARpedia. \nThis application is made for you to learn new words by letting you create videos about them. \nThese videos will show you images of the word you choose, have a voice saying text about the word to you, and show you the word written down. \nThese videos are saved so you can go back to review words you are unsure about, and rate the different videos you have made based on your understanding of it!").getToolTip());
+        helpVarPedia.setTooltip(new HoverToolTip("Welcome! This is VARpedia. \nThis application is made for you to learn new words by letting you create videos about them with pictures and text!").getToolTip());
     }
 
     /**
