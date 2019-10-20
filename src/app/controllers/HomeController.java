@@ -63,35 +63,48 @@ public class HomeController extends DraggableWindow {
 
     /***************************** FXML METHODS ********************************/
 
+    /**
+     * Open the window that allows the user to create a new video
+     */
     @FXML
     private void createVideo() {
         // Hide current window and switch to video creation scene
     	new WindowBuilder().switchScene("VideoCreation", "Create a Video!", root.getScene());
     }
-    
+
+    /**
+     * Play the video that the user has selected by opening the video player
+     */
     @FXML
     private void playVideo() {
         // Get the video that the user selected
     	VideoCreation videoCreation = (VideoCreation) videoTable.getSelectionModel().getSelectedItem();
+
     	// Launch review window
     	WindowBuilder reviewWindow = new WindowBuilder().switchScene("ReviewPlayer", "Review Videos", root.getScene());
     	ReviewController controller = reviewWindow.loader().getController();
+
     	// Set up the playlist of videos that will be played
     	ArrayList<VideoCreation> playList = new ArrayList<VideoCreation>();
     	playList.add(videoCreation);
     	controller.setPlaylist(playList);
     	controller.setPlaylist(playList);
     }
-    
+
+    /**
+     * Delete the selected video from the file system and table view
+     */
     @FXML
     private void deleteVideo() {
         // Get the video that the user selected
     	VideoCreation videoCreation = (VideoCreation) videoTable.getSelectionModel().getSelectedItem();
+
 	   // Use dialogue to make user confirm deletion of video
     	DialogBuilder confirmDelete = new DialogBuilder();
         JFXButton confirm = confirmDelete.confirm(stackPane, "Deletion Confirmation", "Would you really like to delete " + videoCreation.getName() + "?");
+
+        // Delete the video if confirm was pressed
         confirm.setOnAction( e-> {
-		// Delete the video if confirmed
             Task<ArrayList<String>> task = new DeleteVideo(videoCreation.getName());
             task.setOnSucceeded(event -> {
             	videoManager.delete(videoCreation);
@@ -107,10 +120,14 @@ public class HomeController extends DraggableWindow {
         });
     }
 
+    /**
+     * Set up and show the video player for the user to review videos according to priority (priority is decided by rating)
+     */
     @FXML
     private void reviewVideos() {
     	// Update videos to review
     	updateVideosToReview();
+
     	// Don't launch if there are zero videos
     	if(toReview.isEmpty()) {
     		new DialogBuilder().close(stackPane, "Review Videos", "There are currently no videos to review.");
@@ -123,6 +140,9 @@ public class HomeController extends DraggableWindow {
     	controller.setPlaylist(toReview);
     }
 
+    /**
+     * Quit the application
+     */
     @FXML
     private void quit() {
 	    // Write to video files
@@ -131,6 +151,9 @@ public class HomeController extends DraggableWindow {
     	helpQuitButton.getScene().getWindow().hide();
     }
 
+    /**
+     * Check if the user has selected a video from the table view, and enable or disable the play and delete buttons accordingly.
+     */
     @FXML
     private void checkValidVideo() {
         if (videoTable.getSelectionModel().getSelectedItem() == null) {
@@ -140,7 +163,9 @@ public class HomeController extends DraggableWindow {
         }
     }
 
-    // Is run first on startup to set up the tableView, videos, and help buttons
+    /**
+     * Is run first on startup to set up the tableView, videos, and help buttons
+     */
     @FXML
     private void initialize() {
     	stackPane.setPickOnBounds(false);
@@ -155,7 +180,9 @@ public class HomeController extends DraggableWindow {
 
     /***************************** HELPER METHODS ********************************/
 
-    // Refresh the video table with any updates
+    /**
+     * Refresh the video table with any updates (videos added, deleted, rating changes, etc.)
+     */
     private void updateVideoTable() {
         videoTable.getItems().clear();
         videoTable.getItems().addAll(videoManager.getVideos());
@@ -168,6 +195,9 @@ public class HomeController extends DraggableWindow {
         checkVideosExist();
     }
 
+    /**
+     * Initialise the video table (populate it with any available videos, and set the style)
+     */
     @SuppressWarnings("unchecked")
     private void initTable() {
     	// Setup coloring of rows based on rating
@@ -225,7 +255,9 @@ public class HomeController extends DraggableWindow {
     	numVideoLabel.setText("There are " + videoTable.getItems().size() + " videos");
     }
 
-    // Add on-hover help messages to the "?" buttons
+    /**
+     * Add on-hover help messages to the "?" buttons on the HomePage
+     */
     private void setUpHelp() {
         helpTableView.setTooltip(new HoverToolTip("All of your video creations are listed here! Click on a row to select that video. The columns show you: \nthe name of each video; \nthe word you searched to create the video; \nthe number of images the video has in it; \nthe rating out of 5 you gave each video; \nthe number of times you have watched each video.").getToolTip());
 
@@ -244,7 +276,9 @@ public class HomeController extends DraggableWindow {
         helpVarPedia.setTooltip(new HoverToolTip("Welcome! This is VARpedia. \nThis application is made for you to learn new words by letting you create videos about them. \nThese videos will show you images of the word you choose, have a voice saying text about the word to you, and show you the word written down. \nThese videos are saved so you can go back to review words you are unsure about, and rate the different videos you have made based on your understanding of it!").getToolTip());
     }
 
-	// Update the list of videos that will be prompted to the user to review
+    /**
+     * Update the list of videos that will be prompted to the user to review
+     */
     private void updateVideosToReview() {
     	toReview.clear();
     	reviewNumAlert.setVisible(false);
@@ -281,21 +315,30 @@ public class HomeController extends DraggableWindow {
     	}
     }
 
-    // Shown on startup, present a list of suggested videos for the user to review
+    /**
+     * Create a dialog (shown on startup) that presents a list of suggested videos for the user to review
+     */
     public void remindReview() {
-    	// Dont show dialog if there is nothing to review.
+    	// Don't show dialog if there is nothing to review.
     	if (toReview.size() == 0) return;
     	String body = "";
+
+    	// Print the videos to review to the list
     	for(VideoCreation v: toReview) {
     		body+= v.getName() + "\n";
     	}
+
+    	// Create the dialog
     	new DialogBuilder().close(stackPane, "Review Reminder", body);
     }
 
-    // Disable the play, review, and delete buttons if no videos exist
+    /**
+     * Disable the play, review, and delete buttons if no videos exist
+     */
     private void checkVideosExist() {
         // Get the current number of videos in the table
         int numVideos = videoTable.getItems().size();
+
         // Disable/enable the buttons
         if (numVideos == 0) {
             disableVideoButtons();
@@ -304,6 +347,10 @@ public class HomeController extends DraggableWindow {
         }
     }
 
+    /**
+     * Helper method that disables the play. delete, and review buttons.
+     * Note the review button doesn't get disabled if the video table is populated
+     */
     private void disableVideoButtons() {
         playButton.setDisable(true);
         deleteButton.setDisable(true);
@@ -311,6 +358,9 @@ public class HomeController extends DraggableWindow {
         if (videoTable.getItems().size() != 0) reviewButton.setDisable(false);
     }
 
+    /**
+     * Helper method that enables the play and delete buttons
+     */
     private void enableVideoButtons() {
         playButton.setDisable(false);
         deleteButton.setDisable(false);
