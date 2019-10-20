@@ -42,18 +42,6 @@ public class StitchAudio extends Task<ArrayList<String>> {
     private void stitchAudio() throws Exception {
         // Run the bash script required through a process
         ProcessBuilder pb = new ProcessBuilder().command("bash", "src/scripts/stitchAudio.sh", String.join(" ", audioFiles));
-        Process process = pb.start();
-
-        // Set up a reader for the error stream
-        BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-        String line = null;
-
-        // Print any errors that occur
-        while ((line = stdError.readLine()) != null) {
-            System.out.println(line);
-        }
-
-        return;
-     
+        pb.start();     
     }
 }
