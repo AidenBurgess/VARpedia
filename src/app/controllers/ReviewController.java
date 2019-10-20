@@ -179,11 +179,7 @@ public class ReviewController extends DraggableWindow {
 		musicChoices.add("Entre Les Murs");
 		musicList.setItems(FXCollections.observableArrayList(musicChoices));
 		musicList.getSelectionModel().select(0);
-		musicList.setOnAction(e-> {
-			System.out.println("setonaction called");
-			System.out.println(musicList.getSelectionModel().getSelectedItem());
-			updateMusic();
-		});
+		musicList.setOnAction(e-> updateMusic());
 	}
 
 	// Create help tooltips
