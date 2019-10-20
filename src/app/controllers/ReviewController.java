@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -28,6 +29,9 @@ public class ReviewController extends DraggableWindow {
 	// Root of the scene
 	@FXML private AnchorPane root;
 	
+	// StackPane for dialogs to show up in
+	@FXML private StackPane stackPane;
+
 	// Media player fields with buttons etc.
 	@FXML private MediaView screen;
 	@FXML private Label timeLabel;
@@ -67,8 +71,6 @@ public class ReviewController extends DraggableWindow {
 	private ArrayList<VideoCreation> playList;
 	private VideoCreation currentVideo;
 	private int playIndex = 0;
-
-
 
 	/***************************** FXML METHODS ********************************/
 
@@ -130,15 +132,6 @@ public class ReviewController extends DraggableWindow {
 	private void toggleMusic() {
 		// Turn music on if it's currently off, and off if it's currently on
 		music.setMute(!toggleMusicButton.isSelected());
-
-		// updates current song playing if user changes song while toggle is off
-		if (!toggleMusicButton.isSelected()) {
-			Media audio = getSong();
-			music = new MediaPlayer(audio);
-			music.setAutoPlay(true);
-			music.setMute(true);
-			music.setCycleCount(MediaPlayer.INDEFINITE);
-		}
 	}
 
 	/**
@@ -203,7 +196,6 @@ public class ReviewController extends DraggableWindow {
 		setUpMusicSelection();
 	}
 
-
 	/***************************** HELPER METHODS ********************************/
 
 	/**
@@ -216,6 +208,7 @@ public class ReviewController extends DraggableWindow {
 		musicChoices.add("Entre Les Murs");
 		musicList.setItems(FXCollections.observableArrayList(musicChoices));
 		musicList.getSelectionModel().select(0);
+		musicList.setOnAction(e-> updateMusic());
 	}
 
 	/**
@@ -223,29 +216,17 @@ public class ReviewController extends DraggableWindow {
 	 */
 	private void setUpHelp() {
 		helpMute.setTooltip(new HoverToolTip("Click this to mute the video's voice!").getToolTip());
-
 		helpFor5.setTooltip(new HoverToolTip("Click this to go 5 seconds further into the video!").getToolTip());
-
 		helpBack5.setTooltip(new HoverToolTip("Click this to go 5 seconds back in the video!").getToolTip());
-
 		helpQuit.setTooltip(new HoverToolTip("Click this button to quit the application!").getToolTip());
-
 		helpPlayPause.setTooltip(new HoverToolTip("Click this to play the video if it is paused, or pause the video if it is playing!").getToolTip());
-
 		helpMusicToggle.setTooltip(new HoverToolTip("Click this to turn on some background music (or to turn it off if it is already playing!)").getToolTip());
-
 		helpList.setTooltip(new HoverToolTip("This is where all the videos you can play are listed!").getToolTip());
-
 		helpPlayButton.setTooltip(new HoverToolTip("After choosing a video from the list above by clicking on it, click this button to play that video!").getToolTip());
-
 		helpNext.setTooltip(new HoverToolTip("Click this to play the next video in the list!").getToolTip());
-
 		helpPrev.setTooltip(new HoverToolTip("Click this to play the previous video in the list!").getToolTip());
-
 		helpTextArea.setTooltip(new HoverToolTip("This is where the text you selected for the video that is currently playing shows up so you can read along with the video!").getToolTip());
-
 		helpBack.setTooltip(new HoverToolTip("Click this button to go back to the main menu!").getToolTip());
-
 		helpMusicList.setTooltip(new HoverToolTip("To change the song playing, click this box and then click on the song you want to play in the background. \nMake sure to turn the music off and on again using the toggle button to the right to make the music change!").getToolTip());
 	}
 
@@ -260,8 +241,8 @@ public class ReviewController extends DraggableWindow {
 			Integer rating = ((RatingController) windowBuilder.controller()).getRating();
 			if(rating != null) {
 				currentVideo.setRating(rating);
-				System.out.println(VideoManager.getVideoManager().getVideos());
 			}
+			new DialogBuilder().close(stackPane, "Well Done!", "You just reviewed " + currentVideo.getName() + "!");
 		});
 	}
 
@@ -273,24 +254,24 @@ public class ReviewController extends DraggableWindow {
 		this.playList = playList;
 		for (VideoCreation v: playList) playListView.getItems().add(v.getName());
 		// Setup background music player
-		Media audio = getSong();
-		music = new MediaPlayer(audio);
-		music.setAutoPlay(true);
+		updateSong();
 		music.setMute(true);
-		music.setCycleCount(MediaPlayer.INDEFINITE);
 		// Setup video player
 		setSource();
 	}
 
-	/**
-	 * Get the song that the user selected from the music combo box
-	 * @return the selected song
-	 */
-	private Media getSong() {
+    /**
+     * Get the song that the user selected from the music combo box and update the current song
+     * @return the selected song
+     */
+	private Media updateSong() {
 		String name = musicList.getSelectionModel().getSelectedItem();
 		String realName = Music.findMusic(name);
 		File fileUrl = new File("src/" + realName + ".wav");
 		Media audio = new Media(fileUrl.toURI().toString());
+		music = new MediaPlayer(audio);
+		music.setAutoPlay(true);
+		music.setCycleCount(MediaPlayer.INDEFINITE);
 		return audio;
 	}
 
@@ -393,6 +374,11 @@ public class ReviewController extends DraggableWindow {
 			timeSlider.setMax(player.getTotalDuration().toSeconds());
 			timeSlider.setValue(player.getCurrentTime().toSeconds());
 		});
+	}
+
+	private void updateMusic() {
+		music.dispose();
+		updateSong();
 	}
 
 	/**

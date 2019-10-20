@@ -22,6 +22,8 @@
 .root {
     -fx-background-color: linear-gradient(to bottom, -fx-bg-color, -fx-bg-grad-accent-color);
     -fx-text-fill: rgb(0,0,0);
+    /*-fx-border-radius: 50px;*/
+    -fx-background-radius: 25px;
 }
 
 
