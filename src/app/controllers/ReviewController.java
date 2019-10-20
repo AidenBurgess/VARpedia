@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -27,6 +28,9 @@ public class ReviewController extends DraggableWindow {
 	/***************************** FIELD DECLARATIONS ********************************/
 	// Root of the scene
 	@FXML private AnchorPane root;
+	
+	// StackPane for dialogs to show up in
+	@FXML private StackPane stackPane;
 	
 	// Media player fields with buttons etc.
 	@FXML private MediaView screen;
@@ -209,6 +213,7 @@ public class ReviewController extends DraggableWindow {
 			if(rating != null) {
 				currentVideo.setRating(rating);
 			}
+			new DialogBuilder().close(stackPane, "Well Done!", "You just reviewed " + currentVideo.getName() + "!");
 		});
 	}
 
