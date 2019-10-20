@@ -2,7 +2,6 @@ package app.controllers;
 
 import app.*;
 import com.jfoenix.controls.*;
-
 import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -46,6 +45,10 @@ public class VideoCreationController extends DraggableWindow {
 	// Main function buttons
     @FXML private JFXButton searchButton;
     @FXML private JFXButton createButton;
+    @FXML private JFXButton moveUpButton;
+    @FXML private JFXButton moveDownButton;
+    @FXML private JFXButton addButton;
+    @FXML private JFXButton removeButton;
 	
 	// Dialogue and labels
     @FXML private StackPane stackPane;
@@ -80,6 +83,7 @@ public class VideoCreationController extends DraggableWindow {
         Task<ArrayList<String>> search = new SearchWiki(searchTerm, textArea, stackPane);
         search.setOnSucceeded(e -> {
             dialog.close();
+            updateMoveButtons();
         });
         Thread thread = new Thread(search);
         thread.start();
@@ -98,19 +102,16 @@ public class VideoCreationController extends DraggableWindow {
             new DialogBuilder().close(stackPane, "Invalid Text", "Please add some text to the list.");
             return;
         }
-
         // If the user cheekily entered a different word in the search term box (but didn't click search) and tries to make a video, prevent the user from doing so as this new term will be associated with text from a different search term
         if (!currentSearch.equalsIgnoreCase(searchField.getText())) {
             new DialogBuilder().close(stackPane, "Invalid Text", "Complete this search before making a new video. \nOtherwise, change this new word back to the one you previously searched.");
             return;
         }
-
         // If the user includes a space in the video name, ask them to enter a different video name
         if (videoNameField.getText().contains(" ")) {
             new DialogBuilder().close(stackPane, "Invalid Video Name", "Whoops! You can't have spaces in your video's name- please pick another name.");
             return;
         }
-
         // If the user searched a banned word, say no results were found and allow to retry
         for (String s : naughtyWords) {
             if (searchField.getText().equals(s)) {
@@ -118,7 +119,6 @@ public class VideoCreationController extends DraggableWindow {
                 return;
             }
         }
-
         // Start actual creation process
         dialog = new DialogBuilder().loading(stackPane, "Creating Video");
     	createAudio();
@@ -132,12 +132,13 @@ public class VideoCreationController extends DraggableWindow {
         // Error checking for empty/null selected
         String selectedText = selectedText();
         if (selectedText == null || selectedText.isEmpty()) return;
-        if (countWords(selectedText) > wordLimit) {
+        if (countWords() > wordLimit) {
         	new DialogBuilder().close(stackPane, "Invalid selection", "Please select less than "+ wordLimit +" words");
             return;
         }
         // Add selected as a line in listview
         textListView.getItems().add(selectedText);
+        updateMoveButtons();
     }
 
     /**
@@ -148,6 +149,7 @@ public class VideoCreationController extends DraggableWindow {
         String selected = textListView.getSelectionModel().getSelectedItem();
         if (selected == null) return;
         textListView.getItems().remove(selected);
+        updateMoveButtons();
     }
 
     /**
@@ -200,7 +202,16 @@ public class VideoCreationController extends DraggableWindow {
      */
     @FXML
     private void initialize() {
+    	// Make stackPane transparent
     	stackPane.setPickOnBounds(false);
+    	// Add event handler for selection in textArea
+    	textArea.selectionProperty().addListener(e-> {
+    		addButton.setDisable(countWords() == 0 || countWords() > wordLimit);
+    	});
+    	// Add event handler for selection of listview
+    	textListView.getSelectionModel().selectedItemProperty().addListener(e-> {
+    		removeButton.setDisable(textListView.getSelectionModel().getSelectedItem() == null);
+    	});
     	//Voice list
     	updateVoiceList();
     	// Tooltip setup
@@ -217,11 +228,8 @@ public class VideoCreationController extends DraggableWindow {
     private void checkValidSearch() {
         // Check search term is valid before allowing the user to press the search button
         String searchTerm = searchField.getText();
-        if (searchTerm == null || searchTerm.trim().isEmpty()) {
-            searchButton.setDisable(true);
-        } else {
-            searchButton.setDisable(false);
-        }
+        boolean isInvalid = searchTerm == null || searchTerm.trim().isEmpty();
+        searchButton.setDisable(isInvalid);
     }
 
     /**
@@ -231,10 +239,8 @@ public class VideoCreationController extends DraggableWindow {
     private void checkValidCreate() {
         // Check creation name is valid before allowing the user to press the button
         String videoName = videoNameField.getText();
-        if (videoName == null || videoName.trim().isEmpty() || videoName.contains(" ")) createButton.setDisable(true);
-        else createButton.setDisable(false);
-        // Disable button if creation of that name exists
-        if (videoExists(videoName)) createButton.setDisable(true);
+        boolean isInvalid = videoName == null || videoName.trim().isEmpty() || videoName.contains(" ") || videoExists(videoName);
+        createButton.setDisable(isInvalid);
     }
 
 
@@ -359,11 +365,11 @@ public class VideoCreationController extends DraggableWindow {
      * @param input
      * @return the number of words
      */
-    private int countWords(String input) {
+    private int countWords() {
+    	String input = selectedText();
         if (input == null || input.isEmpty()) {
           return 0;
         }
-
         String[] words = input.split("\\s+");
         return words.length;
       }
@@ -380,6 +386,12 @@ public class VideoCreationController extends DraggableWindow {
     		processedText += woo;
     	}
     	return processedText;
+    }
+    
+    private void updateMoveButtons() {
+        boolean isEmpty = textListView.getItems().size() == 0;
+        moveUpButton.setDisable(isEmpty);
+        moveDownButton.setDisable(isEmpty);
     }
 
 }
