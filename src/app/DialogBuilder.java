@@ -13,10 +13,15 @@ import javafx.scene.text.Text;
 * Helper class used to create different types of dialogues/popups
 */
 public class DialogBuilder {
-	// Set up dialog
+	// Field declarations
 	private JFXDialog dialog;
-	
-	// Set up a dialog with a close button that closes it
+
+    /**
+     * Set up a dialog with a close button that closes it
+     * @param stackPane
+     * @param title
+     * @param body
+     */
 	public void close(StackPane stackPane, String title, String body) {
 		 JFXDialogLayout dialogContent = new JFXDialogLayout();
 		// Set the dialogue's text
@@ -31,8 +36,13 @@ public class DialogBuilder {
          close.setOnAction( e -> dialog.close());
          dialog.show();
 	}
-	
-	// Set up a loading dialog with a gif to show a process is taking place
+
+    /**
+     * Set up a loading dialog with a gif to show a process is taking place
+     * @param stackPane
+     * @param title
+     * @return the dialog created
+     */
 	public JFXDialog loading(StackPane stackPane, String title) {
     	JFXDialogLayout dialogContent = new JFXDialogLayout();
         dialogContent.setHeading(new Text(title));
@@ -43,8 +53,13 @@ public class DialogBuilder {
         dialog.show();
         return dialog;
 	}
-	
-	// Set up a dialog with a cancel button and a confirm button
+
+    /**
+     * Set up a dialog with a cancel button and a confirm button
+     * @param stackPane
+     * @param title
+     * @param body
+     */
 	public JFXButton confirm(StackPane stackPane, String title, String body) {
 		 JFXDialogLayout dialogContent = new JFXDialogLayout();
          dialogContent.setHeading(new Text(title));
@@ -57,8 +72,13 @@ public class DialogBuilder {
          dialog.show();
          return confirm;
 	}
-	
-	// Set up a dialog with a close and review buttons.
+
+    /**
+     * Set up a dialog with a close and review buttons.
+     * @param stackPane
+     * @param title
+     * @param body
+     */
 	public Button reminder(StackPane stackPane, String title, String body) {
 		 JFXDialogLayout dialogContent = new JFXDialogLayout();
 		// Set the dialogue's text
@@ -75,8 +95,10 @@ public class DialogBuilder {
          dialog.show();
          return review;
 	}
-	
-	// Get the created dialog
+
+    /**
+     * @return the created dialog
+     */
 	public JFXDialog dialog() {
 		return dialog;
 	}

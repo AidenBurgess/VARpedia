@@ -28,6 +28,8 @@ public class RatingController extends DraggableWindow {
 	// Labels and help buttons
 	@FXML private Label ratingLabel;
 	@FXML private JFXButton helpRating;
+	@FXML private JFXButton helpConfirm;
+	@FXML private JFXButton helpCancel;
 	
 	// Set up rating
 	private Integer rating;
@@ -35,35 +37,32 @@ public class RatingController extends DraggableWindow {
 	// Set up colour scheme for selected rating star
 	private final String selected = "-fx-fill:rgb(233.0,195.0,248.0);";
 	private final String unselected = "-fx-fill:black;";
-	
-	// Unselect all the stars
-	private void unselectAll() {
-		star1.setStyle(unselected);
-		star2.setStyle(unselected);
-		star3.setStyle(unselected);
-		star4.setStyle(unselected);
-		star5.setStyle(unselected);
-	}
 
 
 	/***************************** FXML METHODS - ENTER  ********************************/
 
-	// If star 1 was selected
+	/**
+	 * If first star was selected, show this on the popup
+	 */
 	@FXML
 	private void star1Enter() {
 		unselectAll();
         star1.setStyle(selected);
 	}
-	
-	// If star 2 was selected
+
+	/**
+	 * If second star was selected, show this on the popup
+	 */
 	@FXML
 	private void star2Enter() {
 		unselectAll();
         star1.setStyle(selected);
         star2.setStyle(selected);
 	}
-	
-	// If star 3 was selected
+
+	/**
+	 * If third star was selected, show this on the popup
+	 */
 	@FXML
 	private void star3Enter() {
 		unselectAll();
@@ -71,8 +70,10 @@ public class RatingController extends DraggableWindow {
         star2.setStyle(selected);
         star3.setStyle(selected);
 	}
-	
-	// If star 4 was selected
+
+	/**
+	 * If fourth star was selected, show this on the popup
+	 */
 	@FXML
 	private void star4Enter() {
 		unselectAll();
@@ -81,8 +82,10 @@ public class RatingController extends DraggableWindow {
         star3.setStyle(selected);
         star4.setStyle(selected);
 	}
-	
-	// If star 5 was selected
+
+	/**
+	 * If fifth star was selected, show this on the popup
+	 */
 	@FXML
 	private void star5Enter() {
 		unselectAll();
@@ -96,27 +99,45 @@ public class RatingController extends DraggableWindow {
 
 	/***************************** FXML METHODS - EXIT ********************************/
 
-	// Unselect all stars regardless of star selected
+	/**
+	 * On exit, unselect all stars
+	 */
 	@FXML
 	private void star1Exit() {
 		unselectAll();
 		if (rating != null) clickPrev();
 	}
+
+	/**
+	 * On exit, unselect all stars
+	 */
 	@FXML
 	private void star2Exit() {
 		unselectAll();
 		if (rating != null) clickPrev();
 	}
+
+	/**
+	 * On exit, unselect all stars
+	 */
 	@FXML
 	private void star3Exit() {
 		unselectAll();
 		if (rating != null) clickPrev();
 	}
+
+	/**
+	 * On exit, unselect all stars
+	 */
 	@FXML
 	private void star4Exit() {
 		unselectAll();
 		if (rating != null) clickPrev();
 	}
+
+	/**
+	 * On exit, unselect all stars
+	 */
 	@FXML
 	private void star5Exit() {
 		unselectAll();
@@ -126,52 +147,76 @@ public class RatingController extends DraggableWindow {
 
 	/***************************** FXML METHODS - CLICK ********************************/
 
-	// Update rating based on which star selected
+	/**
+	 * Update the rating - set it to 1 - based on the first star being clicked
+	 */
 	@FXML
 	private void star1Click() {
 		star1Enter();
 		rating = 1;
         updateRatingLabel();
 	}
+
+	/**
+	 * Update the rating - set it to 2 - based on the second star being clicked
+	 */
 	@FXML
 	private void star2Click() {
 		star2Enter();
 		rating = 2;
         updateRatingLabel();
 	}
+
+	/**
+	 * Update the rating - set it to 3 - based on the third star being clicked
+	 */
 	@FXML
 	private void star3Click() {
 		star3Enter();
 		rating = 3;
         updateRatingLabel();
 	}
+
+	/**
+	 * Update the rating - set it to 4 - based on the fourth star being clicked
+	 */
 	@FXML
 	private void star4Click() {
 		star4Enter();
 		rating = 4;
         updateRatingLabel();
 	}
+
+	/**
+	 * Update the rating - set it to 5 - based on the fifth star being clicked
+	 */
 	@FXML
 	private void star5Click() {
 		star5Enter();
 		rating = 5;
         updateRatingLabel();
 	}
-	
-	// Delete rating and leave rating scene
+
+	/**
+	 * Delete rating and leave rating scene
+	 */
 	@FXML
 	private void cancel() {
 		rating = null;
 		confirm();
 	}
-	
-	// Quit rating scene with new rating
+
+	/**
+	 * Quit rating scene with new rating saved
+	 */
 	@FXML
 	private void confirm() {
 		root.getScene().getWindow().hide();
 	}
 
-	// Set up the tooltips when the scene is opened
+	/**
+	 * Set up tooltips when the window is opened
+	 */
 	@FXML
 	private void initialize() {
 		setUpHelp();
@@ -180,22 +225,46 @@ public class RatingController extends DraggableWindow {
 
 	/***************************** HELPER METHODS ********************************/
 
-	// Getter for user's rating
+	/**
+	 * Unselect all stars on the rating popup
+	 */
+	private void unselectAll() {
+		star1.setStyle(unselected);
+		star2.setStyle(unselected);
+		star3.setStyle(unselected);
+		star4.setStyle(unselected);
+		star5.setStyle(unselected);
+	}
+
+	/**
+	 * Getter for user's rating
+	 * @return the rating as an integer
+	 */
 	public Integer getRating() {
 		return rating;
 	}
 
-	// Set the tooltip's text
+	/**
+	 * Set the tooltip's text
+	 */
 	private void setUpHelp() {
-		helpRating.setTooltip(new HoverToolTip("Click on the stars below to set how well you think you understand the video you just watched. \nThis rating is out of 5, with 5 being you fully understand! \nClick Confirm when you're done, or cancel if you don't want to rate the video!").getToolTip());
+		helpRating.setTooltip(new HoverToolTip("Click on the stars below to rate how well you understood the video. \nThis rating is out of 5, with 5 being you fully understand!").getToolTip());
+
+		helpCancel.setTooltip(new HoverToolTip("Click this if you don't want to rate the video, and go back to the video player!").getToolTip());
+
+		helpConfirm.setTooltip(new HoverToolTip("Click this if you are done with rating the video, and want to save it and go back to the video player!").getToolTip());
 	}
 
-	// Update the rating label with the new rating based on what star was selected
+	/**
+	 * Update the rating label with the new rating based on what star was selected
+	 */
 	private void updateRatingLabel() {
 		ratingLabel.setText("Rating: " + rating);
 	}
 
-	// Show the previous rating for the video as selected stars
+	/**
+	 * Show the previous rating for the video as selected stars on the rating popup
+	 */
 	private void clickPrev() {
 		if(rating == null) return;
 		if (rating.equals(1)) star1Click();

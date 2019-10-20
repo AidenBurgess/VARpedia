@@ -66,7 +66,9 @@ public class VideoCreationController extends DraggableWindow {
 
     /***************************** FXML METHODS ********************************/
 
-	// Search wikipedia for the term specified
+    /**
+     * Search wikipedia for the term specified
+     */
     @FXML
     private void searchWiki() {
         // Retrieve the term to search
@@ -90,7 +92,9 @@ public class VideoCreationController extends DraggableWindow {
         checkValidCreate();
     }
 
-    // Start the video creation process
+    /**
+     * Start the video creation process
+     */
     @FXML
     private void createVideo() {
         // If no text is selected then raise an error
@@ -120,7 +124,9 @@ public class VideoCreationController extends DraggableWindow {
     	createAudio();
     }
 
-    // Take the highlighted section of text from the search and add it as an item to the list of selected text pieces
+    /**
+     * Take the highlighted section of text from the search and add it as an item to the list of selected text pieces
+     */
     @FXML
     private void add() {
         // Error checking for empty/null selected
@@ -135,7 +141,9 @@ public class VideoCreationController extends DraggableWindow {
         updateMoveButtons();
     }
 
-    // Remove a piece of text from the list
+    /**
+     * Remove a piece of text from the list
+     */
     @FXML
     private void remove() {
         String selected = textListView.getSelectionModel().getSelectedItem();
@@ -144,7 +152,9 @@ public class VideoCreationController extends DraggableWindow {
         updateMoveButtons();
     }
 
-    // Swap selected text piece with the piece above it in the list
+    /**
+     * Swap selected text piece with the piece above it in the list
+     */
     @FXML
     private void moveUp() {
         int index= textListView.getSelectionModel().getSelectedIndex();
@@ -156,7 +166,9 @@ public class VideoCreationController extends DraggableWindow {
         textListView.getSelectionModel().select(index-1);;
     }
 
-    // Swap selected text piece with the piece below it in the list
+    /**
+     * Swap selected text piece with the piece below it in the list
+     */
     @FXML
     private void moveDown() {
         int index= textListView.getSelectionModel().getSelectedIndex();
@@ -167,21 +179,27 @@ public class VideoCreationController extends DraggableWindow {
         textListView.getItems().add((index+1), selected);
         textListView.getSelectionModel().select(index+1);;
     }
-    
-	// Go back to the home page
+
+    /**
+     * Go back to the home page
+     */
     @FXML
     private void home() {
 		new WindowBuilder().switchScene("HomePage", "VarPedia", root.getScene());
     }
 
-    // Quit the application altogether
+    /**
+     * Quit the application altogether
+     */
     @FXML
     private void quit() {
     	searchLabel.getScene().getWindow().hide();
     	videoManager.writeSerializedVideos();
     }
 
-    // Sets up the help buttons and voices dropdown on startup
+    /**
+     * Sets up the help buttons and voices dropdown on startup
+     */
     @FXML
     private void initialize() {
     	// Make stackPane transparent
@@ -203,6 +221,9 @@ public class VideoCreationController extends DraggableWindow {
         naughtyWords.addAll(words);
     }
 
+    /**
+     * Check if a search term is valid (it is valid if the search term field is not empty)
+     */
     @FXML
     private void checkValidSearch() {
         // Check search term is valid before allowing the user to press the search button
@@ -211,6 +232,9 @@ public class VideoCreationController extends DraggableWindow {
         searchButton.setDisable(isInvalid);
     }
 
+    /**
+     * Check if the video creation name is valid or not
+     */
     @FXML
     private void checkValidCreate() {
         // Check creation name is valid before allowing the user to press the button
@@ -222,7 +246,9 @@ public class VideoCreationController extends DraggableWindow {
 
     /***************************** HELPER METHODS ********************************/
 
-    // Automatically suggest a name for the video creation upon search of wiki - appears in the input field for video name
+    /**
+     * Automatically suggest a name for the video creation upon search of wiki - appears in the input field for video name
+     */
     private void autoName() {
         int i = 0;
         String currentName = currentSearch + i;
@@ -233,7 +259,11 @@ public class VideoCreationController extends DraggableWindow {
         videoNameField.setText(currentName);
     }
 
-    // Check if a video already exists
+    /**
+     * Check if a video already exists with a certain name
+     * @param name
+     * @return true if such a video exists, and false if it doesn't
+     */
     private boolean videoExists(String name) {
         for (VideoCreation v: videoManager.getVideos()) {
             if (v.getName().equals(name)) return true;
@@ -241,7 +271,9 @@ public class VideoCreationController extends DraggableWindow {
         return false;
     }
 
-    // Convert all text currently displayed in the text list to audio files
+    /**
+     * Convert all text currently displayed in the text list to audio files
+     */
     private void createAudio() {
         // Find the original voice name
         String voice = Voice.findVoice(voiceChoiceBox.getSelectionModel().getSelectedItem());
@@ -254,7 +286,10 @@ public class VideoCreationController extends DraggableWindow {
         thread.start();
     }
 
-    // Combine input audio files to make one final audio file
+    /**
+     * Combine input audio files to make one final audio file
+     * @param audioFiles
+     */
     private void stitchAudio(ArrayList<String> audioFiles) {
         Task stitchAudioTask = new StitchAudio(audioFiles);
         stitchAudioTask.setOnSucceeded(e-> combineAudioVideo());
@@ -262,7 +297,9 @@ public class VideoCreationController extends DraggableWindow {
         thread.start();
     }
 
-    // Combine text, audio, and video to create the final video creation
+    /**
+     * Combine text, audio, and video to create the final video creation
+     */
     private void combineAudioVideo() {
         // Retrieve selected number of images
         String videoName = videoNameField.getText();
@@ -283,7 +320,9 @@ public class VideoCreationController extends DraggableWindow {
         video.start();
     }
 
-    // Refresh the dropdown list of voice options for the video creations
+    /**
+     * Refresh the dropdown list of voice options for the video creations
+     */
     private void updateVoiceList() {
         Task<ArrayList<String>> listVoices = new ListVoices();
         listVoices.setOnSucceeded(e -> {
@@ -294,7 +333,9 @@ public class VideoCreationController extends DraggableWindow {
         thread.start();
     }
 
-    // Add on-hover help messages to the "?" buttons
+    /**
+     * Add on-hover help messages to the "?" buttons
+     */
     private void setUpHelp() {
         helpSearchResultsButton.setTooltip(new HoverToolTip("Your search results will appear here. \nYou can click and drag to select text, add text to the results by typing it in, or delete text you don't want to see!").getToolTip());
 
@@ -319,7 +360,11 @@ public class VideoCreationController extends DraggableWindow {
         helpQuitButton.setTooltip(new HoverToolTip("Click this button to exit the application!").getToolTip());
     }
 
-    // Return number of words in the input
+    /**
+     * Count the number of words in the input
+     * @param input
+     * @return the number of words
+     */
     private int countWords() {
     	String input = selectedText();
         if (input == null || input.isEmpty()) {
@@ -329,7 +374,10 @@ public class VideoCreationController extends DraggableWindow {
         return words.length;
       }
 
-    // Format selected text for use
+    /**
+     * Format the selected text for use
+     * @return the formatted text
+     */
     private String selectedText() {
     	String[] processString = textArea.getSelectedText().split("\t");
     	String processedText = "";
