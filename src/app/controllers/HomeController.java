@@ -322,14 +322,17 @@ public class HomeController extends DraggableWindow {
     	// Don't show dialog if there is nothing to review.
     	if (toReview.size() == 0) return;
     	String body = "";
-
+    	body += "You should take a look at these videos:\n";
     	// Print the videos to review to the list
     	for(VideoCreation v: toReview) {
-    		body+= v.getName() + "\n";
+    		body += v.getName() + "\n";
     	}
 
     	// Create the dialog
-    	new DialogBuilder().close(stackPane, "Review Reminder", body);
+    	Button review = new DialogBuilder().reminder(stackPane, "Review Reminder", body);
+    	review.setOnAction(e-> {
+    		reviewVideos();
+    	});
     }
 
     /**
