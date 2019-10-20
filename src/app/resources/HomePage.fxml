@@ -22,7 +22,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="numVideoLabel" layoutX="56.0" layoutY="466.0" style="-fx-font-family: Ubuntu;" text="There are currently" />
+      <Label fx:id="numVideoLabel" layoutX="37.0" layoutY="478.0" style="-fx-font-family: Ubuntu;" styleClass="subtitle" text="There are currently" />
       <VBox layoutX="672.0" layoutY="119.0" prefHeight="324.0" prefWidth="202.0" spacing="33.0">
          <children>
             <JFXButton fx:id="playButton" buttonType="RAISED" onAction="#playVideo" prefHeight="35.0" prefWidth="270.0" ripplerFill="WHITE" text="Play" textFill="WHITE">
@@ -59,16 +59,16 @@
       <JFXButton fx:id="helpPlayButton" layoutX="862.0" layoutY="107.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
       <JFXButton fx:id="helpReviewButton" layoutX="862.0" layoutY="318.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
       <JFXButton fx:id="helpVarPedia" layoutX="604.0" layoutY="40.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
-      <Label layoutX="56.0" layoutY="82.0" style="-fx-font-family: Ubuntu;" text="Video Creations">
+      <Label layoutX="41.0" layoutY="82.0" styleClass="heading" text="Video Creations">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
       <JFXButton fx:id="helpHelp" layoutX="650.0" layoutY="473.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
       <JFXButton fx:id="helpQuitButton" layoutX="862.0" layoutY="383.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
-      <Label layoutX="285.0" layoutY="476.0" style="-fx-font-size: 16;" text="Music by  Martijn de Boer" />
+      <Label layoutX="321.0" layoutY="478.0" styleClass="subtitle" text="Music by  Martijn de Boer" />
       <JFXButton fx:id="reviewNumAlert" layoutX="660.0" layoutY="318.0" prefHeight="25.0" prefWidth="21.0" styleClass="review-number-button" text="0" />
-      <StackPane fx:id="stackPane" layoutX="368.0" layoutY="199.0" prefHeight="150.0" prefWidth="200.0" />
-      <FontAwesomeIconView glyphName="CREATIVE_COMMONS" layoutX="252.0" layoutY="494.0" wrappingWidth="24.000009432435036" />
+      <StackPane fx:id="stackPane" layoutX="360.0" layoutY="7.0" prefHeight="150.0" prefWidth="200.0" />
+      <FontAwesomeIconView glyphName="CREATIVE_COMMONS" layoutX="289.0" layoutY="496.0" style="-fx-fill: BLACK;" wrappingWidth="24.000009432435036" />
    </children>
 </AnchorPane>
