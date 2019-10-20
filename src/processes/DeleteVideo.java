@@ -39,8 +39,6 @@ public class DeleteVideo extends Task<ArrayList<String>> {
     private void delete() throws Exception {
         // Run bash script to delete the input video file from it's directory
         ProcessBuilder pb = new ProcessBuilder().command("bash", "src/scripts/deleteVideo.sh", video);
-        Process process = pb.start();
-
-        int exitStatus = process.waitFor();
+        pb.start();
     }
 }
