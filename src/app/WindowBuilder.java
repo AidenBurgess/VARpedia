@@ -19,8 +19,6 @@ public class WindowBuilder {
             loader.setLocation(this.getClass().getResource("resources/" + screenName + ".fxml"));
             scene = null;
             scene = new Scene(loader.load());
-            System.out.println(scene.getHeight());
-            System.out.println(scene.getX());
             stage = new Stage();
    		 	stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle(title);

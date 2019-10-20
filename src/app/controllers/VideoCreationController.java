@@ -220,7 +220,6 @@ public class VideoCreationController extends DraggableWindow {
     private void autoName() {
         int i = 0;
         String currentName = currentSearch + i;
-        System.out.println(videoExists(currentName));
         while (videoExists(currentName)){
             i++;
             currentName = currentSearch + i;

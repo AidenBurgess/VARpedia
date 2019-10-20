@@ -230,7 +230,6 @@ public class ReviewController extends DraggableWindow {
 			Integer rating = ((RatingController) windowBuilder.controller()).getRating();
 			if(rating != null) {
 				currentVideo.setRating(rating);
-				System.out.println(VideoManager.getVideoManager().getVideos());
 			}
 		});
 	}
