@@ -2,6 +2,7 @@ package app;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.io.IOException;
@@ -21,6 +22,7 @@ public class WindowBuilder {
             System.out.println(scene.getHeight());
             System.out.println(scene.getX());
             stage = new Stage();
+   		 	stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle(title);
             stage.setResizable(false);
             stage.setScene(scene);
@@ -33,29 +35,6 @@ public class WindowBuilder {
             e.printStackTrace();
             return null;
         }
-
-
-        /*loader = new FXMLLoader();
-        loader.setLocation(this.getClass().getResource("resources/" + screenName + ".fxml"));
-        scene = null;
-        System.out.println("What about here?");
-        try {
-            scene = new Scene(loader.load());
-            System.out.println("Did we make it this far?");
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println(scene.getHeight());
-        System.out.println(scene.getX());
-        stage = new Stage();
-        stage.setTitle(title);
-        stage.setResizable(false);
-        stage.setScene(scene);
-        stage.initStyle(StageStyle.TRANSPARENT);
-    	scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
-        stage.show();
-    	((DraggableWindow) loader.getController()).makeStageDrageable();
-        return this;*/
     }
     
     public WindowBuilder switchScene(String screenName, String title, Scene scene) {
