@@ -376,6 +376,9 @@ public class ReviewController extends DraggableWindow {
 		});
 	}
 
+    /**
+     * Update the current background music playing
+     */
 	private void updateMusic() {
 		music.dispose();
 		updateSong();
