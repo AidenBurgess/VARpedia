@@ -308,12 +308,12 @@ public class HomeController extends DraggableWindow {
         playButton.setDisable(true);
         deleteButton.setDisable(true);
         reviewButton.setDisable(true);
+        if (videoTable.getItems().size() != 0) reviewButton.setDisable(false);
     }
 
     private void enableVideoButtons() {
         playButton.setDisable(false);
         deleteButton.setDisable(false);
-        reviewButton.setDisable(false);
     }
 
 }
