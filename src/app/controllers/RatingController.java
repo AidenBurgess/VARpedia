@@ -28,6 +28,8 @@ public class RatingController extends DraggableWindow {
 	// Labels and help buttons
 	@FXML private Label ratingLabel;
 	@FXML private JFXButton helpRating;
+	@FXML private JFXButton helpConfirm;
+	@FXML private JFXButton helpCancel;
 	
 	// Set up rating
 	private Integer rating;
@@ -246,7 +248,11 @@ public class RatingController extends DraggableWindow {
 	 * Set the tooltip's text
 	 */
 	private void setUpHelp() {
-		helpRating.setTooltip(new HoverToolTip("Click on the stars below to set how well you think you understand the video you just watched. \nThis rating is out of 5, with 5 being you fully understand! \nClick Confirm when you're done, or cancel if you don't want to rate the video!").getToolTip());
+		helpRating.setTooltip(new HoverToolTip("Click on the stars below to rate how well you understood the video. \nThis rating is out of 5, with 5 being you fully understand!").getToolTip());
+
+		helpCancel.setTooltip(new HoverToolTip("Click this if you don't want to rate the video, and go back to the video player!").getToolTip());
+
+		helpConfirm.setTooltip(new HoverToolTip("Click this if you are done with rating the video, and want to save it and go back to the video player!").getToolTip());
 	}
 
 	/**

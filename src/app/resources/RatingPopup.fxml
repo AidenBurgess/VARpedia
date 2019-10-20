@@ -22,5 +22,7 @@
       <JFXButton layoutX="117.0" layoutY="281.0" onAction="#cancel" text="Cancel" />
       <JFXButton layoutX="306.0" layoutY="281.0" onAction="#confirm" text="Confirm" />
       <JFXButton fx:id="helpRating" layoutX="418.0" layoutY="64.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpCancel" layoutX="201.0" layoutY="268.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
+      <JFXButton fx:id="helpConfirm" layoutX="402.0" layoutY="268.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
 </children>
 </AnchorPane>
