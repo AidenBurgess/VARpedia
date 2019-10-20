@@ -15,6 +15,11 @@
 
 <AnchorPane fx:id="root" prefHeight="555.0" prefWidth="1100.0" style="-fx-font-family: Ubuntu;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.VideoCreationController">
    <children>
+      <JFXButton contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" layoutX="1038.0" layoutY="20.0" maxWidth="30.0" onAction="#quit" prefHeight="39.0" prefWidth="40.0" textOverrun="CLIP">
+         <graphic>
+            <MaterialDesignIconView glyphName="WINDOW_CLOSE" translateX="-5.0" wrappingWidth="13.0" />
+         </graphic>
+      </JFXButton>
       <Label fx:id="searchLabel" layoutX="34.0" layoutY="72.0" style="-fx-font-family: Ubuntu;" styleClass="title" text="Search here!">
          <font>
             <Font name="Ubuntu" size="18.0" />
@@ -77,11 +82,6 @@
       <JFXButton fx:id="helpVideoNameButton" layoutX="769.0" layoutY="476.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
       <JFXButton fx:id="helpTextListButton" layoutX="1010.0" layoutY="108.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
       <StackPane fx:id="stackPane" layoutX="450.0" layoutY="12.0" prefHeight="150.0" prefWidth="200.0" />
-      <JFXButton fx:id="quitButton" buttonType="RAISED" layoutX="976.0" layoutY="18.0" onAction="#quit" prefHeight="38.0" prefWidth="102.0" ripplerFill="WHITE" text="Quit" textFill="WHITE">
-         <graphic>
-            <MaterialDesignIconView glyphName="CLOSE" />
-         </graphic>
-      </JFXButton>
       <JFXButton fx:id="helpQuitButton" layoutX="1066.0" layoutY="9.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
       <HBox layoutX="34.0" layoutY="501.0" prefHeight="14.0" prefWidth="490.0" spacing="10.0">
          <children>
