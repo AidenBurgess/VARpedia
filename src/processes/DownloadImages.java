@@ -37,7 +37,10 @@ public class DownloadImages extends Task<ArrayList<String>> {
 		this.numImages = numImages;
 		this.searchTerm = searchTerm;
 	}
-	
+
+	/**
+	 * Runs when the task is started
+	 */
 	@Override
 	protected ArrayList<String> call() {
         try {
@@ -48,7 +51,12 @@ public class DownloadImages extends Task<ArrayList<String>> {
         return null;
     }
 
-    // Flickr requires the use of a key that they give out to users so that only approved users can download images
+	/**
+	 * Flickr requires the use of a key that they give out to users so that only approved users can download images.
+	 * This method finds this key, so that images are only downloaded if the key is valid
+	 * @param key
+	 * @throws Exception
+	 */
 	public String getAPIKey(String key) throws Exception {
 		// Get file that the key is stored in
 		String config = System.getProperty("user.dir") 
@@ -72,14 +80,20 @@ public class DownloadImages extends Task<ArrayList<String>> {
 		throw new RuntimeException("Couldn't find " + key +" in config file "+file.getName());
 	}
 
-	// Actually downloading the images
+	/**
+	 * Using the API key and the number of images (in the DownloadImages object) to download that number of images from Flickr.
+	 * These photos are then saves in the file system for later use.
+	 */
 	public void downloadImages() {
 		try {
+			// Get the keys required to download the images
 			String apiKey = getAPIKey("apiKey");
 			String sharedSecret = getAPIKey("sharedSecret");
 
+			// Use the keys obtained to get access to image downloader
 			Flickr flickr = new Flickr(apiKey, sharedSecret, new REST());
 
+			// Set the number of images to be downloaded
 			int resultsPerPage = Integer.valueOf(numImages);
 			int page = 0;
 

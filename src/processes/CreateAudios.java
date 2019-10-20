@@ -23,6 +23,9 @@ public class CreateAudios extends Task<ArrayList<String>> {
     	this.voice = voice;
     }
 
+    /**
+     * Runs when the task is started
+     */
     @Override
     protected ArrayList<String> call() {
         try {
@@ -33,10 +36,14 @@ public class CreateAudios extends Task<ArrayList<String>> {
         return null;
     }
 
+    /**
+     * Creates a separate audio file from the voice and each piece of text in the CreateAudios object this method is called on
+     * @throws Exception
+     */
     private ArrayList<String> createAudios() throws Exception {
     	ArrayList<String> indiceStrings = new ArrayList<String>();
     	int i = 0;
-    	// Create an audio file for every piece of text selected by the user
+    	// Create an audio file for every piece of text selected by the user by running a separate CreateAudio task for each
         for (String audio: audioText) {
         	Thread thread = new Thread(new CreateAudio(Integer.toString(i), audio, voice));
         	thread.start();

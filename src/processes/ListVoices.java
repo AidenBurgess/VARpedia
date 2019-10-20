@@ -14,6 +14,9 @@ public class ListVoices extends Task<ArrayList<String>> {
     // Field declarations
     private ArrayList<String> out;
 
+    /**
+     * Runs when the task is started
+     */
     @Override
     protected ArrayList<String> call() {
         try {
@@ -29,12 +32,17 @@ public class ListVoices extends Task<ArrayList<String>> {
      * @throws Exception
      */
     private ArrayList<String> listVoices() throws Exception {
+        // Run the bash script required through a process
         ProcessBuilder pb = new ProcessBuilder().command("bash", "src/scripts/listVoices.sh");
         Process process = pb.start();
 
+        // Set up a reader for the output of the process
         BufferedReader stdout = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
+        // Don't do anything else until the process has finished
         int exitStatus = process.waitFor();
+
+        // Output the list of voices obtained from the process
         if (exitStatus == 0) {
             String line;
             ArrayList<String> outputList = new ArrayList<>();
@@ -45,9 +53,8 @@ public class ListVoices extends Task<ArrayList<String>> {
                 i++;
             }
             out = outputList;
-        } else {
-            System.out.println("Error code: " + exitStatus + " occurred");
         }
+
         return out;
     }
 

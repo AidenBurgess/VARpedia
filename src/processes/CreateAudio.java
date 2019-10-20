@@ -26,6 +26,9 @@ public class CreateAudio extends Task<ArrayList<String>> {
         this.voice = voice;
     }
 
+    /**
+     * Runs when the task is started
+     */
     @Override
     protected ArrayList<String> call() {
         try {
@@ -36,6 +39,10 @@ public class CreateAudio extends Task<ArrayList<String>> {
         return null;
     }
 
+    /**
+     * Creates an audio file from a voice and a piece of text obtained from the CreateAudio object
+     * @throws Exception
+     */
     private void createAudio() throws Exception {
         // Run bash script to create audio file from input
         ProcessBuilder pb = new ProcessBuilder().command("bash", "src/scripts/createAudio.sh", videoName, text, voice);

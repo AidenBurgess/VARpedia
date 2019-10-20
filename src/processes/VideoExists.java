@@ -19,6 +19,9 @@ public class VideoExists extends Task<Boolean> {
         this.videoName = videoName;
     }
 
+    /**
+     * Runs when the task is started
+     */
     @Override
     protected Boolean call() {
         return doesExist();
@@ -31,21 +34,27 @@ public class VideoExists extends Task<Boolean> {
      */
     private boolean doesExist() {
         try {
+            // Run the bash script required through a process
             ProcessBuilder pb = new ProcessBuilder().command("bash", "src/scripts/checkExistence.sh", videoName);
             Process process = pb.start();
-            int exitStatus = 0;
-            exitStatus = process.waitFor();
-            System.out.println(exitStatus);
+
+            // Don't do anything else until the process has finished
+            int exitStatus = process.waitFor();
+
+            // If the video exists, print true, else print false
             if (exitStatus == 0) {
                 return false;
             } else {
                 return true;
             }
+
+            // Exception handling
         } catch (InterruptedException | IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 

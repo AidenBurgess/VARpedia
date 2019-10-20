@@ -25,6 +25,9 @@ public class ListVideos extends Task<Integer> {
         this.videoList = videoList;
     }
 
+    /**
+     * Runs when the task is started
+     */
     @Override
     protected Integer call() {
         try {
@@ -41,12 +44,17 @@ public class ListVideos extends Task<Integer> {
      * @throws Exception
      */
     private ArrayList<String> listCreations() throws Exception {
+        // Run the bash script required through a process
         ProcessBuilder pb = new ProcessBuilder().command("bash", "src/scripts/listVideos.sh");
         Process process = pb.start();
 
+        // Set up a reader for the output of the bash script process
         BufferedReader stdout = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
+        // Don't do anything else until the process has finished
         int exitStatus = process.waitFor();
+
+        // If the process was successful, output the list of videos found
         if (exitStatus == 0) {
             String line;
             ArrayList<String> outputList = new ArrayList<>();
@@ -54,14 +62,12 @@ public class ListVideos extends Task<Integer> {
                 outputList.add(line);
             }
             out = outputList;
-        } else {
-            System.out.println("Error code: " + exitStatus + " occurred");
         }
         return null;
     }
 
     /**
-     * Update the GUI if necessary
+     * Updates the graphical user interface if it is necessary after the ListVideos task has completed
      */
     @Override
     protected void done() {

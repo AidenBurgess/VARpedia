@@ -32,6 +32,9 @@ public class SearchWiki extends Task<ArrayList<String>> {
         this.stackPane = stackPane;
     }
 
+    /**
+     * Runs when the task is started
+     */
     @Override
     protected ArrayList<String> call() {
         try {
@@ -43,17 +46,22 @@ public class SearchWiki extends Task<ArrayList<String>> {
     }
 
     /**
-     * Actually search the wiki using a bash script
+     * Actually search the wiki for the term specified in the SearchWiki object, using a bash script
      * @throws Exception
      */
     private ArrayList<String> search() throws Exception {
+        //Run the bash script required through a process
         ProcessBuilder pb = new ProcessBuilder().command("bash", "src/scripts/searchWiki.sh", searchTerm);
         Process process = pb.start();
 
+        // Set up a reader for the output of the process
         BufferedReader stdout = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
+        // Don't do anything until the process has finished
         int exitStatus = process.waitFor();
+
         if (exitStatus == 0) {
+            // If the process finishes successfully, return the text output from the wiki search
             String line;
             ArrayList<String> outputList = new ArrayList<>();
             while ((line = stdout.readLine()) != null) {
@@ -62,15 +70,18 @@ public class SearchWiki extends Task<ArrayList<String>> {
             out = outputList;
             return outputList;
         } else {
+            // if the process wasn't successful, make sure a popup appears notifying the user of this
             Platform.runLater(() -> {
-            	new DialogBuilder().close(stackPane, "Search error", searchTerm + " can not be found!");
+            	new DialogBuilder().close(stackPane, "Search error", "Whoops! " + searchTerm + " can not be found!");
             });
         }
+
         return null;
     }
 
     /**
      * Update the GUI with the output of the wiki search - printing the definition found on it
+     * Done after the task has finished
      */
     @Override
     protected void done() {

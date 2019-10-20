@@ -22,8 +22,11 @@ public class CreateVideo extends Task<ArrayList<String>> {
         this.searchTerm = searchTerm;
         this.numImages = numImages;
         this.videoName = videoName;
-    }	
-    	
+    }
+
+    /**
+     * Runs when the task is started
+     */
     @Override
     protected ArrayList<String> call() {
         try {
@@ -34,6 +37,11 @@ public class CreateVideo extends Task<ArrayList<String>> {
         return null;
     }
 
+    /**
+     * Creates the final video creation from previously made audio files, and an image slideshow that is made in this method.
+     * This runs a task that downloads images from Flickr, then a bash script to create the final video creation.
+     * @throws Exception
+     */
     private void createVideo() throws Exception {
         // Run bash script to make an images directory that stores the image files if it doesn't already exist
     	ProcessBuilder p = new ProcessBuilder().command("bash", "src/scripts/makeImages.sh");

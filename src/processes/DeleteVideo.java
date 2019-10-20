@@ -19,6 +19,9 @@ public class DeleteVideo extends Task<ArrayList<String>> {
         this.video = video;
     }
 
+    /**
+     * Runs when the task is started
+     */
     @Override
     protected ArrayList<String> call() {
         try {
@@ -29,16 +32,15 @@ public class DeleteVideo extends Task<ArrayList<String>> {
         return null;
     }
 
-    // Actually delete the video
+    /**
+     * Uses a bash script to delete the specified video in the DeleteVideo task object from the file system.
+     * @throws Exception
+     */
     private void delete() throws Exception {
         // Run bash script to delete the input video file from it's directory
         ProcessBuilder pb = new ProcessBuilder().command("bash", "src/scripts/deleteVideo.sh", video);
         Process process = pb.start();
 
         int exitStatus = process.waitFor();
-        if (exitStatus == 0) {
-        } else {
-            System.out.println("Error code: " + exitStatus + " occurred");
-        }
     }
 }

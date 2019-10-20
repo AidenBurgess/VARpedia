@@ -22,6 +22,9 @@ public class StitchAudio extends Task<ArrayList<String>> {
         this.audioFiles = audioFiles;
     }
 
+    /**
+     * Runs when the task is started
+     */
     @Override
     protected ArrayList<String> call() {
         try {
@@ -33,24 +36,23 @@ public class StitchAudio extends Task<ArrayList<String>> {
     }
 
     /**
-     * Actuallu combine the audio files using a bash script
+     * Combine specified audio files in the file system using a bash script
      * @throws Exception
      */
     private void stitchAudio() throws Exception {
+        // Run the bash script required through a process
         ProcessBuilder pb = new ProcessBuilder().command("bash", "src/scripts/stitchAudio.sh", String.join(" ", audioFiles));
         Process process = pb.start();
 
-        BufferedReader stdout = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        // Set up a reader for the error stream
         BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-
         String line = null;
-        while ((line = stdout.readLine()) != null) {
-            System.out.println(line);
-        }        
-        line = null;
+
+        // Print any errors that occur
         while ((line = stdError.readLine()) != null) {
             System.out.println(line);
         }
+
         return;
      
     }
