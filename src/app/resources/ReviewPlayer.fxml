@@ -17,7 +17,7 @@
 
 <AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="637.0" prefWidth="1079.0" style="-fx-background-color: transparent;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.ReviewController">
 <children>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="637.0" prefWidth="700.0" style="-fx-background-color: rgb(230.0, 245.0, 250.0);">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="637.0" prefWidth="700.0" styleClass="root">
    <children>
             <JFXButton buttonType="RAISED" ellipsisString="" layoutX="16.0" layoutY="19.0" onAction="#home" prefHeight="38.0" prefWidth="116.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3; -fx-background-radius: 6px;" text="Home" textFill="WHITE" textOverrun="CLIP">
                <graphic>
@@ -78,7 +78,7 @@
             <JFXButton fx:id="helpBack" layoutX="120.0" layoutY="6.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
    </children>
 </AnchorPane>
-      <AnchorPane fx:id="sidePanel" layoutX="717.0" prefHeight="637.0" prefWidth="350.0" style="-fx-background-color: rgb(230.0, 245.0, 250.0);">
+      <AnchorPane fx:id="sidePanel" layoutX="717.0" prefHeight="637.0" prefWidth="350.0" styleClass="root">
          <children>
             <JFXButton contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" layoutX="294.0" layoutY="12.0" maxWidth="30.0" onAction="#quit" prefHeight="39.0" prefWidth="40.0" textOverrun="CLIP">
                <graphic>
