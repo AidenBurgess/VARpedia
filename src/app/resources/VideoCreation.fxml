@@ -15,7 +15,7 @@
 
 <AnchorPane fx:id="root" prefHeight="555.0" prefWidth="1100.0" style="-fx-font-family: Ubuntu;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.VideoCreationController">
    <children>
-      <JFXButton contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" layoutX="1038.0" layoutY="20.0" maxWidth="30.0" onAction="#quit" prefHeight="39.0" prefWidth="40.0" textOverrun="CLIP">
+      <JFXButton buttonType="RAISED" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" layoutX="1038.0" layoutY="20.0" maxWidth="30.0" onAction="#quit" prefHeight="39.0" prefWidth="40.0" textOverrun="CLIP">
          <graphic>
             <MaterialDesignIconView glyphName="WINDOW_CLOSE" translateX="-5.0" wrappingWidth="13.0" />
          </graphic>
@@ -36,21 +36,21 @@
             <MaterialDesignIconView glyphName="MAGNIFY" />
          </graphic></JFXButton>
       <JFXListView fx:id="textListView" layoutX="612.0" layoutY="124.0" prefHeight="331.0" prefWidth="411.0" styleClass="jfx-list-view" />
-      <JFXButton contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" layoutX="550.0" layoutY="226.0" maxWidth="30.0" onAction="#add" prefHeight="39.0" prefWidth="40.0" textOverrun="CLIP">
+      <JFXButton fx:id="addButton" buttonType="RAISED" contentDisplay="CENTER" disable="true" ellipsisString="" graphicTextGap="0.0" layoutX="550.0" layoutY="226.0" maxWidth="30.0" onAction="#add" prefHeight="39.0" prefWidth="40.0" textOverrun="CLIP">
          <graphic>
             <MaterialDesignIconView glyphName="CHEVRON_RIGHT" translateX="-5.0" wrappingWidth="13.0" />
          </graphic>
       </JFXButton>
-      <JFXButton contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" layoutX="550.0" layoutY="302.0" maxWidth="30.0" onAction="#remove" prefHeight="39.0" prefWidth="40.0" textOverrun="CLIP">
+      <JFXButton fx:id="removeButton" buttonType="RAISED" contentDisplay="CENTER" disable="true" ellipsisString="" graphicTextGap="0.0" layoutX="550.0" layoutY="302.0" maxWidth="30.0" onAction="#remove" prefHeight="39.0" prefWidth="40.0" textOverrun="CLIP">
          <graphic>
             <MaterialDesignIconView glyphName="CHEVRON_LEFT" translateX="-5.0" wrappingWidth="13.0" />
          </graphic></JFXButton>
-      <JFXButton contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" layoutX="1038.0" layoutY="230.0" maxWidth="30.0" onAction="#moveUp" prefHeight="39.0" prefWidth="40.0" textOverrun="CLIP">
+      <JFXButton fx:id="moveUpButton" buttonType="RAISED" contentDisplay="CENTER" disable="true" ellipsisString="" graphicTextGap="0.0" layoutX="1038.0" layoutY="230.0" maxWidth="30.0" onAction="#moveUp" prefHeight="39.0" prefWidth="40.0" textOverrun="CLIP">
          <graphic>
             <MaterialDesignIconView glyphName="CHEVRON_UP" translateX="-5.0" wrappingWidth="13.0" />
          </graphic>
       </JFXButton>
-      <JFXButton contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" layoutX="1038.0" layoutY="292.0" maxWidth="30.0" onAction="#moveDown" prefHeight="39.0" prefWidth="40.0" textOverrun="CLIP">
+      <JFXButton fx:id="moveDownButton" buttonType="RAISED" contentDisplay="CENTER" disable="true" ellipsisString="" graphicTextGap="0.0" layoutX="1038.0" layoutY="292.0" maxWidth="30.0" onAction="#moveDown" prefHeight="39.0" prefWidth="40.0" textOverrun="CLIP">
          <graphic>
             <MaterialDesignIconView glyphName="CHEVRON_DOWN" translateX="-5.0" wrappingWidth="13.0" />
          </graphic>
