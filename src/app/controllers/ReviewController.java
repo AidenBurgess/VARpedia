@@ -46,6 +46,7 @@ public class ReviewController extends DraggableWindow {
 	// Icons
 	@FXML private MaterialDesignIconView playIcon;
 	@FXML private MaterialDesignIconView muteIcon;
+	@FXML private MaterialDesignIconView favStar;
 
 	// List of background music
 	@FXML private JFXComboBox<String> musicList;
@@ -64,6 +65,7 @@ public class ReviewController extends DraggableWindow {
 	@FXML private JFXButton helpPlayButton;
 	@FXML private JFXButton helpTextArea;
 	@FXML private JFXButton helpBack;
+	@FXML private JFXButton helpFavStar;
 
 	// Set up media player and playlist
 	private MediaPlayer player;
@@ -71,6 +73,13 @@ public class ReviewController extends DraggableWindow {
 	private ArrayList<VideoCreation> playList;
 	private VideoCreation currentVideo;
 	private int playIndex = 0;
+
+	// Set style for favourite icon
+	private final String selected = "-fx-fill:rgb(233.0,195.0,248.0);";
+	private final String unselected = "-fx-fill:black;";
+
+	// Keep track of whether the video is favourited or not
+	private Boolean favourite;
 
 	/***************************** FXML METHODS ********************************/
 
@@ -166,6 +175,32 @@ public class ReviewController extends DraggableWindow {
 		setSource();
 	}
 
+	@FXML
+	private void favStarEnter() {
+		favStar.setStyle(selected);
+	}
+
+	@FXML
+	private void favStarExit() {
+		favStar.setStyle(unselected);
+		if (favourite) {
+			favStar.setStyle(selected);
+		} else {
+			favStar.setStyle(unselected);
+		}
+	}
+
+	@FXML
+	private void favStarClick() {
+		if (favourite) {
+			favStar.setStyle(unselected);
+			favourite = false;
+		} else {
+			favStar.setStyle(selected);
+			favourite = true;
+		}
+	}
+
 	/**
 	 * Quit back to the home page
 	 */
@@ -228,6 +263,7 @@ public class ReviewController extends DraggableWindow {
 		helpTextArea.setTooltip(new HoverToolTip("This is where the text you selected for the video that is currently playing shows up so you can read along with the video!").getToolTip());
 		helpBack.setTooltip(new HoverToolTip("Click this button to go back to the main menu!").getToolTip());
 		helpMusicList.setTooltip(new HoverToolTip("To change the song playing, click this box and then click on the song you want to play in the background. \nMake sure to turn the music off and on again using the toggle button to the right to make the music change!").getToolTip());
+		helpFavStar.setTooltip(new HoverToolTip("Click this star to add or remove the current video to or from your favourites!").getToolTip());
 	}
 
 	/**
@@ -390,6 +426,10 @@ public class ReviewController extends DraggableWindow {
 	public void shutdown() {
 		player.dispose();
 		music.dispose();
+	}
+
+	public Boolean getFavourite() {
+		return favourite;
 	}
 
 }

@@ -16,6 +16,7 @@ public class VideoCreation implements Serializable {
 	private int numImages;
 	private int rating;
 	private int views;
+	private Boolean favourite;
 	private ArrayList<String> textContent;
 
 	/**
@@ -32,6 +33,7 @@ public class VideoCreation implements Serializable {
 		this.rating = 0;
 		this.views = 0;
 		this.textContent = textContent;
+		this.favourite = false;
 	}
 
 	/**
@@ -92,6 +94,14 @@ public class VideoCreation implements Serializable {
 		this.views++;
 	}
 
+	public void setFavourite() {
+		this.favourite = true;
+	}
+
+	public Boolean getFavourite() {
+		return this.favourite;
+	}
+
 	/**
 	 * @return the text content of the video
 	 */
@@ -105,7 +115,7 @@ public class VideoCreation implements Serializable {
 	@Override
 	public String toString() {
 		return "VideoCreation [name=" + name + ", searchTerm=" + searchTerm + ", numImages=" + numImages + ", rating="
-				+ rating + "]";
+				+ rating + ", is favourite=" + favourite + "]";
 	}
 	
 }
