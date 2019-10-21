@@ -57,8 +57,8 @@ public class HomeController extends DraggableWindow {
     private final int redRating = 0;
 
 	// Set up the column widths for the video table - avoiding magic numbers
-    private final int nameAndSearchColWidth = 138;
-    private final int columnWidthOther = 64;
+    private final int nameAndSearchColWidth = 120;
+    private final int columnWidthOther = 63;
 
 
     /***************************** FXML METHODS ********************************/
@@ -226,7 +226,7 @@ public class HomeController extends DraggableWindow {
 	    // Populate table with columns of parameters of videocreations (Favourite, Name, search term, #images, rating, views)
 	    // Favourite column
         TableColumn<VideoCreation, String> favColumn = new TableColumn<>("Favourite");
-        favColumn.setMinWidth(columnWidthOther);
+        favColumn.setMinWidth(90);
         favColumn.setCellValueFactory(new PropertyValueFactory<>("favourite"));
 
         // Name column
