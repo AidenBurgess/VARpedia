@@ -77,6 +77,8 @@
             <JFXButton fx:id="helpPlayPause" layoutX="338.0" layoutY="498.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
             <JFXButton fx:id="helpBack" layoutX="120.0" layoutY="6.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
             <StackPane fx:id="stackPane" layoutX="281.0" layoutY="-1.0" prefHeight="150.0" prefWidth="200.0" />
+            <MaterialDesignIconView fx:id="favStar" glyphName="STAR_OUTLINE" layoutX="636.0" layoutY="57.0" onMouseClicked="#favStarClick" onMouseEntered="#favStarEnter" onMouseExited="#favStarExit" size="50" styleClass="star-icon" />
+            <JFXButton fx:id="helpFavStar" layoutX="670.0" layoutY="6.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
    </children>
 </AnchorPane>
       <AnchorPane fx:id="sidePanel" layoutX="717.0" prefHeight="637.0" prefWidth="350.0" styleClass="root">
