@@ -11,6 +11,7 @@ public class NaughtyWords {
     // Field declarations
     private String words;
     private List<String> manualWords;
+    private static String[] word = new String[]{"fuck", "shit", "faggot", "damn", "crap", "sex", "fag", "ass", "dick", "pussy"};
 
     /**
      * Constructor allows programmer to set their own list of banned words
@@ -34,7 +35,6 @@ public class NaughtyWords {
      * @return a collection of strings
      */
     public static List<String> getRegularBadWordsList() {
-        String word = "fuck,shit,faggot,damn,crap,sex,fag,ass,dick,pussy,";
-        return Arrays.asList(word.split(","));
+        return Arrays.asList(word);
     }
 }

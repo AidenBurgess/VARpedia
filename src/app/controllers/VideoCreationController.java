@@ -61,9 +61,6 @@ public class VideoCreationController extends DraggableWindow {
     private JFXDialog dialog;
     private VideoManager videoManager = VideoManager.getVideoManager();
 
-    // Naughty words to be checked for to protect child - set up
-    private ArrayList<String> naughtyWords = new ArrayList<>();
-
 
     /***************************** FXML METHODS ********************************/
 
@@ -75,6 +72,13 @@ public class VideoCreationController extends DraggableWindow {
         // Retrieve the term to search
         String searchTerm = searchField.getText();
         if (searchTerm == null || searchTerm.trim().isEmpty()) return;
+
+        for (String s : NaughtyWords.getRegularBadWordsList()) {
+            if (searchTerm.equalsIgnoreCase(s)) {
+                new DialogBuilder().close(stackPane, "Invalid Search Term", "Whoops! No results were found for this word. Please try another one!");
+                return;
+            }
+        }
       
         // Clear the text list of any remaining text from the last search, so no videos can be made with text corresponding to multiple search terms
         textListView.getItems().clear();
@@ -114,9 +118,9 @@ public class VideoCreationController extends DraggableWindow {
             return;
         }
         // If the user searched a banned word, say no results were found and allow to retry
-        for (String s : naughtyWords) {
+        for (String s : NaughtyWords.getRegularBadWordsList()) {
             if (searchField.getText().equals(s)) {
-                new DialogBuilder().close(stackPane, "Invalid Search Term", "Whoops! No results were found for this word. Please try another one!");
+                new DialogBuilder().close(stackPane, "Invalid Search Term", "Whoops! Please pick another name");
                 return;
             }
         }
@@ -234,9 +238,6 @@ public class VideoCreationController extends DraggableWindow {
     	updateVoiceList();
     	// Tooltip setup
     	setUpHelp();
-    	// Naughty words to be checked for to protect child - set up
-        List<String> words = NaughtyWords.getRegularBadWordsList();
-        naughtyWords.addAll(words);
     }
 
     /**
@@ -380,7 +381,6 @@ public class VideoCreationController extends DraggableWindow {
 
     /**
      * Count the number of words in the input
-     * @param input
      * @return the number of words
      */
     private int countWords() {
