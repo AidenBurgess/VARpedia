@@ -57,8 +57,8 @@ public class HomeController extends DraggableWindow {
     private final int redRating = 0;
 
 	// Set up the column widths for the video table - avoiding magic numbers
-    private final int nameAndSearchColWidth = 145;
-    private final int columnWidthOther = 94;
+    private final int nameAndSearchColWidth = 138;
+    private final int columnWidthOther = 64;
 
 
     /***************************** FXML METHODS ********************************/
@@ -223,8 +223,13 @@ public class HomeController extends DraggableWindow {
 	    // Set the colours of the video table's aspects
         videoTable.setStyle("-fx-selection-bar: blue; -fx-selection-bar-non-focused: purple;");
        
-	    // Populate table with columns of parameters of videocreations (Name, search term, #images, rating, views)
-	    // Name column
+	    // Populate table with columns of parameters of videocreations (Favourite, Name, search term, #images, rating, views)
+	    // Favourite column
+        TableColumn<VideoCreation, String> favColumn = new TableColumn<>("Favourite");
+        favColumn.setMinWidth(columnWidthOther);
+        favColumn.setCellValueFactory(new PropertyValueFactory<>("favourite"));
+
+        // Name column
         TableColumn<VideoCreation, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setMinWidth(nameAndSearchColWidth);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -251,7 +256,7 @@ public class HomeController extends DraggableWindow {
 	    
         // Number of videos in the table
         videoTable.getItems().addAll(videoManager.getVideos());
-        videoTable.getColumns().addAll(nameColumn, searchTermColumn, numImagesColumn, ratingColumn, viewsColumn);
+        videoTable.getColumns().addAll(favColumn, nameColumn, searchTermColumn, numImagesColumn, ratingColumn, viewsColumn);
     	numVideoLabel.setText("There are " + videoTable.getItems().size() + " videos");
     }
 

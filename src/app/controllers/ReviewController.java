@@ -182,6 +182,9 @@ public class ReviewController extends DraggableWindow {
 
 	@FXML
 	private void favStarExit() {
+		if (favourite == null) {
+			favourite = false;
+		}
 		favStar.setStyle(unselected);
 		if (favourite) {
 			favStar.setStyle(selected);
@@ -192,6 +195,9 @@ public class ReviewController extends DraggableWindow {
 
 	@FXML
 	private void favStarClick() {
+		if (favourite == null) {
+			favourite = false;
+		}
 		if (favourite) {
 			favStar.setStyle(unselected);
 			favourite = false;

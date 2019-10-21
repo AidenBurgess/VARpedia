@@ -27,13 +27,13 @@ public class VideoCreation implements Serializable {
 	 * @param textContent
 	 */
 	public VideoCreation(String name, String searchTerm, int numImages, ArrayList<String> textContent) {
+		this.favourite = false;
 		this.name = name;
 		this.searchTerm = searchTerm;
 		this.numImages = numImages;
 		this.rating = 0;
 		this.views = 0;
 		this.textContent = textContent;
-		this.favourite = false;
 	}
 
 	/**
