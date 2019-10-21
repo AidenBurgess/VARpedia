@@ -175,11 +175,17 @@ public class ReviewController extends DraggableWindow {
 		setSource();
 	}
 
+	/**
+	 * Show that the style of the icon is selected when user hovers over the icon
+	 */
 	@FXML
 	private void favStarEnter() {
 		favStar.setStyle(selected);
 	}
 
+	/**
+	 * Show that the style of the icon is the state of whether the video is a favourite or not when user stops hovering over the icon
+	 */
 	@FXML
 	private void favStarExit() {
 		if (favourite == null) {
@@ -193,11 +199,11 @@ public class ReviewController extends DraggableWindow {
 		}
 	}
 
+	/**
+	 * Toggle the favourite status of the video when icon clicked
+	 */
 	@FXML
 	private void favStarClick() {
-		if (favourite == null) {
-			favourite = false;
-		}
 		if (favourite) {
 			favStar.setStyle(unselected);
 			favourite = false;
@@ -205,6 +211,7 @@ public class ReviewController extends DraggableWindow {
 			favStar.setStyle(selected);
 			favourite = true;
 		}
+		currentVideo.setFavourite(favourite);
 	}
 
 	/**
@@ -233,6 +240,7 @@ public class ReviewController extends DraggableWindow {
 	private void initialize() {
 		// Set up tooltips
 		setUpHelp();
+
 		// Set up drop-down selection box for background music
 		setUpMusicSelection();
 	}
@@ -250,6 +258,18 @@ public class ReviewController extends DraggableWindow {
 		musicList.setItems(FXCollections.observableArrayList(musicChoices));
 		musicList.getSelectionModel().select(0);
 		musicList.setOnAction(e-> updateMusic());
+	}
+
+	/**
+	 * Checks the current status of the favourite aspect of the currently playing video, and set up the star icon as such
+	 */
+	private void setUpStar() {
+		favourite = currentVideo.getFavourite();
+		if (favourite) {
+			favStar.setStyle(selected);
+		} else {
+			favStar.setStyle(unselected);
+		}
 	}
 
 	/**
@@ -329,6 +349,9 @@ public class ReviewController extends DraggableWindow {
 		// Update stage title to video name
 		Stage currentStage = (Stage) timeLabel.getScene().getWindow();
 		currentStage.setTitle("Currently playing: " + currentVideo.getName());
+
+		// Find out if the video is a favourite and set up the icon as such
+		setUpStar();
 	}
 
 	/**
@@ -359,6 +382,8 @@ public class ReviewController extends DraggableWindow {
 			time += String.format("%02d", (int)newValue.toSeconds()%60);
 			timeLabel.setText(time);
 		});
+		// Find out if the video is a favourite and set up the icon as such
+		setUpStar();
 	}
 
 	/**

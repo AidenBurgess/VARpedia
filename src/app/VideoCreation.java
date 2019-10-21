@@ -94,8 +94,8 @@ public class VideoCreation implements Serializable {
 		this.views++;
 	}
 
-	public void setFavourite() {
-		this.favourite = true;
+	public void setFavourite(Boolean fav) {
+		this.favourite = fav;
 	}
 
 	public Boolean getFavourite() {
