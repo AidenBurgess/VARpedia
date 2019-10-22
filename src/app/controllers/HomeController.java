@@ -60,8 +60,9 @@ public class HomeController extends DraggableWindow {
     private final int redRating = 0;
 
 	// Set up the column widths for the video table - avoiding magic numbers
-    private final int nameAndSearchColWidth = 120;
-    private final int columnWidthOther = 63;
+    private final int nameAndSearchColWidth = 127;
+    private final int columnWidthOther = 72;
+    private final int favouriteColWidth = 90;
 
 
     /***************************** FXML METHODS ********************************/
@@ -230,7 +231,7 @@ public class HomeController extends DraggableWindow {
 	    // Favourite column - Will show a star icon if it is a favourite
         TableColumn<VideoCreation, MaterialDesignIconView> favColumn = new TableColumn<>("Favourite");
         final MaterialDesignIcon imageFav = MaterialDesignIcon.STAR_OUTLINE;
-        favColumn.setMinWidth(90);
+        favColumn.setMinWidth(favouriteColWidth);
         favColumn.setCellValueFactory(c -> {
             VideoCreation favourite = c.getValue();
             return favourite.getFavourite() ? new SimpleObjectProperty<>(new MaterialDesignIconView(imageFav)) : null ;
