@@ -8,6 +8,9 @@ import app.HoverToolTip;
 import app.VideoCreation;
 import app.VideoManager;
 import app.WindowBuilder;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -224,10 +227,14 @@ public class HomeController extends DraggableWindow {
         videoTable.setStyle("-fx-selection-bar: blue; -fx-selection-bar-non-focused: purple;");
        
 	    // Populate table with columns of parameters of videocreations (Favourite, Name, search term, #images, rating, views)
-	    // Favourite column
-        TableColumn<VideoCreation, String> favColumn = new TableColumn<>("Favourite");
+	    // Favourite column - Will show a star icon if it is a favourite
+        TableColumn<VideoCreation, MaterialDesignIconView> favColumn = new TableColumn<>("Favourite");
+        final MaterialDesignIcon imageFav = MaterialDesignIcon.STAR_OUTLINE;
         favColumn.setMinWidth(90);
-        favColumn.setCellValueFactory(new PropertyValueFactory<>("favourite"));
+        favColumn.setCellValueFactory(c -> {
+            VideoCreation favourite = c.getValue();
+            return favourite.getFavourite() ? new SimpleObjectProperty<>(new MaterialDesignIconView(imageFav)) : null ;
+        });
 
         // Name column
         TableColumn<VideoCreation, String> nameColumn = new TableColumn<>("Name");
