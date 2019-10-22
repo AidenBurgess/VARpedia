@@ -12,7 +12,7 @@
     -fx-disabled-text-color: rgba(255,255,255,0.38);
 
     -fx-purple-accent-color: rgb(166.0,71.0,255.0);
-    -fx-blue-accent-color: rgb(120.0,190.0,249.0);
+    -fx-blue-accent-color: #2196F3;
 
     -fx-bg-color: rgb(215.0, 241.0, 250.0);
     -fx-bg-grad-accent-color: rgb(217.0, 250.0, 230.0);
@@ -47,7 +47,7 @@
 /****************** Button ******************/
 
 .jfx-button {
-    -fx-background-color:  #2196F3;
+    -fx-background-color:  -fx-blue-accent-color;
     -fx-text-fill: WHITE;
     -fx-border-radius: 50%;
     -fx-background-radius: 8px;
@@ -133,22 +133,22 @@
 /****************** Slider ******************/
 
 .jfx-slider > .thumb {
-    -fx-background-color: #2196F3;
+    -fx-background-color: -fx-blue-accent-color;
 }
 
 .jfx-slider > .animated-thumb {
-    -fx-background-color: #2196F3;
+    -fx-background-color: -fx-blue-accent-color;
 }
 
 .jfx-slider > .colored-track {
-    -fx-background-color: #2196F3;
+    -fx-background-color: -fx-blue-accent-color;
 }
 
 
 /****************** TableView ******************/
 
 .table-view .column-header {
-    -fx-background-color: #2196F3;
+    -fx-background-color: -fx-blue-accent-color;
     -fx-selection-bar-text: firebrick;
 }
 
@@ -257,5 +257,5 @@
 
 .jfx-toggle-button {
     -jfx-toggle-line-color: #8CC5F5;
-    -jfx-toggle-color: #2196F3;
+    -jfx-toggle-color: -fx-blue-accent-color;
 }
