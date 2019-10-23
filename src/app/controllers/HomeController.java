@@ -242,7 +242,7 @@ public class HomeController extends DraggableWindow {
             }
             imageFav.getStyleClass().add("fav-icon");
             imageFav.setOnMouseClicked(e-> {
-            	favourite.setFavourite(!favourite.getFavourite());
+            	favourite.toggleFavourite();
             	updateVideoTable();
             });
             return new SimpleObjectProperty<>(imageFav);
