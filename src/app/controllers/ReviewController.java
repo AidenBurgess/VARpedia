@@ -91,11 +91,23 @@ public class ReviewController extends DraggableWindow {
 		// Pause
 		if (player.getStatus() == Status.PLAYING) {
 			player.pause();
+			switchPlayIcon();
+			// Play
+		} else {
+			player.play();
+			switchPlayIcon();
+		}
+	}
+	
+	/*
+	 * 
+	 */
+	private void switchPlayIcon() {
+		if (player.getStatus() == Status.PLAYING) {
 			playButton.setText("Play");
 			playIcon.setStyle("-glyph-name:PLAY");
 			// Play
 		} else {
-			player.play();
 			playButton.setText("Pause");
 			playIcon.setStyle("-glyph-name:PAUSE");
 		}
@@ -418,8 +430,14 @@ public class ReviewController extends DraggableWindow {
 				player.seek(player.getTotalDuration().multiply(percent));
 			}
 		});
-		timeSlider.setOnMouseReleased(e-> player.play());
-		timeSlider.setOnDragDropped(e-> player.play());
+		timeSlider.setOnMouseReleased(e->{
+			player.play();
+			switchPlayIcon();
+		});
+		timeSlider.setOnDragDropped(e-> {
+			player.play();
+			switchPlayIcon();
+		});
 
 		// Custom indicator labeling
 		timeSlider.setValueFactory(arg0-> {
