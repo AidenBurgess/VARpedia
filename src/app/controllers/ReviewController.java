@@ -76,9 +76,6 @@ public class ReviewController extends DraggableWindow {
 	private VideoCreation currentVideo;
 	private int playIndex = 0;
 
-	// Keep track of whether the video is favourited or not
-	private boolean favourite;
-
 	/***************************** FXML METHODS ********************************/
 
 	/**
@@ -86,11 +83,9 @@ public class ReviewController extends DraggableWindow {
 	 */
 	@FXML
 	private void playPause() {
-		// Pause
 		if (player.getStatus() == Status.PLAYING) {
 			player.pause();
 			switchPlayIcon();
-			// Play
 		} else {
 			player.play();
 			switchPlayIcon();
@@ -104,7 +99,6 @@ public class ReviewController extends DraggableWindow {
 		if (player.getStatus() == Status.PLAYING) {
 			playButton.setText("Play");
 			playIcon.setStyle("-glyph-name:PLAY");
-			// Play
 		} else {
 			playButton.setText("Pause");
 			playIcon.setStyle("-glyph-name:PAUSE");
@@ -267,10 +261,7 @@ public class ReviewController extends DraggableWindow {
 	 * Checks the current status of the favourite aspect of the currently playing video, and set up the star icon as such
 	 */
 	private void setUpStar() {
-		favourite = currentVideo.getFavourite();
-		System.out.println(favourite);
-		
-		if (favourite) {
+		if (currentVideo.getFavourite()) {
 			favHeart.setIcon(MaterialDesignIcon.HEART);
 		} else {
 			favHeart.setIcon(MaterialDesignIcon.HEART_OUTLINE);
@@ -468,10 +459,6 @@ public class ReviewController extends DraggableWindow {
 	public void shutdown() {
 		player.dispose();
 		music.dispose();
-	}
-
-	public Boolean getFavourite() {
-		return favourite;
 	}
 
 }

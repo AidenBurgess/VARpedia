@@ -26,12 +26,12 @@
          </font>
       </Label>
       <JFXTextArea fx:id="textArea" layoutX="34.0" layoutY="124.0" prefHeight="331.0" prefWidth="490.0" promptText="Search results will appear here... You can edit or add to any text in this box!" style="-fx-font-family: Ubuntu;" />
-      <JFXButton buttonType="RAISED" ellipsisString="" layoutX="34.0" layoutY="20.0" onAction="#home" prefHeight="38.0" prefWidth="116.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3; -fx-background-radius: 6px;" text="Home" textFill="WHITE" textOverrun="CLIP">
+      <JFXButton buttonType="RAISED" ellipsisString="" layoutX="34.0" layoutY="20.0" onAction="#home" prefHeight="38.0" prefWidth="116.0" ripplerFill="WHITE" text="Home" textFill="WHITE" textOverrun="CLIP">
          <graphic>
             <MaterialDesignIconView glyphName="HOME" />
          </graphic></JFXButton>
       <JFXTextField fx:id="searchField" focusColor="#09b6bc" layoutX="247.0" layoutY="70.0" onAction="#searchWiki" onKeyReleased="#checkValidSearch" prefHeight="35.0" prefWidth="141.0" promptText="Search for..." style="-fx-font-family: Ubuntu;" styleClass="jfx-text-area" />
-      <JFXButton fx:id="searchButton" buttonType="RAISED" disable="true" layoutX="405.0" layoutY="68.0" onAction="#searchWiki" prefHeight="38.0" prefWidth="119.0" ripplerFill="WHITE" style="-fx-font-family: Ubuntu; -fx-background-color: #2196F3; -fx-background-radius: 6px;" text="Search" textFill="WHITE" textOverrun="CLIP">
+      <JFXButton fx:id="searchButton" buttonType="RAISED" disable="true" layoutX="405.0" layoutY="68.0" onAction="#searchWiki" prefHeight="38.0" prefWidth="119.0" ripplerFill="WHITE" text="Search" textFill="WHITE" textOverrun="CLIP">
          <graphic>
             <MaterialDesignIconView glyphName="MAGNIFY" />
          </graphic></JFXButton>
@@ -64,7 +64,7 @@
          <children>
             <JFXTextField fx:id="videoNameField" focusColor="#09b6bc" onAction="#createVideo" onKeyReleased="#checkValidCreate" prefHeight="35.0" prefWidth="169.0" promptText="Name your video..." style="-fx-font-family: Ubuntu;" styleClass="jfx-text-area" />
             <JFXComboBox fx:id="voiceChoiceBox" prefHeight="35.0" prefWidth="129.0" />
-            <JFXButton fx:id="createButton" buttonType="RAISED" disable="true" onAction="#createVideo" onKeyReleased="#checkValidCreate" prefHeight="38.0" prefWidth="124.0" ripplerFill="WHITE" style="-fx-background-color: #2196F3; -fx-background-radius: 6px;" text="Create" textFill="WHITE">
+            <JFXButton fx:id="createButton" buttonType="RAISED" disable="true" onAction="#createVideo" onKeyReleased="#checkValidCreate" prefHeight="38.0" prefWidth="124.0" ripplerFill="WHITE" text="Create" textFill="WHITE">
                <graphic>
                   <MaterialDesignIconView glyphName="CONTENT_SAVE" />
                </graphic>
