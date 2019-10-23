@@ -103,47 +103,10 @@ public class RatingController extends DraggableWindow {
 	 * On exit, unselect all stars
 	 */
 	@FXML
-	private void star1Exit() {
+	private void starExit() {
 		unselectAll();
 		if (rating != null) clickPrev();
 	}
-
-	/**
-	 * On exit, unselect all stars
-	 */
-	@FXML
-	private void star2Exit() {
-		unselectAll();
-		if (rating != null) clickPrev();
-	}
-
-	/**
-	 * On exit, unselect all stars
-	 */
-	@FXML
-	private void star3Exit() {
-		unselectAll();
-		if (rating != null) clickPrev();
-	}
-
-	/**
-	 * On exit, unselect all stars
-	 */
-	@FXML
-	private void star4Exit() {
-		unselectAll();
-		if (rating != null) clickPrev();
-	}
-
-	/**
-	 * On exit, unselect all stars
-	 */
-	@FXML
-	private void star5Exit() {
-		unselectAll();
-		if (rating != null) clickPrev();
-	}
-
 
 	/***************************** FXML METHODS - CLICK ********************************/
 

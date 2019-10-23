@@ -81,9 +81,11 @@ public class HomeController extends DraggableWindow {
      */
     @FXML
     private void playVideo() {
+    	
         // Get the video that the user selected
     	VideoCreation videoCreation = (VideoCreation) videoTable.getSelectionModel().getSelectedItem();
-
+    	// Error checking for null video selected
+    	if (videoCreation == null) return;
     	// Launch review window
     	WindowBuilder reviewWindow = new WindowBuilder().switchScene("ReviewPlayer", "Review Videos", root.getScene());
     	ReviewController controller = reviewWindow.loader().getController();
@@ -91,7 +93,6 @@ public class HomeController extends DraggableWindow {
     	// Set up the playlist of videos that will be played
     	ArrayList<VideoCreation> playList = new ArrayList<VideoCreation>();
     	playList.add(videoCreation);
-    	controller.setPlaylist(playList);
     	controller.setPlaylist(playList);
     }
 
