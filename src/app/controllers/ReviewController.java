@@ -76,10 +76,6 @@ public class ReviewController extends DraggableWindow {
 	private VideoCreation currentVideo;
 	private int playIndex = 0;
 
-	// Set style for favourite icon
-//	private final String selected = "-fx-fill:rgb(233.0,195.0,248.0);";
-//	private final String unselected = "-fx-fill:black;";
-
 	// Keep track of whether the video is favourited or not
 	private boolean favourite;
 
