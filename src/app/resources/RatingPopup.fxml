@@ -10,11 +10,11 @@
 <children>
       <HBox layoutX="100.0" layoutY="159.0" prefHeight="36.0" prefWidth="230.0" spacing="20.0">
          <children>
-            <MaterialDesignIconView fx:id="star1" glyphName="STAR_OUTLINE" onMouseClicked="#star1Click" onMouseEntered="#star1Enter" onMouseExited="#star1Exit" size="50" styleClass="star-icon" />
-            <MaterialDesignIconView fx:id="star2" glyphName="STAR_OUTLINE" onMouseClicked="#star2Click" onMouseEntered="#star2Enter" onMouseExited="#star2Exit" size="50" styleClass="star-icon" />
-            <MaterialDesignIconView fx:id="star3" glyphName="STAR_OUTLINE" onMouseClicked="#star3Click" onMouseEntered="#star3Enter" onMouseExited="#star3Exit" size="50" styleClass="star-icon" />
-            <MaterialDesignIconView fx:id="star4" glyphName="STAR_OUTLINE" onMouseClicked="#star4Click" onMouseEntered="#star4Enter" onMouseExited="#star4Exit" size="50" styleClass="star-icon" />
-            <MaterialDesignIconView fx:id="star5" glyphName="STAR_OUTLINE" onMouseClicked="#star5Click" onMouseEntered="#star5Enter" onMouseExited="#star5Exit" size="50" styleClass="star-icon" />
+            <MaterialDesignIconView fx:id="star1" glyphName="STAR_OUTLINE" onMouseClicked="#star1Click" onMouseEntered="#star1Enter" onMouseExited="#starExit" size="50" styleClass="star-icon" />
+            <MaterialDesignIconView fx:id="star2" glyphName="STAR_OUTLINE" onMouseClicked="#star2Click" onMouseEntered="#star2Enter" onMouseExited="#starExit" size="50" styleClass="star-icon" />
+            <MaterialDesignIconView fx:id="star3" glyphName="STAR_OUTLINE" onMouseClicked="#star3Click" onMouseEntered="#star3Enter" onMouseExited="#starExit" size="50" styleClass="star-icon" />
+            <MaterialDesignIconView fx:id="star4" glyphName="STAR_OUTLINE" onMouseClicked="#star4Click" onMouseEntered="#star4Enter" onMouseExited="#starExit" size="50" styleClass="star-icon" />
+            <MaterialDesignIconView fx:id="star5" glyphName="STAR_OUTLINE" onMouseClicked="#star5Click" onMouseEntered="#star5Enter" onMouseExited="#starExit" size="50" styleClass="star-icon" />
          </children>
       </HBox>
       <Label layoutX="100.0" layoutY="41.0" prefHeight="71.0" prefWidth="330.0" styleClass="title" text="Rate your understanding" />
