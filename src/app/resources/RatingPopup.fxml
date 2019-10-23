@@ -18,7 +18,7 @@
          </children>
       </HBox>
       <Label layoutX="100.0" layoutY="41.0" prefHeight="71.0" prefWidth="330.0" styleClass="title" text="Rate your understanding" />
-      <Label fx:id="ratingLabel" layoutX="192.0" layoutY="219.0" prefHeight="46.0" prefWidth="145.0" />
+      <Label fx:id="ratingLabel" layoutX="193.0" layoutY="222.0" prefHeight="46.0" prefWidth="145.0" />
       <JFXButton layoutX="117.0" layoutY="281.0" onAction="#cancel" text="Cancel" />
       <JFXButton layoutX="306.0" layoutY="281.0" onAction="#confirm" text="Confirm" />
       <JFXButton fx:id="helpRating" layoutX="418.0" layoutY="64.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />

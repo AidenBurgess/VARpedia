@@ -15,6 +15,7 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import processes.*;
@@ -29,6 +30,7 @@ public class HomeController extends DraggableWindow {
 	// Root of the scene and main nodes
 	@FXML private AnchorPane root;
     @FXML private TableView<VideoCreation> videoTable;
+    @FXML private ImageView VARLogo;
 
 	// Help "?" Buttons for this scene
     @FXML private JFXButton helpTableView;
