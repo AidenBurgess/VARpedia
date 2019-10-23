@@ -83,11 +83,9 @@ public class ReviewController extends DraggableWindow {
 	 */
 	@FXML
 	private void playPause() {
-		// Pause
 		if (player.getStatus() == Status.PLAYING) {
 			player.pause();
 			switchPlayIcon();
-			// Play
 		} else {
 			player.play();
 			switchPlayIcon();
@@ -101,7 +99,6 @@ public class ReviewController extends DraggableWindow {
 		if (player.getStatus() == Status.PLAYING) {
 			playButton.setText("Play");
 			playIcon.setStyle("-glyph-name:PLAY");
-			// Play
 		} else {
 			playButton.setText("Pause");
 			playIcon.setStyle("-glyph-name:PAUSE");
