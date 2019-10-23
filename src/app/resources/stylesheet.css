@@ -22,7 +22,6 @@
 .root {
     -fx-background-color: linear-gradient(to bottom, -fx-bg-color, -fx-bg-grad-accent-color);
     -fx-text-fill: rgb(0,0,0);
-    /*-fx-border-radius: 50px;*/
     -fx-background-radius: 25px;
 }
 
@@ -41,7 +40,6 @@
 
 .subtitle {
     -fx-font-size: 16px;
-    /*-fx-text-fill: -fx-secondary-text-color;*/
 }
 
 /****************** Button ******************/
@@ -76,11 +74,6 @@
     -fx-text-fill: WHITE;
 }
 
-.review-number-button:hover {
-    -fx-background-color: #f04b48;
-    -fx-text-fill: WHITE;
-}
-
 .jfx-button:hover {
     -fx-background-color: -fx-purple-accent-color;
     -fx-text-fill: WHITE;
@@ -88,6 +81,11 @@
 
 .help-button:hover {
     -fx-background-color: rgb(97.0, 49.0, 143.0);
+    -fx-text-fill: WHITE;
+}
+
+.review-number-button:hover {
+    -fx-background-color: #f04b48;
     -fx-text-fill: WHITE;
 }
 
