@@ -113,7 +113,7 @@ public class HomeController extends DraggableWindow {
             Task<ArrayList<String>> task = new DeleteVideo(videoCreation.getName());
             task.setOnSucceeded(event -> {
             	videoManager.delete(videoCreation);
-		    // Update the video table and confirm that the video was deleted
+            	// Update the video table and confirm that the video was deleted
             	updateVideoTable();
                 updateVideosToReview();
                 disableVideoButtons();
@@ -231,11 +231,21 @@ public class HomeController extends DraggableWindow {
 	    // Populate table with columns of parameters of videocreations (Favourite, Name, search term, #images, rating, views)
 	    // Favourite column - Will show a star icon if it is a favourite
         TableColumn<VideoCreation, MaterialDesignIconView> favColumn = new TableColumn<>("Favourite");
-        final MaterialDesignIcon imageFav = MaterialDesignIcon.STAR_OUTLINE;
         favColumn.setMinWidth(favouriteColWidth);
         favColumn.setCellValueFactory(c -> {
             VideoCreation favourite = c.getValue();
-            return favourite.getFavourite() ? new SimpleObjectProperty<>(new MaterialDesignIconView(imageFav)) : null ;
+            MaterialDesignIconView imageFav;
+            if (favourite.getFavourite()) {
+                imageFav = new MaterialDesignIconView(MaterialDesignIcon.HEART);
+            } else {
+                imageFav = new MaterialDesignIconView(MaterialDesignIcon.HEART_OUTLINE);
+            }
+            imageFav.getStyleClass().add("fav-icon");
+            imageFav.setOnMouseClicked(e-> {
+            	favourite.toggleFavourite();
+            	updateVideoTable();
+            });
+            return new SimpleObjectProperty<>(imageFav);
         });
 
         // Name column

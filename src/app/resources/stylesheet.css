@@ -247,6 +247,16 @@
     -glyph-size: 24px;
 }
 
+.fav-icon {
+	-fx-fill: -fx-blue-accent-color;
+	-glyph-size: 28px;
+}
+
+.fav-icon-lg {
+	-fx-fill: -fx-blue-accent-color;
+	-glyph-size: 50px;
+}
+
 .star-icon {
     -fx-fill: BLACK;
     -glyph-size: 50px;

@@ -16,7 +16,7 @@ public class VideoCreation implements Serializable {
 	private int numImages;
 	private int rating;
 	private int views;
-	private Boolean favourite;
+	private boolean favourite;
 	private ArrayList<String> textContent;
 
 	/**
@@ -94,12 +94,17 @@ public class VideoCreation implements Serializable {
 		this.views++;
 	}
 
-	public void setFavourite(Boolean fav) {
+	public void setFavourite(boolean fav) {
 		this.favourite = fav;
 	}
 
-	public Boolean getFavourite() {
+	public boolean getFavourite() {
 		return this.favourite;
+	}
+	
+	public boolean toggleFavourite() {
+		favourite = !favourite;
+		return favourite;
 	}
 
 	/**

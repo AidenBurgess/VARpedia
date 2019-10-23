@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import app.*;
 import com.jfoenix.controls.*;
+
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -46,7 +48,7 @@ public class ReviewController extends DraggableWindow {
 	// Icons
 	@FXML private MaterialDesignIconView playIcon;
 	@FXML private MaterialDesignIconView muteIcon;
-	@FXML private MaterialDesignIconView favStar;
+	@FXML private MaterialDesignIconView favHeart;
 
 	// List of background music
 	@FXML private JFXComboBox<String> musicList;
@@ -65,7 +67,7 @@ public class ReviewController extends DraggableWindow {
 	@FXML private JFXButton helpPlayButton;
 	@FXML private JFXButton helpTextArea;
 	@FXML private JFXButton helpBack;
-	@FXML private JFXButton helpFavStar;
+	@FXML private JFXButton helpFavHeart;
 
 	// Set up media player and playlist
 	private MediaPlayer player;
@@ -75,11 +77,11 @@ public class ReviewController extends DraggableWindow {
 	private int playIndex = 0;
 
 	// Set style for favourite icon
-	private final String selected = "-fx-fill:rgb(233.0,195.0,248.0);";
-	private final String unselected = "-fx-fill:black;";
+//	private final String selected = "-fx-fill:rgb(233.0,195.0,248.0);";
+//	private final String unselected = "-fx-fill:black;";
 
 	// Keep track of whether the video is favourited or not
-	private Boolean favourite;
+	private boolean favourite;
 
 	/***************************** FXML METHODS ********************************/
 
@@ -191,23 +193,19 @@ public class ReviewController extends DraggableWindow {
 	 * Show that the style of the icon is selected when user hovers over the icon
 	 */
 	@FXML
-	private void favStarEnter() {
-		favStar.setStyle(selected);
+	private void favEnter() {
+		favHeart.setIcon(MaterialDesignIcon.HEART);
 	}
 
 	/**
 	 * Show that the style of the icon is the state of whether the video is a favourite or not when user stops hovering over the icon
 	 */
 	@FXML
-	private void favStarExit() {
-		if (favourite == null) {
-			favourite = false;
-		}
-		favStar.setStyle(unselected);
-		if (favourite) {
-			favStar.setStyle(selected);
+	private void favExit() {
+		if (currentVideo.getFavourite()) {
+			favHeart.setIcon(MaterialDesignIcon.HEART);
 		} else {
-			favStar.setStyle(unselected);
+			favHeart.setIcon(MaterialDesignIcon.HEART_OUTLINE);
 		}
 	}
 
@@ -215,15 +213,12 @@ public class ReviewController extends DraggableWindow {
 	 * Toggle the favourite status of the video when icon clicked
 	 */
 	@FXML
-	private void favStarClick() {
-		if (favourite) {
-			favStar.setStyle(unselected);
-			favourite = false;
+	private void favClick() {
+		if (currentVideo.toggleFavourite()) {
+			favHeart.setIcon(MaterialDesignIcon.HEART);
 		} else {
-			favStar.setStyle(selected);
-			favourite = true;
+			favHeart.setIcon(MaterialDesignIcon.HEART_OUTLINE);
 		}
-		currentVideo.setFavourite(favourite);
 	}
 
 	/**
@@ -277,10 +272,12 @@ public class ReviewController extends DraggableWindow {
 	 */
 	private void setUpStar() {
 		favourite = currentVideo.getFavourite();
+		System.out.println(favourite);
+		
 		if (favourite) {
-			favStar.setStyle(selected);
+			favHeart.setIcon(MaterialDesignIcon.HEART);
 		} else {
-			favStar.setStyle(unselected);
+			favHeart.setIcon(MaterialDesignIcon.HEART_OUTLINE);
 		}
 	}
 
@@ -301,7 +298,7 @@ public class ReviewController extends DraggableWindow {
 		helpTextArea.setTooltip(new HoverToolTip("This is where the text you selected for the video that is currently playing shows up so you can read along with the video!").getToolTip());
 		helpBack.setTooltip(new HoverToolTip("Click this button to go back to the main menu!").getToolTip());
 		helpMusicList.setTooltip(new HoverToolTip("To change the song playing, click this box and then click on the song you want to play in the background. \nMake sure to turn the music off and on again using the toggle button to the right to make the music change!").getToolTip());
-		helpFavStar.setTooltip(new HoverToolTip("Click this star to add or remove the current video to or from your favourites!").getToolTip());
+		helpFavHeart.setTooltip(new HoverToolTip("Click this star to add or remove the current video to or from your favourites!").getToolTip());
 	}
 
 	/**
