@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="604.0" prefWidth="927.0" style="-fx-font-family: Ubuntu;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.HomeController">
+<AnchorPane fx:id="root" prefHeight="610.0" prefWidth="927.0" style="-fx-font-family: Ubuntu;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.HomeController">
    <children>
       <Label layoutX="543.0" layoutY="554.0" style="-fx-font-family: Ubuntu;" text="Hover over a          button to find out more!">
          <font>
@@ -55,7 +55,6 @@
       <JFXButton fx:id="helpCreateButton" layoutX="864.0" layoutY="317.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
       <JFXButton fx:id="helpPlayButton" layoutX="864.0" layoutY="181.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
       <JFXButton fx:id="helpReviewButton" layoutX="864.0" layoutY="392.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
-      <JFXButton fx:id="helpVarPedia" layoutX="703.0" layoutY="34.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
       <Label layoutX="38.0" layoutY="155.0" styleClass="heading" text="Video Creations">
          <font>
             <Font size="18.0" />
@@ -66,11 +65,12 @@
       <Label layoutX="323.0" layoutY="555.0" styleClass="subtitle" text="Music by  Martijn de Boer" />
       <JFXButton fx:id="reviewNumAlert" layoutX="662.0" layoutY="392.0" prefHeight="25.0" prefWidth="21.0" styleClass="review-number-button" text="0" />
       <FontAwesomeIconView glyphName="CREATIVE_COMMONS" layoutX="291.0" layoutY="573.0" style="-fx-fill: BLACK;" wrappingWidth="24.000009432435036" />
-      <ImageView fx:id="VARLogo" fitHeight="129.0" fitWidth="598.0" layoutX="165.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="VARLogo" fitHeight="132.0" fitWidth="620.0" layoutX="154.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@varTitle5.png" />
          </image>
       </ImageView>
+      <JFXButton fx:id="helpVarPedia" layoutX="714.0" layoutY="32.0" prefHeight="25.0" prefWidth="21.0" styleClass="help-button" text="?" />
       <StackPane fx:id="stackPane" layoutX="364.0" layoutY="6.0" prefHeight="150.0" prefWidth="200.0" />
    </children>
 </AnchorPane>
