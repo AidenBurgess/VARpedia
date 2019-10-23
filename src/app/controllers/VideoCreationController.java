@@ -126,6 +126,7 @@ public class VideoCreationController extends DraggableWindow {
         }
         // Start actual creation process
         dialog = new DialogBuilder().loading(stackPane, "Creating Video");
+        createButton.setDisable(true);
     	createAudio();
     }
 
@@ -333,6 +334,7 @@ public class VideoCreationController extends DraggableWindow {
             VideoCreation video = new VideoCreation(videoName, currentSearch, (int) numImages.getValue(), textContent);
             videoManager.add(video);
             new DialogBuilder().close(stackPane, "Video Creation Successful!", videoName + " was created.");
+            createButton.setDisable(false);
             autoName();
         });
         Thread video = new Thread(videoCreation);
