@@ -286,19 +286,12 @@ public class HomeController extends DraggableWindow {
      */
     private void setUpHelp() {
         helpTableView.setTooltip(new HoverToolTip("All of your video creations are listed here! The columns show you: \nif the video is a favourite; \nthe video's name; \nthe word you searched; \nthe number of images in the video; \nthe rating out of 5 you gave each video; \nthe number of times you have watched each video.").getToolTip());
-
         helpCreateButton.setTooltip(new HoverToolTip("Click this button to start creating a new video! (Opens a new window)").getToolTip());
-
         helpDeleteButton.setTooltip(new HoverToolTip("Click a row to choose a video, then click this button to delete it!").getToolTip());
-
         helpHelp.setTooltip(new HoverToolTip("This is what the hover text will look like!").getToolTip());
-
         helpPlayButton.setTooltip(new HoverToolTip("Click a row to choose a video, then click this button to play it, and rate it or add it to your favourites!").getToolTip());
-
         helpQuitButton.setTooltip(new HoverToolTip("Click this button to exit the application!").getToolTip());
-
         helpReviewButton.setTooltip(new HoverToolTip("Click this to watch videos that you need to review, and to rate them or add them to your favourites!").getToolTip());
-
         helpVarPedia.setTooltip(new HoverToolTip("Welcome! This is VARpedia. \nThis application is made for you to learn new words by letting you create videos about them with pictures and text!").getToolTip());
     }
 

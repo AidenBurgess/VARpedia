@@ -212,9 +212,7 @@ public class RatingController extends DraggableWindow {
 	 */
 	private void setUpHelp() {
 		helpRating.setTooltip(new HoverToolTip("Click on the stars below to rate how well you understood the video. \nThis rating is out of 5, with 5 being you fully understand!").getToolTip());
-
 		helpCancel.setTooltip(new HoverToolTip("Click this if you don't want to rate the video, and go back to the video player!").getToolTip());
-
 		helpConfirm.setTooltip(new HoverToolTip("Click this if you are done with rating the video, and want to save it and go back to the video player!").getToolTip());
 	}
 
