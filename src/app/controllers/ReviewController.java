@@ -2,10 +2,8 @@ package app.controllers;
 
 import java.io.File;
 import java.util.ArrayList;
-
 import app.*;
 import com.jfoenix.controls.*;
-
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.application.Platform;
@@ -313,7 +311,6 @@ public class ReviewController extends DraggableWindow {
 		for (VideoCreation v: playList) playListView.getItems().add(v.getName());
 		// Setup background music player
 		updateSong();
-		music.setMute(true);
 		// Setup video player
 		setSource();
 	}
@@ -329,6 +326,7 @@ public class ReviewController extends DraggableWindow {
 		Media audio = new Media(fileUrl.toURI().toString());
 		music = new MediaPlayer(audio);
 		music.setAutoPlay(true);
+		music.setMute(!toggleMusicButton.isSelected());
 		music.setCycleCount(MediaPlayer.INDEFINITE);
 		return audio;
 	}
