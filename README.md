@@ -18,6 +18,7 @@ You can choose to either play specific videos through selecting a video from the
 ## Libraries
 * [FontAwesomeFX](https://bitbucket.org/Jerady/fontawesomefx/src/master/)
 * [JFoenix](http://www.jfoenix.com/documentation.html)
+* [Flickr4Java](https://github.com/boncey/Flickr4Java)
 
 ## Code snippets
 * [SetRowFactory - Joe Almore](https://stackoverflow.com/questions/30889732/javafx-tableview-change-row-color-based-on-column-value)
@@ -31,5 +32,3 @@ You can choose to either play specific videos through selecting a video from the
 * [Mattioli Prelude by Martijn de Boer](http://dig.ccmixter.org/files/NiGiD/50958)
 
 ## Jar Files
-
-## Images
