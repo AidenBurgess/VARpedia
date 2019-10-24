@@ -19,6 +19,8 @@ You can choose to either play specific videos through selecting a video from the
 * [FontAwesomeFX](https://bitbucket.org/Jerady/fontawesomefx/src/master/)
 * [JFoenix](http://www.jfoenix.com/documentation.html)
 * [Flickr4Java](https://github.com/boncey/Flickr4Java)
+* [SLF4J - dependency for Flickr4Java](http://www.slf4j.org/)
+* [scribejava - dependency for Flickr4Java](https://github.com/scribejava/scribejava)
 
 ## Code snippets
 * [SetRowFactory - Joe Almore](https://stackoverflow.com/questions/30889732/javafx-tableview-change-row-color-based-on-column-value)
