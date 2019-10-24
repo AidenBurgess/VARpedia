@@ -231,7 +231,7 @@ public class HomeController extends DraggableWindow {
         videoTable.setStyle("-fx-selection-bar: blue; -fx-selection-bar-non-focused: purple;");
        
 	    // Populate table with columns of parameters of videocreations (Favourite, Name, search term, #images, rating, views)
-	    // Favourite column - Will show a star icon if it is a favourite
+	    // Favourite column - Will show a heart icon if it is a favourite
         TableColumn<VideoCreation, MaterialDesignIconView> favColumn = new TableColumn<>("Favourite");
         favColumn.setMinWidth(favouriteColWidth);
         favColumn.setCellValueFactory(c -> {

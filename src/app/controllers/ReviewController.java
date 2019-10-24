@@ -92,8 +92,8 @@ public class ReviewController extends DraggableWindow {
 		}
 	}
 	
-	/*
-	 * 
+	/**
+	 *  Switch the play/pause icons depending on whether the video is playing or not
 	 */
 	private void switchPlayIcon() {
 		if (player.getStatus() == Status.PLAYING) {
