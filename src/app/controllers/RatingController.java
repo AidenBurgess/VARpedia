@@ -1,5 +1,6 @@
 package app.controllers;
 
+import app.controllers.helpers.RatingControllerHelper;
 import com.jfoenix.controls.JFXButton;
 
 import app.DraggableWindow;
@@ -38,6 +39,9 @@ public class RatingController extends DraggableWindow {
 	private final String selected = "-fx-fill:rgb(233.0,195.0,248.0);";
 	private final String unselected = "-fx-fill:black;";
 
+	// Set up helper object to gain access to helper methods for this class
+	private RatingControllerHelper helper = new RatingControllerHelper(this);
+
 
 	/***************************** FXML METHODS - ENTER  ********************************/
 
@@ -46,7 +50,7 @@ public class RatingController extends DraggableWindow {
 	 */
 	@FXML
 	private void star1Enter() {
-		unselectAll();
+		helper.unselectAll(star1, star2, star3, star4, star5);
         star1.setStyle(selected);
 	}
 
@@ -55,7 +59,7 @@ public class RatingController extends DraggableWindow {
 	 */
 	@FXML
 	private void star2Enter() {
-		unselectAll();
+		helper.unselectAll(star1, star2, star3, star4, star5);
         star1.setStyle(selected);
         star2.setStyle(selected);
 	}
@@ -65,7 +69,7 @@ public class RatingController extends DraggableWindow {
 	 */
 	@FXML
 	private void star3Enter() {
-		unselectAll();
+		helper.unselectAll(star1, star2, star3, star4, star5);
         star1.setStyle(selected);
         star2.setStyle(selected);
         star3.setStyle(selected);
@@ -76,7 +80,7 @@ public class RatingController extends DraggableWindow {
 	 */
 	@FXML
 	private void star4Enter() {
-		unselectAll();
+		helper.unselectAll(star1, star2, star3, star4, star5);
         star1.setStyle(selected);
         star2.setStyle(selected);
         star3.setStyle(selected);
@@ -88,7 +92,7 @@ public class RatingController extends DraggableWindow {
 	 */
 	@FXML
 	private void star5Enter() {
-		unselectAll();
+		helper.unselectAll(star1, star2, star3, star4, star5);
         star1.setStyle(selected);
         star2.setStyle(selected);
         star3.setStyle(selected);
@@ -104,8 +108,8 @@ public class RatingController extends DraggableWindow {
 	 */
 	@FXML
 	private void starExit() {
-		unselectAll();
-		if (rating != null) clickPrev();
+		helper.unselectAll(star1, star2, star3, star4, star5);
+		if (rating != null) helper.clickPrev(rating);
 	}
 
 	/***************************** FXML METHODS - CLICK ********************************/
@@ -114,50 +118,50 @@ public class RatingController extends DraggableWindow {
 	 * Update the rating - set it to 1 - based on the first star being clicked
 	 */
 	@FXML
-	private void star1Click() {
+	public void star1Click() {
 		star1Enter();
 		rating = 1;
-        updateRatingLabel();
+        helper.updateRatingLabel(ratingLabel, rating);
 	}
 
 	/**
 	 * Update the rating - set it to 2 - based on the second star being clicked
 	 */
 	@FXML
-	private void star2Click() {
+	public void star2Click() {
 		star2Enter();
 		rating = 2;
-        updateRatingLabel();
+		helper.updateRatingLabel(ratingLabel, rating);
 	}
 
 	/**
 	 * Update the rating - set it to 3 - based on the third star being clicked
 	 */
 	@FXML
-	private void star3Click() {
+	public void star3Click() {
 		star3Enter();
 		rating = 3;
-        updateRatingLabel();
+		helper.updateRatingLabel(ratingLabel, rating);
 	}
 
 	/**
 	 * Update the rating - set it to 4 - based on the fourth star being clicked
 	 */
 	@FXML
-	private void star4Click() {
+	public void star4Click() {
 		star4Enter();
 		rating = 4;
-        updateRatingLabel();
+		helper.updateRatingLabel(ratingLabel, rating);
 	}
 
 	/**
 	 * Update the rating - set it to 5 - based on the fifth star being clicked
 	 */
 	@FXML
-	private void star5Click() {
+	public void star5Click() {
 		star5Enter();
 		rating = 5;
-        updateRatingLabel();
+		helper.updateRatingLabel(ratingLabel, rating);
 	}
 
 	/**
@@ -185,20 +189,6 @@ public class RatingController extends DraggableWindow {
 		setUpHelp();
 	}
 
-
-	/***************************** HELPER METHODS ********************************/
-
-	/**
-	 * Unselect all stars on the rating popup
-	 */
-	private void unselectAll() {
-		star1.setStyle(unselected);
-		star2.setStyle(unselected);
-		star3.setStyle(unselected);
-		star4.setStyle(unselected);
-		star5.setStyle(unselected);
-	}
-
 	/**
 	 * Getter for user's rating
 	 * @return the rating as an integer
@@ -214,25 +204,6 @@ public class RatingController extends DraggableWindow {
 		helpRating.setTooltip(new HoverToolTip("Click on the stars below to rate how well you understood the video. \nThis rating is out of 5, with 5 being you fully understand!").getToolTip());
 		helpCancel.setTooltip(new HoverToolTip("Click this if you don't want to rate the video, and go back to the video player!").getToolTip());
 		helpConfirm.setTooltip(new HoverToolTip("Click this if you are done with rating the video, and want to save it and go back to the video player!").getToolTip());
-	}
-
-	/**
-	 * Update the rating label with the new rating based on what star was selected
-	 */
-	private void updateRatingLabel() {
-		ratingLabel.setText("Rating: " + rating);
-	}
-
-	/**
-	 * Show the previous rating for the video as selected stars on the rating popup
-	 */
-	private void clickPrev() {
-		if(rating == null) return;
-		if (rating.equals(1)) star1Click();
-		if (rating.equals(2)) star2Click();
-		if (rating.equals(3)) star3Click();
-		if (rating.equals(4)) star4Click();
-		if (rating.equals(5)) star5Click();
 	}
 
 }

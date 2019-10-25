@@ -22,9 +22,14 @@ import javafx.scene.layout.StackPane;
  * Handles functionality for the HomeController class
  */
 public class HomeControllerHelper {
-	
-	HomeController controller;
-	
+
+    // Field declarations
+	private HomeController controller;
+
+    /**
+     * Constructor so the that controller class has non-static access to the helper methods in this class
+     * @param controller
+     */
 	public HomeControllerHelper(HomeController controller) {
 		this.controller = controller;
 	}
