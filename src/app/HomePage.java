@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 /**
+ * MAIN CLASS
 * Run the application and start up the home page
 */
 public class HomePage extends Application {
