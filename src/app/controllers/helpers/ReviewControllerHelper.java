@@ -1,16 +1,10 @@
 package app.controllers.helpers;
 
-import java.io.File;
 import java.util.ArrayList;
-
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXToggleButton;
-
 import app.DialogBuilder;
-import app.Music;
 import app.VideoCreation;
 import app.WindowBuilder;
 import app.controllers.RatingController;
@@ -18,13 +12,10 @@ import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.collections.FXCollections;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.StackPane;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 import javafx.scene.media.MediaPlayer.Status;
 
 /**
@@ -62,6 +53,9 @@ public class ReviewControllerHelper {
 	}
 	
 	
+	/**
+	 * Reset the buttons for play and pause to their default values
+	 */
 	public void resetControlButtons(JFXButton playButton, MaterialDesignIconView playIcon, JFXButton muteButton, MaterialDesignIconView muteIcon) {
 		// Reset okay and mute buttons
 		playButton.setText("Pause");
@@ -117,7 +111,7 @@ public class ReviewControllerHelper {
 	}
 	
 	/**
-	 * Mute the 
+	 * Toggle mute on the video player, and switch icons when this happens
 	 */
 	public void mute(MediaPlayer player, JFXButton muteButton, MaterialDesignIconView muteIcon) {
 		player.setMute(!player.isMute());
@@ -161,6 +155,9 @@ public class ReviewControllerHelper {
 		});
 	}
 	
+	/**
+	 * Make the label for time update as the video plays
+	 */
 	public void updateTimeLabel(MediaPlayer player, Label timeLabel) {
 		player.currentTimeProperty().addListener((observable,oldValue,newValue) -> {
 			String time = "";

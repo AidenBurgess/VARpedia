@@ -3,24 +3,18 @@ package app.controllers;
 import java.io.File;
 import java.util.ArrayList;
 import app.*;
-import app.controllers.helpers.HomeControllerHelper;
 import app.controllers.helpers.ReviewControllerHelper;
-
 import com.jfoenix.controls.*;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
-import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.stage.Stage;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.util.Duration;
 
@@ -322,7 +316,6 @@ public class ReviewController extends DraggableWindow {
 		screen.setMediaPlayer(player);
 		helper.updateTimeLabel(player, timeLabel);
 	}
-
 
 	/**
 	 * Stop playing any media
