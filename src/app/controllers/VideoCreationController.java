@@ -1,6 +1,7 @@
 package app.controllers;
 
 import app.*;
+import app.controllers.helper.VideoCreationControllerHelper;
 import com.jfoenix.controls.*;
 import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
@@ -61,6 +62,9 @@ public class VideoCreationController extends DraggableWindow {
     private JFXDialog dialog;
     private VideoManager videoManager = VideoManager.getVideoManager();
 
+    // Set up a helper object that has access to the helper methods
+    private VideoCreationControllerHelper helper = new VideoCreationControllerHelper();
+
 
     /***************************** FXML METHODS ********************************/
 
@@ -88,12 +92,12 @@ public class VideoCreationController extends DraggableWindow {
         Task<ArrayList<String>> search = new SearchWiki(searchTerm, textArea, stackPane);
         search.setOnSucceeded(e -> {
             dialog.close();
-            updateMoveButtons();
+            helper.updateMoveButtons(textListView, moveUpButton, moveDownButton);
         });
         Thread thread = new Thread(search);
         thread.start();
         currentSearch = searchTerm;
-        autoName();
+        videoNameField.setText(helper.autoName(currentSearch, videoManager));
         checkValidCreate();
     }
 
@@ -127,7 +131,7 @@ public class VideoCreationController extends DraggableWindow {
         // Start actual creation process
         dialog = new DialogBuilder().loading(stackPane, "Creating Video");
         createButton.setDisable(true);
-    	createAudio();
+    	helper.createAudio(voiceChoiceBox.getSelectionModel().getSelectedItem(), textListView, videoNameField.getText(), numImages.getValue(), currentSearch, dialog, videoManager, numImages, createButton, stackPane);
     }
 
     /**
@@ -136,15 +140,15 @@ public class VideoCreationController extends DraggableWindow {
     @FXML
     private void add() {
         // Error checking for empty/null selected
-        String selectedText = selectedText();
+        String selectedText = helper.selectedText(textArea.getSelectedText().split("\t"));
         if (selectedText == null || selectedText.isEmpty()) return;
-        if (countWords() > wordLimit) {
+        if (helper.countWords(selectedText) > wordLimit) {
         	new DialogBuilder().close(stackPane, "Invalid selection", "Please select less than "+ wordLimit +" words");
             return;
         }
         // Add selected as a line in listview
         textListView.getItems().add(selectedText);
-        updateMoveButtons();
+        helper.updateMoveButtons(textListView, moveUpButton, moveDownButton);
     }
 
     /**
@@ -155,7 +159,7 @@ public class VideoCreationController extends DraggableWindow {
         String selected = textListView.getSelectionModel().getSelectedItem();
         if (selected == null) return;
         textListView.getItems().remove(selected);
-        updateMoveButtons();
+        helper.updateMoveButtons(textListView, moveUpButton, moveDownButton);
     }
 
     /**
@@ -212,7 +216,8 @@ public class VideoCreationController extends DraggableWindow {
     	stackPane.setPickOnBounds(false);
     	// Add event handler for selection in textArea
     	textArea.selectionProperty().addListener(e-> {
-    		addButton.setDisable(countWords() == 0 || countWords() > wordLimit);
+    	    String in = helper.selectedText(textArea.getSelectedText().split("\t"));
+    		addButton.setDisable(helper.countWords(in) == 0 || helper.countWords(in) > wordLimit);
     	});
     	// Add event handler for selection of listview
     	textListView.getSelectionModel().selectedItemProperty().addListener(e-> {
@@ -236,7 +241,7 @@ public class VideoCreationController extends DraggableWindow {
     		}
     	});
     	//Voice list
-    	updateVoiceList();
+    	helper.updateVoiceList(voiceChoiceBox);
     	// Tooltip setup
     	setUpHelp();
     }
@@ -259,99 +264,8 @@ public class VideoCreationController extends DraggableWindow {
     private void checkValidCreate() {
         // Check creation name is valid before allowing the user to press the button
         String videoName = videoNameField.getText();
-        boolean isInvalid = videoName == null || videoName.trim().isEmpty() || videoName.contains(" ") || videoExists(videoName);
+        boolean isInvalid = videoName == null || videoName.trim().isEmpty() || videoName.contains(" ") || helper.videoExists(videoName, videoManager);
         createButton.setDisable(isInvalid);
-    }
-
-
-    /***************************** HELPER METHODS ********************************/
-
-    /**
-     * Automatically suggest a name for the video creation upon search of wiki - appears in the input field for video name
-     */
-    private void autoName() {
-        int i = 0;
-        String currentName = currentSearch + i;
-        while (videoExists(currentName)){
-            i++;
-            currentName = currentSearch + i;
-        }
-        videoNameField.setText(currentName);
-    }
-
-    /**
-     * Check if a video already exists with a certain name
-     * @param name
-     * @return true if such a video exists, and false if it doesn't
-     */
-    private boolean videoExists(String name) {
-        for (VideoCreation v: videoManager.getVideos()) {
-            if (v.getName().equals(name)) return true;
-        }
-        return false;
-    }
-
-    /**
-     * Convert all text currently displayed in the text list to audio files
-     */
-    private void createAudio() {
-        // Find the original voice name
-        String voice = Voice.findVoice(voiceChoiceBox.getSelectionModel().getSelectedItem());
-        // Create audio
-        Task createAudiosTask = new CreateAudios(textListView.getItems(), voice);
-        createAudiosTask.setOnSucceeded(e-> {;
-            stitchAudio((ArrayList<String>) createAudiosTask.getValue());
-        });
-        Thread thread = new Thread(createAudiosTask);
-        thread.start();
-    }
-
-    /**
-     * Combine input audio files to make one final audio file
-     * @param audioFiles
-     */
-    private void stitchAudio(ArrayList<String> audioFiles) {
-        Task stitchAudioTask = new StitchAudio(audioFiles);
-        stitchAudioTask.setOnSucceeded(e-> combineAudioVideo());
-        Thread thread = new Thread(stitchAudioTask);
-        thread.start();
-    }
-
-    /**
-     * Combine text, audio, and video to create the final video creation
-     */
-    private void combineAudioVideo() {
-        // Retrieve selected number of images
-        String videoName = videoNameField.getText();
-        Double val = numImages.getValue();
-        String finNumImages = Integer.toString(val.intValue());
-
-        // Create the video, and notify the user when it's done
-        Task<ArrayList<String>> videoCreation = new CreateVideo(currentSearch, finNumImages, videoName);
-        videoCreation.setOnSucceeded(e-> {
-            dialog.close();
-            ArrayList<String> textContent = new ArrayList<>(textListView.getItems());
-            VideoCreation video = new VideoCreation(videoName, currentSearch, (int) numImages.getValue(), textContent);
-            videoManager.add(video);
-            new DialogBuilder().close(stackPane, "Video Creation Successful!", videoName + " was created.");
-            createButton.setDisable(false);
-            autoName();
-        });
-        Thread video = new Thread(videoCreation);
-        video.start();
-    }
-
-    /**
-     * Refresh the dropdown list of voice options for the video creations
-     */
-    private void updateVoiceList() {
-        Task<ArrayList<String>> listVoices = new ListVoices();
-        listVoices.setOnSucceeded(e -> {
-            voiceChoiceBox.setItems(FXCollections.observableArrayList(listVoices.getValue()));
-            voiceChoiceBox.getSelectionModel().select(0);
-        });
-        Thread thread = new Thread(listVoices);
-        thread.start();
     }
 
     /**
@@ -369,39 +283,6 @@ public class VideoCreationController extends DraggableWindow {
         helpNumImagesButton.setTooltip(new HoverToolTip("Click and drag the dot along the line to choose how many picture you want to have in your video, from 1 to 10!").getToolTip());
         helpTextListButton.setTooltip(new HoverToolTip("This is where each bit of text is shown in a list! \nSelect one piece of text by clicking on it!").getToolTip());
         helpQuitButton.setTooltip(new HoverToolTip("Click this button to exit the application!").getToolTip());
-    }
-
-    /**
-     * Count the number of words in the input
-     * @return the number of words
-     */
-    private int countWords() {
-    	String input = selectedText();
-        if (input == null || input.isEmpty()) {
-          return 0;
-        }
-        String[] words = input.split("\\s+");
-        return words.length;
-      }
-
-    /**
-     * Format the selected text for use
-     * @return the formatted text
-     */
-    private String selectedText() {
-    	String[] processString = textArea.getSelectedText().split("\t");
-    	String processedText = "";
-    	for (String line: processString) {
-        	String woo = line.replaceAll("^\\d+|\\d+$", ""); 
-    		processedText += woo;
-    	}
-    	return processedText;
-    }
-    
-    private void updateMoveButtons() {
-        boolean isEmpty = textListView.getItems().size() == 0;
-        moveUpButton.setDisable(isEmpty);
-        moveDownButton.setDisable(isEmpty);
     }
 
 }
