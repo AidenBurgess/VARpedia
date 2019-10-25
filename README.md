@@ -33,4 +33,12 @@ You can choose to either play specific videos through selecting a video from the
 * [Entre Les Murs by Martijn de Boer](http://dig.ccmixter.org/files/NiGiD/58457)
 * [Mattioli Prelude by Martijn de Boer](http://dig.ccmixter.org/files/NiGiD/50958)
 
+## Fonts
+* [Splatch - used for title](https://www.dafont.com/splatch.font)
+* [myFont - Ubuntu - used for videos](https://fonts.google.com/specimen/Ubuntu)
+
 ## Jar Files
+We would like to thank Nasser Giacaman for access to various jar files and resources.
+
+##GitHub Repository
+[SOFTENG_206_A04](https://github.com/AidenBurgess/SOFTENG_206_A04)
