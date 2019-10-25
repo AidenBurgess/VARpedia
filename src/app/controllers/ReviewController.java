@@ -189,7 +189,10 @@ public class ReviewController extends DraggableWindow {
 	 */
 	@FXML
 	private void home() {
-		shutdown();
+		// Stop playing all media
+		player.dispose();
+		music.dispose();
+		// Switch to home page
 		new WindowBuilder().switchScene("HomePage", "VarPedia", root.getScene());
 	}
 
@@ -200,7 +203,9 @@ public class ReviewController extends DraggableWindow {
 	private void quit() {
 		timeLabel.getScene().getWindow().hide();
 		VideoManager.getVideoManager().writeSerializedVideos();
-		shutdown();
+		// Stop playing all media
+		player.dispose();
+		music.dispose();
 	}
 
 	/**
@@ -215,6 +220,7 @@ public class ReviewController extends DraggableWindow {
 	}
 
 	/***************************** HELPER METHODS ********************************/
+	// Helper methods handling music and videos are kept here instead of the helper class as the listeners need direct access
 
 	/**
 	 * Create help tooltips
@@ -275,15 +281,10 @@ public class ReviewController extends DraggableWindow {
 		musicChoices.add("Entre Les Murs");
 		musicList.setItems(FXCollections.observableArrayList(musicChoices));
 		musicList.getSelectionModel().select(0);
-		musicList.setOnAction(e-> updateMusic());
-	}
-	
-    /**
-     * Update the current background music playing
-     */
-	private void updateMusic() {
-		music.dispose();
-		updateSong();
+		musicList.setOnAction(e-> {
+			music.dispose();
+			updateSong();
+		});
 	}
 
 	/**
@@ -316,14 +317,6 @@ public class ReviewController extends DraggableWindow {
 		});
 		screen.setMediaPlayer(player);
 		helper.updateTimeLabel(player, timeLabel);
-	}
-
-	/**
-	 * Stop playing any media
-	 */
-	public void shutdown() {
-		player.dispose();
-		music.dispose();
 	}
 
 }
