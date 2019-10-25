@@ -53,34 +53,31 @@ public class VideoCreationControllerHelper {
     /**
      * Convert all text currently displayed in the text list to audio files
      */
-    public void createAudio(String name, JFXListView<String> textListView, String videoName, Double val, String currentSearch, JFXDialog dialog, VideoManager videoManager, JFXSlider numImages, JFXButton createButton, StackPane stackPane) {
+    public void createAudio(String name, JFXListView<String> textListView, String videoName, Double val, String currentSearch,
+                            JFXDialog dialog, VideoManager videoManager, JFXSlider numImages, JFXButton createButton,
+                            StackPane stackPane) {
         // Find the original voice name
         String voice = Voice.findVoice(name);
         // Create audio
         Task createAudiosTask = new CreateAudios(textListView.getItems(), voice);
-        createAudiosTask.setOnSucceeded(e-> {;
-            stitchAudio((ArrayList<String>) createAudiosTask.getValue(), videoName, val, currentSearch, dialog, textListView, videoManager, numImages, createButton, stackPane);
+        createAudiosTask.setOnSucceeded(e-> {
+            // After all the audio files have been made, combine them into one audio file
+            Task stitchAudioTask = new StitchAudio((ArrayList<String>) createAudiosTask.getValue());
+            // When the audio file has been made, create the video by combining the audio file with a video file
+            stitchAudioTask.setOnSucceeded(f-> combineAudioVideo(videoName, val, currentSearch, dialog, textListView, videoManager, numImages, createButton, stackPane));
+            Thread thread = new Thread(stitchAudioTask);
+            thread.start();
         });
         Thread thread = new Thread(createAudiosTask);
         thread.start();
     }
 
     /**
-     * Combine input audio files to make one final audio file, and then make the final video creation when this is done
-     * @param audioFiles
-     */
-    private void stitchAudio(ArrayList<String> audioFiles, String videoName, Double val, String currentSearch, JFXDialog dialog, JFXListView<String> textListView, VideoManager videoManager, JFXSlider numImages, JFXButton createButton, StackPane stackPane) {
-        Task stitchAudioTask = new StitchAudio(audioFiles);
-        // When the audio file has been made, create the video by combining
-        stitchAudioTask.setOnSucceeded(e-> combineAudioVideo(videoName, val, currentSearch, dialog, textListView, videoManager, numImages, createButton, stackPane));
-        Thread thread = new Thread(stitchAudioTask);
-        thread.start();
-    }
-
-    /**
      * Combine text, audio, and video to create the final video creation
      */
-    private void combineAudioVideo(String videoName, Double val, String currentSearch, JFXDialog dialog, JFXListView<String> textListView, VideoManager videoManager, JFXSlider numImages, JFXButton createButton, StackPane stackPane) {
+    private void combineAudioVideo(String videoName, Double val, String currentSearch, JFXDialog dialog, JFXListView<String> textListView,
+                                   VideoManager videoManager, JFXSlider numImages, JFXButton createButton,
+                                   StackPane stackPane) {
         // Retrieve selected number of images
         String finNumImages = Integer.toString(val.intValue());
 
