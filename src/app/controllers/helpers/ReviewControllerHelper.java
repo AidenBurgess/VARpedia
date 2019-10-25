@@ -24,22 +24,26 @@ import javafx.scene.media.MediaPlayer.Status;
 public class ReviewControllerHelper {
 	
 	/**
-	 * Update playlist, upcoming video, and transcript of current video
+	 * Update playlist and upcoming video
 	 */
-	public void updateSidePanel(Label upcomingLabel, ArrayList<VideoCreation> playList, ListView playListView, VideoCreation currentVideo, int playIndex, JFXTextArea transcript) {
+	public void updatePlaylist(Label upcomingLabel, ArrayList<VideoCreation> playList, ListView playListView, int playIndex) {
 		// Update upcoming label
 		if ((playIndex+1) == playList.size()) upcomingLabel.setText("Upcoming: None." );
 		else upcomingLabel.setText("Upcoming: " + playList.get(playIndex+1).getName());
-		//
+		// Select the currently playing video
 		playListView.getSelectionModel().select(playIndex);
-		// Update transcript
+	}
+
+	/**
+	 * Update the transcript of the video currently playing
+	 */
+	public void updateTranscript(VideoCreation currentVideo, JFXTextArea transcript) {
 		String transcriptString = "";
 		for(String line: currentVideo.getTextContent()) {
 			transcriptString += line.trim() + "\n";
 		}
 		transcript.setText(transcriptString);
 	}
-	
 
 	/**
 	 * Checks the current status of the favourite aspect of the currently playing video, and set up the star icon as such

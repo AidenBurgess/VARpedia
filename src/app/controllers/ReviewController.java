@@ -294,7 +294,8 @@ public class ReviewController extends DraggableWindow {
 		setupPlayer();
 		helper.resetControlButtons(helpPlayButton, playIcon, muteButton, muteIcon);
 		helper.setUpStar(currentVideo, favHeart);
-		helper.updateSidePanel(upcomingLabel, playList, playListView, currentVideo, playIndex, transcript);
+		helper.updatePlaylist(upcomingLabel, playList, playListView, playIndex);
+		helper.updateTranscript(currentVideo, transcript);
 		helper.slider(player, timeSlider, playButton, playIcon);
 		helper.setUpStar(currentVideo, favHeart);
 	}
