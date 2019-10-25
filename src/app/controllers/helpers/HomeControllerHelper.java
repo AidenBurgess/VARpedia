@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
 import app.DialogBuilder;
-import app.HoverToolTip;
 import app.VideoCreation;
 import app.VideoManager;
 import app.controllers.HomeController;
@@ -19,6 +18,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 
+/**
+ * Handles functionality for the HomeController class
+ */
 public class HomeControllerHelper {
 	
 	HomeController controller;
@@ -34,11 +36,8 @@ public class HomeControllerHelper {
         // Get the current number of videos in the table
         int numVideos = videoTable.getItems().size();
         // Disable/enable the buttons
-        if (numVideos == 0) {
-            disableVideoButtons(playButton, deleteButton, reviewButton, videoTable);
-        } else {
-            enableVideoButtons(playButton, deleteButton);
-        }
+        if (numVideos == 0) disableVideoButtons(playButton, deleteButton, reviewButton, videoTable);
+        else enableVideoButtons(playButton, deleteButton);
     }
 	
     /**
@@ -78,24 +77,7 @@ public class HomeControllerHelper {
     		controller.reviewVideos();
     	});
     }
-    
-    /**
-     * Add on-hover help messages to the "?" buttons on the HomePage
-     */
-    public void setUpHelp(JFXButton helpTableView, JFXButton helpCreateButton, JFXButton helpDeleteButton, JFXButton helpHelp, JFXButton helpPlayButton, JFXButton helpQuitButton, JFXButton helpReviewButton, JFXButton helpVarPedia) {
-        helpTableView.setTooltip(new HoverToolTip("All of your video creations are listed here! The columns show you: \n"
-        		+ "if the video is a favourite; \nthe video's name; \nthe word you searched; "
-        		+ "\nthe number of images in the video; \nthe rating out of 5 you gave each video; "
-        		+ "\nthe number of times you have watched each video.").getToolTip());
-        helpCreateButton.setTooltip(new HoverToolTip("Click this button to start creating a new video! (Opens a new window)").getToolTip());
-        helpDeleteButton.setTooltip(new HoverToolTip("Click a row to choose a video, then click this button to delete it!").getToolTip());
-        helpHelp.setTooltip(new HoverToolTip("This is what the hover text will look like!").getToolTip());
-        helpPlayButton.setTooltip(new HoverToolTip("Click a row to choose a video, then click this button to play it, and rate it or add it to your favourites!").getToolTip());
-        helpQuitButton.setTooltip(new HoverToolTip("Click this button to exit the application!").getToolTip());
-        helpReviewButton.setTooltip(new HoverToolTip("Click this to watch videos that you need to review, and to rate them or add them to your favourites!").getToolTip());
-        helpVarPedia.setTooltip(new HoverToolTip("Welcome! This is VARpedia. \nThis application is made for you to learn new words by letting you create videos about them with pictures and text!").getToolTip());
-    }
-    
+
     /**
      * Update the list of videos that will be prompted to the user to review
      */
@@ -106,22 +88,24 @@ public class HomeControllerHelper {
     	// Add all videos with red ratings
     	for (VideoCreation v: videoManager.getVideos()) {
     		if (v.getRating() < yellowRating) toReview.add(v);
-    		updateReviewAlert(toReview, reviewNumAlert);
     	}
     	// If no videos with red ratings exist then review yellow ratings
     	if (toReview.isEmpty()) {
     		for (VideoCreation v: videoManager.getVideos()) {
         		if (v.getRating() < greenRating) toReview.add(v);
         	}
-    		updateReviewAlert(toReview, reviewNumAlert);
     	}
     	// If no red or yellow ratings then review everything
     	if (toReview.isEmpty()) {
     		toReview = new ArrayList<VideoCreation>(videoTable.getItems());
-    		updateReviewAlert(toReview, reviewNumAlert);
     	}
+		updateReviewAlert(toReview, reviewNumAlert);
     }
     
+    
+    /**
+     * Shows the review alert if there are videos to review.
+     */
     void updateReviewAlert(ArrayList toReview, JFXButton reviewNumAlert) {
     	if (toReview.size() != 0) {
             reviewNumAlert.setVisible(true);
@@ -143,6 +127,9 @@ public class HomeControllerHelper {
         checkVideosExist(playButton, deleteButton, reviewButton, videoTable);
     }
     
+    /**
+     * Color the rows of the video table depending on the rating of the video
+     */
     public void colorVideoTable(TableView videoTable, int greenRating, int yellowRating) {
     	videoTable.setRowFactory(tv -> new TableRow<VideoCreation>() {
             @Override
@@ -157,50 +144,25 @@ public class HomeControllerHelper {
         });
     }
     
-    public ArrayList<TableColumn<VideoCreation, String>> setUpColumns(int nameAndSearchColWidth, int columnWidthOther) {
+    /**
+     * 
+     */
+    public ArrayList<TableColumn<VideoCreation, String>> setUpOtherColumns(int nameAndSearchColWidth, int columnWidthOther) {
     	ArrayList<TableColumn<VideoCreation,String>> columns = new ArrayList<>();
-    	// Name column
-        TableColumn<VideoCreation, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setMinWidth(nameAndSearchColWidth);
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-	    columns.add(nameColumn);
-	    //Search term
-        TableColumn<VideoCreation, String> searchTermColumn = new TableColumn<>("Search Term");
-        searchTermColumn.setMinWidth(nameAndSearchColWidth);
-        searchTermColumn.setCellValueFactory(new PropertyValueFactory<>("searchTerm"));
-	    columns.add(searchTermColumn);
-        // Number of images
-        TableColumn<VideoCreation, String> numImagesColumn = new TableColumn<>("#Images");
-        numImagesColumn.setMinWidth(columnWidthOther);
-        numImagesColumn.setCellValueFactory(new PropertyValueFactory<>("numImages"));
-	    columns.add(numImagesColumn);
-        // Rating
-        TableColumn<VideoCreation, String> ratingColumn = new TableColumn<>("Rating");
-        ratingColumn.setMinWidth(columnWidthOther);
-        ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
-	    columns.add(ratingColumn);
-	    // Number of views
-        TableColumn<VideoCreation, String> viewsColumn = new TableColumn<>("Views");
-        viewsColumn.setMinWidth(columnWidthOther);
-        viewsColumn.setCellValueFactory(new PropertyValueFactory<>("views"));
-	    columns.add(viewsColumn);
-
+    	
+	    columns.add(buildColumn("Name", "name", nameAndSearchColWidth));
+	    columns.add(buildColumn("Search Term", "searchTerm", nameAndSearchColWidth));
+	    columns.add(buildColumn("#Images", "numImages", columnWidthOther));
+	    columns.add(buildColumn("Rating", "rating", columnWidthOther));
+	    columns.add(buildColumn("Views", "views", columnWidthOther));
         return columns;
     }
     
-
     /**
-     * Initialise the video table (populate it with any available videos, and set the style)
+     * Set up the favourites column, and make the favourite icon clickable
      */
-    public void initTable(TableView videoTable, VideoManager videoManager, Label numVideoLabel, JFXButton playButton, JFXButton deleteButton, 
-    		JFXButton reviewButton, int favouriteColWidth, int greenRating, int yellowRating, int nameAndSearchColWidth, int columnWidthOther) {
-    	// Setup coloring of rows based on rating
-    	colorVideoTable(videoTable, greenRating, yellowRating);
-        
-	    // Set the colours of the video table's aspects
-        videoTable.setStyle("-fx-selection-bar: blue; -fx-selection-bar-non-focused: purple;");
-       
-	    // Populate table with columns of parameters of videocreations (Favourite, Name, search term, #images, rating, views)
+    public TableColumn<VideoCreation, MaterialDesignIconView> setUpFavColumn(TableView videoTable, VideoManager videoManager, Label numVideoLabel, 
+    							JFXButton playButton, JFXButton deleteButton, JFXButton reviewButton, int favouriteColWidth) {
 	    // Favourite column - Will show a heart icon if it is a favourite
         TableColumn<VideoCreation, MaterialDesignIconView> favColumn = new TableColumn<>("Favourite");
         favColumn.setMinWidth(favouriteColWidth);
@@ -219,11 +181,32 @@ public class HomeControllerHelper {
             });
             return new SimpleObjectProperty<>(imageFav);
         });
-	    
-        // Number of videos in the table
+        return favColumn;
+    }
+    
+    /**
+     * Make a table column with specified params
+     */
+    private TableColumn<VideoCreation, String> buildColumn(String columnName, String parameter, int columnWidth) {
+    	TableColumn<VideoCreation, String> newColumn = new TableColumn<>(columnName);
+    	newColumn.setMinWidth(columnWidth);
+    	newColumn.setCellValueFactory(new PropertyValueFactory<>(parameter));
+        return newColumn;
+    }
+
+    /**
+     * Initialise the video table (populate it with any available videos, and set the style)
+     */
+    public void initTable(TableView videoTable, VideoManager videoManager, Label numVideoLabel, JFXButton playButton, JFXButton deleteButton, 
+    	JFXButton reviewButton, int favouriteColWidth, int greenRating, int yellowRating, int nameAndSearchColWidth, int columnWidthOther) {
+    	colorVideoTable(videoTable, greenRating, yellowRating);
+	    // Set the colours of the video table's aspects
+        videoTable.setStyle("-fx-selection-bar: blue; -fx-selection-bar-non-focused: purple;");
+        // Populate the video table
         videoTable.getItems().addAll(videoManager.getVideos());
-        videoTable.getColumns().addAll(favColumn);
-        videoTable.getColumns().addAll(setUpColumns(nameAndSearchColWidth, columnWidthOther));
+        videoTable.getColumns().add(setUpFavColumn(videoTable, videoManager, numVideoLabel, playButton, deleteButton, 
+				reviewButton, favouriteColWidth));
+        videoTable.getColumns().addAll(setUpOtherColumns(nameAndSearchColWidth, columnWidthOther));
     	numVideoLabel.setText("There are " + videoTable.getItems().size() + " videos");
     }
 
