@@ -269,12 +269,12 @@ public class VideoCreationController extends DraggableWindow {
      * Add on-hover help messages to the "?" buttons
      */
     private void setUpHelp() {
-        helpSearchResultsButton.setTooltip(new HoverToolTip("Your search results will appear here. \nYou can click and drag to select text, add text to the results by typing it in, or delete text you don't want to see!").getToolTip());
-        helpAddRemoveButton.setTooltip(new HoverToolTip("After selecting some text from the left, press the \">\" button to add it to the list on the right. \nOr, after selecting one or more of the pieces of text from the right, click the \"<\" button to delete them from the list on the right!").getToolTip());
-        helpShuffleButton.setTooltip(new HoverToolTip("After selecting a piece of text from the right, click the \"^\" or \"v\" buttons to move that piec up or down in the list!").getToolTip());
+        helpSearchResultsButton.setTooltip(new HoverToolTip("Your search results will show up here. \nClick and drag to select text, add text to the results by typing it in, or delete text you don't want to see!").getToolTip());
+        helpAddRemoveButton.setTooltip(new HoverToolTip("After selecting some text from the left, press the \">\" button to add it to your list of text. \nOr, after selecting one or more of the pieces of text from the right, click the \"<\" button to delete them from your list of text!").getToolTip());
+        helpShuffleButton.setTooltip(new HoverToolTip("After selecting a piece of text from the right, click the \"^\" or \"v\" buttons to move that piece up or down in the list!").getToolTip());
         helpBackButton.setTooltip(new HoverToolTip("Click this button to go back to the main menu!").getToolTip());
-        helpSearchButton.setTooltip(new HoverToolTip("Type in the word you want to search the meaning for to the left of this button, then click this button to search it!").getToolTip());
-        helpCreateButton.setTooltip(new HoverToolTip("After filling in the video name, number of images, and the voice you want to use in the areas to the left, click this button to make your video!\nYou won't be able to click this if the video name you put in has spaces in it, or if there is already a video with that name!").getToolTip());
+        helpSearchButton.setTooltip(new HoverToolTip("Type in the word you want to look up to the left of this button, then click this button to search it!").getToolTip());
+        helpCreateButton.setTooltip(new HoverToolTip("After filling in the video name, number of images, and the voice you want to use in the areas to the left of this, click this button to make your video!\nYou won't be able to click this if the video name you put in has spaces in it, or if there is already a video with that name!").getToolTip());
         helpVoicesButton.setTooltip(new HoverToolTip("In this list are different voices you can choose to speak your text in your video! \nClick it to see the options, then click one of the options shown to choose it!").getToolTip());
         helpVideoNameButton.setTooltip(new HoverToolTip("Type in what you want to name your final video here! \nMake sure it doesn't include any spaces!").getToolTip());
         helpNumImagesButton.setTooltip(new HoverToolTip("Click and drag the dot along the line to choose how many picture you want to have in your video, from 1 to 10!").getToolTip());

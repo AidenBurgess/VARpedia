@@ -238,7 +238,7 @@ public class ReviewController extends DraggableWindow {
 		helpPrev.setTooltip(new HoverToolTip("Click this to play the previous video in the list!").getToolTip());
 		helpTextArea.setTooltip(new HoverToolTip("This is where the text you selected for the video that is currently playing shows up so you can read along with the video!").getToolTip());
 		helpBack.setTooltip(new HoverToolTip("Click this button to go back to the main menu!").getToolTip());
-		helpMusicList.setTooltip(new HoverToolTip("To change the song playing, click this box and then click on the song you want to play in the background. \nMake sure to turn the music off and on again using the toggle button to the right to make the music change!").getToolTip());
+		helpMusicList.setTooltip(new HoverToolTip("To change the song playing, click this box and then click on the song you want to play in the background!").getToolTip());
 		helpFavHeart.setTooltip(new HoverToolTip("Click this heart to add or remove the current video to or from your favourites!").getToolTip());
 	}
 
