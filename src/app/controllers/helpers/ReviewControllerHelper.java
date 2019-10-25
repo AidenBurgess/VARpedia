@@ -2,6 +2,7 @@ package app.controllers.helpers;
 
 import java.util.ArrayList;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextArea;
 import app.DialogBuilder;
@@ -12,6 +13,7 @@ import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.StackPane;
@@ -170,5 +172,14 @@ public class ReviewControllerHelper {
 			time += String.format("%02d", (int)newValue.toSeconds()%60);
 			timeLabel.setText(time);
 		});
+	}
+
+	public void setUpMusicBox(JFXComboBox<String> musicList) {
+		ArrayList<String> musicChoices = new ArrayList<>();
+		musicChoices.add(0,"Mattioli Prelude");
+		musicChoices.add("Piano and Cello");
+		musicChoices.add("Entre Les Murs");
+		musicList.setItems(FXCollections.observableArrayList(musicChoices));
+		musicList.getSelectionModel().select(0);
 	}
 }
