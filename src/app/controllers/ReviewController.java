@@ -3,11 +3,10 @@ package app.controllers;
 import java.io.File;
 import java.util.ArrayList;
 import app.*;
+import app.controllers.helpers.ReviewControllerHelper;
 import com.jfoenix.controls.*;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
-import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -16,7 +15,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.stage.Stage;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.util.Duration;
 
@@ -66,6 +64,8 @@ public class ReviewController extends DraggableWindow {
 	@FXML private JFXButton helpTextArea;
 	@FXML private JFXButton helpBack;
 	@FXML private JFXButton helpFavHeart;
+	
+    private ReviewControllerHelper helper = new ReviewControllerHelper();
 
 	// Set up media player and playlist
 	private MediaPlayer player;
@@ -81,27 +81,11 @@ public class ReviewController extends DraggableWindow {
 	 */
 	@FXML
 	private void playPause() {
-		if (player.getStatus() == Status.PLAYING) {
-			player.pause();
-			switchPlayIcon();
-		} else {
-			player.play();
-			switchPlayIcon();
-		}
+		if (player.getStatus() == Status.PLAYING) player.pause();
+		else  player.play();
+		helper.switchPlayIcon(player, playButton, playIcon);
 	}
-	
-	/**
-	 *  Switch the play/pause icons depending on whether the video is playing or not
-	 */
-	private void switchPlayIcon() {
-		if (player.getStatus() == Status.PLAYING) {
-			playButton.setText("Play");
-			playIcon.setStyle("-glyph-name:PLAY");
-		} else {
-			playButton.setText("Pause");
-			playIcon.setStyle("-glyph-name:PAUSE");
-		}
-	}
+
 
 	/**
 	 * Go back 5 seconds in the video being played
@@ -124,16 +108,7 @@ public class ReviewController extends DraggableWindow {
 	 */
 	@FXML
 	private void mute() {
-		player.setMute(!player.isMute());
-		// Mute
-		if (player.isMute()) {
-			muteButton.setText("Unmute");
-			muteIcon.setStyle("-glyph-name:VOLUME_HIGH");
-			// Unmute
-		} else {
-			muteButton.setText("Mute");
-			muteIcon.setStyle("-glyph-name:VOLUME_OFF");
-		}
+		helper.mute(player, muteButton, muteIcon);
 	}
 
 	/**
@@ -235,36 +210,11 @@ public class ReviewController extends DraggableWindow {
 	private void initialize() {
 		// Set up tooltips
 		setUpHelp();
-
 		// Set up drop-down selection box for background music
 		setUpMusicSelection();
 	}
 
 	/***************************** HELPER METHODS ********************************/
-
-	/**
-	 * Populate the drop-down selection box for music
-	 */
-	private void setUpMusicSelection() {
-		ArrayList<String> musicChoices = new ArrayList<>();
-		musicChoices.add(0,"Mattioli Prelude");
-		musicChoices.add("Piano and Cello");
-		musicChoices.add("Entre Les Murs");
-		musicList.setItems(FXCollections.observableArrayList(musicChoices));
-		musicList.getSelectionModel().select(0);
-		musicList.setOnAction(e-> updateMusic());
-	}
-
-	/**
-	 * Checks the current status of the favourite aspect of the currently playing video, and set up the star icon as such
-	 */
-	private void setUpStar() {
-		if (currentVideo.getFavourite()) {
-			favHeart.setIcon(MaterialDesignIcon.HEART);
-		} else {
-			favHeart.setIcon(MaterialDesignIcon.HEART_OUTLINE);
-		}
-	}
 
 	/**
 	 * Create help tooltips
@@ -287,26 +237,10 @@ public class ReviewController extends DraggableWindow {
 	}
 
 	/**
-	 * Allows user to rate the videos as they watch them
-	 */
-	private void showRating() {
-		WindowBuilder windowBuilder = new WindowBuilder().noTop("RatingPopup", "Rate the video!");
-		// Pass in video being rated
-		VideoCreation currentVideo = playList.get(playIndex);
-		windowBuilder.stage().setOnHidden(e-> {
-			Integer rating = ((RatingController) windowBuilder.controller()).getRating();
-			if(rating != null) {
-				currentVideo.setRating(rating);
-			}
-			new DialogBuilder().close(stackPane, "Well Done!", "You just reviewed " + currentVideo.getName() + "!");
-		});
-	}
-
-	/**
 	 * Populate the playlist with videos for a given list of videos
 	 * @param playList
 	 */
-	public void setPlaylist(ArrayList<VideoCreation> playList) {
+	void setPlaylist(ArrayList<VideoCreation> playList) {
 		this.playList = playList;
 		for (VideoCreation v: playList) playListView.getItems().add(v.getName());
 		// Setup background music player
@@ -314,7 +248,7 @@ public class ReviewController extends DraggableWindow {
 		// Setup video player
 		setSource();
 	}
-
+	
     /**
      * Get the song that the user selected from the music combo box and update the current song
      * @return the selected song
@@ -330,6 +264,27 @@ public class ReviewController extends DraggableWindow {
 		music.setCycleCount(MediaPlayer.INDEFINITE);
 		return audio;
 	}
+	
+	/**
+	 * Populate the drop-down selection box for music
+	 */
+	private void setUpMusicSelection() {
+		ArrayList<String> musicChoices = new ArrayList<>();
+		musicChoices.add(0,"Mattioli Prelude");
+		musicChoices.add("Piano and Cello");
+		musicChoices.add("Entre Les Murs");
+		musicList.setItems(FXCollections.observableArrayList(musicChoices));
+		musicList.getSelectionModel().select(0);
+		musicList.setOnAction(e-> updateMusic());
+	}
+	
+    /**
+     * Update the current background music playing
+     */
+	private void updateMusic() {
+		music.dispose();
+		updateSong();
+	}
 
 	/**
 	 * Set a new video as playing
@@ -337,118 +292,29 @@ public class ReviewController extends DraggableWindow {
 	private void setSource() {
 		currentVideo = playList.get(playIndex);
 		setupPlayer();
-		updateSidePanel();
-		slider();
-
-		// Update stage title to video name
-		Stage currentStage = (Stage) timeLabel.getScene().getWindow();
-		currentStage.setTitle("Currently playing: " + currentVideo.getName());
-
-		// Find out if the video is a favourite and set up the icon as such
-		setUpStar();
+		helper.resetControlButtons(helpPlayButton, playIcon, muteButton, muteIcon);
+		helper.setUpStar(currentVideo, favHeart);
+		helper.updateSidePanel(upcomingLabel, playList, playListView, currentVideo, playIndex, transcript);
+		helper.slider(player, timeSlider, playButton, playIcon);
+		helper.setUpStar(currentVideo, favHeart);
 	}
-
+	
 	/**
 	 * Set up the video player with a video
 	 */
-	private void setupPlayer() {
+	public void setupPlayer() {
 		// Setup video player with source file
 		File fileUrl = new File("videos/" + currentVideo.getName() + ".mp4");
 		Media video = new Media(fileUrl.toURI().toString());
 		player = new MediaPlayer(video);
 		player.setAutoPlay(true);
-		// Reset okay and mute buttons
-		playButton.setText("Pause");
-		playIcon.setStyle("-glyph-name:PAUSE");
-		muteButton.setText("Mute");
-		muteIcon.setStyle("-glyph-name:VOLUME_OFF");
 		// Show the rating window when finished playing
 		player.setOnEndOfMedia(()-> {
 			currentVideo.incrementViews();
-			showRating();
+			helper.showRating(playList, playIndex, stackPane);
 		});
 		screen.setMediaPlayer(player);
-		// Timer label tracks the time of the video
-		player.currentTimeProperty().addListener((observable,oldValue,newValue) -> {
-			String time = "";
-			time += String.format("%02d", (int)newValue.toMinutes());
-			time += ":";
-			time += String.format("%02d", (int)newValue.toSeconds()%60);
-			timeLabel.setText(time);
-		});
-		// Find out if the video is a favourite and set up the icon as such
-		setUpStar();
-	}
-
-	/**
-	 * Update playlist, upcoming video, and transcript of current video
-	 */
-	private void updateSidePanel() {
-		// Update upcoming label
-		if ((playIndex+1) == playList.size()) upcomingLabel.setText("Upcoming: None." );
-		else upcomingLabel.setText("Upcoming: " + playList.get(playIndex+1).getName());
-		//
-		playListView.getSelectionModel().select(playIndex);
-		// Update transcript
-		String transcriptString = "";
-		for(String line: currentVideo.getTextContent()) {
-			transcriptString += line.trim() + "\n";
-		}
-		transcript.setText(transcriptString);
-	}
-
-	/**
-	 * Set up the time slider for videos
-	 */
-	private void slider() {
-		// Providing functionality to time slider
-		player.currentTimeProperty().addListener(ov -> updatesValues());
-
-		// In order to jump to the certain part of video
-		timeSlider.valueProperty().addListener(ov-> {
-			if (timeSlider.isPressed()) {
-				player.pause();
-				double percent = timeSlider.getValue()/player.getTotalDuration().toSeconds();
-				player.seek(player.getTotalDuration().multiply(percent));
-			}
-		});
-		timeSlider.setOnMouseReleased(e->{
-			player.play();
-			switchPlayIcon();
-		});
-		timeSlider.setOnDragDropped(e-> {
-			player.play();
-			switchPlayIcon();
-		});
-
-		// Custom indicator labeling
-		timeSlider.setValueFactory(arg0-> {
-			return Bindings.createStringBinding(()->{
-				String time = "";
-				time += String.format("%02d", (int)player.getCurrentTime().toMinutes());
-				time += ":";
-				time += String.format("%02d", (int)player.getCurrentTime().toSeconds()%60);
-				return time;
-			}, timeSlider.valueProperty());
-		});
-	}
-
-	/**
-	 * Set the time on the time slider
-	 */
-	private void updatesValues() {
-		Platform.runLater(()-> {
-			timeSlider.setMax(player.getTotalDuration().toSeconds());
-			timeSlider.setValue(player.getCurrentTime().toSeconds());
-		});
-	}
-
-    /**
-     * Update the current background music playing
-     */
-	private void updateMusic() {
-		music.dispose();
-		updateSong();
+		helper.updateTimeLabel(player, timeLabel);
 	}
 
 	/**
