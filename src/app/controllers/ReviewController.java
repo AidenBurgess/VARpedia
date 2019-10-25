@@ -189,10 +189,7 @@ public class ReviewController extends DraggableWindow {
 	 */
 	@FXML
 	private void home() {
-		// Stop playing any media
-		player.dispose();
-		music.dispose();
-		// Switch to home page
+		shutdown();
 		new WindowBuilder().switchScene("HomePage", "VarPedia", root.getScene());
 	}
 
@@ -203,10 +200,7 @@ public class ReviewController extends DraggableWindow {
 	private void quit() {
 		timeLabel.getScene().getWindow().hide();
 		VideoManager.getVideoManager().writeSerializedVideos();
-
-		// Stop playing any media
-		player.dispose();
-		music.dispose();
+		shutdown();
 	}
 
 	/**
@@ -217,16 +211,10 @@ public class ReviewController extends DraggableWindow {
 		// Set up tooltips
 		setUpHelp();
 		// Set up drop-down selection box for background music
-		helper.setUpMusicBox(musicList);
-		musicList.setOnAction(e-> {
-			// Update music playing
-			music.dispose();
-			updateSong();
-		});
+		setUpMusicSelection();
 	}
 
 	/***************************** HELPER METHODS ********************************/
-	// These helper methods deal with objects that can't be passed into a helper class, and therefore must remain here, such as the methods that handle the currently playing video and music
 
 	/**
 	 * Create help tooltips
@@ -276,12 +264,34 @@ public class ReviewController extends DraggableWindow {
 		music.setCycleCount(MediaPlayer.INDEFINITE);
 		return audio;
 	}
+	
+	/**
+	 * Populate the drop-down selection box for music
+	 */
+	private void setUpMusicSelection() {
+		ArrayList<String> musicChoices = new ArrayList<>();
+		musicChoices.add(0,"Mattioli Prelude");
+		musicChoices.add("Piano and Cello");
+		musicChoices.add("Entre Les Murs");
+		musicList.setItems(FXCollections.observableArrayList(musicChoices));
+		musicList.getSelectionModel().select(0);
+		musicList.setOnAction(e-> updateMusic());
+	}
+	
+    /**
+     * Update the current background music playing
+     */
+	private void updateMusic() {
+		music.dispose();
+		updateSong();
+	}
 
 	/**
-	 * Set a new video as playing, updating the video player elements
+	 * Set a new video as playing
 	 */
 	private void setSource() {
 		currentVideo = playList.get(playIndex);
+		setupPlayer();
 		helper.resetControlButtons(helpPlayButton, playIcon, muteButton, muteIcon);
 		helper.setUpStar(currentVideo, favHeart);
 		helper.updatePlaylist(upcomingLabel, playList, playListView, playIndex);
@@ -306,6 +316,14 @@ public class ReviewController extends DraggableWindow {
 		});
 		screen.setMediaPlayer(player);
 		helper.updateTimeLabel(player, timeLabel);
+	}
+
+	/**
+	 * Stop playing any media
+	 */
+	public void shutdown() {
+		player.dispose();
+		music.dispose();
 	}
 
 }
