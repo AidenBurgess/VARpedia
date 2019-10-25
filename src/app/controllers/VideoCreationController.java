@@ -95,7 +95,7 @@ public class VideoCreationController extends DraggableWindow {
         Thread thread = new Thread(search);
         thread.start();
         currentSearch = searchTerm;
-        videoNameField.setText(helper.autoName(currentSearch, videoManager));
+        videoNameField.setText(helper.autoName(currentSearch));
         checkValidCreate();
     }
 
@@ -104,32 +104,31 @@ public class VideoCreationController extends DraggableWindow {
      */
     @FXML
     private void createVideo() {
-        // If no text is selected then raise an error
-        if (textListView.getItems().size() == 0) {
-            new DialogBuilder().close(stackPane, "Invalid Text", "Please add some text to the list.");
-            return;
-        }
-        // If the user cheekily entered a different word in the search term box (but didn't click search) and tries to make a video, prevent the user from doing so as this new term will be associated with text from a different search term
-        if (!currentSearch.equalsIgnoreCase(searchField.getText())) {
-            new DialogBuilder().close(stackPane, "Invalid Text", "Complete this search before making a new video. \nOtherwise, change this new word back to the one you previously searched.");
-            return;
-        }
-        // If the user includes a space in the video name, ask them to enter a different video name
-        if (videoNameField.getText().contains(" ")) {
-            new DialogBuilder().close(stackPane, "Invalid Video Name", "Whoops! You can't have spaces in your video's name- please pick another name.");
-            return;
-        }
-        // If the user searched a banned word, say no results were found and allow to retry
-        for (String s : NaughtyWords.getRegularBadWordsList()) {
-            if (searchField.getText().equals(s)) {
-                new DialogBuilder().close(stackPane, "Invalid Search Term", "Whoops! Please pick another name");
-                return;
-            }
-        }
-        // Start actual creation process
+        // Check for errors in user input
+        helper.checkCanMakeVideo(stackPane, textListView, videoNameField);
+        helper.checkSearchFieldEntry(stackPane, searchField, currentSearch);
+
+        // Start creation process visually for the user
         dialog = new DialogBuilder().loading(stackPane, "Creating Video");
         createButton.setDisable(true);
-    	helper.createAudio(voiceChoiceBox.getSelectionModel().getSelectedItem(), textListView, videoNameField.getText(), numImages.getValue(), currentSearch, dialog, videoManager, numImages, createButton, stackPane);
+
+        // Start the creation process behind the scenes
+        // Find the original voice name
+        String voice = Voice.findVoice(voiceChoiceBox.getSelectionModel().getSelectedItem());
+        // Create audio files based on the text in the list of text pieces
+        Task createAudiosTask = new CreateAudios(textListView.getItems(), voice);
+        // After all the audio files have been made, combine them into one audio file
+        createAudiosTask.setOnSucceeded(e-> {
+            Task stitchAudioTask = new StitchAudio((ArrayList<String>) createAudiosTask.getValue());
+            // When the audio file has been made, create the video by combining the audio file with a video file
+            stitchAudioTask.setOnSucceeded(f-> {
+                combineAudioVideo();
+            });
+            Thread thread = new Thread(stitchAudioTask);
+            thread.start();
+        });
+        Thread thread = new Thread(createAudiosTask);
+        thread.start();
     }
 
     /**
@@ -262,7 +261,7 @@ public class VideoCreationController extends DraggableWindow {
     private void checkValidCreate() {
         // Check creation name is valid before allowing the user to press the button
         String videoName = videoNameField.getText();
-        boolean isInvalid = videoName == null || videoName.trim().isEmpty() || videoName.contains(" ") || helper.videoExists(videoName, videoManager);
+        boolean isInvalid = videoName == null || videoName.trim().isEmpty() || videoName.contains(" ") || helper.videoExists(videoName);
         createButton.setDisable(isInvalid);
     }
 
@@ -281,6 +280,29 @@ public class VideoCreationController extends DraggableWindow {
         helpNumImagesButton.setTooltip(new HoverToolTip("Click and drag the dot along the line to choose how many picture you want to have in your video, from 1 to 10!").getToolTip());
         helpTextListButton.setTooltip(new HoverToolTip("This is where each bit of text is shown in a list! \nSelect one piece of text by clicking on it!").getToolTip());
         helpQuitButton.setTooltip(new HoverToolTip("Click this button to exit the application!").getToolTip());
+    }
+
+    /**
+     * Combine text, audio, and video to create the final video creation
+     */
+    public void combineAudioVideo() {
+        // Retrieve selected number of images
+        String finNumImages = Integer.toString((int) numImages.getValue());
+        String videoName = videoNameField.getText();
+
+        // Create the video, and notify the user when it's done
+        Task<ArrayList<String>> videoCreation = new CreateVideo(currentSearch, finNumImages, videoName);
+        videoCreation.setOnSucceeded(e-> {
+            dialog.close();
+            ArrayList<String> textContent = new ArrayList<>(textListView.getItems());
+            VideoCreation video = new VideoCreation(videoName, currentSearch, (int) numImages.getValue(), textContent);
+            videoManager.add(video);
+            new DialogBuilder().close(stackPane, "Video Creation Successful!", videoName + " was created.");
+            createButton.setDisable(false);
+            helper.autoName(currentSearch);
+        });
+        Thread video = new Thread(videoCreation);
+        video.start();
     }
 
 }
