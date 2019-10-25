@@ -1,4 +1,4 @@
-package app.controllers.helper;
+package app.controllers.helpers;
 
 import app.*;
 import com.jfoenix.controls.*;

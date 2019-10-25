@@ -1,9 +1,8 @@
 package app.controllers;
 
 import app.*;
-import app.controllers.helper.VideoCreationControllerHelper;
+import app.controllers.helpers.VideoCreationControllerHelper;
 import com.jfoenix.controls.*;
-import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -12,7 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import processes.*;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Controller class for the video creation scene - is a draggable window
