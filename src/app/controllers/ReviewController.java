@@ -3,6 +3,9 @@ package app.controllers;
 import java.io.File;
 import java.util.ArrayList;
 import app.*;
+import app.controllers.helpers.HomeControllerHelper;
+import app.controllers.helpers.ReviewControllerHelper;
+
 import com.jfoenix.controls.*;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
@@ -66,6 +69,8 @@ public class ReviewController extends DraggableWindow {
 	@FXML private JFXButton helpTextArea;
 	@FXML private JFXButton helpBack;
 	@FXML private JFXButton helpFavHeart;
+	
+    private ReviewControllerHelper helper = new ReviewControllerHelper();
 
 	// Set up media player and playlist
 	private MediaPlayer player;
