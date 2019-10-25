@@ -17,6 +17,9 @@ import java.util.ArrayList;
  */
 public class VideoCreationControllerHelper {
 
+    // Field declarations
+    private VideoManager videoManager = VideoManager.getVideoManager();
+
     /**
      * Constructor provided so VideoCreationController class can gain non-static access to the methods in this class
      */
@@ -27,10 +30,10 @@ public class VideoCreationControllerHelper {
     /**
      * Automatically suggest a name for the video creation upon search of wiki - appears in the input field for video name
      */
-    public String autoName(String currentSearch, VideoManager videoManager) {
+    public String autoName(String currentSearch) {
         int i = 0;
         String currentName = currentSearch + i;
-        while (videoExists(currentName, videoManager)){
+        while (videoExists(currentName)){
             i++;
             currentName = currentSearch + i;
         }
@@ -42,7 +45,7 @@ public class VideoCreationControllerHelper {
      * @param name
      * @return true if such a video exists, and false if it doesn't
      */
-    public boolean videoExists(String name, VideoManager videoManager) {
+    public boolean videoExists(String name) {
         for (VideoCreation v: videoManager.getVideos()) {
             if (v.getName().equals(name)) return true;
         }
@@ -54,8 +57,7 @@ public class VideoCreationControllerHelper {
      * Convert all text currently displayed in the text list to audio files
      */
     public void createAudio(String name, JFXListView<String> textListView, String videoName, Double val, String currentSearch,
-                            JFXDialog dialog, VideoManager videoManager, JFXSlider numImages, JFXButton createButton,
-                            StackPane stackPane) {
+                            JFXDialog dialog, JFXSlider numImages, JFXButton createButton, StackPane stackPane) {
         // Find the original voice name
         String voice = Voice.findVoice(name);
         // Create audio
@@ -64,7 +66,7 @@ public class VideoCreationControllerHelper {
             // After all the audio files have been made, combine them into one audio file
             Task stitchAudioTask = new StitchAudio((ArrayList<String>) createAudiosTask.getValue());
             // When the audio file has been made, create the video by combining the audio file with a video file
-            stitchAudioTask.setOnSucceeded(f-> combineAudioVideo(videoName, val, currentSearch, dialog, textListView, videoManager, numImages, createButton, stackPane));
+            stitchAudioTask.setOnSucceeded(f-> combineAudioVideo(videoName, val, currentSearch, dialog, textListView, numImages, createButton, stackPane));
             Thread thread = new Thread(stitchAudioTask);
             thread.start();
         });
@@ -76,8 +78,7 @@ public class VideoCreationControllerHelper {
      * Combine text, audio, and video to create the final video creation
      */
     private void combineAudioVideo(String videoName, Double val, String currentSearch, JFXDialog dialog, JFXListView<String> textListView,
-                                   VideoManager videoManager, JFXSlider numImages, JFXButton createButton,
-                                   StackPane stackPane) {
+                                   JFXSlider numImages, JFXButton createButton, StackPane stackPane) {
         // Retrieve selected number of images
         String finNumImages = Integer.toString(val.intValue());
 
@@ -90,10 +91,14 @@ public class VideoCreationControllerHelper {
             videoManager.add(video);
             new DialogBuilder().close(stackPane, "Video Creation Successful!", videoName + " was created.");
             createButton.setDisable(false);
-            autoName(currentSearch, videoManager);
+            autoName(currentSearch);
         });
         Thread video = new Thread(videoCreation);
         video.start();
+    }
+
+    private void finishedCreation() {
+
     }
 
     /**
