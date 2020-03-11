@@ -45,4 +45,4 @@ You can choose to either play specific videos through selecting a video from the
 We would like to thank Nasser Giacaman for access to various jar files and resources.
 
 ## GitHub Repository
-[SOFTENG_206_A04](https://github.com/AidenBurgess/SOFTENG_206_A04)
+[VARpedia](https://github.com/AidenBurgess/VARpedia)
