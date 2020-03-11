@@ -1,4 +1,4 @@
-# SOFTENG_206_A04
+# VARpedia
 Create your own educational videos with images and audio!  
 This program is designed for children between the ages of 7-10.  
 
